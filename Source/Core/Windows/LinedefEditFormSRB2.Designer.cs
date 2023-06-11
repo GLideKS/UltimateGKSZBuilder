@@ -235,7 +235,7 @@ namespace CodeImp.DoomBuilder.Windows
 			// 
 			// labelLightFront
 			// 
-			this.labelLightFront.Location = new System.Drawing.Point(15, 53);
+			this.labelLightFront.Location = new System.Drawing.Point(15, 78);
 			this.labelLightFront.Name = "labelLightFront";
 			this.labelLightFront.Size = new System.Drawing.Size(80, 14);
 			this.labelLightFront.TabIndex = 25;
@@ -527,9 +527,9 @@ namespace CodeImp.DoomBuilder.Windows
 			// frontflagsgroup
 			// 
 			this.frontflagsgroup.Controls.Add(this.flagsFront);
-			this.frontflagsgroup.Location = new System.Drawing.Point(12, 409);
+			this.frontflagsgroup.Location = new System.Drawing.Point(12, 520);
 			this.frontflagsgroup.Name = "frontflagsgroup";
-			this.frontflagsgroup.Size = new System.Drawing.Size(290, 190);
+			this.frontflagsgroup.Size = new System.Drawing.Size(290, 80);
 			this.frontflagsgroup.TabIndex = 45;
 			this.frontflagsgroup.TabStop = false;
 			this.frontflagsgroup.Text = " Flags ";
@@ -544,7 +544,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.flagsFront.Columns = 2;
 			this.flagsFront.Location = new System.Drawing.Point(16, 16);
 			this.flagsFront.Name = "flagsFront";
-			this.flagsFront.Size = new System.Drawing.Size(269, 168);
+			this.flagsFront.Size = new System.Drawing.Size(269, 58);
 			this.flagsFront.TabIndex = 0;
 			this.flagsFront.VerticalSpacing = 3;
 			this.flagsFront.OnValueChanged += new System.EventHandler(this.flagsFront_OnValueChanged);
@@ -557,7 +557,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.frontscalegroup.Controls.Add(this.pfcFrontScaleTop);
 			this.frontscalegroup.Controls.Add(this.pfcFrontScaleBottom);
 			this.frontscalegroup.Controls.Add(this.pfcFrontScaleMid);
-			this.frontscalegroup.Location = new System.Drawing.Point(12, 291);
+			this.frontscalegroup.Location = new System.Drawing.Point(12, 402);
 			this.frontscalegroup.Name = "frontscalegroup";
 			this.frontscalegroup.Size = new System.Drawing.Size(290, 112);
 			this.frontscalegroup.TabIndex = 44;
@@ -661,7 +661,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.groupBox6.Controls.Add(this.labelFrontOffsetTop);
 			this.groupBox6.Controls.Add(this.pfcFrontOffsetMid);
 			this.groupBox6.Controls.Add(this.pfcFrontOffsetBottom);
-			this.groupBox6.Location = new System.Drawing.Point(12, 142);
+			this.groupBox6.Location = new System.Drawing.Point(12, 253);
 			this.groupBox6.Name = "groupBox6";
 			this.groupBox6.Size = new System.Drawing.Size(290, 143);
 			this.groupBox6.TabIndex = 43;
@@ -794,7 +794,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.groupBox5.Controls.Add(this.cbLightAbsoluteFront);
 			this.groupBox5.Location = new System.Drawing.Point(12, 19);
 			this.groupBox5.Name = "groupBox5";
-			this.groupBox5.Size = new System.Drawing.Size(290, 203);
+			this.groupBox5.Size = new System.Drawing.Size(290, 228);
 			this.groupBox5.TabIndex = 42;
 			this.groupBox5.TabStop = false;
 			// 
@@ -810,30 +810,30 @@ namespace CodeImp.DoomBuilder.Windows
 			this.repeatcntFront.ButtonStepSmall = 1F;
 			this.repeatcntFront.ButtonStepsUseModifierKeys = true;
 			this.repeatcntFront.ButtonStepsWrapAround = false;
-			this.repeatcntFront.Location = new System.Drawing.Point(96, 47);
+			this.repeatcntFront.Location = new System.Drawing.Point(99, 47);
 			this.repeatcntFront.Name = "repeatcntFront";
-			this.repeatcntFront.Size = new System.Drawing.Size(65, 24);
+			this.repeatcntFront.Size = new System.Drawing.Size(62, 24);
 			this.repeatcntFront.StepValues = null;
 			this.repeatcntFront.TabIndex = 74;
 			this.repeatcntFront.WhenTextChanged += new System.EventHandler(this.repeatcntFront_WhenTextChanged);
 			// 
 			// lightfrontlower
 			// 
-			this.lightfrontlower.Location = new System.Drawing.Point(0, 137);
+			this.lightfrontlower.Location = new System.Drawing.Point(0, 162);
 			this.lightfrontlower.Name = "lightfrontlower";
 			this.lightfrontlower.Size = new System.Drawing.Size(262, 29);
 			this.lightfrontlower.TabIndex = 29;
 			// 
 			// lightfrontmiddle
 			// 
-			this.lightfrontmiddle.Location = new System.Drawing.Point(0, 107);
+			this.lightfrontmiddle.Location = new System.Drawing.Point(0, 132);
 			this.lightfrontmiddle.Name = "lightfrontmiddle";
 			this.lightfrontmiddle.Size = new System.Drawing.Size(262, 29);
 			this.lightfrontmiddle.TabIndex = 29;
 			// 
 			// lightfrontupper
 			// 
-			this.lightfrontupper.Location = new System.Drawing.Point(0, 77);
+			this.lightfrontupper.Location = new System.Drawing.Point(0, 102);
 			this.lightfrontupper.Name = "lightfrontupper";
 			this.lightfrontupper.Size = new System.Drawing.Size(262, 29);
 			this.lightfrontupper.TabIndex = 29;
@@ -841,7 +841,7 @@ namespace CodeImp.DoomBuilder.Windows
 			// resetfrontlight
 			// 
 			this.resetfrontlight.Image = global::CodeImp.DoomBuilder.Properties.Resources.Reset;
-			this.resetfrontlight.Location = new System.Drawing.Point(236, 50);
+			this.resetfrontlight.Location = new System.Drawing.Point(236, 75);
 			this.resetfrontlight.Name = "resetfrontlight";
 			this.resetfrontlight.Size = new System.Drawing.Size(23, 23);
 			this.resetfrontlight.TabIndex = 28;
@@ -861,7 +861,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.frontsector.ButtonStepSmall = 0.1F;
 			this.frontsector.ButtonStepsUseModifierKeys = false;
 			this.frontsector.ButtonStepsWrapAround = false;
-			this.frontsector.Location = new System.Drawing.Point(96, 19);
+			this.frontsector.Location = new System.Drawing.Point(99, 19);
 			this.frontsector.Name = "frontsector";
 			this.frontsector.Size = new System.Drawing.Size(130, 24);
 			this.frontsector.StepValues = null;
@@ -869,7 +869,7 @@ namespace CodeImp.DoomBuilder.Windows
 			// 
 			// customfrontbutton
 			// 
-			this.customfrontbutton.Location = new System.Drawing.Point(96, 170);
+			this.customfrontbutton.Location = new System.Drawing.Point(96, 195);
 			this.customfrontbutton.Name = "customfrontbutton";
 			this.customfrontbutton.Size = new System.Drawing.Size(130, 25);
 			this.customfrontbutton.TabIndex = 3;
@@ -889,7 +889,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.lightFront.ButtonStepSmall = 1F;
 			this.lightFront.ButtonStepsUseModifierKeys = true;
 			this.lightFront.ButtonStepsWrapAround = false;
-			this.lightFront.Location = new System.Drawing.Point(99, 49);
+			this.lightFront.Location = new System.Drawing.Point(99, 74);
 			this.lightFront.Name = "lightFront";
 			this.lightFront.Size = new System.Drawing.Size(62, 24);
 			this.lightFront.StepValues = null;
@@ -900,7 +900,7 @@ namespace CodeImp.DoomBuilder.Windows
 			// cbLightAbsoluteFront
 			// 
 			this.cbLightAbsoluteFront.AutoSize = true;
-			this.cbLightAbsoluteFront.Location = new System.Drawing.Point(167, 54);
+			this.cbLightAbsoluteFront.Location = new System.Drawing.Point(167, 79);
 			this.cbLightAbsoluteFront.Name = "cbLightAbsoluteFront";
 			this.cbLightAbsoluteFront.Size = new System.Drawing.Size(67, 17);
 			this.cbLightAbsoluteFront.TabIndex = 27;
@@ -1003,7 +1003,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.groupBox4.Controls.Add(this.cbLightAbsoluteBack);
 			this.groupBox4.Location = new System.Drawing.Point(12, 19);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(290, 203);
+			this.groupBox4.Size = new System.Drawing.Size(290, 228);
 			this.groupBox4.TabIndex = 46;
 			this.groupBox4.TabStop = false;
 			// 
@@ -1019,30 +1019,30 @@ namespace CodeImp.DoomBuilder.Windows
 			this.repeatcntBack.ButtonStepSmall = 1F;
 			this.repeatcntBack.ButtonStepsUseModifierKeys = true;
 			this.repeatcntBack.ButtonStepsWrapAround = false;
-			this.repeatcntBack.Location = new System.Drawing.Point(96, 47);
+			this.repeatcntBack.Location = new System.Drawing.Point(99, 47);
 			this.repeatcntBack.Name = "repeatcntBack";
-			this.repeatcntBack.Size = new System.Drawing.Size(65, 24);
+			this.repeatcntBack.Size = new System.Drawing.Size(62, 24);
 			this.repeatcntBack.StepValues = null;
 			this.repeatcntBack.TabIndex = 76;
 			this.repeatcntBack.WhenTextChanged += new System.EventHandler(this.repeatcntBack_WhenTextChanged);
 			// 
 			// lightbacklower
 			// 
-			this.lightbacklower.Location = new System.Drawing.Point(0, 137);
+			this.lightbacklower.Location = new System.Drawing.Point(0, 162);
 			this.lightbacklower.Name = "lightbacklower";
 			this.lightbacklower.Size = new System.Drawing.Size(262, 29);
 			this.lightbacklower.TabIndex = 32;
 			// 
 			// lightbackmiddle
 			// 
-			this.lightbackmiddle.Location = new System.Drawing.Point(0, 107);
+			this.lightbackmiddle.Location = new System.Drawing.Point(0, 132);
 			this.lightbackmiddle.Name = "lightbackmiddle";
 			this.lightbackmiddle.Size = new System.Drawing.Size(262, 29);
 			this.lightbackmiddle.TabIndex = 33;
 			// 
 			// lightbackupper
 			// 
-			this.lightbackupper.Location = new System.Drawing.Point(0, 77);
+			this.lightbackupper.Location = new System.Drawing.Point(0, 102);
 			this.lightbackupper.Name = "lightbackupper";
 			this.lightbackupper.Size = new System.Drawing.Size(262, 29);
 			this.lightbackupper.TabIndex = 34;
@@ -1050,7 +1050,7 @@ namespace CodeImp.DoomBuilder.Windows
 			// resetbacklight
 			// 
 			this.resetbacklight.Image = global::CodeImp.DoomBuilder.Properties.Resources.Reset;
-			this.resetbacklight.Location = new System.Drawing.Point(236, 50);
+			this.resetbacklight.Location = new System.Drawing.Point(236, 75);
 			this.resetbacklight.Name = "resetbacklight";
 			this.resetbacklight.Size = new System.Drawing.Size(23, 23);
 			this.resetbacklight.TabIndex = 31;
@@ -1070,7 +1070,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.backsector.ButtonStepSmall = 0.1F;
 			this.backsector.ButtonStepsUseModifierKeys = false;
 			this.backsector.ButtonStepsWrapAround = false;
-			this.backsector.Location = new System.Drawing.Point(96, 19);
+			this.backsector.Location = new System.Drawing.Point(99, 19);
 			this.backsector.Name = "backsector";
 			this.backsector.Size = new System.Drawing.Size(130, 24);
 			this.backsector.StepValues = null;
@@ -1079,7 +1079,7 @@ namespace CodeImp.DoomBuilder.Windows
 			// custombackbutton
 			// 
 			this.custombackbutton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.custombackbutton.Location = new System.Drawing.Point(96, 170);
+			this.custombackbutton.Location = new System.Drawing.Point(96, 195);
 			this.custombackbutton.Name = "custombackbutton";
 			this.custombackbutton.Size = new System.Drawing.Size(130, 25);
 			this.custombackbutton.TabIndex = 3;
@@ -1099,7 +1099,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.lightBack.ButtonStepSmall = 1F;
 			this.lightBack.ButtonStepsUseModifierKeys = true;
 			this.lightBack.ButtonStepsWrapAround = false;
-			this.lightBack.Location = new System.Drawing.Point(99, 49);
+			this.lightBack.Location = new System.Drawing.Point(99, 74);
 			this.lightBack.Name = "lightBack";
 			this.lightBack.Size = new System.Drawing.Size(62, 24);
 			this.lightBack.StepValues = null;
@@ -1109,7 +1109,7 @@ namespace CodeImp.DoomBuilder.Windows
 			// 
 			// labelLightBack
 			// 
-			this.labelLightBack.Location = new System.Drawing.Point(15, 53);
+			this.labelLightBack.Location = new System.Drawing.Point(15, 78);
 			this.labelLightBack.Name = "labelLightBack";
 			this.labelLightBack.Size = new System.Drawing.Size(80, 14);
 			this.labelLightBack.TabIndex = 28;
@@ -1120,7 +1120,7 @@ namespace CodeImp.DoomBuilder.Windows
 			// cbLightAbsoluteBack
 			// 
 			this.cbLightAbsoluteBack.AutoSize = true;
-			this.cbLightAbsoluteBack.Location = new System.Drawing.Point(167, 54);
+			this.cbLightAbsoluteBack.Location = new System.Drawing.Point(167, 79);
 			this.cbLightAbsoluteBack.Name = "cbLightAbsoluteBack";
 			this.cbLightAbsoluteBack.Size = new System.Drawing.Size(67, 17);
 			this.cbLightAbsoluteBack.TabIndex = 30;
@@ -1132,9 +1132,9 @@ namespace CodeImp.DoomBuilder.Windows
 			// backflagsgroup
 			// 
 			this.backflagsgroup.Controls.Add(this.flagsBack);
-			this.backflagsgroup.Location = new System.Drawing.Point(12, 490);
+			this.backflagsgroup.Location = new System.Drawing.Point(12, 520);
 			this.backflagsgroup.Name = "backflagsgroup";
-			this.backflagsgroup.Size = new System.Drawing.Size(290, 9);
+			this.backflagsgroup.Size = new System.Drawing.Size(290, 80);
 			this.backflagsgroup.TabIndex = 45;
 			this.backflagsgroup.TabStop = false;
 			this.backflagsgroup.Text = " Flags ";
@@ -1162,7 +1162,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.backscalegroup.Controls.Add(this.pfcBackScaleTop);
 			this.backscalegroup.Controls.Add(this.pfcBackScaleBottom);
 			this.backscalegroup.Controls.Add(this.pfcBackScaleMid);
-			this.backscalegroup.Location = new System.Drawing.Point(12, 377);
+			this.backscalegroup.Location = new System.Drawing.Point(12, 402);
 			this.backscalegroup.Name = "backscalegroup";
 			this.backscalegroup.Size = new System.Drawing.Size(290, 112);
 			this.backscalegroup.TabIndex = 44;
@@ -1266,7 +1266,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.groupBox1.Controls.Add(this.pfcBackOffsetMid);
 			this.groupBox1.Controls.Add(this.pfcBackOffsetBottom);
 			this.groupBox1.Controls.Add(this.backTextureOffset);
-			this.groupBox1.Location = new System.Drawing.Point(12, 228);
+			this.groupBox1.Location = new System.Drawing.Point(12, 253);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(290, 143);
 			this.groupBox1.TabIndex = 43;
