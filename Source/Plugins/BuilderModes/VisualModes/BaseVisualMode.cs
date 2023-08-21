@@ -1515,8 +1515,53 @@ namespace CodeImp.DoomBuilder.BuilderModes
             // (Re)create special effects
             RebuildElementData();
 
-            //mxd. Update event lines
-            renderer.SetEventLines(LinksCollector.GetHelperShapes(General.Map.ThingsFilter.VisibleThings, blockmap));
+			// Objects are only selected when they are created, so for objects that are selected we have to make sure
+			// that they are created immediately. Otherwise the selection order will not be correct, or the objects
+			// will not be selected at all if they are out of the user's camera range when entering visual mode
+			// See https://github.com/jewalky/UltimateDoomBuilder/issues/938
+			if (useSelectionFromClassicMode)
+			{
+				foreach (Sector s in General.Map.Map.GetSelectedSectors(true))
+				{
+					BaseVisualSector bvs = CreateBaseVisualSector(s);
+					bvs.Ceiling.PerformAutoSelection();
+					bvs.Floor.PerformAutoSelection();
+				}
+
+				// Things are automatically selected on creation
+				foreach (Thing t in General.Map.Map.GetSelectedThings(true))
+					CreateVisualThing(t);
+
+				// For linedefs it's a bit more complicated...
+				foreach (Linedef ld in General.Map.Map.GetSelectedLinedefs(true))
+				{
+					foreach (Sidedef sd in new Sidedef[] { ld.Front, ld.Back })
+					{
+						if (sd != null)
+						{
+							if (!allsectors.ContainsKey(sd.Sector))
+								CreateBaseVisualSector(sd.Sector).Rebuild(); // We have to rebuild the sector so that potential 3D floors get created
+
+							VisualSidedefParts vsp = ((BaseVisualSector)allsectors[sd.Sector]).Sides[sd];
+							vsp.upper?.PerformAutoSelection();
+							vsp.middlesingle?.PerformAutoSelection();
+							vsp.middledouble?.PerformAutoSelection();
+							vsp.lower?.PerformAutoSelection();
+
+							if (vsp.middle3d != null)
+								foreach (VisualMiddle3D vm in vsp.middle3d)
+									vm.PerformAutoSelection();
+
+							if (vsp.middleback != null)
+								foreach (VisualMiddleBack vm in vsp.middleback)
+									vm.PerformAutoSelection();
+						}
+					}
+				}
+			}
+
+			//mxd. Update event lines
+			renderer.SetEventLines(LinksCollector.GetHelperShapes(General.Map.ThingsFilter.VisibleThings, blockmap));
 
             // [ZZ] this enables calling of this object from the outside world. Only after properly initialized pls.
             base.OnEngage();

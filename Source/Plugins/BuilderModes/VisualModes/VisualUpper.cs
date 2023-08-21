@@ -378,11 +378,11 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 			string skewtype = Sidedef.Fields.GetValue("skew_top_type", "none");
 
-			if ((skewtype == "front" || skewtype == "back") && Texture != null)
+			if ((skewtype == "front_floor" || skewtype == "front_ceiling" || skewtype == "back_floor" || skewtype == "back_ceiling") && Texture != null)
 			{
 				double leftz, rightz;
 
-				if (skewtype == "front")
+				if (skewtype == "front_ceiling")
 				{
 					if (Sidedef.IsFront)
 					{
@@ -397,7 +397,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 						rightz = plane.GetZ(Sidedef.Line.Start.Position);
 					}
 				}
-				else // "back"
+				else if (skewtype == "back_ceiling")
 				{
 					if (Sidedef.IsFront)
 					{
@@ -411,7 +411,36 @@ namespace CodeImp.DoomBuilder.BuilderModes
 						leftz = plane.GetZ(Sidedef.Line.End.Position);
 						rightz = plane.GetZ(Sidedef.Line.Start.Position);
 					}
-
+				}
+				else if(skewtype == "front_floor")
+				{
+					if(Sidedef.IsFront)
+					{
+						Plane plane = Sector.GetSectorData().Floor.plane;
+						leftz = plane.GetZ(Sidedef.Line.Start.Position);
+						rightz = plane.GetZ(Sidedef.Line.End.Position);
+					}
+					else
+					{
+						Plane plane = mode.GetSectorData(Sidedef.Other.Sector).Floor.plane;
+						leftz = plane.GetZ(Sidedef.Line.End.Position);
+						rightz = plane.GetZ(Sidedef.Line.Start.Position);
+					}
+				}
+				else // Back floor
+				{
+					if (Sidedef.IsFront)
+					{
+						Plane plane = mode.GetSectorData(Sidedef.Other.Sector).Floor.plane;
+						leftz = plane.GetZ(Sidedef.Line.Start.Position);
+						rightz = plane.GetZ(Sidedef.Line.End.Position);
+					}
+					else
+					{
+						Plane plane = Sector.GetSectorData().Floor.plane;
+						leftz = plane.GetZ(Sidedef.Line.End.Position);
+						rightz = plane.GetZ(Sidedef.Line.Start.Position);
+					}
 				}
 
 				skew = new Vector2f(

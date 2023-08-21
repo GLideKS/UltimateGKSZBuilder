@@ -65,7 +65,7 @@ namespace CodeImp.DoomBuilder.Rendering
 		private Plotter gridplotter;
         private Plotter plotter;
         private Texture thingstex;
-		private Texture overlaytex;
+		private List<Texture> overlaytex;
 		private Texture surfacetex;
 
 		// Rendertarget sizes
@@ -181,11 +181,22 @@ namespace CodeImp.DoomBuilder.Rendering
 		public void SetPresentation(Presentation present)
 		{
 			this.present = new Presentation(present);
+
+			// We might have to create additional overlay textures
+			int numoverlaylayers = present.layers.Count(l => l.layer == RendererLayer.Overlay);
+			if(numoverlaylayers > overlaytex.Count)
+			{
+				Texture t = new Texture(windowsize.Width, windowsize.Height, TextureFormat.Rgba8);
+				graphics.ClearTexture(General.Colors.Background.WithAlpha(0).ToColorValue(), t);
+				overlaytex.Add(t);
+			}
 		}
 		
 		// This draws the image on screen
 		public void Present()
 		{
+			int currentoverlaylayer = 0;
+
 			General.Plugins.OnPresentDisplayBegin();
 
             // Start drawing
@@ -281,10 +292,11 @@ namespace CodeImp.DoomBuilder.Rendering
 					// OVERLAY
 					case RendererLayer.Overlay:
                         graphics.SetShader(aapass);
-                        graphics.SetTexture(overlaytex);
+                        graphics.SetTexture(overlaytex[currentoverlaylayer]);
 						graphics.SetSamplerState(TextureAddress.Wrap);
-						SetDisplay2DSettings(1f / overlaytex.Width, 1f / overlaytex.Height, FSAA_FACTOR, layer.alpha, false, true);
+						SetDisplay2DSettings(1f / overlaytex[currentoverlaylayer].Width, 1f / overlaytex[currentoverlaylayer].Height, FSAA_FACTOR, layer.alpha, false, true);
 						graphics.Draw(PrimitiveType.TriangleStrip, 0, 2);
+						currentoverlaylayer++;
 						break;
 
 					// SURFACE
@@ -292,7 +304,7 @@ namespace CodeImp.DoomBuilder.Rendering
                         graphics.SetShader(aapass);
                         graphics.SetTexture(surfacetex);
 						graphics.SetSamplerState(TextureAddress.Wrap);
-						SetDisplay2DSettings(1f / overlaytex.Width, 1f / overlaytex.Height, FSAA_FACTOR, layer.alpha, false, true);
+						SetDisplay2DSettings(1f / surfacetex.Width, 1f / surfacetex.Height, FSAA_FACTOR, layer.alpha, false, true);
 						graphics.Draw(PrimitiveType.TriangleStrip, 0, 2);
 						break;
 				}
@@ -338,12 +350,12 @@ namespace CodeImp.DoomBuilder.Rendering
 		public void DestroyRendertargets()
 		{
 			// Trash rendertargets
-			if(plotter != null) plotter.Dispose();
-			if(thingstex != null) thingstex.Dispose();
-			if(overlaytex != null) overlaytex.Dispose();
-			if(surfacetex != null) surfacetex.Dispose();
-			if(gridplotter != null) gridplotter.Dispose();
-			if(screenverts != null) screenverts.Dispose();
+			if (plotter != null) plotter.Dispose();
+			if (thingstex != null) thingstex.Dispose();
+			if (overlaytex != null) for(int i=0; i < overlaytex.Count; i++) { overlaytex[i].Dispose(); overlaytex[i] = null; } ;
+			if (surfacetex != null) surfacetex.Dispose();
+			if (gridplotter != null) gridplotter.Dispose();
+			if (screenverts != null) screenverts.Dispose();
 			thingstex = null;
             gridplotter = null;
 			screenverts = null;
@@ -371,13 +383,23 @@ namespace CodeImp.DoomBuilder.Rendering
 			plotter = new Plotter(windowsize.Width, windowsize.Height);
             gridplotter = new Plotter(windowsize.Width, windowsize.Height);
             thingstex = new Texture(windowsize.Width, windowsize.Height, TextureFormat.Rgba8);
-			overlaytex = new Texture(windowsize.Width, windowsize.Height, TextureFormat.Rgba8);
 			surfacetex = new Texture(windowsize.Width, windowsize.Height, TextureFormat.Rgba8);
-			
+
+			if (present == null)
+			{
+				overlaytex = new List<Texture>() { new Texture(windowsize.Width, windowsize.Height, TextureFormat.Rgba8) };
+			}
+			else
+			{
+				overlaytex = new List<Texture>();
+				for (int i = 0; i < present.layers.Count(l => l.layer == RendererLayer.Overlay); i++)
+					overlaytex.Add(new Texture(windowsize.Width, windowsize.Height, TextureFormat.Rgba8));
+			}
+
 			// Clear rendertargets
 			graphics.ClearTexture(General.Colors.Background.WithAlpha(0).ToColorValue(), thingstex);
-			graphics.ClearTexture(General.Colors.Background.WithAlpha(0).ToColorValue(), overlaytex);
-			
+			foreach(Texture t in overlaytex) graphics.ClearTexture(General.Colors.Background.WithAlpha(0).ToColorValue(), t);
+
 			// Create vertex buffers
 			screenverts = new VertexBuffer();
 			thingsvertices = new VertexBuffer();
@@ -733,7 +755,7 @@ namespace CodeImp.DoomBuilder.Rendering
 		}
 
 		// This begins a drawing session
-		public bool StartOverlay(bool clear)
+		public bool StartOverlay(bool clear, int layernum = 0)
 		{
 			if(renderlayer != RenderLayers.None)
 			{
@@ -747,10 +769,10 @@ namespace CodeImp.DoomBuilder.Rendering
 			renderlayer = RenderLayers.Overlay;
 			
 			// Rendertargets available?
-			if(overlaytex != null)
+			if(overlaytex != null && layernum >= 0 && layernum < overlaytex.Count)
 			{
 				// Set the rendertarget to the things texture
-                graphics.StartRendering(clear, General.Colors.Background.WithAlpha(0).ToColorValue(), overlaytex, false);
+                graphics.StartRendering(clear, General.Colors.Background.WithAlpha(0).ToColorValue(), overlaytex[layernum], false);
 
 				// Ready for rendering
 				UpdateTransformations();
@@ -1588,6 +1610,13 @@ namespace CodeImp.DoomBuilder.Rendering
 		{
 			RenderArrows(LinksCollector.GetSRB2Lines(), true, false);
 		}
+
+		// This adds a thing in the things buffer for rendering
+		public void RenderThingSet(ICollection<Thing> things, PixelColor c, float alpha)
+		{
+			RenderThingsBatch(things, alpha, false, c);
+		}
+
 
 		#endregion
 
