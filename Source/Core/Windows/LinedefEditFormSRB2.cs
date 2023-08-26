@@ -207,8 +207,18 @@ namespace CodeImp.DoomBuilder.Windows
 			pfcBackScaleMid.LinkValues = General.Settings.ReadSetting("windows." + configname + ".linkbackmidscale", false);
 			pfcBackScaleBottom.LinkValues = General.Settings.ReadSetting("windows." + configname + ".linkbackbottomscale", false);
 
+			// Upper/middle/lower brightness of front sidedef
+			lightfrontupper.Setup(VisualModes.VisualGeometryType.WALL_UPPER);
+			lightfrontmiddle.Setup(VisualModes.VisualGeometryType.WALL_MIDDLE);
+			lightfrontlower.Setup(VisualModes.VisualGeometryType.WALL_LOWER);
+
+			// Upper/middle/lower brightness of back sidedef
+			lightbackupper.Setup(VisualModes.VisualGeometryType.WALL_UPPER);
+			lightbackmiddle.Setup(VisualModes.VisualGeometryType.WALL_MIDDLE);
+			lightbacklower.Setup(VisualModes.VisualGeometryType.WALL_LOWER);
+
 			// Disable top/mid/bottom texture offset controls?
-			if(!General.Map.Config.UseLocalSidedefTextureOffsets)
+			if (!General.Map.Config.UseLocalSidedefTextureOffsets)
 			{
 				pfcFrontOffsetTop.Enabled = false;
 				pfcFrontOffsetMid.Enabled = false;
@@ -227,21 +237,17 @@ namespace CodeImp.DoomBuilder.Windows
 				labelBackOffsetBottom.Enabled = false;
 			}
 
-			pfcFrontScaleTop.Enabled = false;
-			pfcFrontScaleMid.Enabled = false;
-			pfcFrontScaleBottom.Enabled = false;
+			// Diable brightness controls?
+			if (!General.Map.Config.DistinctWallBrightness)
+			{
+				lightFront.Enabled = false;
+				cbLightAbsoluteFront.Enabled = false;
+				resetfrontlight.Enabled = false;
 
-			pfcBackScaleTop.Enabled = false;
-			pfcBackScaleMid.Enabled = false;
-			pfcBackScaleBottom.Enabled = false;
-
-			labelFrontScaleTop.Enabled = false;
-			labelFrontScaleMid.Enabled = false;
-			labelFrontScaleBottom.Enabled = false;
-
-			labelBackScaleTop.Enabled = false;
-			labelBackScaleMid.Enabled = false;
-			labelBackScaleBottom.Enabled = false;
+				lightBack.Enabled = false;
+				cbLightAbsoluteBack.Enabled = false;
+				resetbacklight.Enabled = false;
+			}
 		}
 
 		#endregion
@@ -331,8 +337,16 @@ namespace CodeImp.DoomBuilder.Windows
 					pfc.SetValuesFrom(fl.Front.Fields, true);
 
 				repeatcntFront.Text = UniFields.GetInteger(fl.Front.Fields, "repeatcnt", 0).ToString();
+				
+				lightFront.Text = UniFields.GetInteger(fl.Front.Fields, "light", 0).ToString();
+				cbLightAbsoluteFront.Checked = fl.Front.Fields.GetValue("lightabsolute", false);
 
 				frontTextureOffset.SetValues(fl.Front.OffsetX, fl.Front.OffsetY, true); //mxd
+
+				// Upper/middle/lower brightness of front sidedef
+				lightfrontupper.SetValues(fl.Front, true);
+				lightfrontmiddle.SetValues(fl.Front, true);
+				lightfrontlower.SetValues(fl.Front, true);
 
 			}
 
@@ -357,7 +371,15 @@ namespace CodeImp.DoomBuilder.Windows
 
 				repeatcntBack.Text = UniFields.GetInteger(fl.Back.Fields, "repeatcnt", 0).ToString();
 
+				lightBack.Text = UniFields.GetInteger(fl.Back.Fields, "light", 0).ToString();
+				cbLightAbsoluteBack.Checked = fl.Back.Fields.GetValue("lightabsolute", false);
+
 				backTextureOffset.SetValues(fl.Back.OffsetX, fl.Back.OffsetY, true); //mxd
+
+				// Upper/middle/lower brightness of back sidedef
+				lightbackupper.SetValues(fl.Back, true);
+				lightbackmiddle.SetValues(fl.Back, true);
+				lightbacklower.SetValues(fl.Back, true);
 			}
 
 			////////////////////////////////////////////////////////////////////////
@@ -467,7 +489,18 @@ namespace CodeImp.DoomBuilder.Windows
 						if (repeatcnt != repeatcntFront.GetResult(repeatcnt)) repeatcntFront.Text = string.Empty;
 					}
 
+					if (l.Front.Fields.GetValue("lightabsolute", false) != cbLightAbsoluteFront.Checked)
+					{
+						cbLightAbsoluteFront.ThreeState = true;
+						cbLightAbsoluteFront.CheckState = CheckState.Indeterminate;
+					}
+
 					frontTextureOffset.SetValues(l.Front.OffsetX, l.Front.OffsetY, false); //mxd
+
+					// Upper/middle/lower brightness of front sidedef
+					lightfrontupper.SetValues(l.Front, false);
+					lightfrontmiddle.SetValues(l.Front, false);
+					lightfrontlower.SetValues(l.Front, false);
 				}
 
 				// Back settings
@@ -515,7 +548,25 @@ namespace CodeImp.DoomBuilder.Windows
 						if (repeatcnt != repeatcntBack.GetResult(repeatcnt)) repeatcntBack.Text = string.Empty;
 					}
 
+					if (!string.IsNullOrEmpty(lightBack.Text))
+					{
+						int light = UniFields.GetInteger(l.Back.Fields, "light", 0);
+						if (light != lightBack.GetResult(light))
+							lightBack.Text = string.Empty;
+					}
+
+					if (l.Back.Fields.GetValue("lightabsolute", false) != cbLightAbsoluteBack.Checked)
+					{
+						cbLightAbsoluteBack.ThreeState = true;
+						cbLightAbsoluteBack.CheckState = CheckState.Indeterminate;
+					}
+
 					backTextureOffset.SetValues(l.Back.OffsetX, l.Back.OffsetY, false); //mxd
+
+					// Upper/middle/lower brightness of back sidedef
+					lightbackupper.SetValues(l.Back, false);
+					lightbackmiddle.SetValues(l.Back, false);
+					lightbacklower.SetValues(l.Back, false);
 				}
 
 				//mxd
@@ -540,11 +591,23 @@ namespace CodeImp.DoomBuilder.Windows
 			commenteditor.FinishSetup(); //mxd
 
 			//mxd. Update "Reset" buttons
-			if(alpha.Text == "1") resetalpha.Visible = false;
+			resetfrontlight.Visible = (cbLightAbsoluteFront.CheckState != CheckState.Unchecked || lightFront.GetResult(0) != 0);
+			resetbacklight.Visible = (cbLightAbsoluteBack.CheckState != CheckState.Unchecked || lightBack.GetResult(0) != 0);
+			if (alpha.Text == "1") resetalpha.Visible = false;
+
+			// Upper/middle/lower brightness of front sidedef
+			lightfrontupper.FinalizeSetup();
+			lightfrontmiddle.FinalizeSetup();
+			lightfrontlower.FinalizeSetup();
+
+			// Upper/middle/lower brightness of back sidedef
+			lightbackupper.FinalizeSetup();
+			lightbackmiddle.FinalizeSetup();
+			lightbacklower.FinalizeSetup();
 		}
 
 		//mxd
-		private void MakeUndo() 
+		public void MakeUndo() 
 		{
 			if(undocreated) return;
 			undocreated = true;
@@ -952,6 +1015,10 @@ namespace CodeImp.DoomBuilder.Windows
 
 			repeatcntFront.Text = UniFields.GetInteger(fs.Fields, "repeatcnt", 0).ToString();
 
+			lightFront.Text = UniFields.GetInteger(fs.Fields, "light", 0).ToString();
+			cbLightAbsoluteFront.ThreeState = false;
+			cbLightAbsoluteFront.Checked = fs.Fields.GetValue("lightabsolute", false);
+
 			//flags
 			foreach (CheckBox c in flagsFront.Checkboxes)
 				if(fs.Flags.ContainsKey(c.Tag.ToString())) c.Checked = fs.Flags[c.Tag.ToString()];
@@ -966,6 +1033,18 @@ namespace CodeImp.DoomBuilder.Windows
 				{
 					int repeatcnt = UniFields.GetInteger(s.Fields, "repeatcnt", 0);
 					if (repeatcnt != repeatcntFront.GetResult(repeatcnt)) repeatcntFront.Text = string.Empty;
+				}
+
+				if (!string.IsNullOrEmpty(lightFront.Text))
+				{
+					int light = UniFields.GetInteger(s.Fields, "light", 0);
+					if (light != lightFront.GetResult(light)) lightFront.Text = string.Empty;
+				}
+
+				if (s.Fields.GetValue("lightabsolute", false) != cbLightAbsoluteFront.Checked)
+				{
+					cbLightAbsoluteFront.ThreeState = true;
+					cbLightAbsoluteFront.CheckState = CheckState.Indeterminate;
 				}
 
 				//flags
@@ -1007,6 +1086,10 @@ namespace CodeImp.DoomBuilder.Windows
 
 			repeatcntBack.Text = UniFields.GetInteger(fs.Fields, "repeatcnt", 0).ToString();
 
+			lightBack.Text = UniFields.GetInteger(fs.Fields, "light", 0).ToString();
+			cbLightAbsoluteBack.ThreeState = false;
+			cbLightAbsoluteBack.Checked = fs.Fields.GetValue("lightabsolute", false);
+
 			//flags
 			foreach (CheckBox c in flagsBack.Checkboxes)
 				if(fs.Flags.ContainsKey(c.Tag.ToString())) c.Checked = fs.Flags[c.Tag.ToString()];
@@ -1021,6 +1104,18 @@ namespace CodeImp.DoomBuilder.Windows
 				{
 					int repeatcnt = UniFields.GetInteger(s.Fields, "repeatcnt", 0);
 					if (repeatcnt != repeatcntBack.GetResult(repeatcnt)) repeatcntBack.Text = string.Empty;
+				}
+
+				if (!string.IsNullOrEmpty(lightBack.Text))
+				{
+					int light = UniFields.GetInteger(s.Fields, "light", 0);
+					if (light != lightBack.GetResult(light)) lightBack.Text = string.Empty;
+				}
+
+				if (s.Fields.GetValue("lightabsolute", false) != cbLightAbsoluteBack.Checked)
+				{
+					cbLightAbsoluteBack.ThreeState = true;
+					cbLightAbsoluteBack.CheckState = CheckState.Indeterminate;
 				}
 
 				//flags
@@ -1230,9 +1325,248 @@ namespace CodeImp.DoomBuilder.Windows
 			if(OnValuesChanged != null) OnValuesChanged(this, EventArgs.Empty);
 		}
 
-			#endregion
+		#endregion
 
-			#region Global texture offsets changed
+		#region Brightness changed
+
+		private void lightFront_WhenTextChanged(object sender, EventArgs e)
+		{
+			if (preventchanges) return;
+			MakeUndo(); //mxd
+			int i = 0;
+
+			// Reset increment steps, otherwise it's just keep counting and counting
+			lightFront.ResetIncrementStep();
+
+			//restore values
+			if (string.IsNullOrEmpty(lightFront.Text))
+			{
+				foreach (Linedef l in lines)
+				{
+					if (l.Front != null)
+						UniFields.SetInteger(l.Front.Fields, "light", (linedefprops[i].Front != null ? linedefprops[i].Front.Brightness : 0), 0);
+					i++;
+				}
+			}
+			else //update values
+			{
+				foreach (Linedef l in lines)
+				{
+					if (l.Front != null)
+					{
+						bool absolute = false;
+						switch (cbLightAbsoluteFront.CheckState)
+						{
+							case CheckState.Indeterminate:
+								absolute = l.Front.Fields.GetValue("lightabsolute", false);
+								break;
+							case CheckState.Checked:
+								absolute = true;
+								break;
+						}
+
+						int value = General.Clamp(lightFront.GetResult((linedefprops[i].Front != null ? linedefprops[i].Front.Brightness : 0)), (absolute ? 0 : -255), 255);
+						UniFields.SetInteger(l.Front.Fields, "light", value, 0);
+					}
+					i++;
+				}
+			}
+
+			resetfrontlight.Visible = (cbLightAbsoluteFront.CheckState != CheckState.Unchecked || lightFront.Text != "0");
+			General.Map.IsChanged = true;
+			if (OnValuesChanged != null) OnValuesChanged(this, EventArgs.Empty);
+		}
+
+		private void lightBack_WhenTextChanged(object sender, EventArgs e)
+		{
+			if (preventchanges) return;
+			MakeUndo(); //mxd
+			int i = 0;
+
+			//restore values
+			if (string.IsNullOrEmpty(lightBack.Text))
+			{
+				foreach (Linedef l in lines)
+				{
+					if (l.Back != null)
+						UniFields.SetInteger(l.Back.Fields, "light", (linedefprops[i].Back != null ? linedefprops[i].Back.Brightness : 0), 0);
+					i++;
+				}
+			}
+			else //update values
+			{
+				foreach (Linedef l in lines)
+				{
+					if (l.Back != null)
+					{
+						bool absolute = false;
+						switch (cbLightAbsoluteBack.CheckState)
+						{
+							case CheckState.Indeterminate:
+								absolute = l.Back.Fields.GetValue("lightabsolute", false);
+								break;
+							case CheckState.Checked:
+								absolute = true;
+								break;
+						}
+
+						int value = General.Clamp(lightBack.GetResult((linedefprops[i].Back != null ? linedefprops[i].Back.Brightness : 0)), (absolute ? 0 : -255), 255);
+						UniFields.SetInteger(l.Back.Fields, "light", value, 0);
+					}
+					i++;
+				}
+			}
+
+			resetbacklight.Visible = (cbLightAbsoluteBack.CheckState != CheckState.Unchecked || lightBack.Text != "0");
+			General.Map.IsChanged = true;
+			if (OnValuesChanged != null) OnValuesChanged(this, EventArgs.Empty);
+		}
+
+		private void cbLightAbsoluteFront_CheckedChanged(object sender, EventArgs e)
+		{
+			if (preventchanges) return;
+			MakeUndo(); //mxd
+
+			if (cbLightAbsoluteFront.Checked)
+			{
+				foreach (Linedef l in lines)
+				{
+					if (l.Front == null) continue;
+					l.Front.Fields["lightabsolute"] = new UniValue(UniversalType.Boolean, true);
+				}
+			}
+			else if (cbLightAbsoluteFront.CheckState == CheckState.Indeterminate)
+			{
+				int i = 0;
+
+				foreach (Linedef l in lines)
+				{
+					if (l.Front != null)
+					{
+						if (linedefprops[i].Front != null && linedefprops[i].Front.AbsoluteBrightness)
+						{
+							l.Front.Fields["lightabsolute"] = new UniValue(UniversalType.Boolean, true);
+						}
+						else if (l.Front.Fields.ContainsKey("lightabsolute"))
+						{
+							l.Front.Fields.Remove("lightabsolute");
+						}
+					}
+					i++;
+				}
+			}
+			else
+			{
+				foreach (Linedef l in lines)
+				{
+					if (l.Front == null) continue;
+					if (l.Front.Fields.ContainsKey("lightabsolute")) l.Front.Fields.Remove("lightabsolute");
+				}
+			}
+
+			resetfrontlight.Visible = (cbLightAbsoluteFront.CheckState != CheckState.Unchecked || lightFront.Text != "0");
+			General.Map.IsChanged = true;
+			if (OnValuesChanged != null) OnValuesChanged(this, EventArgs.Empty);
+		}
+
+		private void cbLightAbsoluteBack_CheckedChanged(object sender, EventArgs e)
+		{
+			if (preventchanges) return;
+			MakeUndo(); //mxd
+
+			if (cbLightAbsoluteBack.Checked)
+			{
+				foreach (Linedef l in lines)
+				{
+					if (l.Back == null) continue;
+					l.Back.Fields["lightabsolute"] = new UniValue(UniversalType.Boolean, true);
+				}
+			}
+			else if (cbLightAbsoluteBack.CheckState == CheckState.Indeterminate)
+			{
+				int i = 0;
+
+				foreach (Linedef l in lines)
+				{
+					if (l.Back != null)
+					{
+						if (linedefprops[i].Back != null && linedefprops[i].Back.AbsoluteBrightness)
+						{
+							l.Back.Fields["lightabsolute"] = new UniValue(UniversalType.Boolean, true);
+						}
+						else if (l.Back.Fields.ContainsKey("lightabsolute"))
+						{
+							l.Back.Fields.Remove("lightabsolute");
+						}
+					}
+					i++;
+				}
+			}
+			else
+			{
+				foreach (Linedef l in lines)
+				{
+					if (l.Back == null) continue;
+					if (l.Back.Fields.ContainsKey("lightabsolute")) l.Back.Fields.Remove("lightabsolute");
+				}
+			}
+
+			resetbacklight.Visible = (cbLightAbsoluteBack.CheckState != CheckState.Unchecked || lightBack.Text != "0");
+			General.Map.IsChanged = true;
+			if (OnValuesChanged != null) OnValuesChanged(this, EventArgs.Empty);
+		}
+
+		private void resetfrontlight_Click(object sender, EventArgs e)
+		{
+			MakeUndo(); //mxd
+
+			preventchanges = true;
+
+			cbLightAbsoluteFront.Checked = false;
+			lightFront.Text = "0";
+
+			foreach (Linedef l in lines)
+			{
+				if (l.Front == null) continue;
+				if (l.Front.Fields.ContainsKey("lightabsolute")) l.Front.Fields.Remove("lightabsolute");
+				if (l.Front.Fields.ContainsKey("light")) l.Front.Fields.Remove("light");
+			}
+
+			preventchanges = false;
+
+			resetfrontlight.Visible = false;
+			lightFront.Focus();
+			General.Map.IsChanged = true;
+			if (OnValuesChanged != null) OnValuesChanged(this, EventArgs.Empty);
+		}
+
+		private void resetbacklight_Click(object sender, EventArgs e)
+		{
+			MakeUndo(); //mxd
+
+			preventchanges = true;
+
+			cbLightAbsoluteBack.Checked = false;
+			lightBack.Text = "0";
+
+			foreach (Linedef l in lines)
+			{
+				if (l.Back == null) continue;
+				if (l.Back.Fields.ContainsKey("lightabsolute")) l.Back.Fields.Remove("lightabsolute");
+				if (l.Back.Fields.ContainsKey("light")) l.Back.Fields.Remove("light");
+			}
+
+			preventchanges = false;
+
+			resetbacklight.Visible = false;
+			lightBack.Focus();
+			General.Map.IsChanged = true;
+			if (OnValuesChanged != null) OnValuesChanged(this, EventArgs.Empty);
+		}
+
+		#endregion
+
+		#region Global texture offsets changed
 
 		private void frontTextureOffset_OnValuesChanged(object sender, EventArgs e)
 		{
@@ -1453,6 +1787,7 @@ namespace CodeImp.DoomBuilder.Windows
 
 			#endregion
 
+
 			#region Scale changed
 
 		private void pfcFrontScaleTop_OnValuesChanged(object sender, EventArgs e) 
@@ -1672,10 +2007,5 @@ namespace CodeImp.DoomBuilder.Windows
 		#endregion
 
 		#endregion
-
-		private void argscontrol_Load(object sender, EventArgs e)
-		{
-
-		}
 	}
 }
