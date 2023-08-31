@@ -165,7 +165,7 @@ namespace CodeImp.DoomBuilder.Controls
 			if (preventchanges)
 				return;
 
-			((LinedefEditFormUDMF)ParentForm).MakeUndo();
+			((LinedefEditFormSRB2)ParentForm).MakeUndo();
 
 			// Reset the increment step for +++/---
 			light.ResetIncrementStep();
@@ -208,7 +208,7 @@ namespace CodeImp.DoomBuilder.Controls
 			reset.Visible = (cbAbsolute.CheckState != CheckState.Unchecked || light.Text != "0");
 			General.Map.IsChanged = true;
 
-			((LinedefEditFormUDMF)ParentForm).ValuesChangedExternal();
+			((LinedefEditFormSRB2)ParentForm).ValuesChangedExternal();
 		}
 
 		private void cbAbsolute_CheckedChanged(object sender, EventArgs e)
@@ -216,7 +216,7 @@ namespace CodeImp.DoomBuilder.Controls
 			if (preventchanges)
 				return;
 
-			((LinedefEditFormUDMF)ParentForm).MakeUndo();
+			((LinedefEditFormSRB2)ParentForm).MakeUndo();
 
 			if (cbAbsolute.Checked)
 			{
@@ -242,7 +242,7 @@ namespace CodeImp.DoomBuilder.Controls
 						sd.Fields.Remove(fieldabsolutename);
 			}
 
-			((LinedefEditFormUDMF)ParentForm).ValuesChangedExternal();
+			((LinedefEditFormSRB2)ParentForm).ValuesChangedExternal();
 		}
 
 		#endregion

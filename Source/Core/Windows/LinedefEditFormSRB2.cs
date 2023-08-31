@@ -626,6 +626,14 @@ namespace CodeImp.DoomBuilder.Windows
 			}
 		}
 
+		/// <summary>
+		/// Runs the OnValuesChanged event. Use after updating properties from other controls.
+		/// </summary>
+		public void ValuesChangedExternal()
+		{
+			OnValuesChanged?.Invoke(this, EventArgs.Empty);
+		}
+
 		#endregion
 
 		#region ================== Events
