@@ -127,30 +127,39 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				case "srb2_fofsolid":
 					alpha = General.Clamp(linedef.Args[1], 0, 255);
 					renderinside = (linedef.Args[3] & 4) == 4;
+					renderadditive = linedef.Args[2] == 1;
 					break;
 				case "srb2_fofwater":
 					alpha = General.Clamp(linedef.Args[1], 0, 255);
 					renderinside = true;
+					renderadditive = linedef.Args[2] == 1;
 					break;
 				case "srb2_fofcrumbling":
 					alpha = General.Clamp(linedef.Args[1], 0, 255);
 					renderinside = (linedef.Args[3] & 7) != 0;
+					renderadditive = linedef.Args[2] == 1;
 					break;
 				case "srb2_foflight":
+					alpha = 0;
+					ignorebottomheight = linedef.Args[1] == 1;
+					break;
 				case "srb2_fofintangibleinvisible":
 					alpha = 0;
 					break;
 				case "srb2_fofintangible":
 					alpha = General.Clamp(linedef.Args[1], 0, 255);
 					renderinside = (linedef.Args[3] & 4) != 4;
+					renderadditive = linedef.Args[2] == 1;
 					break;
 				case "srb2_fofbustable":
 				case "srb2_foflaser":
 					alpha = General.Clamp(linedef.Args[1], 0, 255);
+					renderadditive = linedef.Args[2] == 1;
 					break;
 				case "srb2_fofcustom":
 					alpha = General.Clamp(linedef.Args[1], 0, 255);
 					renderinside = (linedef.Args[3] & 1024) == 1024;
+					renderadditive = linedef.Args[2] == 1;
 					break;
 				case "sector_set3dfloor":
 					vavoomtype = linedef.Args[1] == (int)FloorTypes.VavoomStyle;
