@@ -94,7 +94,7 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 
 		#region ================== Constants
 
-		private const int CIRCLE_SIDES = 24;
+		private const int CIRCLE_SIDES = 64;
 
 		#endregion
 
