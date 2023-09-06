@@ -759,7 +759,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					}
 
 					// Start dragging the selection
-					if(!BuilderPlug.Me.DontMoveGeometryOutsideMapBoundary || CanDrag()) //mxd
+					if(!BuilderPlug.Me.DontMoveGeometryOutsideMapBoundary || CanDrag(dragthings)) //mxd
 					{ 
 						// Shift pressed? Clone things!
 						bool thingscloned = false;
@@ -820,31 +820,32 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		}
 
 		//mxd. Check if any selected thing is outside of map boundary
-		private static bool CanDrag() 
+		private static bool CanDrag(ICollection<Thing> dragthings) 
 		{
-			ICollection<Thing> selectedthings = General.Map.Map.GetSelectedThings(true);
 			int unaffectedCount = 0;
 
-			foreach(Thing t in selectedthings) 
+			foreach(Thing t in dragthings) 
 			{
 				// Make sure the vertex is inside the map boundary
 				if(t.Position.x < General.Map.Config.LeftBoundary || t.Position.x > General.Map.Config.RightBoundary
 					|| t.Position.y > General.Map.Config.TopBoundary || t.Position.y < General.Map.Config.BottomBoundary) 
 				{
-					t.Selected = false;
 					unaffectedCount++;
 				}
 			}
 
-			if(unaffectedCount == selectedthings.Count) 
+			if (unaffectedCount == dragthings.Count)
 			{
-				General.Interface.DisplayStatus(StatusType.Warning, "Unable to drag selection: " + (selectedthings.Count == 1 ? "selected thing is" : "all of selected things are") + " outside of map boundary!");
+				General.Interface.DisplayStatus(StatusType.Warning, "Unable to drag selection: " + (dragthings.Count == 1 ? "selected thing is" : "all of selected things are") + " outside of map boundary!");
 				General.Interface.RedrawDisplay();
 				return false;
 			}
 
-			if(unaffectedCount > 0)
+			if (unaffectedCount > 0)
+			{
 				General.Interface.DisplayStatus(StatusType.Warning, unaffectedCount + " of selected vertices " + (unaffectedCount == 1 ? "is" : "are") + " outside of map boundary!");
+				return false;
+			}
 
 			return true;
 		}

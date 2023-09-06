@@ -1543,7 +1543,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 				// Things are automatically selected on creation
 				foreach (Thing t in General.Map.Map.GetSelectedThings(true))
-					CreateVisualThing(t);
+					allthings[t] = CreateVisualThing(t);
 
 				// For linedefs it's a bit more complicated...
 				foreach (Linedef ld in General.Map.Map.GetSelectedLinedefs(true))
