@@ -1005,13 +1005,49 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					if(!sectortags.ContainsKey(tag)) sectortags[tag] = new List<Sector>();
 					sectortags[tag].Add(s);
 				}
-			}
 
-			foreach (Thing t in General.Map.Map.Things)
-			{
-				if (t.Type != 750) continue;
-				if (!thingtags.ContainsKey(t.Tag)) thingtags[t.Tag] = new List<Thing>();
-				thingtags[t.Tag].Add(t);
+				// ========== Thing vertex slope, vertices with UDMF vertex offsets ==========
+				if (s.Sidedefs.Count == 3)
+				{
+					if (General.Map.UDMF) GetSectorData(s).AddEffectVertexOffset(); //mxd
+					List<Thing> slopeceilingthings = new List<Thing>(3);
+					List<Thing> slopefloorthings = new List<Thing>(3);
+
+					foreach (Sidedef sd in s.Sidedefs)
+					{
+						Vertex v = sd.IsFront ? sd.Line.End : sd.Line.Start;
+
+						// Check if a thing is at this vertex
+						foreach (VisualBlockEntry block in blockmap.GetBlocks(v.Position))
+						{
+							foreach (Thing t in block.Things)
+							{
+								if ((Vector2D)t.Position == v.Position)
+								{
+									switch (t.Type)
+									{
+										case 1504: slopefloorthings.Add(t); break;
+										case 1505: slopeceilingthings.Add(t); break;
+									}
+								}
+							}
+						}
+					}
+
+					// Slope any floor vertices?
+					if (slopefloorthings.Count > 0)
+					{
+						SectorData sd = GetSectorData(s);
+						sd.AddEffectThingVertexSlope(slopefloorthings, true);
+					}
+
+					// Slope any ceiling vertices?
+					if (slopeceilingthings.Count > 0)
+					{
+						SectorData sd = GetSectorData(s);
+						sd.AddEffectThingVertexSlope(slopeceilingthings, false);
+					}
+				}
 			}
 
 			// Find interesting linedefs (such as line slopes)
@@ -1229,128 +1265,86 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				}
 			}
 
-			// Disable loops that are not relevant to SRB2
-			if (false)
+			// Find interesting things (such as sector slopes)
+			// Pass one of slope things, and determine which one are for pass two
+			//TODO: rewrite using classnames instead of numbers
+			foreach (Thing t in General.Map.Map.Things)
 			{
-				// Find interesting things (such as sector slopes)
-				// Pass one of slope things, and determine which one are for pass two
-				//TODO: rewrite using classnames instead of numbers
-				foreach (Thing t in General.Map.Map.Things)
+				// SRB2
+				if (t.Type == 750)
 				{
-					switch (t.Type)
-					{
-						// ========== Copy slope ==========
-						case 9511:
-						case 9510:
-							slopethingpass[1].Add(t);
-							break;
+					if (!thingtags.ContainsKey(t.Tag)) thingtags[t.Tag] = new List<Thing>();
+					thingtags[t.Tag].Add(t);
+				}
+				continue;
 
-						// ========== Thing line slope ==========
-						case 9501:
-						case 9500:
-							if (linetags.ContainsKey(t.Args[0]))
+				switch (t.Type)
+				{
+					// ========== Copy slope ==========
+					case 9511:
+					case 9510:
+						slopethingpass[1].Add(t);
+						break;
+
+					// ========== Thing line slope ==========
+					case 9501:
+					case 9500:
+						if (linetags.ContainsKey(t.Args[0]))
+						{
+							// Only slope each sector once, even when multiple lines of the same sector are tagged. See https://github.com/jewalky/UltimateDoomBuilder/issues/491
+							List<Sector> slopedsectors = new List<Sector>();
+
+							foreach (Linedef ld in linetags[t.Args[0]])
 							{
-								// Only slope each sector once, even when multiple lines of the same sector are tagged. See https://github.com/jewalky/UltimateDoomBuilder/issues/491
-								List<Sector> slopedsectors = new List<Sector>();
-
-								foreach (Linedef ld in linetags[t.Args[0]])
+								if (ld.Line.GetSideOfLine(t.Position) < 0.0f)
 								{
-									if (ld.Line.GetSideOfLine(t.Position) < 0.0f)
+									if (ld.Front != null && !slopedsectors.Contains(ld.Front.Sector))
 									{
-										if (ld.Front != null && !slopedsectors.Contains(ld.Front.Sector))
-										{
-											GetSectorData(ld.Front.Sector).AddEffectThingLineSlope(t, ld.Front);
-											slopedsectors.Add(ld.Front.Sector);
-										}
-									}
-									else if (ld.Back != null && !slopedsectors.Contains(ld.Back.Sector))
-									{
-										GetSectorData(ld.Back.Sector).AddEffectThingLineSlope(t, ld.Back);
-										slopedsectors.Add(ld.Back.Sector);
+										GetSectorData(ld.Front.Sector).AddEffectThingLineSlope(t, ld.Front);
+										slopedsectors.Add(ld.Front.Sector);
 									}
 								}
-							}
-							break;
-
-						// ========== Thing slope ==========
-						case 9503:
-						case 9502:
-							t.DetermineSector(blockmap);
-							if (t.Sector != null)
-							{
-								SectorData sd = GetSectorData(t.Sector);
-								sd.AddEffectThingSlope(t);
-							}
-							break;
-					}
-				}
-
-				// Pass two of slope things
-				//TODO: rewrite using classnames instead of numbers
-				foreach (Thing t in slopethingpass[1])
-				{
-					switch (t.Type)
-					{
-						// ========== Copy slope ==========
-						case 9511:
-						case 9510:
-							t.DetermineSector(blockmap);
-							if (t.Sector != null)
-							{
-								SectorData sd = GetSectorData(t.Sector);
-								sd.AddEffectCopySlope(t);
-							}
-							break;
-					}
-				}
-
-				// Find sectors with 3 vertices, because they can be sloped
-				foreach (Sector s in General.Map.Map.Sectors)
-				{
-					// ========== Thing vertex slope, vertices with UDMF vertex offsets ==========
-					if (s.Sidedefs.Count == 3)
-					{
-						if (General.Map.UDMF) GetSectorData(s).AddEffectVertexOffset(); //mxd
-						List<Thing> slopeceilingthings = new List<Thing>(3);
-						List<Thing> slopefloorthings = new List<Thing>(3);
-
-						foreach (Sidedef sd in s.Sidedefs)
-						{
-							Vertex v = sd.IsFront ? sd.Line.End : sd.Line.Start;
-
-							// Check if a thing is at this vertex
-							foreach (VisualBlockEntry block in blockmap.GetBlocks(v.Position))
-							{
-								foreach (Thing t in block.Things)
+								else if (ld.Back != null && !slopedsectors.Contains(ld.Back.Sector))
 								{
-									if ((Vector2D)t.Position == v.Position)
-									{
-										switch (t.Type)
-										{
-											case 1504: slopefloorthings.Add(t); break;
-											case 1505: slopeceilingthings.Add(t); break;
-										}
-									}
+									GetSectorData(ld.Back.Sector).AddEffectThingLineSlope(t, ld.Back);
+									slopedsectors.Add(ld.Back.Sector);
 								}
 							}
 						}
+						break;
 
-						// Slope any floor vertices?
-						if (slopefloorthings.Count > 0)
+					// ========== Thing slope ==========
+					case 9503:
+					case 9502:
+						t.DetermineSector(blockmap);
+						if (t.Sector != null)
 						{
-							SectorData sd = GetSectorData(s);
-							sd.AddEffectThingVertexSlope(slopefloorthings, true);
+							SectorData sd = GetSectorData(t.Sector);
+							sd.AddEffectThingSlope(t);
 						}
-
-						// Slope any ceiling vertices?
-						if (slopeceilingthings.Count > 0)
-						{
-							SectorData sd = GetSectorData(s);
-							sd.AddEffectThingVertexSlope(slopeceilingthings, false);
-						}
-					}
+						break;
 				}
 			}
+
+			// Pass two of slope things
+			//TODO: rewrite using classnames instead of numbers
+			foreach (Thing t in slopethingpass[1])
+			{
+				switch (t.Type)
+				{
+					// ========== Copy slope ==========
+					case 9511:
+					case 9510:
+						t.DetermineSector(blockmap);
+						if (t.Sector != null)
+						{
+							SectorData sd = GetSectorData(t.Sector);
+							sd.AddEffectCopySlope(t);
+						}
+						break;
+				}
+			}
+			
 
 			// Pass two for linedefs
 			foreach (Linedef l in slopelinedefpass[1])
