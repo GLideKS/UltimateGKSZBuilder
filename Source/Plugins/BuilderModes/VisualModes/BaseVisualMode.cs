@@ -1050,6 +1050,67 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				}
 			}
 
+			// Find interesting things (such as sector slopes)
+			// Pass one of slope things, and determine which one are for pass two
+			//TODO: rewrite using classnames instead of numbers
+			foreach (Thing t in General.Map.Map.Things)
+			{
+				// SRB2
+				if (t.Type == 750)
+				{
+					if (!thingtags.ContainsKey(t.Tag)) thingtags[t.Tag] = new List<Thing>();
+					thingtags[t.Tag].Add(t);
+				}
+				continue;
+
+				switch (t.Type)
+				{
+					// ========== Copy slope ==========
+					case 9511:
+					case 9510:
+						slopethingpass[1].Add(t);
+						break;
+
+					// ========== Thing line slope ==========
+					case 9501:
+					case 9500:
+						if (linetags.ContainsKey(t.Args[0]))
+						{
+							// Only slope each sector once, even when multiple lines of the same sector are tagged. See https://github.com/jewalky/UltimateDoomBuilder/issues/491
+							List<Sector> slopedsectors = new List<Sector>();
+
+							foreach (Linedef ld in linetags[t.Args[0]])
+							{
+								if (ld.Line.GetSideOfLine(t.Position) < 0.0f)
+								{
+									if (ld.Front != null && !slopedsectors.Contains(ld.Front.Sector))
+									{
+										GetSectorData(ld.Front.Sector).AddEffectThingLineSlope(t, ld.Front);
+										slopedsectors.Add(ld.Front.Sector);
+									}
+								}
+								else if (ld.Back != null && !slopedsectors.Contains(ld.Back.Sector))
+								{
+									GetSectorData(ld.Back.Sector).AddEffectThingLineSlope(t, ld.Back);
+									slopedsectors.Add(ld.Back.Sector);
+								}
+							}
+						}
+						break;
+
+					// ========== Thing slope ==========
+					case 9503:
+					case 9502:
+						t.DetermineSector(blockmap);
+						if (t.Sector != null)
+						{
+							SectorData sd = GetSectorData(t.Sector);
+							sd.AddEffectThingSlope(t);
+						}
+						break;
+				}
+			}
+
 			// Find interesting linedefs (such as line slopes)
 			// This also determines which slope lines belong to pass one and pass two. See https://zdoom.org/wiki/Slope
 			foreach (Linedef l in General.Map.Map.Linedefs)
@@ -1260,67 +1321,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 						{
 							SectorData sd = GetSectorData(l.Back.Sector);
 							sd.AddEffectLineSlope(l);
-						}
-						break;
-				}
-			}
-
-			// Find interesting things (such as sector slopes)
-			// Pass one of slope things, and determine which one are for pass two
-			//TODO: rewrite using classnames instead of numbers
-			foreach (Thing t in General.Map.Map.Things)
-			{
-				// SRB2
-				if (t.Type == 750)
-				{
-					if (!thingtags.ContainsKey(t.Tag)) thingtags[t.Tag] = new List<Thing>();
-					thingtags[t.Tag].Add(t);
-				}
-				continue;
-
-				switch (t.Type)
-				{
-					// ========== Copy slope ==========
-					case 9511:
-					case 9510:
-						slopethingpass[1].Add(t);
-						break;
-
-					// ========== Thing line slope ==========
-					case 9501:
-					case 9500:
-						if (linetags.ContainsKey(t.Args[0]))
-						{
-							// Only slope each sector once, even when multiple lines of the same sector are tagged. See https://github.com/jewalky/UltimateDoomBuilder/issues/491
-							List<Sector> slopedsectors = new List<Sector>();
-
-							foreach (Linedef ld in linetags[t.Args[0]])
-							{
-								if (ld.Line.GetSideOfLine(t.Position) < 0.0f)
-								{
-									if (ld.Front != null && !slopedsectors.Contains(ld.Front.Sector))
-									{
-										GetSectorData(ld.Front.Sector).AddEffectThingLineSlope(t, ld.Front);
-										slopedsectors.Add(ld.Front.Sector);
-									}
-								}
-								else if (ld.Back != null && !slopedsectors.Contains(ld.Back.Sector))
-								{
-									GetSectorData(ld.Back.Sector).AddEffectThingLineSlope(t, ld.Back);
-									slopedsectors.Add(ld.Back.Sector);
-								}
-							}
-						}
-						break;
-
-					// ========== Thing slope ==========
-					case 9503:
-					case 9502:
-						t.DetermineSector(blockmap);
-						if (t.Sector != null)
-						{
-							SectorData sd = GetSectorData(t.Sector);
-							sd.AddEffectThingSlope(t);
 						}
 						break;
 				}
