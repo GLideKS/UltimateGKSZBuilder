@@ -75,7 +75,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			panel.ContinuousDrawing = General.Settings.ReadPluginSetting("drawellipsemode.continuousdrawing", false);
 			panel.ShowGuidelines = General.Settings.ReadPluginSetting("drawellipsemode.showguidelines", false);
 			panel.RadialDrawing = General.Settings.ReadPluginSetting("drawellipsemode.radialdrawing", false);
-			panel.DrawThingsAtVertices = General.Settings.ReadPluginSetting("drawthingsatvertices.drawthingsatvertices", false);
+			panel.DrawThingsAtVertices = General.Settings.ReadPluginSetting("drawellipsemode.drawthingsatvertices", false);
 		}
 
 		override protected void AddInterface() 
@@ -92,7 +92,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			General.Settings.WritePluginSetting("drawellipsemode.continuousdrawing", panel.ContinuousDrawing);
 			General.Settings.WritePluginSetting("drawellipsemode.showguidelines", panel.ShowGuidelines);
 			General.Settings.WritePluginSetting("drawellipsemode.radialdrawing", panel.RadialDrawing);
-			
+			General.Settings.WritePluginSetting("drawellipsemode.drawthingsatvertices", panel.DrawThingsAtVertices);
+
 
 			// Remove the buttons
 			panel.Unregister();

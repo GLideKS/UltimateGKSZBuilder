@@ -110,7 +110,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			panel.ContinuousDrawing = General.Settings.ReadPluginSetting("drawrectanglemode.continuousdrawing", false);
 			panel.ShowGuidelines = General.Settings.ReadPluginSetting("drawrectanglemode.showguidelines", false);
 			panel.RadialDrawing = General.Settings.ReadPluginSetting("drawrectanglemode.radialdrawing", false);
-			panel.DrawThingsAtVertices = General.Settings.ReadPluginSetting("drawthingsatvertices.drawthingsatvertices", false);
+			panel.DrawThingsAtVertices = General.Settings.ReadPluginSetting("drawrectanglemode.drawthingsatvertices", false);
 		}
 
 		protected override void AddInterface() 

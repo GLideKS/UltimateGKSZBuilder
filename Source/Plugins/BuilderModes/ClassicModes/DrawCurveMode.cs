@@ -340,10 +340,12 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			panel.OnValueChanged += OptionsPanelOnValueChanged;
 			panel.OnContinuousDrawingChanged += OnContinuousDrawingChanged;
 			panel.OnAutoCloseDrawingChanged += OnAutoCloseDrawingChanged;
+			panel.OnDrawThingsAtVerticesChanged += OnDrawThingsAtVerticesChanged;
 
 			// Needs to be set after adding the events...
 			panel.ContinuousDrawing = General.Settings.ReadPluginSetting("drawcurvemode.continuousdrawing", false);
-			panel.AutoCloseDrawing = General.Settings.ReadPluginSetting("drawlinesmode.autoclosedrawing", false);
+			panel.AutoCloseDrawing = General.Settings.ReadPluginSetting("drawcurvemode.autoclosedrawing", false);
+			panel.DrawThingsAtVertices = General.Settings.ReadPluginSetting("drawcurvemode.drawthingsatvertices", false);
 		}
 
 		protected override void AddInterface()
@@ -356,7 +358,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			// Store settings
 			General.Settings.WritePluginSetting("drawcurvemode.segmentlength", segmentlength);
 			General.Settings.WritePluginSetting("drawcurvemode.continuousdrawing", panel.ContinuousDrawing);
-			General.Settings.WritePluginSetting("drawlinesmode.autoclosedrawing", panel.AutoCloseDrawing);
+			General.Settings.WritePluginSetting("drawcurvemode.autoclosedrawing", panel.AutoCloseDrawing);
+			General.Settings.WritePluginSetting("drawcurvemode.drawthingsatvertices", panel.DrawThingsAtVertices);
 
 			// Remove the buttons
 			panel.Unregister();
