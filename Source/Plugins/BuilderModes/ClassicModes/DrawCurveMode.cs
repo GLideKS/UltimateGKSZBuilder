@@ -237,7 +237,27 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				}
 
 				// Make the drawing
-				if(Tools.DrawLines(verts, true, BuilderPlug.Me.AutoAlignTextureOffsetsOnCreate)) //mxd
+				if (drawthingsatvertices)
+				{
+					List<Vector2D> points = new List<Vector2D>();
+					for (int i = 0; i < verts.Count; i++) 
+						if (!points.Contains(verts[i].pos)) points.Add(verts[i].pos);
+
+					PlaceThingsAtPositions(points);
+
+					// Snap to map format accuracy
+					General.Map.Map.SnapAllToAccuracy();
+
+					// Clear selection
+					General.Map.Map.ClearAllSelected();
+
+					// Update cached values
+					General.Map.Map.Update();
+
+					// Map is changed
+					General.Map.IsChanged = true;
+				}
+				else if (Tools.DrawLines(verts, true, BuilderPlug.Me.AutoAlignTextureOffsetsOnCreate)) //mxd
 				{
 					// Snap to map format accuracy
 					General.Map.Map.SnapAllToAccuracy();
@@ -249,11 +269,11 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					General.Map.Map.Update();
 
 					//mxd. Outer sectors may require some splittin...
-					if(General.Settings.SplitJoinedSectors) Tools.SplitOuterSectors(General.Map.Map.GetMarkedLinedefs(true));
+					if (General.Settings.SplitJoinedSectors) Tools.SplitOuterSectors(General.Map.Map.GetMarkedLinedefs(true));
 
 					// Edit new sectors?
 					List<Sector> newsectors = General.Map.Map.GetMarkedSectors(true);
-					if(BuilderPlug.Me.EditNewSector && (newsectors.Count > 0))
+					if (BuilderPlug.Me.EditNewSector && (newsectors.Count > 0))
 						General.Interface.ShowEditSectors(newsectors);
 
 					// Update the used textures

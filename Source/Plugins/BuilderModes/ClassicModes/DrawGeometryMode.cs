@@ -65,6 +65,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		protected bool autoclosedrawing;  //mxd. Finish drawing when new points and existing geometry form a closed shape
 		protected bool drawingautoclosed; //mxd
 		protected bool showguidelines; //mxd
+		protected bool drawthingsatvertices; //sphere: place things at vertices?
 
 		//mxd. Map area bounds
 		private Line2D top, bottom, left, right;
@@ -952,11 +953,17 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			showguidelines = (bool)value;
 			General.Interface.RedrawDisplay();
 		}
-		
+	
+		protected void OnDrawThingsAtVerticesChanged(object value, EventArgs e)
+		{
+			drawthingsatvertices = (bool)value;
+			General.Interface.RedrawDisplay();
+		}
+
 		#endregion
-		
+
 		#region ================== Actions
-		
+
 		// Drawing a point
 		[BeginAction("drawpoint")]
 		public void DrawPoint()

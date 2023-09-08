@@ -104,11 +104,13 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			panel.OnContinuousDrawingChanged += OnContinuousDrawingChanged;
 			panel.OnShowGuidelinesChanged += OnShowGuidelinesChanged;
 			panel.OnRadialDrawingChanged += OnRadialDrawingChanged;
+			panel.OnDrawThingsAtVerticesChanged += OnDrawThingsAtVerticesChanged;
 
 			// Needs to be set after adding the OnContinuousDrawingChanged event...
 			panel.ContinuousDrawing = General.Settings.ReadPluginSetting("drawrectanglemode.continuousdrawing", false);
 			panel.ShowGuidelines = General.Settings.ReadPluginSetting("drawrectanglemode.showguidelines", false);
 			panel.RadialDrawing = General.Settings.ReadPluginSetting("drawrectanglemode.radialdrawing", false);
+			panel.DrawThingsAtVertices = General.Settings.ReadPluginSetting("drawthingsatvertices.drawthingsatvertices", false);
 		}
 
 		protected override void AddInterface() 
@@ -124,6 +126,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			General.Settings.WritePluginSetting("drawrectanglemode.continuousdrawing", panel.ContinuousDrawing);
 			General.Settings.WritePluginSetting("drawrectanglemode.showguidelines", panel.ShowGuidelines);
 			General.Settings.WritePluginSetting("drawrectanglemode.radialdrawing", panel.RadialDrawing);
+			General.Settings.WritePluginSetting("drawrectanglemode.drawthingsatvertices", panel.DrawThingsAtVertices);
 
 			// Remove the buttons
 			panel.Unregister();
@@ -440,7 +443,27 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				General.Interface.DisplayStatus(StatusType.Action, "Created " + a + word + " " + shapename + ".");
 
 				// Make the drawing
-				if(Tools.DrawLines(points, true, BuilderPlug.Me.AutoAlignTextureOffsetsOnCreate))
+				if (drawthingsatvertices) 
+				{
+					List<Vector2D> verts = new List<Vector2D>();
+					for (int i = 0; i < points.Count; i++)
+						if (!verts.Contains(new Vector2D(points[i].pos.x, points[i].pos.y))) verts.Add(new Vector2D(points[i].pos.x, points[i].pos.y));
+
+					PlaceThingsAtPositions(verts);
+
+					// Snap to map format accuracy
+					General.Map.Map.SnapAllToAccuracy();
+
+					// Clear selection
+					General.Map.Map.ClearAllSelected();
+
+					// Update cached values
+					General.Map.Map.Update();
+
+					// Map is changed
+					General.Map.IsChanged = true;
+				}
+				else if (Tools.DrawLines(points, true, BuilderPlug.Me.AutoAlignTextureOffsetsOnCreate))
 				{
 					// Snap to map format accuracy
 					General.Map.Map.SnapAllToAccuracy();

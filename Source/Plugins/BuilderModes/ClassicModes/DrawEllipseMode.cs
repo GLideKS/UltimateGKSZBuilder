@@ -69,11 +69,13 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			panel.OnContinuousDrawingChanged += OnContinuousDrawingChanged;
 			panel.OnShowGuidelinesChanged += OnShowGuidelinesChanged;
 			panel.OnRadialDrawingChanged += OnRadialDrawingChanged;
+			panel.OnDrawThingsAtVerticesChanged += OnDrawThingsAtVerticesChanged;
 
 			// Needs to be set after adding the OnContinuousDrawingChanged event...
 			panel.ContinuousDrawing = General.Settings.ReadPluginSetting("drawellipsemode.continuousdrawing", false);
 			panel.ShowGuidelines = General.Settings.ReadPluginSetting("drawellipsemode.showguidelines", false);
 			panel.RadialDrawing = General.Settings.ReadPluginSetting("drawellipsemode.radialdrawing", false);
+			panel.DrawThingsAtVertices = General.Settings.ReadPluginSetting("drawthingsatvertices.drawthingsatvertices", false);
 		}
 
 		override protected void AddInterface() 

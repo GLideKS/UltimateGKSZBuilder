@@ -32,6 +32,7 @@
 			this.continuousdrawing = new System.Windows.Forms.ToolStripButton();
 			this.showguidelines = new System.Windows.Forms.ToolStripButton();
 			this.radialdrawing = new System.Windows.Forms.ToolStripButton();
+			this.drawthingsatvertices = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.radiuslabel = new System.Windows.Forms.ToolStripLabel();
 			this.radius = new CodeImp.DoomBuilder.Controls.ToolStripNumericUpDown();
@@ -47,6 +48,7 @@
             this.continuousdrawing,
             this.showguidelines,
             this.radialdrawing,
+			this.drawthingsatvertices,
             this.toolStripSeparator1,
             this.radiuslabel,
             this.radius,
@@ -68,6 +70,16 @@
 			this.continuousdrawing.Size = new System.Drawing.Size(135, 22);
 			this.continuousdrawing.Text = "Continuous drawing";
 			this.continuousdrawing.CheckedChanged += new System.EventHandler(this.continuousdrawing_CheckedChanged);
+			// 
+			// drawthingsatvertices
+			// 
+			this.drawthingsatvertices.CheckOnClick = true;
+			this.drawthingsatvertices.Image = global::CodeImp.DoomBuilder.BuilderModes.Properties.Resources.PlaceThings;
+			this.drawthingsatvertices.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.drawthingsatvertices.Name = "drawthingsatvertices";
+			this.drawthingsatvertices.Size = new System.Drawing.Size(135, 22);
+			this.drawthingsatvertices.Text = "Place things";
+			this.drawthingsatvertices.CheckedChanged += new System.EventHandler(this.drawthingsatvertices_CheckedChanged);
 			// 
 			// showguidelines
 			// 
@@ -190,5 +202,6 @@
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripButton showguidelines;
 		private System.Windows.Forms.ToolStripButton radialdrawing;
+		private System.Windows.Forms.ToolStripButton drawthingsatvertices;
 	}
 }
