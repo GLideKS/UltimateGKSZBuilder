@@ -237,17 +237,37 @@ namespace CodeImp.DoomBuilder.Windows
 				labelBackOffsetBottom.Enabled = false;
 			}
 
-			// Diable brightness controls?
+			// Disable brightness controls?
 			if (!General.Map.Config.DistinctWallBrightness)
 			{
+				labelLightFront.Enabled = false;
 				lightFront.Enabled = false;
 				cbLightAbsoluteFront.Enabled = false;
 				resetfrontlight.Enabled = false;
 
+				labelLightBack.Enabled = false;
 				lightBack.Enabled = false;
 				cbLightAbsoluteBack.Enabled = false;
 				resetbacklight.Enabled = false;
 			}
+
+			// Disable texture scaling, for now.
+			pfcFrontScaleTop.Enabled = false;
+			pfcFrontScaleMid.Enabled = false;
+			pfcFrontScaleBottom.Enabled = false;
+
+			pfcBackScaleTop.Enabled = false;
+			pfcBackScaleMid.Enabled = false;
+			pfcBackScaleBottom.Enabled = false;
+
+			labelFrontScaleTop.Enabled = false;
+			labelFrontScaleMid.Enabled = false;
+			labelFrontScaleBottom.Enabled = false;
+
+			labelBackScaleTop.Enabled = false;
+			labelBackScaleMid.Enabled = false;
+			labelBackScaleBottom.Enabled = false;
+
 		}
 
 		#endregion
