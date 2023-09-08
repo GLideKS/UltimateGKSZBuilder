@@ -6,7 +6,17 @@
 
 #define UZB_arch "x64"
 #define UZB_GetVersionString() \
-  Local[0] = GetVersionNumbersString("..\Build\Builder.exe")
+  Local[0] = GetVersionNumbersString("..\Build\Builder.exe")        
+#define UZB_GetVersion() \
+   GetVersionComponents("..\Build\Builder.exe", \
+       Local[0], Local[1], Local[2], Local[3]), \
+   Str(Local[0]) + "." + Str(Local[1])
+
+#if UZB_arch != "x86"
+  #define UZB_bit "64-bit"
+#else           
+  #define UZB_bit "32-bit"
+#endif
 
 [Setup]
 AppName=Ultimate Zone Builder
@@ -21,7 +31,7 @@ DefaultGroupName=Ultimate Zone Builder
 AllowNoIcons=true
 LicenseFile=..\LICENSE.txt
 OutputDir=..\Release
-OutputBaseFilename=Setup
+OutputBaseFilename="UZBuilder v{#UZB_GetVersion} Setup ({#UZB_bit})"
 Compression=lzma/ultra64
 SolidCompression=true
 SourceDir=..\Build
