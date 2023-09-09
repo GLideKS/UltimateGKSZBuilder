@@ -291,17 +291,38 @@ namespace CodeImp.DoomBuilder.Controls
 		// This determines the result value
 		public double GetResultFloat(double original, int step)
 		{
+			// Support specific starting point for increment step
+			bool start;
+
 			// Strip prefixes
 			string textpart = StripPrefixes(this.Text);
 
+			// Check for alternate original
+			if (textpart.Contains("---"))
+			{
+				string[] split = textpart.Split('-');
+				original = double.Parse(split[0]);
+				textpart = StripPrefixes(split[3]);
+				start = true;
+			}
+			else if (textpart.Contains("+++"))
+			{
+				string[] split = textpart.Split('+');
+				original = double.Parse(split[0]);
+				textpart = StripPrefixes(split[3]);
+				start = true;
+			}
+			else
+				start = false;
+
 			// Any numbers left?
-			if(textpart.Length > 0)
+			if (textpart.Length > 0)
 			{
 				double result;
 				if(allowrelative)
 				{
 					//mxd. Prefixed with +++?
-					if(this.Text.StartsWith("+++"))
+					if(this.Text.StartsWith("+++") || (start && this.Text.Contains("+++")))
 					{
 						// Add number to original
 						if(TryGetResultValue(textpart, out result))
@@ -312,7 +333,7 @@ namespace CodeImp.DoomBuilder.Controls
 					}
 
 					//mxd. Prefixed with ---?
-					if(this.Text.StartsWith("---"))
+					if(this.Text.StartsWith("---") || (start && this.Text.Contains("---")))
 					{
 						// Subtract number from original
 						if(TryGetResultValue(textpart, out result))
