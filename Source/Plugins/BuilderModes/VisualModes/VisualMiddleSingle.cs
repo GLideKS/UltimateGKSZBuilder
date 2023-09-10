@@ -89,6 +89,9 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			// Load sector data
 			SectorData sd = mode.GetSectorData(Sidedef.Sector);
 
+			// Apply sky hack?
+			UpdateSkyRenderFlag();
+
 			// Texture given?
 			if (Sidedef.LongMiddleTexture != MapSet.EmptyLongName)
 			{
@@ -365,6 +368,11 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					(float)((rightz - leftz) / Sidedef.Line.Length * ((double)Texture.Width / Texture.Height))
 					);
 			}
+		}
+
+		internal void UpdateSkyRenderFlag()
+		{
+			renderassky = General.Map.Config.LinedefActions.ContainsKey(Sidedef.Line.Action) && General.Map.Config.LinedefActions[Sidedef.Line.Action].Id.ToLowerInvariant() == "srb2_horizonline";
 		}
 
 		#endregion
