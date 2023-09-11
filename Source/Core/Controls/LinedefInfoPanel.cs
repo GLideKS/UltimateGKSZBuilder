@@ -125,10 +125,6 @@ namespace CodeImp.DoomBuilder.Controls
 					activationlabel.Visible = true;
 					activation.Visible = true;
 
-					activationlabel.Size = new Size(100, 14);
-					activationlabel.Location = new Point(78, 34);
-					activation.Location = new Point(180, 34);
-
 					int locknum = l.Fields.GetValue("executordelay", 0);
 					if(locknum != 0)
 					{

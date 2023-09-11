@@ -152,9 +152,9 @@ namespace CodeImp.DoomBuilder.Controls
 			// 
 			// activationlabel
 			// 
-			this.activationlabel.Location = new System.Drawing.Point(8, 34);
+			this.activationlabel.Location = new System.Drawing.Point(78, 34);
 			this.activationlabel.Name = "activationlabel";
-			this.activationlabel.Size = new System.Drawing.Size(58, 14);
+			this.activationlabel.Size = new System.Drawing.Size(100, 14);
 			this.activationlabel.TabIndex = 30;
 			this.activationlabel.Text = "Activation:";
 			this.activationlabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -236,7 +236,7 @@ namespace CodeImp.DoomBuilder.Controls
 			// 
 			this.activation.AutoSize = true;
 			this.activation.BackColor = System.Drawing.Color.Transparent;
-			this.activation.Location = new System.Drawing.Point(66, 34);
+			this.activation.Location = new System.Drawing.Point(180, 34);
 			this.activation.Name = "activation";
 			this.activation.Size = new System.Drawing.Size(162, 13);
 			this.activation.TabIndex = 31;
