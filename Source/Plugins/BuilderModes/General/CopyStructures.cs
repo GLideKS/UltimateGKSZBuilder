@@ -694,7 +694,9 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					// Apply string arguments
 					if(settings.Arguments)
 					{
-						Apply(l.Fields, "arg0str");
+						//Apply(l.Fields, "arg0str");
+						Apply(l.Fields, "stringarg0");
+						Apply(l.Fields, "stringarg1");
 
 						//TODO: re-enable when UI part is ready
 						//Apply(l.Fields, "arg1str");
@@ -870,7 +872,9 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				// Apply string arguments
 				if(settings.Arguments)
 				{
-					Apply(t.Fields, "arg0str");
+					//Apply(t.Fields, "arg0str");
+					Apply(t.Fields, "stringarg0");
+					Apply(t.Fields, "stringarg1");
 
 					//TODO: re-enable when UI part is ready
 					//Apply(t.Fields, "arg1str");
@@ -976,6 +980,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					if(!UniFields.ValuesMatch("arg2str", source, target)) return false;
 					if(!UniFields.ValuesMatch("arg3str", source, target)) return false;
 					if(!UniFields.ValuesMatch("arg4str", source, target)) return false;
+					if (!UniFields.ValuesMatch("stringarg0", source, target)) return false;
+					if (!UniFields.ValuesMatch("stringarg1", source, target)) return false;
 				}
 			}
 			if(linedefflags.Flags && !FlagsMatch(source.GetEnabledFlags(), target.GetEnabledFlags())) return false;
@@ -1044,6 +1050,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					if(!UniFields.ValuesMatch("arg2str", source, target)) return false;
 					if(!UniFields.ValuesMatch("arg3str", source, target)) return false;
 					if(!UniFields.ValuesMatch("arg4str", source, target)) return false;
+					if (!UniFields.ValuesMatch("stringarg0", source, target)) return false;
+					if (!UniFields.ValuesMatch("stringarg1", source, target)) return false;
 				}
 			}
 			if(flags.Tag && source.Tag != target.Tag) return false;
