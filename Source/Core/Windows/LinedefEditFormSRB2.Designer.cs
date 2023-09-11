@@ -200,11 +200,11 @@ namespace CodeImp.DoomBuilder.Windows
 			// executordelaylabel
 			// 
 			executordelaylabel.AutoSize = true;
-			executordelaylabel.Location = new System.Drawing.Point(59, 229);
+			executordelaylabel.Location = new System.Drawing.Point(39, 229);
 			executordelaylabel.Name = "executordelaylabel";
 			executordelaylabel.Size = new System.Drawing.Size(80, 13);
 			executordelaylabel.TabIndex = 71;
-			executordelaylabel.Text = "Executor delay:";
+			executordelaylabel.Text = "Executor delay (tics):";
 			// 
 			// labelRepeatcntFront
 			// 
