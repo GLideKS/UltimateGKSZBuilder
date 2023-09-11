@@ -25,6 +25,7 @@ using CodeImp.DoomBuilder.Rendering;
 using CodeImp.DoomBuilder.Geometry;
 using CodeImp.DoomBuilder.VisualModes;
 using CodeImp.DoomBuilder.Data;
+using System.Linq;
 
 #endregion
 
@@ -484,8 +485,20 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				}
 			}
 
+			// SRB2 floating things hack
+			// TODO: replace this with config-based parameter once SOC/Lua parsing exists
+			int[] float16 = new int[] {558, 559, 560};
+			int[] float24 = new int[] {300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 320, 321, 330, 331, 332, 333, 334, 335, 520, 1706, 1800};
+
+			if (Thing.Type == 322 && Thing.Args[1] == 0) // Emblems have float flag on args[1]
+				pos.z = (Thing.IsFlipped) ? pos.z - 24 : pos.z + 24;
+			else if (float16.Contains(Thing.Type) && Thing.Args[0] == 0)
+				pos.z = (Thing.IsFlipped) ? pos.z - 16 : pos.z + 16;
+			else if (float24.Contains(Thing.Type) && Thing.Args[0] == 0)
+				pos.z = (Thing.IsFlipped) ? pos.z - 24 : pos.z + 24;
+
 			//if (info.ZOffset != 0) pos.z += Thing.IsFlipped ? -info.ZOffset : info.ZOffset;
-			
+
 			// Apply settings
 			SetPosition(pos);
 			SetCageColor(Thing.Color);
