@@ -9,7 +9,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		public event EventHandler OnContinuousDrawingChanged;
 		public event EventHandler OnShowGuidelinesChanged;
 		public event EventHandler OnRadialDrawingChanged;
-		public event EventHandler OnDrawThingsAtVerticesChanged;
+		public event EventHandler OnPlaceThingsAtVerticesChanged;
 
 		private bool blockevents;
 
@@ -23,7 +23,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		public bool ContinuousDrawing { get { return continuousdrawing.Checked; } set { continuousdrawing.Checked = value; } }
 		public bool ShowGuidelines { get { return showguidelines.Checked; } set { showguidelines.Checked = value; } }
 		public bool RadialDrawing { get { return radialdrawing.Checked; } set { radialdrawing.Checked = value; } }
-		public bool DrawThingsAtVertices { get { return drawthingsatvertices.Checked; } set { drawthingsatvertices.Checked = value; } }
+		public bool PlaceThingsAtVertices { get { return placethingsatvertices.Checked; } set { placethingsatvertices.Checked = value; } }
 
 		public DrawEllipseOptionsPanel() 
 		{
@@ -40,7 +40,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			General.Interface.AddButton(continuousdrawing);
 			General.Interface.AddButton(showguidelines);
 			General.Interface.AddButton(radialdrawing);
-			General.Interface.AddButton(drawthingsatvertices);
+			General.Interface.AddButton(placethingsatvertices);
 			General.Interface.AddButton(toolStripSeparator1);
 			General.Interface.AddButton(subdivslabel);
 			General.Interface.AddButton(subdivs);
@@ -66,7 +66,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			General.Interface.RemoveButton(showguidelines);
 			General.Interface.RemoveButton(continuousdrawing);
 			General.Interface.RemoveButton(radialdrawing);
-			General.Interface.RemoveButton(drawthingsatvertices);
+			General.Interface.RemoveButton(placethingsatvertices);
 			General.Interface.EndToolbarUpdate();
 		}
 
@@ -103,9 +103,9 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			if(OnRadialDrawingChanged != null) OnRadialDrawingChanged(radialdrawing.Checked, EventArgs.Empty);
 		}
 
-		private void drawthingsatvertices_CheckedChanged(object sender, EventArgs e)
+		private void placethingsatvertices_CheckedChanged(object sender, EventArgs e)
 		{
-			if (OnDrawThingsAtVerticesChanged != null) OnDrawThingsAtVerticesChanged(drawthingsatvertices.Checked, EventArgs.Empty);
+			if (OnPlaceThingsAtVerticesChanged != null) OnPlaceThingsAtVerticesChanged(placethingsatvertices.Checked, EventArgs.Empty);
 		}
 	}
 }

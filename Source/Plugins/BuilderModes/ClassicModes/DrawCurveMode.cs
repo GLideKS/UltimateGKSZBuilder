@@ -101,13 +101,16 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					curve = CurveTools.CurveThroughPoints(verts, 0.5f, 0.75f, segmentlength);
 
 					// Render lines
-					for(int i = 1; i < curve.Shape.Count; i++) 
+					if (!placethingsatvertices)
 					{
-						// Determine line color
-						PixelColor c = snaptonearest ? stitchcolor : losecolor;
+						for (int i = 1; i < curve.Shape.Count; i++)
+						{
+							// Determine line color
+							PixelColor c = snaptonearest ? stitchcolor : losecolor;
 
-						// Render line
-						renderer.RenderLine(curve.Shape[i - 1], curve.Shape[i], LINE_THICKNESS, c, true);
+							// Render line
+							renderer.RenderLine(curve.Shape[i - 1], curve.Shape[i], LINE_THICKNESS, c, true);
+						}
 					}
 
 					//render "inactive" vertices
@@ -237,7 +240,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				}
 
 				// Make the drawing
-				if (drawthingsatvertices)
+				if (placethingsatvertices)
 				{
 					List<Vector2D> points = new List<Vector2D>();
 					for (int i = 0; i < verts.Count; i++) 
@@ -340,12 +343,12 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			panel.OnValueChanged += OptionsPanelOnValueChanged;
 			panel.OnContinuousDrawingChanged += OnContinuousDrawingChanged;
 			panel.OnAutoCloseDrawingChanged += OnAutoCloseDrawingChanged;
-			panel.OnDrawThingsAtVerticesChanged += OnDrawThingsAtVerticesChanged;
+			panel.OnPlaceThingsAtVerticesChanged += OnPlaceThingsAtVerticesChanged;
 
 			// Needs to be set after adding the events...
 			panel.ContinuousDrawing = General.Settings.ReadPluginSetting("drawcurvemode.continuousdrawing", false);
 			panel.AutoCloseDrawing = General.Settings.ReadPluginSetting("drawcurvemode.autoclosedrawing", false);
-			panel.DrawThingsAtVertices = General.Settings.ReadPluginSetting("drawcurvemode.drawthingsatvertices", false);
+			panel.PlaceThingsAtVertices = General.Settings.ReadPluginSetting("drawcurvemode.placethingsatvertices", false);
 		}
 
 		protected override void AddInterface()
@@ -359,7 +362,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			General.Settings.WritePluginSetting("drawcurvemode.segmentlength", segmentlength);
 			General.Settings.WritePluginSetting("drawcurvemode.continuousdrawing", panel.ContinuousDrawing);
 			General.Settings.WritePluginSetting("drawcurvemode.autoclosedrawing", panel.AutoCloseDrawing);
-			General.Settings.WritePluginSetting("drawcurvemode.drawthingsatvertices", panel.DrawThingsAtVertices);
+			General.Settings.WritePluginSetting("drawcurvemode.placethingsatvertices", panel.PlaceThingsAtVertices);
 
 			// Remove the buttons
 			panel.Unregister();

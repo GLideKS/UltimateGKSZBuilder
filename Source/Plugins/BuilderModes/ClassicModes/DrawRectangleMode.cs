@@ -104,13 +104,13 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			panel.OnContinuousDrawingChanged += OnContinuousDrawingChanged;
 			panel.OnShowGuidelinesChanged += OnShowGuidelinesChanged;
 			panel.OnRadialDrawingChanged += OnRadialDrawingChanged;
-			panel.OnDrawThingsAtVerticesChanged += OnDrawThingsAtVerticesChanged;
+			panel.OnPlaceThingsAtVerticesChanged += OnPlaceThingsAtVerticesChanged;
 
 			// Needs to be set after adding the OnContinuousDrawingChanged event...
 			panel.ContinuousDrawing = General.Settings.ReadPluginSetting("drawrectanglemode.continuousdrawing", false);
 			panel.ShowGuidelines = General.Settings.ReadPluginSetting("drawrectanglemode.showguidelines", false);
 			panel.RadialDrawing = General.Settings.ReadPluginSetting("drawrectanglemode.radialdrawing", false);
-			panel.DrawThingsAtVertices = General.Settings.ReadPluginSetting("drawrectanglemode.drawthingsatvertices", false);
+			panel.PlaceThingsAtVertices = General.Settings.ReadPluginSetting("drawrectanglemode.placethingsatvertices", false);
 		}
 
 		protected override void AddInterface() 
@@ -126,7 +126,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			General.Settings.WritePluginSetting("drawrectanglemode.continuousdrawing", panel.ContinuousDrawing);
 			General.Settings.WritePluginSetting("drawrectanglemode.showguidelines", panel.ShowGuidelines);
 			General.Settings.WritePluginSetting("drawrectanglemode.radialdrawing", panel.RadialDrawing);
-			General.Settings.WritePluginSetting("drawrectanglemode.drawthingsatvertices", panel.DrawThingsAtVertices);
+			General.Settings.WritePluginSetting("drawrectanglemode.placethingsatvertices", panel.PlaceThingsAtVertices);
 
 			// Remove the buttons
 			panel.Unregister();
@@ -176,8 +176,11 @@ namespace CodeImp.DoomBuilder.BuilderModes
 						RenderGuidelines(startrotated, endrotated, General.Colors.Guideline.WithAlpha(80), -General.Map.Grid.GridRotate);
 
 					//render shape
-					for(int i = 1; i < shape.Length; i++)
-						renderer.RenderLine(shape[i - 1], shape[i], LINE_THICKNESS, color, true);
+					if (!placethingsatvertices)
+					{
+						for (int i = 1; i < shape.Length; i++)
+							renderer.RenderLine(shape[i - 1], shape[i], LINE_THICKNESS, color, true);
+					}
 
 					//vertices
 					for(int i = 0; i < shape.Length; i++)
@@ -443,7 +446,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				General.Interface.DisplayStatus(StatusType.Action, "Created " + a + word + " " + shapename + ".");
 
 				// Make the drawing
-				if (drawthingsatvertices) 
+				if (placethingsatvertices) 
 				{
 					List<Vector2D> verts = new List<Vector2D>();
 					for (int i = 0; i < points.Count; i++)

@@ -31,7 +31,7 @@
 			this.toolstrip = new System.Windows.Forms.ToolStrip();
 			this.continuousdrawing = new System.Windows.Forms.ToolStripButton();
 			this.autoclosedrawing = new System.Windows.Forms.ToolStripButton();
-			this.drawthingsatvertices = new System.Windows.Forms.ToolStripButton();
+			this.placethingsatvertices = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.seglabel = new System.Windows.Forms.ToolStripLabel();
 			this.seglen = new CodeImp.DoomBuilder.Controls.ToolStripNumericUpDown();
@@ -44,7 +44,7 @@
 			this.toolstrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.continuousdrawing,
             this.autoclosedrawing,
-			this.drawthingsatvertices,
+			this.placethingsatvertices,
 			this.toolStripSeparator1,
             this.seglabel,
             this.seglen,
@@ -76,15 +76,15 @@
 			this.autoclosedrawing.Text = "Auto-close drawing";
 			this.autoclosedrawing.CheckedChanged += new System.EventHandler(this.autoclosedrawing_CheckedChanged);
 			// 
-			// drawthingsatvertices
+			// placethingsatvertices
 			// 
-			this.drawthingsatvertices.CheckOnClick = true;
-			this.drawthingsatvertices.Image = global::CodeImp.DoomBuilder.BuilderModes.Properties.Resources.PlaceThings;
-			this.drawthingsatvertices.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.drawthingsatvertices.Name = "drawthingsatvertices";
-			this.drawthingsatvertices.Size = new System.Drawing.Size(135, 22);
-			this.drawthingsatvertices.Text = "Place things";
-			this.drawthingsatvertices.CheckedChanged += new System.EventHandler(this.drawthingsatvertices_CheckedChanged);
+			this.placethingsatvertices.CheckOnClick = true;
+			this.placethingsatvertices.Image = global::CodeImp.DoomBuilder.BuilderModes.Properties.Resources.PlaceThings;
+			this.placethingsatvertices.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.placethingsatvertices.Name = "placethingsatvertices";
+			this.placethingsatvertices.Size = new System.Drawing.Size(135, 22);
+			this.placethingsatvertices.Text = "Place things";
+			this.placethingsatvertices.CheckedChanged += new System.EventHandler(this.placethingsatvertices_CheckedChanged);
 			// 
 			// toolStripSeparator1
 			// 
@@ -154,6 +154,6 @@
 		private System.Windows.Forms.ToolStripButton continuousdrawing;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripButton autoclosedrawing;
-		private System.Windows.Forms.ToolStripButton drawthingsatvertices;
+		private System.Windows.Forms.ToolStripButton placethingsatvertices;
 	}
 }

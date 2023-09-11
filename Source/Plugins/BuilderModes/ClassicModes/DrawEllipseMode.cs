@@ -69,13 +69,13 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			panel.OnContinuousDrawingChanged += OnContinuousDrawingChanged;
 			panel.OnShowGuidelinesChanged += OnShowGuidelinesChanged;
 			panel.OnRadialDrawingChanged += OnRadialDrawingChanged;
-			panel.OnDrawThingsAtVerticesChanged += OnDrawThingsAtVerticesChanged;
+			panel.OnPlaceThingsAtVerticesChanged += OnPlaceThingsAtVerticesChanged;
 
 			// Needs to be set after adding the OnContinuousDrawingChanged event...
 			panel.ContinuousDrawing = General.Settings.ReadPluginSetting("drawellipsemode.continuousdrawing", false);
 			panel.ShowGuidelines = General.Settings.ReadPluginSetting("drawellipsemode.showguidelines", false);
 			panel.RadialDrawing = General.Settings.ReadPluginSetting("drawellipsemode.radialdrawing", false);
-			panel.DrawThingsAtVertices = General.Settings.ReadPluginSetting("drawellipsemode.drawthingsatvertices", false);
+			panel.PlaceThingsAtVertices = General.Settings.ReadPluginSetting("drawellipsemode.placethingsatvertices", false);
 		}
 
 		override protected void AddInterface() 
@@ -92,7 +92,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			General.Settings.WritePluginSetting("drawellipsemode.continuousdrawing", panel.ContinuousDrawing);
 			General.Settings.WritePluginSetting("drawellipsemode.showguidelines", panel.ShowGuidelines);
 			General.Settings.WritePluginSetting("drawellipsemode.radialdrawing", panel.RadialDrawing);
-			General.Settings.WritePluginSetting("drawellipsemode.drawthingsatvertices", panel.DrawThingsAtVertices);
+			General.Settings.WritePluginSetting("drawellipsemode.placethingsatvertices", panel.PlaceThingsAtVertices);
 
 
 			// Remove the buttons
