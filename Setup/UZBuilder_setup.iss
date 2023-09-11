@@ -24,8 +24,8 @@ AppVerName=Ultimate Zone Builder {#UZB_GetVersionString} ({#UZB_arch})
 VersionInfoVersion={#UZB_GetVersionString}
 AppPublisher=Sonic Team Junior
 AppPublisherURL=https://www.srb2.org/
-AppSupportURL=https://git.do.srb2.org/STJr/UltimateZoneBuilder
-AppUpdatesURL=https://git.do.srb2.org/STJr/UltimateZoneBuilder
+AppSupportURL=https://git.do.srb2.org/STJr/UltimateZoneBuilder/-/issues
+AppUpdatesURL=https://git.do.srb2.org/STJr/UltimateZoneBuilder/-/releases
 DefaultDirName={commonpf}\Ultimate Zone Builder
 DefaultGroupName=Ultimate Zone Builder
 AllowNoIcons=true
@@ -141,7 +141,25 @@ procedure InitializeWizard();
 begin
   // .Net and VC Redistributables. Those come from CodeDependencies.iss
   Dependency_AddDotNet47;
-  //Dependency_AddVC2015To2022;
+  //Dependency_AddVC2015To2022;    
+    
+  // Hide radio buttons and pre-select "accept", to enable "next" button
+  WizardForm.LicenseAcceptedRadio.Checked := True;
+  WizardForm.LicenseAcceptedRadio.Visible := False;
+  WizardForm.LicenseNotAcceptedRadio.Visible := False;
+  WizardForm.LicenseMemo.Height :=
+    WizardForm.LicenseNotAcceptedRadio.Top +
+    WizardForm.LicenseNotAcceptedRadio.Height -
+    WizardForm.LicenseMemo.Top - ScaleY(5);
+end;
+
+procedure CurPageChanged(CurPageID: Integer);
+begin
+  // Dubious, but you have asked for it
+  if CurPageID = wpLicense then
+  begin
+    WizardForm.NextButton.Caption := '&Next';
+  end;
 end;
 
 //Remove configs?
