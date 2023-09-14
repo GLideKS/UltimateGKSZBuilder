@@ -132,7 +132,7 @@ namespace CodeImp.DoomBuilder.ThreeDFloorMode
 
 			foreach (Sidedef sd in sector.Sidedefs)
 			{
-				if (sd.Line.Action == 160)
+				if (sd.Line.Action >= 100 && sd.Line.Action < 300)
 				{
 					bordertexture = sd.MiddleTexture;
 					udmftag = sd.Line.Args[0];
@@ -197,7 +197,7 @@ namespace CodeImp.DoomBuilder.ThreeDFloorMode
 			if(ldprops != null)
 				ldprops.Apply(new List<Linedef>() { line }, false);
 
-			line.Action = 160;
+			line.Action = 100;
 			line.Args[0] = tag;
 			line.Args[1] = type;
 			line.Args[2] = flags;
@@ -224,7 +224,7 @@ namespace CodeImp.DoomBuilder.ThreeDFloorMode
 			{
 				sd.SetTextureMid(bordertexture);
 
-				if (sd.Line.Action == 160)
+				if (sd.Line.Action >= 100 && sd.Line.Action < 300)
 				{					
 					sd.Line.Args[1] = type;
 					sd.Line.Args[2] = flags;
@@ -315,7 +315,7 @@ namespace CodeImp.DoomBuilder.ThreeDFloorMode
 
 			foreach (Sidedef sd in sector.Sidedefs)
 			{
-				if (sd.Line.Action == 160 && BuilderPlug.GetSectorsByTag(sd.Line.Args[0]).Count == 0)
+				if ((sd.Line.Action >= 100 && sd.Line.Action < 300) && BuilderPlug.GetSectorsByTag(sd.Line.Args[0]).Count == 0)
 				{
 					sd.Line.Action = 0;
 

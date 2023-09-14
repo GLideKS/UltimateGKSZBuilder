@@ -377,7 +377,7 @@ namespace CodeImp.DoomBuilder.BuilderModes.IO
 				{
 					foreach (Sidedef sd in s.Sidedefs)
 					{
-						if (sd.Line.Action == 160)
+						if (sd.Line.Action >= 100 && sd.Line.Action < 300)
 						{
 							addvs = false;
 							break;

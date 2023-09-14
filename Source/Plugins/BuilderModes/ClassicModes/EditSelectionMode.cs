@@ -1648,7 +1648,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					{
 						foreach (Linedef ld in General.Map.Map.Linedefs)
 						{
-							if (ld.Action != 160) // Action 160 defines a 3D floor
+							if (ld.Action < 100 || ld.Action >= 300) // SRB2 FOF types
 								continue;
 
 							if (ld.Args[0] == 0) // First argument of the action is the sector tag. 0 is not a valid value

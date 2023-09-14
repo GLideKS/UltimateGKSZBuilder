@@ -443,7 +443,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					// sectors that need updating
 					foreach (Linedef ld in General.Map.Map.Linedefs)
 					{
-						if (ld.Action != 160) // Action 160 defines a 3D floor
+						if (ld.Action < 100 && ld.Action >= 300) // SRB2 FOF types
 							continue;
 
 						foreach (Sector s in draggedsectors)

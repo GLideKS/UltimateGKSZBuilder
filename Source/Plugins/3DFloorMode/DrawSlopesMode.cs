@@ -542,7 +542,7 @@ namespace CodeImp.DoomBuilder.ThreeDFloorMode
 			//Determine whether or not the sector is actually a control sector for a 3D floor
 			foreach (Sidedef sd in s.Sidedefs)
 			{
-				if (sd.Line.Action == 160)
+				if (sd.Line.Action >= 100 && sd.Line.Action < 300)
 					return true;
 			}
 			return false;

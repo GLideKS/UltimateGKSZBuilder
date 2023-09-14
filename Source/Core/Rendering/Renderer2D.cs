@@ -660,7 +660,7 @@ namespace CodeImp.DoomBuilder.Rendering
 			//find lines with 3d floor action and collect sector tags
 			foreach(Linedef l in General.Map.Map.Linedefs)
 			{
-				if(l.Action == 160) 
+				if(l.Action >= 100 && l.Action < 300) 
 				{
 					int sectortag = (General.Map.UDMF || (l.Args[1] & 8) != 0) ? l.Args[0] : l.Args[0] + (l.Args[4] << 8);
 					if(sectortag != 0 && !tags.Contains(sectortag)) tags.Add(sectortag);

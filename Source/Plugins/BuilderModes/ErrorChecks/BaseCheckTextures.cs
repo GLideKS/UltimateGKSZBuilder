@@ -82,7 +82,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 			foreach (Linedef ld in General.Map.Map.Linedefs)
 			{
-				if (ld.Action == 160)
+				if (ld.Action >= 100 && ld.Action < 300)
 				{
 					if ((ld.Args[1] & 4) == 4) // Type render inside
 					{

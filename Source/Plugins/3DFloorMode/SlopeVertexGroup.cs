@@ -168,7 +168,7 @@ namespace CodeImp.DoomBuilder.ThreeDFloorMode
 			// tagged sector(s). They will be used for highlighting in slope mode
 			foreach (Sidedef sd in s.Sidedefs)
 			{
-				if (sd.Line.Action == 160)
+				if (sd.Line.Action >= 100 && sd.Line.Action < 300)
 				{
 					foreach (Sector ts in BuilderPlug.GetSectorsByTag(sd.Line.Args[0]))
 					{

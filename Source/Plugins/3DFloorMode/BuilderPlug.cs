@@ -776,7 +776,7 @@ namespace CodeImp.DoomBuilder.ThreeDFloorMode
 				if (ld.Front == null || ld.Front.Sector == null || ld.Front.Sector.IsDisposed || (General.Map.UDMF && ld.Front.Sector.Fields.GetValue("user_managed_3d_floor", false) == false))
 					continue;
 
-				if (ld.Action == 160 && ld.Args[0] != 0)
+				if ((ld.Action >= 100 && ld.Action < 300) && ld.Args[0] != 0)
 				{
 					if (!tags.ContainsKey(ld.Args[0]))
 						tags.Add(ld.Args[0], new List<Sector>() { ld.Front.Sector });
