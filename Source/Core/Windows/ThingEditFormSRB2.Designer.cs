@@ -572,7 +572,6 @@
 			this.argscontrol.Name = "argscontrol";
 			this.argscontrol.Size = new System.Drawing.Size(603, 215);
 			this.argscontrol.TabIndex = 15;
-			this.argscontrol.Load += new System.EventHandler(this.argscontrol_Load);
 			// 
 			// grouptag
 			// 

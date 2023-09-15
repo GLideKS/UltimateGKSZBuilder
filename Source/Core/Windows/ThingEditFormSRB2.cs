@@ -894,10 +894,5 @@ namespace CodeImp.DoomBuilder.Windows
 		}
 
 		#endregion
-
-		private void argscontrol_Load(object sender, EventArgs e)
-		{
-
-		}
 	}
 }

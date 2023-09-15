@@ -50,7 +50,7 @@ namespace CodeImp.DoomBuilder.Controls
 			labels = new Label[] { arg0label, arg1label, arg2label, arg3label, arg4label, arg5label, arg6label, arg7label, arg8label, arg9label };
 			args = new ArgumentBox[] { arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9 };
 			stringlabels = new Label[] { stringarg0label, stringarg1label };
-			stringargs = new System.Windows.Forms.TextBox[] { stringarg0, stringarg1 };
+			stringargs = new TextBox[] { stringarg0, stringarg1 };
 		}
 
 		#endregion
