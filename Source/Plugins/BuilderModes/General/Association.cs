@@ -677,7 +677,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				if (BuilderPlug.Me.EventLineLabelStyle == 0 || General.Map.Config.LineTagIndicatesSectors)
 					return description;
 
-				for (int i=0; i < 5; i++)
+				for (int i=0; i < Linedef.NUM_ARGS; i++)
 				{
 					if(lai.Args[i].Used)
 					{
@@ -706,7 +706,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				List<string> argdescription = new List<string>();
 				ThingTypeInfo ti = General.Map.Data.GetThingInfoEx(((Thing)se).Type);
 
-				for (int i = 0; i < 5; i++)
+				for (int i = 0; i < Thing.NUM_ARGS; i++)
 				{
 					if (ti.Args[i].Used)
 					{
