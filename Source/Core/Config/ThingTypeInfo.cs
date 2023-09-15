@@ -78,7 +78,7 @@ namespace CodeImp.DoomBuilder.Config
 		private int blocking;
 		private int errorcheck;
 		private readonly bool fixedsize;
-		private readonly bool fixedrotation; //mxd
+		private bool fixedrotation; //mxd
 		private readonly ThingCategory category;
 		private readonly ArgumentInfo[] args;
 		private readonly ArgumentInfo[] stringargs;
@@ -583,8 +583,16 @@ namespace CodeImp.DoomBuilder.Config
 			}
 
 			//mxd. Some SLADE compatibility
-			if(actor.HasProperty("$angled")) this.arrow = true;
-			else if(actor.HasProperty("$notangled")) this.arrow = false;
+			if (actor.HasProperty("$angled"))
+			{
+				this.arrow = true;
+				this.fixedrotation = false;
+			}
+			else if (actor.HasProperty("$notangled"))
+			{
+				this.arrow = false;
+				this.fixedrotation = true;
+			}
 
 			//mxd. Marked as obsolete?
 			if(actor.HasPropertyWithValue("$obsolete"))
