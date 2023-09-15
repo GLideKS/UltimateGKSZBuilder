@@ -58,7 +58,9 @@ namespace CodeImp.DoomBuilder.Config
 		KEYCONF,
 		FONTDEFS,
         ZSCRIPT,
-		DECALDEF
+		DECALDEF,
+		//SOC,
+		LUA
 	}
 	
 	public class ScriptConfiguration : IComparable<ScriptConfiguration>

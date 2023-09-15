@@ -133,6 +133,7 @@ namespace CodeImp.DoomBuilder.Data
 		// Things combined with things created from Decorate
 		private DecorateParser decorate;
         private ZScriptParser zscript;
+		private LuaParser lua;
         private Dictionary<string, ActorStructure> zdoomclasses;
 		private List<ThingCategory> thingcategories;
 		private Dictionary<int, ThingTypeInfo> thingtypes;
@@ -460,6 +461,7 @@ namespace CodeImp.DoomBuilder.Data
 			LoadDehackedThings();
             LoadZScriptThings();
             LoadDecorateThings();
+			LoadLuaThings();
 			ApplyDehackedThings();
 			FixRenamedDehackedSprites();
             int thingcount = ApplyZDoomThings(spawnnums, doomednums);
@@ -1844,8 +1846,42 @@ namespace CodeImp.DoomBuilder.Data
 			}
 		}
 
-        // [ZZ] this retrieves ZDoom actor structure by class name.
-        public ActorStructure GetZDoomActor(string classname)
+		// sphere: This loads things from SRB2 Lua files.
+		private void LoadLuaThings()
+		{
+			// Create new parser
+			lua = new LuaParser();
+
+			// Go for all opened containers
+			foreach (DataReader dr in containers)
+			{
+				// Load Lua info cumulatively (the last Lua is added to the previous)
+				// I'm not sure if this is the right thing to do though.
+				currentreader = dr;
+				foreach (TextResourceData data in dr.GetLuaData())
+				{
+					// Parse the data
+					data.Stream.Seek(0, SeekOrigin.Begin);
+					lua.Parse(data, true);
+
+					//mxd. DECORATE lumps are interdepandable. Can't carry on...
+					if (lua.HasError)
+					{
+						lua.LogError();
+						break;
+					}
+				}
+			}
+
+			//mxd. Add to text resources collection
+			currentreader = null;
+
+			if (lua.HasError)
+				lua.ClearActors();
+		}
+
+		// [ZZ] this retrieves ZDoom actor structure by class name.
+		public ActorStructure GetZDoomActor(string classname)
         {
             classname = classname.ToLowerInvariant();
             ActorStructure outv;
@@ -1886,6 +1922,37 @@ namespace CodeImp.DoomBuilder.Data
             Dictionary<string, ActorStructure> mergedActorsByClass = decorate.ActorsByClass.Concat(zscript.ActorsByClass.Where(x => !decorate.ActorsByClass.ContainsKey(x.Key))).ToDictionary(k => k.Key, v => v.Value);
             Dictionary<string, ActorStructure> mergedAllActorsByClass = decorate.AllActorsByClass.Concat(zscript.AllActorsByClass.Where(x => !decorate.AllActorsByClass.ContainsKey(x.Key))).ToDictionary(k => k.Key, v => v.Value);
             zdoomclasses = mergedAllActorsByClass;
+
+			// Parse SRB2 Lua/SOC objects
+			IEnumerable<ActorStructure> mobjs = lua.Mobjs; // lua.Mobjs.Union(soc.Mobjs);
+
+			foreach (ActorStructure actor in mobjs)
+			{
+				// Check if we want to add this actor
+				if (actor.DoomEdNum > 0)
+				{
+					// Check if we can find this thing in our existing collection
+					if (thingtypes.ContainsKey(actor.DoomEdNum))
+					{
+						// Update the thing
+						thingtypes[actor.DoomEdNum].ModifyByDecorateActor(actor);
+					}
+					else
+					{
+						// Find the category to put the actor in
+						ThingCategory cat = GetThingCategory(null, thingcategories, GetCategoryInfo(actor)); //mxd
+
+						// Add new thing
+						ThingTypeInfo t = new ThingTypeInfo(cat, actor); ;
+
+						cat.AddThing(t);
+						thingtypes.Add(t.Index, t);
+					}
+
+					// Count
+					counter++;
+				}
+			}
 
 			// Dictionary of replaced actors that have to be recategorized
 			Dictionary<int, ActorStructure> recategorizeactors = new Dictionary<int, ActorStructure>();

@@ -260,6 +260,9 @@ namespace CodeImp.DoomBuilder.Data
 		// When implemented, this returns the list of IWAD infos
 		public abstract List<IWadInfo> GetIWadInfos();
 
+		// When implemented, this returns Lua lumps
+		public abstract IEnumerable<TextResourceData> GetLuaData();
+
 		#endregion
 
 		#region ================== Load/Save (mxd)

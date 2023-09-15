@@ -766,6 +766,35 @@ namespace CodeImp.DoomBuilder.Data
 
 		#endregion
 
+		#region ================== Lua
+
+		// sphere
+		public override IEnumerable<TextResourceData> GetLuaData()
+		{
+			// Error when suspended
+			if (issuspended) throw new Exception("Data reader is suspended");
+
+			List<TextResourceData> result = new List<TextResourceData>();
+
+			List<string> files = new List<string>();
+
+			// Can be several entries
+			files.AddRange(GetAllFilesWhichTitleStartsWith("", "LUA_", true));
+			files.AddRange(GetFilesWithExt("", "lua", true));
+
+			// Add to collection
+			foreach (string s in files)
+				result.Add(new TextResourceData(this, LoadFile(s), s, true));
+
+			// Find in any of the wad files
+			foreach (WADReader wr in wads) result.AddRange(wr.GetLuaData());
+
+			return result;
+		}
+
+		#endregion
+
+
 		#region ================== Generic text lumps loading (mxd)
 
 		public override IEnumerable<TextResourceData> GetTextLumpData(ScriptType scripttype, bool singular, bool partialtitlematch)

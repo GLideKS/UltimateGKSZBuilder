@@ -1135,6 +1135,14 @@ namespace CodeImp.DoomBuilder.Data
 			return result;
 		}
 
+		// sphere
+		public override IEnumerable<TextResourceData> GetLuaData()
+		{
+			if (issuspended) throw new Exception("Data reader is suspended");
+
+			return GetAllLumpsData("LUA_");
+		}
+
 		//mxd
 		public override IEnumerable<TextResourceData> GetTextLumpData(ScriptType scripttype, bool singular, bool ignored)
 		{

@@ -240,11 +240,11 @@ namespace CodeImp.DoomBuilder.ZDoom
 				c = (char)datareader.ReadByte();
 
 				// Check if this is comment
-				if(c == '/')
+				if (c == '/' || c == '-') // SRB2 Lua allows -- as comment syntax
 				{
 					if(datastream.Position == datastream.Length) return false;
 					char c2 = (char)datareader.ReadByte();
-					if(c2 == '/')
+					if(c2 == c)
 					{
 						// Check if not a special comment with a token
 						if(datastream.Position == datastream.Length) return false;

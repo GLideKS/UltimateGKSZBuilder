@@ -22,6 +22,7 @@ using System.Globalization;
 using CodeImp.DoomBuilder.Config;
 using CodeImp.DoomBuilder.Data;
 using CodeImp.DoomBuilder.Types;
+using CodeImp.DoomBuilder.Map;
 
 #endregion
 
@@ -60,7 +61,7 @@ namespace CodeImp.DoomBuilder.ZDoom
         internal DecorateCategoryInfo catinfo;
 
         // [ZZ] direct ArgumentInfos (from game configuration), or own ArgumentInfos (from props)
-        internal ArgumentInfo[] args = new ArgumentInfo[5];
+        internal ArgumentInfo[] args = new ArgumentInfo[Thing.NUM_ARGS];
 
         // States
         internal Dictionary<string, StateStructure> states;
@@ -404,7 +405,7 @@ namespace CodeImp.DoomBuilder.ZDoom
         /// </summary>
         public void ParseCustomArguments()
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < Thing.NUM_ARGS; i++)
             {
                 if (HasProperty("$arg" + i))
                     args[i] = new ArgumentInfo(this, i);
