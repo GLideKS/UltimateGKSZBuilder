@@ -779,8 +779,7 @@ namespace CodeImp.DoomBuilder.Data
 			List<string> files = new List<string>();
 
 			// Can be several entries
-			files.AddRange(GetAllFilesWhichTitleStartsWith("", "LUA_", true));
-			files.AddRange(GetFilesWithExt("", "lua", true));
+			files.AddRange(GetAllFiles("lua", true));
 
 			// Add to collection
 			foreach (string s in files)

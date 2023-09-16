@@ -48,35 +48,20 @@ namespace CodeImp.DoomBuilder.ZDoom
 						// Property begins with $? Then the whole line is a single value
 						if (token.Contains("$"))
 						{
-							bool isflag = false;
-							bool isname = false;
-
 							switch (token)
 							{
-								case "$name":
-									token = "$title";
-									isname = true;
-									break;
 								case "$wallsprite":
 								case "$flatsprite":
 								case "$spawnceiling":
-									isflag = true;
+									flags[token.Substring(1)] = true;
+									parser.ReadLine();
 									break;
-							}
-							// This is for editor-only properties such as $sprite and $category
-							string t = token;
-							if (isflag)
-							{
-								parser.SkipWhitespace(false);
-								string val = parser.ReadLine();
-								flags[t.Substring(1)] = (val == "true" || val == "1") ? true : false;
-							}
-							else
-								props[token] = new List<string> { (parser.SkipWhitespace(false) ? parser.ReadLine() : "") };
-
-							if (isname)
-							{
-								General.WriteLogLine("name = " + props["$title"][0]);
+								case "$name":
+									token = "$title";
+									goto default;
+								default:
+									props[token] = new List<string> { (parser.SkipWhitespace(false) ? parser.ReadLine() : "") };
+									break;
 							}
 						}
 						else
@@ -110,11 +95,10 @@ namespace CodeImp.DoomBuilder.ZDoom
 									break;
 								case "doomednum":
 									doomednum = int.Parse(values[0]);
-									General.WriteLogLine("parsed doomednum: " + DoomEdNum);
 									goto default;
 								case "height":
 								case "radius":
-									props[tokenname] = new List<string>() { GetNumbers(values[0]).ToString() };
+									props[tokenname] = new List<string>() { ReadFracunit(values[0]).ToString() };
 									break;
 								default:
 									props[tokenname] = values;
@@ -131,9 +115,12 @@ namespace CodeImp.DoomBuilder.ZDoom
 			ParseCustomArguments();
 		}
 
-		private static string GetNumbers(string input)
+		private static string ReadFracunit(string input)
 		{
-			return new string(input.Where(c => char.IsDigit(c)).ToArray());
+			if (input.Contains("FRACUNIT") || input.Contains("FRACBITS"))
+				return new string(input.Where(c => char.IsDigit(c)).ToArray());
+			else
+				return (Int32.Parse(input) >> 16).ToString();
 		}
 
 		#endregion
