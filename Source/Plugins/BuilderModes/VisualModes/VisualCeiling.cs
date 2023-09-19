@@ -436,7 +436,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		}
 
 		//mxd. Sector brightness change
-		public override void OnChangeTargetBrightness(bool up) 
+		public override void OnChangeTargetBrightness(bool up, bool local) 
 		{
 			if(level != null && level.sector != Sector.Sector) 
 			{
@@ -451,17 +451,17 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				}
 
 				if(index > -1 && index < Sector.ExtraCeilings.Count)
-					((BaseVisualSector)mode.GetVisualSector(Sector.ExtraCeilings[index].level.sector)).Floor.OnChangeTargetBrightness(up);
+					((BaseVisualSector)mode.GetVisualSector(Sector.ExtraCeilings[index].level.sector)).Floor.OnChangeTargetBrightness(up, false);
 				else
-					base.OnChangeTargetBrightness(up);
+					base.OnChangeTargetBrightness(up, false);
 			} 
 			else 
 			{
 				// Change the sector brightness if the map is not in UDMF format, or this ceiling is part of 3D-floor,
-				// or the game configuration doesn't support distinct surfave brightnesses
-				if(!General.Map.UDMF || (level != null && Sector.Sector != level.sector) || !General.Map.Config.DistinctFloorAndCeilingBrightness) 
+				// or the game configuration doesn't support distinct surface brightnesses
+				if(!General.Map.UDMF || (level != null && Sector.Sector != level.sector) || !General.Map.Config.DistinctFloorAndCeilingBrightness || !local) 
 				{
-					base.OnChangeTargetBrightness(up);
+					base.OnChangeTargetBrightness(up, false);
 					return;
 				}
 

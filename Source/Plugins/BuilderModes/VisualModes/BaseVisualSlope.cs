@@ -110,7 +110,7 @@ namespace CodeImp.DoomBuilder.VisualModes
 		// Unused
 		public void OnSelectBegin() { }
 		public void OnEditBegin() { }
-		public void OnChangeTargetBrightness(bool up) { }
+		public void OnChangeTargetBrightness(bool up, bool local) { }
 		public void OnChangeTextureOffset(int horizontal, int vertical, bool doSurfaceAngleCorrection) { }
 		public void OnSelectTexture() { }
 		public void OnCopyTexture() { }

@@ -3508,18 +3508,20 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		[BeginAction("raisebrightness8")]
 		public void RaiseBrightness8()
 		{
+			bool local = General.Interface.AltState;
 			PreAction(UndoGroup.SectorBrightnessChange);
 			List<IVisualEventReceiver> objs = GetSelectedObjects(true, true, false, false, false);
-			foreach(IVisualEventReceiver i in objs) i.OnChangeTargetBrightness(true);
+			foreach(IVisualEventReceiver i in objs) i.OnChangeTargetBrightness(true, local);
 			PostAction();
 		}
 
 		[BeginAction("lowerbrightness8")]
 		public void LowerBrightness8()
 		{
+			bool local = General.Interface.AltState;
 			PreAction(UndoGroup.SectorBrightnessChange);
 			List<IVisualEventReceiver> objs = GetSelectedObjects(true, true, false, false, false);
-			foreach(IVisualEventReceiver i in objs) i.OnChangeTargetBrightness(false);
+			foreach(IVisualEventReceiver i in objs) i.OnChangeTargetBrightness(false, local);
 			PostAction();
 		}
 

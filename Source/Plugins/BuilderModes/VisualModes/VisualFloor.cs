@@ -390,30 +390,53 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		}
 
 		//mxd. Sector brightness change
-		public override void OnChangeTargetBrightness(bool up) 
+		public override void OnChangeTargetBrightness(bool up, bool local) 
 		{
-			if(level != null) 
+			// This floor is part of 3D-floor
+			if (level != null && level.sector != Sector.Sector)
 			{
-				// This floor is part of 3D-floor
-				if(level.sector != Sector.Sector)
+				BaseVisualSector vs = (BaseVisualSector)mode.GetVisualSector(level.sector);
+				vs.Floor.OnChangeTargetBrightness(up, local);
+				vs.UpdateSectorGeometry(true);
+			}
+			// This is actual floor of a sector with extrafloors
+			else if (level != null && Sector.ExtraFloors.Count > 0 && !Sector.ExtraFloors[0].ExtraFloor.Floor.restrictlighting && !Sector.ExtraFloors[0].ExtraFloor.Floor.disablelighting)
+			{
+				Sector.ExtraFloors[0].OnChangeTargetBrightness(up, local);
+			}
+			else
+			{
+				// Change the sector brightness if the map is not in UDMF format, or this floor is part of 3D-floor,
+				// or the game configuration doesn't support distinct surface brightnesses
+				if (!General.Map.UDMF || (level != null && Sector.Sector != level.sector) || !General.Map.Config.DistinctFloorAndCeilingBrightness || !local)
 				{
-					BaseVisualSector vs = (BaseVisualSector)mode.GetVisualSector(level.sector);
-					vs.Floor.OnChangeTargetBrightness(up);
-					vs.UpdateSectorGeometry(true);
+					base.OnChangeTargetBrightness(up, false);
+					return;
 				}
-				// This is actual floor of a sector with extrafloors
-				else if(Sector.ExtraFloors.Count > 0 && !Sector.ExtraFloors[0].ExtraFloor.Floor.restrictlighting && !Sector.ExtraFloors[0].ExtraFloor.Floor.disablelighting)
-				{
-					Sector.ExtraFloors[0].OnChangeTargetBrightness(up);
-				}
+
+				int light = Sector.Sector.Fields.GetValue("lightfloor", 0);
+				bool absolute = Sector.Sector.Fields.GetValue("lightfloorabsolute", false);
+				int newLight;
+
+				if (up)
+					newLight = General.Map.Config.BrightnessLevels.GetNextHigher(light, absolute);
 				else
-				{
-					base.OnChangeTargetBrightness(up);
-				}
-			} 
-			else 
-			{
-				base.OnChangeTargetBrightness(up);
+					newLight = General.Map.Config.BrightnessLevels.GetNextLower(light, absolute);
+
+				if (newLight == light) return;
+
+				//create undo
+				mode.CreateUndo("Change floor brightness", UndoGroup.SurfaceBrightnessChange, Sector.Sector.FixedIndex);
+				Sector.Sector.Fields.BeforeFieldsChange();
+
+				//apply changes
+				UniFields.SetInteger(Sector.Sector.Fields, "lightfloor", newLight, (absolute ? int.MinValue : 0));
+				mode.SetActionResult("Changed floor brightness to " + newLight + ".");
+				Sector.Sector.UpdateNeeded = true;
+				Sector.Sector.UpdateCache();
+
+				//rebuild sector
+				Sector.UpdateSectorGeometry(false);
 			}
 		}
 

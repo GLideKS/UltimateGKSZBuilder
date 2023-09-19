@@ -1585,10 +1585,10 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		}
 		
 		// Sector brightness change
-		public virtual void OnChangeTargetBrightness(bool up)
+		public virtual void OnChangeTargetBrightness(bool up, bool local)
 		{
 			//mxd. Change UDMF wall light?
-			if(General.Map.UDMF && (General.Map.Config.DistinctWallBrightness || General.Map.Config.DistinctSidedefPartBrightness))
+			if(General.Map.UDMF && (General.Map.Config.DistinctWallBrightness || General.Map.Config.DistinctSidedefPartBrightness) && local)
 			{
 				string fieldname = "light";
 				string fieldabsolutename = "lightabsolute";

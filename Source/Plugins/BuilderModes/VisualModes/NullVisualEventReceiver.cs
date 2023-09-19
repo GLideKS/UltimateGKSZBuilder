@@ -33,7 +33,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		public void OnEditEnd()	{ }
 		public void OnMouseMove(MouseEventArgs e) {	}
 		public void OnChangeTargetHeight(int amount) { }
-		public void OnChangeTargetBrightness(bool up) { }
+		public void OnChangeTargetBrightness(bool up, bool local) { }
 		public void OnChangeTextureOffset(int horizontal, int vertical, bool doSurfaceAngleCorrection) { }
 		public void OnChangeScale(int incrementX, int incrementY) { } //mxd
 		public void OnResetTextureOffset() { }

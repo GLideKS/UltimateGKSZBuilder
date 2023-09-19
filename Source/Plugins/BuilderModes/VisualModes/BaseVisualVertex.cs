@@ -240,7 +240,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		public void OnSelectBegin() { }
 		public void OnEditBegin() { }
 		public void OnMouseMove(MouseEventArgs e) { }
-		public void OnChangeTargetBrightness(bool up) { }
+		public void OnChangeTargetBrightness(bool up, bool local) { }
 		public void OnChangeTextureOffset(int horizontal, int vertical, bool doSurfaceAngleCorrection) { }
 		public void OnChangeScale(int incrementX, int incrementY) { }
 		public void OnSelectTexture() { }

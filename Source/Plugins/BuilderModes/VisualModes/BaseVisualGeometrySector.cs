@@ -830,7 +830,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		}
 
 		// Sector brightness change
-		public virtual void OnChangeTargetBrightness(bool up)
+		public virtual void OnChangeTargetBrightness(bool up, bool local)
 		{
 			mode.CreateUndo("Change sector brightness", UndoGroup.SectorBrightnessChange, Sector.Sector.FixedIndex);
 			
