@@ -396,6 +396,22 @@ namespace CodeImp.DoomBuilder.Config
 
 			if(this.enumlist == null) this.enumlist = new EnumList();
 		}
+		internal ArgumentInfo(ActorStructure actor, int i, bool stringarg)
+		{
+			if (!actor.HasPropertyWithValue("$stringarg" + i))
+			{
+				used = false;
+				return;
+			}
+
+			string argtitle = ZDTextParser.StripQuotes(actor.GetPropertyAllValues("$stringarg" + i));
+			string tooltip = ZDTextParser.StripQuotes(actor.GetPropertyAllValues("$stringarg" + i + "tooltip").Replace("\\n", Environment.NewLine));
+
+			this.used = true;
+			this.title = argtitle;
+			this.tooltip = tooltip;
+
+		}
 
 		// Constructor for unknown argument info
 		internal ArgumentInfo(int argindex, bool isstringarg)

@@ -582,6 +582,14 @@ namespace CodeImp.DoomBuilder.Config
                     args[i] = arg;
 			}
 
+			//sphere: Custom string argument titles?
+			for (int i = 0; i < stringargs.Length; i++)
+			{
+				ArgumentInfo arg = actor.GetStringArgumentInfo(i);
+				if (arg != null)
+					stringargs[i] = arg;
+			}
+
 			//mxd. Some SLADE compatibility
 			if (actor.HasProperty("$angled"))
 			{

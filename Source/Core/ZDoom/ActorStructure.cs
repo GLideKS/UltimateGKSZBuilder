@@ -62,9 +62,10 @@ namespace CodeImp.DoomBuilder.ZDoom
 
         // [ZZ] direct ArgumentInfos (from game configuration), or own ArgumentInfos (from props)
         internal ArgumentInfo[] args = new ArgumentInfo[Thing.NUM_ARGS];
+		internal ArgumentInfo[] stringargs = new ArgumentInfo[Thing.NUM_STRING_ARGS];
 
-        // States
-        internal Dictionary<string, StateStructure> states;
+		// States
+		internal Dictionary<string, StateStructure> states;
 		
 		#endregion
 		
@@ -411,6 +412,13 @@ namespace CodeImp.DoomBuilder.ZDoom
                     args[i] = new ArgumentInfo(this, i);
                 else args[i] = null;
             }
+
+			for (int i = 0; i < Thing.NUM_STRING_ARGS; i++)
+			{
+				if (HasProperty("$stringarg" + i))
+					stringargs[i] = new ArgumentInfo(this, i, true);
+				else stringargs[i] = null;
+			}
         }
 
         public ArgumentInfo GetArgumentInfo(int idx)
@@ -423,8 +431,19 @@ namespace CodeImp.DoomBuilder.ZDoom
             if (baseclass != null)
                 return baseclass.GetArgumentInfo(idx);
             return null;
-        }
-		
+		}
+		public ArgumentInfo GetStringArgumentInfo(int idx)
+		{
+			if (stringargs[idx] != null)
+				return stringargs[idx];
+			// if we have $clearargs, don't inherit anything!
+			if (props.ContainsKey("$clearargs"))
+				return null;
+			if (baseclass != null)
+				return baseclass.GetStringArgumentInfo(idx);
+			return null;
+		}
+
 		#endregion
 	}
 }
