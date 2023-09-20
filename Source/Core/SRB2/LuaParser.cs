@@ -121,29 +121,48 @@ namespace CodeImp.DoomBuilder.ZDoom
 			{
 				// Read a token
 				string token = ReadToken();
+
 				if (!string.IsNullOrEmpty(token))
 				{
-					if (!token.StartsWith("mobjinfo[") || !token.EndsWith("]")) continue;
-					string objname = token.Substring(9).TrimEnd(new char[] { ']' });
+					string objname = null;
+					int editnum = 0;
 
-					SkipWhitespace(true);
-					token = ReadToken();
-					if (token != "=")
+					if (token.Contains("$EditInfo"))
 					{
-						continue;
+						SkipWhitespace(true);
+						token = ReadToken();
+
+						bool valid = int.TryParse(token, out editnum);
+						if (!valid || editnum <= 0)
+						{
+							continue;
+						}
+					}
+					else
+					{
+						if (!token.StartsWith("mobjinfo[") || !token.EndsWith("]")) continue;
+						objname = token.Substring(9).TrimEnd(new char[] { ']' });
+
+						SkipWhitespace(true);
+						token = ReadToken();
+
+						if (token != "=")
+						{
+							continue;
+						}
 					}
 
 					SkipWhitespace(true);
 					token = ReadToken();
+
 					if (token != "{")
 					{
 						ReportError("Invalid object definition, missing {");
 						return false;
 					}
+
 					// Read actor structure
-					ActorStructure mobj = new LuaMobjStructure(this, objname);
-					if (mobj.props.ContainsKey("doomednum"))
-						General.WriteLogLine("Mobj doomednum = " + mobj.props["doomednum"][0]);
+					ActorStructure mobj = new LuaMobjStructure(this, objname, editnum);
 					if (this.HasError) return false;
 
 					mobjs[mobj.DoomEdNum] = mobj;

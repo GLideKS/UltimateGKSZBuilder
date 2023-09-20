@@ -1936,6 +1936,11 @@ namespace CodeImp.DoomBuilder.Data
 					{
 						// Update the thing
 						thingtypes[actor.DoomEdNum].ModifyByDecorateActor(actor);
+
+						// Re-assign category in case it changed
+						thingtypes[actor.DoomEdNum].Category.RemoveThing(thingtypes[actor.DoomEdNum]);
+						ThingCategory tc = GetThingCategory(null, thingcategories, GetCategoryInfo(actor));
+						tc.AddThing(thingtypes[actor.DoomEdNum]);
 					}
 					else
 					{

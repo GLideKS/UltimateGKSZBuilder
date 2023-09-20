@@ -14,7 +14,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 	{
         #region ================== DECORATE Actor Structure parsing
 
-        internal LuaMobjStructure(ZDTextParser zdparser, string objname)
+        internal LuaMobjStructure(ZDTextParser zdparser, string objname, int editnum)
         {
 			classname = string.Empty;
 
@@ -22,11 +22,14 @@ namespace CodeImp.DoomBuilder.ZDoom
             bool done = false; //mxd
 			General.WriteLogLine(objname);
 
-			if (string.IsNullOrEmpty(objname))
+			if (string.IsNullOrEmpty(objname) && editnum == 0)
             {
-                parser.ReportError("Expected actor class name");
+                parser.ReportError("Lua object structure has no object name or map thing number");
                 return;
             }
+
+			if (editnum > 0)
+				doomednum = editnum;
 
 			// Now parse the contents of actor structure
 
@@ -38,6 +41,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 				switch (token)
 				{
 					case "}":
+					case "$}":
 						// Actor scope ends here, break out of this parse loop
 						done = true;
 						break;
@@ -94,7 +98,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 									props["yscale"] = values;
 									break;
 								case "doomednum":
-									doomednum = int.Parse(values[0]);
+									doomednum = (editnum > 0) ? editnum : int.Parse(values[0]);
 									goto default;
 								case "height":
 								case "radius":
