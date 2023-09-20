@@ -497,7 +497,10 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 				if(tti == null) continue;
 
 				Vector3D pos = t.Position;
-				pos.z += GetCorrectHeight(t, blockmap, false);
+				if (t.AbsoluteZ)
+					pos.z = GetCorrectHeight(t, blockmap, tti.CenterHitbox);
+				else
+					pos.z += GetCorrectHeight(t, blockmap, tti.CenterHitbox);
 
 				for(int i = 0; i < t.Args.Length; i++)
 				{
@@ -1051,10 +1054,16 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 		// Required only when called from VisualMode
 		private static double GetCorrectHeight(Thing thing, VisualBlockMap blockmap, bool usethingcenter)
 		{
-			if(blockmap == null) return 0f;
-			double height = (usethingcenter ? thing.Height / 2f : 0f);
-			if(thing.Sector == null) thing.DetermineSector(blockmap);
-			if(thing.Sector != null) height += thing.Sector.FloorHeight;
+			if (blockmap == null) return 0f;
+			double height = (usethingcenter ? 0f : (thing.IsFlipped ? thing.Height : 0f));
+
+			if (thing.AbsoluteZ)
+				height = thing.Position.z + height;
+			else
+			{
+				if (thing.Sector == null) thing.DetermineSector(blockmap);
+				if (thing.Sector != null) height += thing.Sector.FloorHeight;
+			}
 			return height;
 		}
 
