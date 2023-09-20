@@ -331,8 +331,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					// Determine sprite size and offset
 					float radius = sprite.ScaledWidth * 0.5f;
 					float height = sprite.ScaledHeight;
-					offsets.x = radius - (sprite.OffsetX == int.MinValue ? 0 : sprite.OffsetX);
-					offsets.y = (sprite.OffsetY == int.MinValue ? 0 : sprite.OffsetY) - height;
+					offsets.x = radius - (sprite.OffsetX == int.MinValue ? 0 : sprite.OffsetX) * sprite.Scale.x;
+					offsets.y = (sprite.OffsetY == int.MinValue ? 0 : sprite.OffsetY) * sprite.Scale.y - height;
 
 					// Scale by thing type/actor scale
 					// We do this after the offset x/y determination above, because that is entirely in sprite pixels space

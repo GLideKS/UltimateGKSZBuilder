@@ -65,7 +65,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		protected bool autoclosedrawing;  //mxd. Finish drawing when new points and existing geometry form a closed shape
 		protected bool drawingautoclosed; //mxd
 		protected bool showguidelines; //mxd
-		protected bool placethingsatvertices; //sphere: place things at vertices?
+		protected bool placethingsatvertices;
 
 		//mxd. Map area bounds
 		private Line2D top, bottom, left, right;
