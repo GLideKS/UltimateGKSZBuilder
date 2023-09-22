@@ -558,34 +558,36 @@ namespace CodeImp.DoomBuilder.VisualModes
 				// Trash cage buffer
 				if(cagebuffer != null) cagebuffer.Dispose();
 				cagebuffer = null;
+				float thingsize = thing.Size * (float)UniFields.GetFloat(Thing.Fields, "mobjscale", 1.0f);
+				float thingheight = thing.Height * (float)UniFields.GetFloat(Thing.Fields, "mobjscale", 1.0f);
 
 				// Make a new cage
-				List<WorldVertex> cageverts;
+				List <WorldVertex> cageverts;
 				if(sizeless)
 				{
-					WorldVertex v0 = new WorldVertex(-thing.Size + position_v3.X, -thing.Size + position_v3.Y, position_v3.Z);
-					WorldVertex v1 = new WorldVertex(thing.Size + position_v3.X, thing.Size + position_v3.Y, position_v3.Z);
-					WorldVertex v2 = new WorldVertex(thing.Size + position_v3.X, -thing.Size + position_v3.Y, position_v3.Z);
-					WorldVertex v3 = new WorldVertex(-thing.Size + position_v3.X, thing.Size + position_v3.Y, position_v3.Z);
-					WorldVertex v4 = new WorldVertex(position_v3.X, position_v3.Y, thing.Size + position_v3.Z);
-					WorldVertex v5 = new WorldVertex(position_v3.X, position_v3.Y, -thing.Size + position_v3.Z);
+					WorldVertex v0 = new WorldVertex(-thingsize + position_v3.X, -thingsize + position_v3.Y, position_v3.Z);
+					WorldVertex v1 = new WorldVertex(thingsize + position_v3.X, thingsize + position_v3.Y, position_v3.Z);
+					WorldVertex v2 = new WorldVertex(thingsize + position_v3.X, -thingsize + position_v3.Y, position_v3.Z);
+					WorldVertex v3 = new WorldVertex(-thingsize + position_v3.X, thingsize + position_v3.Y, position_v3.Z);
+					WorldVertex v4 = new WorldVertex(position_v3.X, position_v3.Y, thingsize + position_v3.Z);
+					WorldVertex v5 = new WorldVertex(position_v3.X, position_v3.Y, -thingsize + position_v3.Z);
 
 					cageverts = new List<WorldVertex>(new[] { v0, v1, v2, v3, v4, v5 });
 				}
 				else
 				{
-					float top = position_v3.Z + (info.CenterHitbox ? thing.Height / 2 : thing.Height);
-					float bottom = position_v3.Z - (info.CenterHitbox ? thing.Height / 2 : 0);
+					float top = position_v3.Z + (info.CenterHitbox ? thingheight / 2 : thingheight);
+					float bottom = position_v3.Z - (info.CenterHitbox ? thingheight / 2 : 0);
 
-					WorldVertex v0 = new WorldVertex(-thing.Size + position_v3.X, -thing.Size + position_v3.Y, bottom);
-					WorldVertex v1 = new WorldVertex(-thing.Size + position_v3.X, thing.Size + position_v3.Y, bottom);
-					WorldVertex v2 = new WorldVertex(thing.Size + position_v3.X, thing.Size + position_v3.Y, bottom);
-					WorldVertex v3 = new WorldVertex(thing.Size + position_v3.X, -thing.Size + position_v3.Y, bottom);
+					WorldVertex v0 = new WorldVertex(-thingsize + position_v3.X, -thingsize + position_v3.Y, bottom);
+					WorldVertex v1 = new WorldVertex(-thingsize + position_v3.X, thingsize + position_v3.Y, bottom);
+					WorldVertex v2 = new WorldVertex(thingsize + position_v3.X, thingsize + position_v3.Y, bottom);
+					WorldVertex v3 = new WorldVertex(thingsize + position_v3.X, -thingsize + position_v3.Y, bottom);
 
-					WorldVertex v4 = new WorldVertex(-thing.Size + position_v3.X, -thing.Size + position_v3.Y, top);
-					WorldVertex v5 = new WorldVertex(-thing.Size + position_v3.X, thing.Size + position_v3.Y, top);
-					WorldVertex v6 = new WorldVertex(thing.Size + position_v3.X, thing.Size + position_v3.Y, top);
-					WorldVertex v7 = new WorldVertex(thing.Size + position_v3.X, -thing.Size + position_v3.Y, top);
+					WorldVertex v4 = new WorldVertex(-thingsize + position_v3.X, -thingsize + position_v3.Y, top);
+					WorldVertex v5 = new WorldVertex(-thingsize + position_v3.X, thingsize + position_v3.Y, top);
+					WorldVertex v6 = new WorldVertex(thingsize + position_v3.X, thingsize + position_v3.Y, top);
+					WorldVertex v7 = new WorldVertex(thingsize + position_v3.X, -thingsize + position_v3.Y, top);
 
 					cageverts = new List<WorldVertex>(new[] { v0, v1,	
 															  v1, v2,
@@ -604,7 +606,7 @@ namespace CodeImp.DoomBuilder.VisualModes
 				// Make new arrow
 				if(Thing.IsDirectional)
 				{
-					Matrix transform = Matrix.Scaling(thing.Size, thing.Size, thing.Size)
+					Matrix transform = Matrix.Scaling(thingsize, thingsize, thingsize)
 						* (Matrix.RotationY((float)-Thing.RollRad) * Matrix.RotationX((float)-Thing.PitchRad) * Matrix.RotationZ((float)Thing.Angle))
 						* ((sizeless || info.CenterHitbox) ? position : position * Matrix.Translation(0.0f, 0.0f, thingheight / 2f));
 
