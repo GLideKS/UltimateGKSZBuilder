@@ -140,24 +140,26 @@ namespace CodeImp.DoomBuilder.Controls
 			stringarginfo = General.Map.Config.LinedefActions[showaction].StringArgs;
 
 			//mxd. Don't update action args when old and new argument infos match
-			if (arginfo != null && oldarginfo != null && stringarginfo != null && oldstringarginfo != null && ArgumentInfosMatch(arginfo, oldarginfo) && ArgumentInfosMatch(stringarginfo, oldstringarginfo)) return;
+			if (arginfo != null && oldarginfo != null && stringarginfo != null && oldstringarginfo != null && ArgumentInfosMatch(arginfo, oldarginfo) && ArgumentInfosMatch(stringarginfo, oldstringarginfo))
+				return;
 
 			// Change the argument descriptions
 			this.BeginUpdate();
 
 			for (int i = 0; i < args.Length; i++)
 				UpdateArgument(args[i], labels[i], arginfo[i]);
-
+			
 			for (int i = 0; i < stringargs.Length; i++)
 				UpdateStringArgument(stringargs[i], stringlabels[i], stringarginfo[i]);
-
+			
 			if (!setuponly)
 			{
 				// Apply action's default arguments
 				if (showaction != 0)
 				{
 					for (int i = 0; i < args.Length; i++)
-						args[i].SetDefaultValue();
+						if (!ArgumentInfoMatches(arginfo, oldarginfo, i))
+							args[i].SetDefaultValue();
 				}
 				else //or set them to 0
 				{
@@ -166,7 +168,8 @@ namespace CodeImp.DoomBuilder.Controls
 				}
 
 				for (int i = 0; i < stringargs.Length; i++)
-					stringargs[i].Text = string.Empty;
+					if (!ArgumentInfoMatches(stringarginfo, oldstringarginfo, i))
+						stringargs[i].Text = string.Empty;
 			}
 
 			// Store current action
@@ -194,7 +197,8 @@ namespace CodeImp.DoomBuilder.Controls
 			}
 
 			//mxd. Don't update args when old and new argument infos match
-			if (arginfo != null && oldarginfo != null && stringarginfo != null && oldstringarginfo != null && ArgumentInfosMatch(arginfo, oldarginfo) && ArgumentInfosMatch(stringarginfo, oldstringarginfo)) return;
+			if (arginfo != null && oldarginfo != null && stringarginfo != null && oldstringarginfo != null && ArgumentInfosMatch(arginfo, oldarginfo) && ArgumentInfosMatch(stringarginfo, oldstringarginfo))
+				return;
 
 			// Change the argument descriptions
 			this.BeginUpdate();
@@ -209,7 +213,8 @@ namespace CodeImp.DoomBuilder.Controls
 			if (info != null)
 			{
 				for (int i = 0; i < args.Length; i++)
-					args[i].SetDefaultValue();
+					if (!ArgumentInfoMatches(arginfo, oldarginfo, i))
+						args[i].SetDefaultValue();
 			}
 			else //or set them to 0
 			{
@@ -218,7 +223,8 @@ namespace CodeImp.DoomBuilder.Controls
 			}
 
 			for (int i = 0; i < stringargs.Length; i++)
-				stringargs[i].Text = string.Empty;
+				if (!ArgumentInfoMatches(stringarginfo, oldstringarginfo, i))
+					stringargs[i].Text = string.Empty;
 
 			this.EndUpdate();
 		}
@@ -281,6 +287,13 @@ namespace CodeImp.DoomBuilder.Controls
 			}
 
 			return haveusedargs;
+		}
+
+		private static bool ArgumentInfoMatches(ArgumentInfo[] info1, ArgumentInfo[] info2, int i)
+		{
+			if (info1 == null || info2 == null) return false;
+			return !(info1[i].Used != info2[i].Used || info1[i].Type != info2[i].Type
+				|| info1[i].Title.ToUpperInvariant() != info2[i].Title.ToUpperInvariant());
 		}
 
 		#endregion
