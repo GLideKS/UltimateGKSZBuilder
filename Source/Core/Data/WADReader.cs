@@ -1140,7 +1140,7 @@ namespace CodeImp.DoomBuilder.Data
 		{
 			if (issuspended) throw new Exception("Data reader is suspended");
 
-			return GetAllLumpsData("LUA_");
+			return GetAllLumpsDataWithPrefix("LUA_");
 		}
 
 		//mxd
@@ -1187,6 +1187,25 @@ namespace CodeImp.DoomBuilder.Data
 
 				// Find next entry
 				lumpindex = file.FindLumpIndex(name, lumpindex + 1);
+			}
+
+			return result;
+		}
+
+		//mxd
+		private List<TextResourceData> GetAllLumpsDataWithPrefix(string prefix)
+		{
+			List<TextResourceData> result = new List<TextResourceData>();
+
+			// Find all lumps with given name
+			int lumpindex = file.FindLumpIndexWithPrefix(prefix);
+			while (lumpindex > -1)
+			{
+				// Add to collection
+				result.Add(new TextResourceData(this, file.Lumps[lumpindex].GetSafeStream(), prefix, lumpindex, true));
+
+				// Find next entry
+				lumpindex = file.FindLumpIndexWithPrefix(prefix, lumpindex + 1);
 			}
 
 			return result;
