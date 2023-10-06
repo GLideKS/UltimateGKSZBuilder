@@ -48,7 +48,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 
 					// Property
 					default:
-						General.WriteLogLine(token);
+						//General.WriteLogLine(token);
 						// Property begins with $? Then the whole line is a single value
 						if (token.Contains("$"))
 						{

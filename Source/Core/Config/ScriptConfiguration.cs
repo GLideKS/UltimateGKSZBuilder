@@ -59,7 +59,7 @@ namespace CodeImp.DoomBuilder.Config
 		FONTDEFS,
         ZSCRIPT,
 		DECALDEF,
-		//SOC,
+		SOC,
 		LUA
 	}
 	

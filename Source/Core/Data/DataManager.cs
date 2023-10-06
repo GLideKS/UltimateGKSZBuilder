@@ -134,7 +134,8 @@ namespace CodeImp.DoomBuilder.Data
 		private DecorateParser decorate;
         private ZScriptParser zscript;
 		private LuaParser lua;
-        private Dictionary<string, ActorStructure> zdoomclasses;
+		private SOCParser soc;
+		private Dictionary<string, ActorStructure> zdoomclasses;
 		private List<ThingCategory> thingcategories;
 		private Dictionary<int, ThingTypeInfo> thingtypes;
 
@@ -462,6 +463,7 @@ namespace CodeImp.DoomBuilder.Data
             LoadZScriptThings();
             LoadDecorateThings();
 			LoadLuaThings();
+			LoadSOCThings();
 			ApplyDehackedThings();
 			FixRenamedDehackedSprites();
             int thingcount = ApplyZDoomThings(spawnnums, doomednums);
@@ -1880,6 +1882,40 @@ namespace CodeImp.DoomBuilder.Data
 				lua.ClearActors();
 		}
 
+		// sphere: This loads things from SRB2 Lua files.
+		private void LoadSOCThings()
+		{
+			// Create new parser
+			soc = new SOCParser();
+
+			// Go for all opened containers
+			foreach (DataReader dr in containers)
+			{
+				// Load SOC info cumulatively (the last SOC is added to the previous)
+				// I'm not sure if this is the right thing to do though.
+				currentreader = dr;
+				foreach (TextResourceData data in dr.GetSOCData())
+				{
+					// Parse the data
+					data.Stream.Seek(0, SeekOrigin.Begin);
+					soc.Parse(data, true);
+
+					//mxd. DECORATE lumps are interdepandable. Can't carry on...
+					if (soc.HasError)
+					{
+						soc.LogError();
+						break;
+					}
+				}
+			}
+
+			//mxd. Add to text resources collection
+			currentreader = null;
+
+			if (soc.HasError)
+				soc.ClearActors();
+		}
+
 		// [ZZ] this retrieves ZDoom actor structure by class name.
 		public ActorStructure GetZDoomActor(string classname)
         {
@@ -1924,7 +1960,7 @@ namespace CodeImp.DoomBuilder.Data
             zdoomclasses = mergedAllActorsByClass;
 
 			// Parse SRB2 Lua/SOC objects
-			IEnumerable<ActorStructure> mobjs = lua.Mobjs; // lua.Mobjs.Union(soc.Mobjs);
+			IEnumerable<ActorStructure> mobjs = lua.Mobjs.Union(soc.Mobjs);
 
 			foreach (ActorStructure actor in mobjs)
 			{

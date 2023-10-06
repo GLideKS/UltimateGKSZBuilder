@@ -263,6 +263,9 @@ namespace CodeImp.DoomBuilder.Data
 		// When implemented, this returns Lua lumps
 		public abstract IEnumerable<TextResourceData> GetLuaData();
 
+		// When implemented, this returns SOC lumps
+		public abstract IEnumerable<TextResourceData> GetSOCData();
+
 		#endregion
 
 		#region ================== Load/Save (mxd)

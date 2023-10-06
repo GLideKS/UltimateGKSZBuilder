@@ -766,7 +766,7 @@ namespace CodeImp.DoomBuilder.Data
 
 		#endregion
 
-		#region ================== Lua
+		#region ================== Lua/SOC
 
 		// sphere
 		public override IEnumerable<TextResourceData> GetLuaData()
@@ -787,6 +787,27 @@ namespace CodeImp.DoomBuilder.Data
 
 			// Find in any of the wad files
 			foreach (WADReader wr in wads) result.AddRange(wr.GetLuaData());
+
+			return result;
+		}
+		public override IEnumerable<TextResourceData> GetSOCData()
+		{
+			// Error when suspended
+			if (issuspended) throw new Exception("Data reader is suspended");
+
+			List<TextResourceData> result = new List<TextResourceData>();
+
+			List<string> files = new List<string>();
+
+			// Can be several entries
+			files.AddRange(GetAllFiles("soc", true));
+
+			// Add to collection
+			foreach (string s in files)
+				result.Add(new TextResourceData(this, LoadFile(s), s, true));
+
+			// Find in any of the wad files
+			foreach (WADReader wr in wads) result.AddRange(wr.GetSOCData());
 
 			return result;
 		}

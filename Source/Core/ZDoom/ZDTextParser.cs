@@ -39,24 +39,24 @@ namespace CodeImp.DoomBuilder.ZDoom
 		protected static readonly string CURRENT_FOLDER_PATH_MARKER = "." + Path.DirectorySeparatorChar;
 		protected static readonly string ALT_RELATIVE_PATH_MARKER = ".." + Path.AltDirectorySeparatorChar;
 		protected static readonly string ALT_CURRENT_FOLDER_PATH_MARKER = "." + Path.AltDirectorySeparatorChar;
-		
+
 		#endregion
-		
+
 		#region ================== Variables
-		
+
 		// Parsing
 		protected string whitespace = "\n \t\r\u00A0\0"; //mxd. non-breaking space is also space :)
 		protected string specialtokens = ":{}+-\n;";
 		protected bool skipregions; //mxd
 		protected bool skipeditorcomments; //mxd
-		
+
 		// Input data stream
 		protected Stream datastream;
 		protected BinaryReader datareader;
 		protected string sourcename;
 		protected int sourcelumpindex; //mxd
 		protected DataLocation datalocation; //mxd
-		
+
 		// Error report
 		private int errorline;
 		private string errordesc;
@@ -69,9 +69,9 @@ namespace CodeImp.DoomBuilder.ZDoom
 		protected readonly Dictionary<string, ScriptResource> scriptresources;
 		protected readonly HashSet<string> untrackedtextresources;
 		#endregion
-		
+
 		#region ================== Properties
-		
+
 		internal Stream DataStream { get { return datastream; } }
 		internal BinaryReader DataReader { get { return datareader; } }
 		public int ErrorLine { get { return errorline; } }
@@ -82,19 +82,19 @@ namespace CodeImp.DoomBuilder.ZDoom
 		internal Dictionary<string, ScriptResource> ScriptResources { get { return scriptresources; } } //mxd
 
 		#endregion
-		
+
 		#region ================== Constructor / Disposer
-		
+
 		// Constructor
 		protected ZDTextParser()
 		{
-            // Initialize
+			// Initialize
 			errordesc = null;
 			scriptresources = new Dictionary<string, ScriptResource>(StringComparer.OrdinalIgnoreCase); //mxd
 			untrackedtextresources = new HashSet<string>(StringComparer.OrdinalIgnoreCase); //mxd
 			skipregions = true; //mxd
 		}
-		
+
 		#endregion
 
 		#region ================== Parsing
@@ -103,20 +103,20 @@ namespace CodeImp.DoomBuilder.ZDoom
 		public virtual bool Parse(TextResourceData parsedata, bool clearerrors)
 		{
 			// Clear error status?
-			if(clearerrors) ClearError();
-			
+			if (clearerrors) ClearError();
+
 			// Integrity checks
 			// INFO: MapManager.CompileLump() prepends lumpname with "?" to distinguish between temporary files and files compiled in place
 			// We don't want this to show up in error messages
-			if(parsedata.Stream == null)
+			if (parsedata.Stream == null)
 			{
 				ReportError("Unable to load \"" + parsedata.Filename.Replace("?", "") + "\"");
 				return false;
 			}
 
-			if(parsedata.Stream.Length == 0)
+			if (parsedata.Stream.Length == 0)
 			{
-				if(!string.IsNullOrEmpty(sourcename) && sourcename != parsedata.Filename)
+				if (!string.IsNullOrEmpty(sourcename) && sourcename != parsedata.Filename)
 				{
 					LogWarning("Include file \"" + parsedata.Filename.Replace("?", "") + "\" is empty");
 				}
@@ -141,18 +141,18 @@ namespace CodeImp.DoomBuilder.ZDoom
 		protected bool AddTextResource(TextResourceData parsedata)
 		{
 			// Script Editor resources don't have actual path and should always be parsed
-			if(string.IsNullOrEmpty(parsedata.SourceLocation.location))
+			if (string.IsNullOrEmpty(parsedata.SourceLocation.location))
 			{
-				if(parsedata.Trackable) throw new NotSupportedException("Trackable TextResource must have a valid path.");
+				if (parsedata.Trackable) throw new NotSupportedException("Trackable TextResource must have a valid path.");
 				return true;
 			}
 
 			string path = Path.Combine(parsedata.SourceLocation.location, parsedata.Filename + (parsedata.LumpIndex != -1 ? "#" + parsedata.LumpIndex : ""));
-			if(scriptresources.ContainsKey(path) || untrackedtextresources.Contains(path))
+			if (scriptresources.ContainsKey(path) || untrackedtextresources.Contains(path))
 				return false;
 
 			//mxd. Create TextResource for this file
-			if(parsedata.Trackable)
+			if (parsedata.Trackable)
 			{
 				textresourcepath = path;
 				ScriptResource res = new ScriptResource(parsedata, this.ScriptType);
@@ -167,7 +167,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 
 			return true;
 		}
-		
+
 		// This returns true if the given character is whitespace
 		protected internal bool IsWhitespace(char c)
 		{
@@ -183,27 +183,27 @@ namespace CodeImp.DoomBuilder.ZDoom
 		// This returns true if the given character is a special token
 		protected internal bool IsSpecialToken(string s)
 		{
-			if(s.Length > 0) return (specialtokens.IndexOf(s[0]) > -1);
+			if (s.Length > 0) return (specialtokens.IndexOf(s[0]) > -1);
 			return false;
 		}
 
 		//mxd. This removes beginning and ending quotes from a token
-		protected internal string StripTokenQuotes(string token) 
+		protected internal string StripTokenQuotes(string token)
 		{
 			return StripQuotes(token);
 		}
-		
+
 		// This removes beginning and ending quotes from a token
 		internal static string StripQuotes(string token)
 		{
 			// Remove first character, if it is a quote
-			if(!string.IsNullOrEmpty(token) && (token[0] == '"'))
+			if (!string.IsNullOrEmpty(token) && (token[0] == '"'))
 				token = token.Substring(1);
-			
+
 			// Remove last character, if it is a quote
-			if(!string.IsNullOrEmpty(token) && (token[token.Length - 1] == '"'))
+			if (!string.IsNullOrEmpty(token) && (token[token.Length - 1] == '"'))
 				token = token.Substring(0, token.Length - 1);
-			
+
 			return token;
 		}
 
@@ -214,7 +214,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 			string token = ReadToken(false);
 			name = StripQuotes(token);
 
-			if(!string.IsNullOrEmpty(name)
+			if (!string.IsNullOrEmpty(name)
 				&& name.Length > DataManager.CLASIC_IMAGE_NAME_LENGTH
 				&& name.Length == token.Length)
 			{
@@ -224,11 +224,15 @@ namespace CodeImp.DoomBuilder.ZDoom
 
 			return true;
 		}
-		
+		protected internal bool SkipWhitespace(bool skipnewline)
+		{ 
+			return SkipWhitespace(skipnewline, false);
+		}
+
 		// This skips whitespace on the stream, placing the read
 		// position right before the first non-whitespace character
 		// Returns false when the end of the stream is reached
-		protected internal bool SkipWhitespace(bool skipnewline)
+		protected internal bool SkipWhitespace(bool skipnewline, bool SOC)
 		{
 			int offset = skipnewline ? 0 : 1;
 			char c;
@@ -240,7 +244,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 				c = (char)datareader.ReadByte();
 
 				// Check if this is comment
-				if (c == '/' || c == '-') // SRB2 Lua allows -- as comment syntax
+				if ((!SOC && (c == '/' || c == '-')) || (SOC && (c == '#'))) // SRB2 Lua allows -- as comment syntax
 				{
 					if(datastream.Position == datastream.Length) return false;
 					char c2 = (char)datareader.ReadByte();

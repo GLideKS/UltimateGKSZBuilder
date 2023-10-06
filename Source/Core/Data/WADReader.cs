@@ -20,6 +20,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using CodeImp.DoomBuilder.Compilers;
 using CodeImp.DoomBuilder.Config;
@@ -1141,6 +1142,19 @@ namespace CodeImp.DoomBuilder.Data
 			if (issuspended) throw new Exception("Data reader is suspended");
 
 			return GetAllLumpsDataWithPrefix("LUA_");
+		}
+
+		// sphere
+		public override IEnumerable<TextResourceData> GetSOCData()
+		{
+			if (issuspended) throw new Exception("Data reader is suspended");
+
+			List<TextResourceData> soclumps = new List<TextResourceData>();
+			soclumps = soclumps.Concat(GetAllLumpsDataWithPrefix("SOC_")).ToList();
+			soclumps = soclumps.Concat(GetAllLumpsDataWithPrefix("MAINCFG")).ToList();
+			soclumps = soclumps.Concat(GetAllLumpsDataWithPrefix("OBJCTCFG")).ToList();
+
+			return soclumps;
 		}
 
 		//mxd
