@@ -12,7 +12,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 
     public sealed class SOCMobjStructure : ActorStructure
 	{
-        #region ================== SOC Actor Structure parsing
+        #region ================== SOC Mobj Structure parsing
 
         internal SOCMobjStructure(ZDTextParser zdparser, string objname)
         {

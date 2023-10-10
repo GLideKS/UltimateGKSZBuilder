@@ -471,6 +471,11 @@ namespace CodeImp.DoomBuilder.Data
 			LoadInternalSprites();
 			LoadInternalTextures(); //mxd
 
+			// Load SRB2 map information from parsed level headers
+			string mapname = General.Map.Options.LevelName.ToLowerInvariant();
+			if (soc.MapHeaders.ContainsKey(mapname))
+				mapinfo = soc.MapHeaders[mapname];
+
 			//mxd. Load more stuff
 			LoadReverbs();
 			LoadSndSeq();
@@ -1866,7 +1871,6 @@ namespace CodeImp.DoomBuilder.Data
 					data.Stream.Seek(0, SeekOrigin.Begin);
 					lua.Parse(data, true);
 
-					//mxd. DECORATE lumps are interdepandable. Can't carry on...
 					if (lua.HasError)
 					{
 						lua.LogError();
@@ -1882,7 +1886,7 @@ namespace CodeImp.DoomBuilder.Data
 				lua.ClearActors();
 		}
 
-		// sphere: This loads things from SRB2 Lua files.
+		// sphere: This loads things and level headers from SRB2 SOC files.
 		private void LoadSOCThings()
 		{
 			// Create new parser
@@ -1900,7 +1904,6 @@ namespace CodeImp.DoomBuilder.Data
 					data.Stream.Seek(0, SeekOrigin.Begin);
 					soc.Parse(data, true);
 
-					//mxd. DECORATE lumps are interdepandable. Can't carry on...
 					if (soc.HasError)
 					{
 						soc.LogError();
@@ -1984,7 +1987,7 @@ namespace CodeImp.DoomBuilder.Data
 						ThingCategory cat = GetThingCategory(null, thingcategories, GetCategoryInfo(actor)); //mxd
 
 						// Add new thing
-						ThingTypeInfo t = new ThingTypeInfo(cat, actor); ;
+						ThingTypeInfo t = new ThingTypeInfo(cat, actor);
 
 						cat.AddThing(t);
 						thingtypes.Add(t.Index, t);

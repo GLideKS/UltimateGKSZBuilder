@@ -312,6 +312,7 @@
     <Compile Include="Rendering\Vector4.cs" />
     <Compile Include="Rendering\VertexBuffer.cs" />
     <Compile Include="Rendering\VisualSlopeHandle.cs" />
+    <Compile Include="SRB2\SOCLevelHeader.cs" />
     <Compile Include="SRB2\SOCMobjStructure.cs" />
     <Compile Include="SRB2\LuaMobjStructure.cs" />
     <Compile Include="SRB2\SOCParser.cs" />

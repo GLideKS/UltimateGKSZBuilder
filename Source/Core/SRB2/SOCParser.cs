@@ -19,10 +19,9 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using CodeImp.DoomBuilder.Config;
 using CodeImp.DoomBuilder.Data;
-using CodeImp.DoomBuilder.Types;
+using CodeImp.DoomBuilder.GZBuilder.Data;
 
 #endregion
 
@@ -49,6 +48,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 
 		// SRB2 mobjs
 		private Dictionary<int, ActorStructure> mobjs;
+		private Dictionary<string, MapInfo> mapheaders;
 
 		//mxd. Includes tracking
 		private HashSet<string> parsedlumps;
@@ -67,6 +67,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 		/// All mobjs that are supported by the current game.
 		/// </summary>
 		public ICollection<ActorStructure> Mobjs { get { return mobjs.Values; } }
+		public Dictionary<string, MapInfo> MapHeaders { get { return mapheaders; } }
 
 		#endregion
 
@@ -87,7 +88,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 		public void Dispose()
 		{
 			mobjs = null;
-
+			mapheaders = null;
 			isdisposed = true;
 		}
 
@@ -124,9 +125,6 @@ namespace CodeImp.DoomBuilder.ZDoom
 
 				if (!string.IsNullOrEmpty(token))
 				{
-					string objname = null;
-					//General.WriteLogLine("token = " + token);
-
 					token = token.ToLowerInvariant();
 
 					// SOC object
@@ -136,11 +134,9 @@ namespace CodeImp.DoomBuilder.ZDoom
 						token = ReadToken();
 
 						if (!token.ToUpper().StartsWith("MT_"))
-						{
 							continue;
-						}
 
-						objname = token;
+						string objname = token;
 
 						// Read actor structure
 						ActorStructure mobj = new SOCMobjStructure(this, objname);
@@ -154,8 +150,15 @@ namespace CodeImp.DoomBuilder.ZDoom
 						SkipWhitespace(true, true);
 						token = ReadToken();
 
-						if (!(token.Length > 2))
-							General.WriteLogLine("Map token: MAP" + token);
+						string mapname = GetMapName(token);
+
+						if (mapname == null)
+							continue;
+
+						SOCLevelHeader levelheader = new SOCLevelHeader(this);
+						if (this.HasError) return false;
+
+						mapheaders[mapname.ToLowerInvariant()] = levelheader.MapInfo;
 					}
 				}
 			}
@@ -178,7 +181,43 @@ namespace CodeImp.DoomBuilder.ZDoom
         {
             // Initialize
 			mobjs = new Dictionary<int, ActorStructure>();
+			mapheaders = new Dictionary<string, MapInfo>();
 			parsedlumps = new HashSet<string>(StringComparer.OrdinalIgnoreCase); //mxd
+		}
+
+		private string GetMapName(string number)
+		{
+			if (int.TryParse(number, NumberStyles.Integer, CultureInfo.InvariantCulture, out int n))
+				return ConvertToExtendedMapNum(n);
+			else
+			{
+				if (number.Length != 2 || number[0] < 'A' || number[0] > 'Z' || !((number[1] >= '0' && number[1] <= '9') || (number[1] >= 'A' && number[1] <= 'Z')))
+				{
+					//ReportError("Invalid level number");
+					return null;
+				}
+				return "MAP" + number;
+			}
+
+		}
+		private string ConvertToExtendedMapNum(int n)
+		{
+			if (n <= 0 || n > 1035)
+			{
+				//ReportError("Invalid level number");
+				return null;
+			}
+			if (n < 10)
+				return "MAP0" + n;
+			if (n < 100)
+				return "MAP" + n.ToString();
+
+			int x = n - 100;
+			int p = x / 36;
+			int q = x % 36;
+			char a = (char)('A' + p);
+			char b = (q < 10) ? (char)('0' + q) : (char)('A' + q - 10);
+			return "MAP" + String.Concat(a, b);
 		}
 
 		#endregion
