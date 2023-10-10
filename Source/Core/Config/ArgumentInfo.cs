@@ -258,6 +258,7 @@ namespace CodeImp.DoomBuilder.Config
 			string targetclasses = ZDTextParser.StripQuotes(actor.GetPropertyAllValues("$arg" + i + "targetclasses"));
 			int defaultvalue = actor.GetPropertyValueInt("$arg" + i + "default", 0);
 			string enumstr = ZDTextParser.StripQuotes(actor.GetPropertyAllValues("$arg" + i + "enum"));
+			string flagstr = ZDTextParser.StripQuotes(actor.GetPropertyAllValues("$arg" + i + "flags"));
 			string renderstyle = ZDTextParser.StripQuotes(actor.GetPropertyAllValues("$arg" + i + "renderstyle"));
 			string rendercolor, minrange, maxrange, minrangecolor, maxrangecolor;
             bool str = (actor.HasProperty("$arg" + i + "str"));
@@ -394,7 +395,33 @@ namespace CodeImp.DoomBuilder.Config
 				}
 			}
 
-			if(this.enumlist == null) this.enumlist = new EnumList();
+			// Get or create flags
+			if (!string.IsNullOrEmpty(flagstr))
+			{
+				if (enums.ContainsKey(flagstr.ToLowerInvariant()))
+				{
+					this.flagslist = enums[flagstr.ToLowerInvariant()];
+				}
+				else
+				{
+					Configuration cfg = new Configuration();
+					if (cfg.InputConfiguration("flags" + flagstr, true))
+					{
+						IDictionary argdic = cfg.ReadSetting("flags", new Hashtable());
+						if (argdic.Keys.Count > 0)
+							this.flagslist = new EnumList(argdic);
+						else
+							General.ErrorLogger.Add(ErrorType.Error, actorname + ": unable to parse explicit enum structure for argument \"" + argtitle + "\"!");
+					}
+					else
+					{
+						General.ErrorLogger.Add(ErrorType.Error, actorname + ": unable to parse enum structure for argument \"" + argtitle + "\"!");
+					}
+				}
+			}
+
+			if (this.enumlist == null) this.enumlist = new EnumList();
+			if (this.flagslist == null) this.flagslist = new EnumList();
 		}
 		internal ArgumentInfo(ActorStructure actor, int i, bool stringarg)
 		{
