@@ -1874,7 +1874,6 @@ namespace CodeImp.DoomBuilder.Data
 					if (lua.HasError)
 					{
 						lua.LogError();
-						break;
 					}
 				}
 			}
@@ -1882,8 +1881,8 @@ namespace CodeImp.DoomBuilder.Data
 			//mxd. Add to text resources collection
 			currentreader = null;
 
-			if (lua.HasError)
-				lua.ClearActors();
+			//if (lua.HasError)
+			//	lua.ClearActors();
 		}
 
 		// sphere: This loads things and level headers from SRB2 SOC files.
@@ -1907,7 +1906,6 @@ namespace CodeImp.DoomBuilder.Data
 					if (soc.HasError)
 					{
 						soc.LogError();
-						break;
 					}
 				}
 			}
@@ -1915,8 +1913,8 @@ namespace CodeImp.DoomBuilder.Data
 			//mxd. Add to text resources collection
 			currentreader = null;
 
-			if (soc.HasError)
-				soc.ClearActors();
+			//if (soc.HasError)
+			//	soc.ClearActors();
 		}
 
 		// [ZZ] this retrieves ZDoom actor structure by class name.

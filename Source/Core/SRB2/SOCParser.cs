@@ -44,7 +44,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 		#region ================== Variables
 
 		//mxd. Script type
-		internal override ScriptType ScriptType { get { return ScriptType.LUA; } }
+		internal override ScriptType ScriptType { get { return ScriptType.SOC; } }
 
 		// SRB2 mobjs
 		private Dictionary<int, ActorStructure> mobjs;

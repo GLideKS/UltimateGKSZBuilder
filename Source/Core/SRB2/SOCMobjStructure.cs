@@ -23,7 +23,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 
 			if (string.IsNullOrEmpty(objname))
             {
-                parser.ReportError("Lua object structure has no object name or map thing number");
+                parser.ReportError("SOC object structure has no object name or map thing number");
                 return;
             }
 
@@ -66,6 +66,9 @@ namespace CodeImp.DoomBuilder.ZDoom
 					string tokenname = token;
 					parser.SkipWhitespace(false, true);
 					token = parser.ReadToken();
+
+					General.WriteLogLine(tokenname);
+					General.WriteLogLine(token);
 
 					// SOC definitions are terminated by an empty line. Blegh.
 					if (tokenname == "\n")
