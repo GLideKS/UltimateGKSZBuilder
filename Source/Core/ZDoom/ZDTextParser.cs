@@ -258,6 +258,11 @@ namespace CodeImp.DoomBuilder.ZDoom
 							// Skip entire line
 							char c4 = c3;
 							while((c4 != '\n') && (datastream.Position < datastream.Length)) { c4 = (char)datareader.ReadByte(); }
+							
+							// Reached end of file?
+							if (datastream.Position == datastream.Length)
+								return true;
+
 							c = c4;
 						}
 						else

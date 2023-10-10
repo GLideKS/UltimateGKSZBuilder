@@ -1660,7 +1660,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		}
 		
 		// Texture offset change
-		public virtual void OnChangeTextureOffset(int horizontal, int vertical, bool doSurfaceAngleCorrection)
+		public virtual bool OnChangeTextureOffset(int horizontal, int vertical, bool doSurfaceAngleCorrection)
 		{
 			if((General.Map.UndoRedo.NextUndo == null) || (General.Map.UndoRedo.NextUndo.TicketID != undoticket))
 				undoticket = mode.CreateUndo("Change texture offsets");
@@ -1695,6 +1695,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			//mxd. Update linked effects
 			SectorData sd = mode.GetSectorDataEx(Sector.Sector);
 			if(sd != null) sd.Reset(true);
+
+			return true;
 		}
 
 		//mxd

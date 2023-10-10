@@ -233,16 +233,19 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		}
 
 		//mxd
-		public override void OnChangeTextureOffset(int horizontal, int vertical, bool doSurfaceAngleCorrection)
+		public override bool OnChangeTextureOffset(int horizontal, int vertical, bool doSurfaceAngleCorrection)
 		{
+			bool appliedoffset = false;
+
 			// Only do this when not done yet in this call
 			// Because we may be able to select the same 3D floor multiple times through multiple sectors
 			SectorData sd = mode.GetSectorData(level.sector);
 			if(!sd.FloorChanged)
 			{
-				sd.FloorChanged = true;
-				base.OnChangeTextureOffset(horizontal, vertical, doSurfaceAngleCorrection);
+				sd.FloorChanged = appliedoffset = base.OnChangeTextureOffset(horizontal, vertical, doSurfaceAngleCorrection);
 			}
+
+			return appliedoffset;
 		}
 
 		// Move texture coordinates
