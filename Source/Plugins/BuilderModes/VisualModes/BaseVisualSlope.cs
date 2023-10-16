@@ -127,7 +127,7 @@ namespace CodeImp.DoomBuilder.VisualModes
 		public void ApplyTexture(string texture) { }
 		public void ApplyUpperUnpegged(bool set) { }
 		public void ApplyLowerUnpegged(bool set) { }
-		public void SelectNeighbours(bool select, bool withSameTexture, bool withSameHeight) { } //mxd
+		public void SelectNeighbours(bool select, bool withSameTexture, bool withSameHeight, bool stopatselected) { } //mxd
 		public virtual void OnPaintSelectEnd() { } // biwa
 		public void OnChangeScale(int x, int y) { }
 		public void OnResetTextureOffset() { }

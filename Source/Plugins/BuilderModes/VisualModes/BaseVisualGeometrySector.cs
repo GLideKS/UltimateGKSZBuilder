@@ -98,7 +98,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		// This changes the height
 		protected abstract void ChangeHeight(int amount);
 		protected abstract void ChangeTextureScale(int incrementX, int incrementY); //mxd
-		public virtual void SelectNeighbours(bool select, bool withSameTexture, bool withSameHeight) { } //mxd
+		public virtual void SelectNeighbours(bool select, bool withSameTexture, bool withSameHeight, bool stopatselected) { } //mxd
 
 		//mxd
 		override public void PerformAutoSelection()

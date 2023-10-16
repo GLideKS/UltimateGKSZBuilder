@@ -52,7 +52,8 @@ namespace CodeImp.DoomBuilder.Types
 
 		public override void SetupField(TypeHandlerAttribute attr, UniversalFieldInfo fieldinfo)
 		{
-			defaultvalue = (fieldinfo == null || fieldinfo.Default == null) ? 0.0 : (double)fieldinfo.Default;
+			// The default value might be given as int instead as a floating point number, so try to convert it
+			defaultvalue = (fieldinfo == null || fieldinfo.Default == null) ? 0.0 : Convert.ToDouble(fieldinfo.Default);
 			base.SetupField(attr, fieldinfo);
 		}
 

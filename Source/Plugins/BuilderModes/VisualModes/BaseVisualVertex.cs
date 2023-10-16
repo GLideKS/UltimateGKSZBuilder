@@ -261,7 +261,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		public void ApplyUpperUnpegged(bool set) { }
 		public void ApplyLowerUnpegged(bool set) { }
 		public string GetTextureName() { return ""; }
-		public void SelectNeighbours(bool select, bool withSameTexture, bool withSameHeight) { } //mxd
+		public void SelectNeighbours(bool select, bool withSameTexture, bool withSameHeight, bool stopatselected) { } //mxd
 		public virtual void OnPaintSelectBegin() { } // biwa
 		public virtual void OnPaintSelectEnd() { } // biwa
 

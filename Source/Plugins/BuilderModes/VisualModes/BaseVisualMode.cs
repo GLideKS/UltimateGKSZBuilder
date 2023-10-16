@@ -2737,17 +2737,17 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			//mxd
 			if((General.Interface.ShiftState || General.Interface.CtrlState) && selectedobjects.Count > 0) 
 			{
-				if(General.Interface.AltState)
+				if (General.Interface.AltState || !BuilderPlug.Me.UseBuggyFloodSelect)
 				{
-					target.SelectNeighbours(target.Selected, General.Interface.ShiftState, General.Interface.CtrlState);
+					target.SelectNeighbours(target.Selected, General.Interface.ShiftState, General.Interface.CtrlState, General.Interface.AltState);
 				}
 				else
 				{
 					IVisualEventReceiver[] selection = new IVisualEventReceiver[selectedobjects.Count];
 					selectedobjects.CopyTo(selection);
-					
-					foreach(IVisualEventReceiver obj in selection)
-						obj.SelectNeighbours(target.Selected, General.Interface.ShiftState, General.Interface.CtrlState);
+
+					foreach (IVisualEventReceiver obj in selection)
+						obj.SelectNeighbours(target.Selected, General.Interface.ShiftState, General.Interface.CtrlState, false);
 				}
 			}
 
