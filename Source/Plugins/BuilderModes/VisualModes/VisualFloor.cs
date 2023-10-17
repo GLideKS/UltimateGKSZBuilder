@@ -403,7 +403,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				vs.UpdateSectorGeometry(true);
 			}
 			// This is actual floor of a sector with extrafloors
-			else if (level != null && Sector.ExtraFloors.Count > 0 && !Sector.ExtraFloors[0].ExtraFloor.Floor.restrictlighting && !Sector.ExtraFloors[0].ExtraFloor.Floor.disablelighting)
+			else if (!local && level != null && Sector.ExtraFloors.Count > 0 && !Sector.ExtraFloors[0].ExtraFloor.Floor.restrictlighting && !Sector.ExtraFloors[0].ExtraFloor.Floor.disablelighting)
 			{
 				Sector.ExtraFloors[0].OnChangeTargetBrightness(up, local);
 			}
