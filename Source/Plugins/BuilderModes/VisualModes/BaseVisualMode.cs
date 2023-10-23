@@ -401,7 +401,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			}
 
 			//mxd
-			if(General.Map.UDMF && General.Settings.GZShowVisualVertices) 
+			if(General.Map.UDMF && General.Map.Config.VertexHeightSupport && General.Settings.GZShowVisualVertices) 
 			{
 				foreach(KeyValuePair<Vertex, VisualVertexPair> pair in vertices) 
 				{
@@ -652,7 +652,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			}
 
 			//mxd
-			if(General.Map.UDMF) 
+			if(General.Map.UDMF && General.Map.Config.VertexHeightSupport) 
 			{
 				foreach(KeyValuePair<Vertex, VisualVertexPair> pair in vertices)
 					pair.Value.Update();
@@ -1052,7 +1052,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 			// Find interesting things (such as sector slopes)
 			// Pass one of slope things, and determine which one are for pass two
-			//TODO: rewrite using classnames instead of numbers
+			//TODO: unfuck this because UDB decided to overhaul this...
 			foreach (Thing t in General.Map.Map.Things)
 			{
 				// SRB2
@@ -1327,7 +1327,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			}
 
 			// Pass two of slope things
-			//TODO: rewrite using classnames instead of numbers
+			//TODO: unfuck this because UDB decided to overhaul this...
 			foreach (Thing t in slopethingpass[1])
 			{
 				switch (t.Type)
@@ -1766,7 +1766,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				}
 
 				//mxd
-				if(General.Map.UDMF && General.Settings.GZShowVisualVertices && vertices.Count > 0) 
+				if(General.Map.UDMF && General.Map.Config.VertexHeightSupport && General.Settings.GZShowVisualVertices && vertices.Count > 0) 
 				{
 					List<VisualVertex> verts = new List<VisualVertex>();
 

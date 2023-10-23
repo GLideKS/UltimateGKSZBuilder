@@ -113,6 +113,7 @@ namespace CodeImp.DoomBuilder.Config
 		private readonly bool localsidedeftextureoffsets; //MaxW
 		private readonly bool effect3dfloorsupport;
 		private readonly bool planeequationsupport;
+		private readonly bool vertexheightsupport;
 		private readonly bool distinctfloorandceilingbrightness;
 		private readonly bool distinctwallbrightness;
 		private readonly bool distinctsidedefpartbrightness;
@@ -306,6 +307,7 @@ namespace CodeImp.DoomBuilder.Config
 		public bool UseLocalSidedefTextureOffsets { get { return localsidedeftextureoffsets; } } //MaxW
 		public bool Effect3DFloorSupport { get { return effect3dfloorsupport; } }
 		public bool PlaneEquationSupport { get { return planeequationsupport; } }
+		public bool VertexHeightSupport { get { return vertexheightsupport; } }
 		public bool DistinctFloorAndCeilingBrightness { get { return distinctfloorandceilingbrightness; } }
 		public bool DistinctWallBrightness { get { return distinctwallbrightness; } }
 		public bool DistinctSidedefPartBrightness { get { return distinctsidedefpartbrightness; } }
@@ -333,6 +335,7 @@ namespace CodeImp.DoomBuilder.Config
 		public List<FlagTranslation> ThingFlagsTranslation { get { return thingflagstranslation; } }
 		public Dictionary<string, ThingFlagsCompareGroup> ThingFlagsCompare { get { return thingflagscompare; } } //mxd
 		public Dictionary<string, string> ThingRenderStyles { get { return thingrenderstyles; } } //mxd
+		public IReadOnlyDictionary<int, ThingTypeInfo> ThingTypes { get { return things; } }
 		
 		// Linedefs
 		public IDictionary<string, string> LinedefFlags { get { return linedefflags; } }
@@ -499,6 +502,7 @@ namespace CodeImp.DoomBuilder.Config
 			localsidedeftextureoffsets = (cfg.ReadSetting("localsidedeftextureoffsets", false)); //MaxW
 			effect3dfloorsupport = cfg.ReadSetting("effect3dfloorsupport", false);
 			planeequationsupport = cfg.ReadSetting("planeequationsupport", false);
+			vertexheightsupport = cfg.ReadSetting("vertexheightsupport", false);
 			sidedeftextureskewing = cfg.ReadSetting("sidedeftextureskewing", false);
 			distinctfloorandceilingbrightness = cfg.ReadSetting("distinctfloorandceilingbrightness", false);
 			distinctwallbrightness = cfg.ReadSetting("distinctwallbrightness", false);
