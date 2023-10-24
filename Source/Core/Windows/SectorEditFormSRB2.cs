@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using CodeImp.DoomBuilder.Controls;
 using CodeImp.DoomBuilder.Geometry;
@@ -168,8 +169,14 @@ namespace CodeImp.DoomBuilder.Windows
 		{
 			InitializeComponent();
 
+			DoUDMFControls(this);
+
+			// Plane equation slopes are handled internally instead through the UDMF fields, so they need special attention
+			EnableDisableControlAndChildren(gbCeilingSlope, General.Map.Config.PlaneEquationSupport);
+			EnableDisableControlAndChildren(gbFloorSlope, General.Map.Config.PlaneEquationSupport);
+
 			//mxd. Load settings
-			if(General.Settings.StoreSelectedEditTab)
+			if (General.Settings.StoreSelectedEditTab)
 			{
 				int activetab = General.Settings.ReadSetting("windows." + configname + ".activetab", 0);
 				tabs.SelectTab(activetab);
@@ -240,21 +247,6 @@ namespace CodeImp.DoomBuilder.Windows
 
 			ceilingslopecontrol.PivotMode = (SlopePivotMode)General.Settings.ReadSetting("windows." + configname + ".ceilpivotmode", (int)SlopePivotMode.LOCAL);
 			floorslopecontrol.PivotMode = (SlopePivotMode)General.Settings.ReadSetting("windows." + configname + ".floorpivotmode", (int)SlopePivotMode.LOCAL);
-
-			// Diable brightness controls?
-			if(!General.Map.Config.DistinctFloorAndCeilingBrightness)
-			{
-				ceilBrightness.Enabled = false;
-				ceilLightAbsolute.Enabled = false;
-				resetceillight.Enabled = false;
-
-				floorBrightness.Enabled = false;
-				floorLightAbsolute.Enabled = false;
-				resetfloorlight.Enabled = false;
-			}
-
-			ceilScale.Enabled = false;
-			floorScale.Enabled = false;
 		}
 
 		#endregion
@@ -688,6 +680,36 @@ namespace CodeImp.DoomBuilder.Windows
 					}
 				}
 			}
+		}
+
+		/// <summary>
+		/// Enables or disables controls depending on if their tag is one of the UDMF fields set in the game config.
+		/// </summary>
+		/// <param name="control">Control to process</param>
+		private void DoUDMFControls(Control control)
+		{
+			if (control.Tag is string name && !string.IsNullOrWhiteSpace(name))
+			{
+				EnableDisableControlAndChildren(control, General.Map.Config.SectorFields.Any(f => f.Name == name));
+			}
+			else
+			{
+				foreach (Control c in control.Controls)
+					DoUDMFControls(c);
+			}
+		}
+
+		/// <summary>
+		/// Enables or disables a control and all its children.
+		/// </summary>
+		/// <param name="control">Control the enable or disable</param>
+		/// <param name="state">If to enable or disable</param>
+		private void EnableDisableControlAndChildren(Control control, bool state)
+		{
+			control.Enabled = state;
+
+			foreach (Control c in control.Controls)
+				EnableDisableControlAndChildren(c, state);
 		}
 
 		#endregion

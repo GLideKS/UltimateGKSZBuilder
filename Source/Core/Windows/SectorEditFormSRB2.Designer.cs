@@ -108,9 +108,9 @@
 			this.ceilOffsets = new CodeImp.DoomBuilder.Controls.PairedFieldsControl();
 			this.ceilingtex = new CodeImp.DoomBuilder.Controls.FlatSelectorControl();
 			this.tabslopes = new System.Windows.Forms.TabPage();
-			this.groupBox5 = new System.Windows.Forms.GroupBox();
+			this.gbFloorSlope = new System.Windows.Forms.GroupBox();
 			this.floorslopecontrol = new CodeImp.DoomBuilder.Controls.SectorSlopeControl();
-			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.gbCeilingSlope = new System.Windows.Forms.GroupBox();
 			this.ceilingslopecontrol = new CodeImp.DoomBuilder.Controls.SectorSlopeControl();
 			this.tabcomment = new System.Windows.Forms.TabPage();
 			this.commenteditor = new CodeImp.DoomBuilder.Controls.CommentEditor();
@@ -152,8 +152,8 @@
 			this.groupBox2.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.tabslopes.SuspendLayout();
-			this.groupBox5.SuspendLayout();
-			this.groupBox4.SuspendLayout();
+			this.gbFloorSlope.SuspendLayout();
+			this.gbCeilingSlope.SuspendLayout();
 			this.tabcomment.SuspendLayout();
 			this.tabcustom.SuspendLayout();
 			this.SuspendLayout();
@@ -245,6 +245,7 @@
 			label16.Name = "label16";
 			label16.Size = new System.Drawing.Size(74, 14);
 			label16.TabIndex = 0;
+			label16.Tag = "damagetype";
 			label16.Text = "Damage:";
 			label16.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -294,6 +295,7 @@
 			label2.Name = "label2";
 			label2.Size = new System.Drawing.Size(74, 14);
 			label2.TabIndex = 5;
+			label2.Tag = "gravity";
 			label2.Text = "Gravity:";
 			label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -429,6 +431,7 @@
 			labelLightAlpha.Name = "labelLightAlpha";
 			labelLightAlpha.Size = new System.Drawing.Size(62, 13);
 			labelLightAlpha.TabIndex = 18;
+			labelLightAlpha.Tag = "lightcolor";
 			labelLightAlpha.Text = "Light alpha:";
 			labelLightAlpha.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -439,6 +442,7 @@
 			labelFadeAlpha.Name = "labelFadeAlpha";
 			labelFadeAlpha.Size = new System.Drawing.Size(63, 13);
 			labelFadeAlpha.TabIndex = 20;
+			labelFadeAlpha.Tag = "fadecolor";
 			labelFadeAlpha.Text = "Fade alpha:";
 			labelFadeAlpha.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -449,6 +453,7 @@
 			labelFadeStart.Name = "labelFadeStart";
 			labelFadeStart.Size = new System.Drawing.Size(57, 13);
 			labelFadeStart.TabIndex = 22;
+			labelFadeStart.Tag = "fadecolor";
 			labelFadeStart.Text = "Fade start:";
 			labelFadeStart.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -459,6 +464,7 @@
 			labelFadeEnd.Name = "labelFadeEnd";
 			labelFadeEnd.Size = new System.Drawing.Size(55, 13);
 			labelFadeEnd.TabIndex = 24;
+			labelFadeEnd.Tag = "fadecolor";
 			labelFadeEnd.Text = "Fade end:";
 			labelFadeEnd.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -514,6 +520,7 @@
 			this.gravity.Size = new System.Drawing.Size(81, 24);
 			this.gravity.StepValues = null;
 			this.gravity.TabIndex = 6;
+			this.gravity.Tag = "gravity";
 			// 
 			// brightness
 			// 
@@ -699,6 +706,7 @@
 			this.lightColor.Name = "lightColor";
 			this.lightColor.Size = new System.Drawing.Size(207, 29);
 			this.lightColor.TabIndex = 16;
+			this.lightColor.Tag = "lightcolor";
 			this.lightColor.OnValueChanged += new System.EventHandler(this.lightColor_OnValueChanged);
 			// 
 			// fadeColor
@@ -710,6 +718,7 @@
 			this.fadeColor.Name = "fadeColor";
 			this.fadeColor.Size = new System.Drawing.Size(207, 31);
 			this.fadeColor.TabIndex = 17;
+			this.fadeColor.Tag = "fadecolor";
 			this.fadeColor.OnValueChanged += new System.EventHandler(this.fadeColor_OnValueChanged);
 			// 
 			// groupBox3
@@ -837,6 +846,7 @@
 			this.resetfloorlight.Name = "resetfloorlight";
 			this.resetfloorlight.Size = new System.Drawing.Size(23, 23);
 			this.resetfloorlight.TabIndex = 12;
+			this.resetfloorlight.Tag = "lightfloor";
 			this.tooltip.SetToolTip(this.resetfloorlight, "Reset");
 			this.resetfloorlight.UseVisualStyleBackColor = true;
 			this.resetfloorlight.Click += new System.EventHandler(this.resetfloorlight_Click);
@@ -847,7 +857,7 @@
 			this.labelFloorOffsets.Name = "labelFloorOffsets";
 			this.labelFloorOffsets.Size = new System.Drawing.Size(98, 14);
 			this.labelFloorOffsets.TabIndex = 0;
-			this.labelFloorOffsets.Tag = "";
+			this.labelFloorOffsets.Tag = "xpanningfloor";
 			this.labelFloorOffsets.Text = "Texture offsets:";
 			this.labelFloorOffsets.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -857,7 +867,7 @@
 			this.labelFloorScale.Name = "labelFloorScale";
 			this.labelFloorScale.Size = new System.Drawing.Size(98, 14);
 			this.labelFloorScale.TabIndex = 2;
-			this.labelFloorScale.Tag = "";
+			this.labelFloorScale.Tag = "xscalefloor";
 			this.labelFloorScale.Text = "Texture scale:";
 			this.labelFloorScale.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -868,7 +878,7 @@
 			this.cbUseFloorLineAngles.Name = "cbUseFloorLineAngles";
 			this.cbUseFloorLineAngles.Size = new System.Drawing.Size(113, 17);
 			this.cbUseFloorLineAngles.TabIndex = 16;
-			this.cbUseFloorLineAngles.Tag = "";
+			this.cbUseFloorLineAngles.Tag = "rotationfloor";
 			this.cbUseFloorLineAngles.Text = "Use linedef angles";
 			this.cbUseFloorLineAngles.UseVisualStyleBackColor = true;
 			this.cbUseFloorLineAngles.CheckedChanged += new System.EventHandler(this.cbUseFloorLineAngles_CheckedChanged);
@@ -882,6 +892,7 @@
 			this.floorAngleControl.Name = "floorAngleControl";
 			this.floorAngleControl.Size = new System.Drawing.Size(44, 44);
 			this.floorAngleControl.TabIndex = 13;
+			this.floorAngleControl.Tag = "rotationfloor";
 			this.floorAngleControl.AngleChanged += new System.EventHandler(this.floorAngleControl_AngleChanged);
 			// 
 			// label11
@@ -890,7 +901,7 @@
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(80, 14);
 			this.label11.TabIndex = 14;
-			this.label11.Tag = "";
+			this.label11.Tag = "rotationfloor";
 			this.label11.Text = "Rotation:";
 			this.label11.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -911,7 +922,7 @@
 			this.floorRotation.Size = new System.Drawing.Size(62, 24);
 			this.floorRotation.StepValues = null;
 			this.floorRotation.TabIndex = 15;
-			this.floorRotation.Tag = "";
+			this.floorRotation.Tag = "rotationfloor";
 			this.floorRotation.WhenTextChanged += new System.EventHandler(this.floorRotation_WhenTextChanged);
 			// 
 			// floorLightAbsolute
@@ -921,6 +932,7 @@
 			this.floorLightAbsolute.Name = "floorLightAbsolute";
 			this.floorLightAbsolute.Size = new System.Drawing.Size(67, 17);
 			this.floorLightAbsolute.TabIndex = 11;
+			this.floorLightAbsolute.Tag = "lightfloorabsolute";
 			this.floorLightAbsolute.Text = "Absolute";
 			this.floorLightAbsolute.UseVisualStyleBackColor = true;
 			this.floorLightAbsolute.CheckedChanged += new System.EventHandler(this.floorLightAbsolute_CheckedChanged);
@@ -931,7 +943,7 @@
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(80, 14);
 			this.label12.TabIndex = 9;
-			this.label12.Tag = "";
+			this.label12.Tag = "lightfloor";
 			this.label12.Text = "Brightness:";
 			this.label12.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -972,6 +984,7 @@
 			this.floorScale.Name = "floorScale";
 			this.floorScale.Size = new System.Drawing.Size(186, 26);
 			this.floorScale.TabIndex = 3;
+			this.floorScale.Tag = "xscalefloor";
 			this.floorScale.OnValuesChanged += new System.EventHandler(this.floorScale_OnValuesChanged);
 			// 
 			// floorOffsets
@@ -991,6 +1004,7 @@
 			this.floorOffsets.Name = "floorOffsets";
 			this.floorOffsets.Size = new System.Drawing.Size(186, 26);
 			this.floorOffsets.TabIndex = 1;
+			this.floorOffsets.Tag = "xpanningfloor";
 			this.floorOffsets.OnValuesChanged += new System.EventHandler(this.floorOffsets_OnValuesChanged);
 			// 
 			// floortex
@@ -1034,6 +1048,7 @@
 			this.resetceillight.Name = "resetceillight";
 			this.resetceillight.Size = new System.Drawing.Size(23, 23);
 			this.resetceillight.TabIndex = 12;
+			this.resetceillight.Tag = "lightceiling";
 			this.tooltip.SetToolTip(this.resetceillight, "Reset");
 			this.resetceillight.UseVisualStyleBackColor = true;
 			this.resetceillight.Click += new System.EventHandler(this.resetceillight_Click);
@@ -1044,7 +1059,7 @@
 			this.labelCeilOffsets.Name = "labelCeilOffsets";
 			this.labelCeilOffsets.Size = new System.Drawing.Size(98, 14);
 			this.labelCeilOffsets.TabIndex = 0;
-			this.labelCeilOffsets.Tag = "";
+			this.labelCeilOffsets.Tag = "xpanningceiling";
 			this.labelCeilOffsets.Text = "Texture offsets:";
 			this.labelCeilOffsets.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -1054,7 +1069,7 @@
 			this.labelCeilScale.Name = "labelCeilScale";
 			this.labelCeilScale.Size = new System.Drawing.Size(98, 14);
 			this.labelCeilScale.TabIndex = 2;
-			this.labelCeilScale.Tag = "";
+			this.labelCeilScale.Tag = "xscaleceiling";
 			this.labelCeilScale.Text = "Texture scale:";
 			this.labelCeilScale.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -1065,7 +1080,7 @@
 			this.cbUseCeilLineAngles.Name = "cbUseCeilLineAngles";
 			this.cbUseCeilLineAngles.Size = new System.Drawing.Size(113, 17);
 			this.cbUseCeilLineAngles.TabIndex = 16;
-			this.cbUseCeilLineAngles.Tag = "";
+			this.cbUseCeilLineAngles.Tag = "rotationceiling";
 			this.cbUseCeilLineAngles.Text = "Use linedef angles";
 			this.cbUseCeilLineAngles.UseVisualStyleBackColor = true;
 			this.cbUseCeilLineAngles.CheckedChanged += new System.EventHandler(this.cbUseCeilLineAngles_CheckedChanged);
@@ -1079,6 +1094,7 @@
 			this.ceilAngleControl.Name = "ceilAngleControl";
 			this.ceilAngleControl.Size = new System.Drawing.Size(44, 44);
 			this.ceilAngleControl.TabIndex = 13;
+			this.ceilAngleControl.Tag = "rotationceiling";
 			this.ceilAngleControl.AngleChanged += new System.EventHandler(this.ceilAngleControl_AngleChanged);
 			// 
 			// label1
@@ -1087,7 +1103,7 @@
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(80, 14);
 			this.label1.TabIndex = 14;
-			this.label1.Tag = "";
+			this.label1.Tag = "rotationceiling";
 			this.label1.Text = "Rotation:";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -1108,7 +1124,7 @@
 			this.ceilRotation.Size = new System.Drawing.Size(62, 24);
 			this.ceilRotation.StepValues = null;
 			this.ceilRotation.TabIndex = 15;
-			this.ceilRotation.Tag = "";
+			this.ceilRotation.Tag = "rotationceiling";
 			this.ceilRotation.WhenTextChanged += new System.EventHandler(this.ceilRotation_WhenTextChanged);
 			// 
 			// ceilLightAbsolute
@@ -1118,7 +1134,7 @@
 			this.ceilLightAbsolute.Name = "ceilLightAbsolute";
 			this.ceilLightAbsolute.Size = new System.Drawing.Size(67, 17);
 			this.ceilLightAbsolute.TabIndex = 11;
-			this.ceilLightAbsolute.Tag = "";
+			this.ceilLightAbsolute.Tag = "lightceilingabsolute";
 			this.ceilLightAbsolute.Text = "Absolute";
 			this.ceilLightAbsolute.UseVisualStyleBackColor = true;
 			this.ceilLightAbsolute.CheckedChanged += new System.EventHandler(this.ceilLightAbsolute_CheckedChanged);
@@ -1129,7 +1145,7 @@
 			this.labelLightFront.Name = "labelLightFront";
 			this.labelLightFront.Size = new System.Drawing.Size(80, 14);
 			this.labelLightFront.TabIndex = 9;
-			this.labelLightFront.Tag = "";
+			this.labelLightFront.Tag = "lightceiling";
 			this.labelLightFront.Text = "Brightness:";
 			this.labelLightFront.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -1170,6 +1186,7 @@
 			this.ceilScale.Name = "ceilScale";
 			this.ceilScale.Size = new System.Drawing.Size(186, 26);
 			this.ceilScale.TabIndex = 3;
+			this.ceilScale.Tag = "xscaleceiling";
 			this.ceilScale.OnValuesChanged += new System.EventHandler(this.ceilScale_OnValuesChanged);
 			// 
 			// ceilOffsets
@@ -1189,6 +1206,7 @@
 			this.ceilOffsets.Name = "ceilOffsets";
 			this.ceilOffsets.Size = new System.Drawing.Size(186, 26);
 			this.ceilOffsets.TabIndex = 1;
+			this.ceilOffsets.Tag = "xpanningceiling";
 			this.ceilOffsets.OnValuesChanged += new System.EventHandler(this.ceilOffsets_OnValuesChanged);
 			// 
 			// ceilingtex
@@ -1203,8 +1221,8 @@
 			// 
 			// tabslopes
 			// 
-			this.tabslopes.Controls.Add(this.groupBox5);
-			this.tabslopes.Controls.Add(this.groupBox4);
+			this.tabslopes.Controls.Add(this.gbFloorSlope);
+			this.tabslopes.Controls.Add(this.gbCeilingSlope);
 			this.tabslopes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.tabslopes.Location = new System.Drawing.Point(4, 22);
 			this.tabslopes.Name = "tabslopes";
@@ -1213,15 +1231,15 @@
 			this.tabslopes.Text = "Slopes";
 			this.tabslopes.UseVisualStyleBackColor = true;
 			// 
-			// groupBox5
+			// gbFloorSlope
 			// 
-			this.groupBox5.Controls.Add(this.floorslopecontrol);
-			this.groupBox5.Location = new System.Drawing.Point(3, 261);
-			this.groupBox5.Name = "groupBox5";
-			this.groupBox5.Size = new System.Drawing.Size(298, 266);
-			this.groupBox5.TabIndex = 1;
-			this.groupBox5.TabStop = false;
-			this.groupBox5.Text = " Floor slope ";
+			this.gbFloorSlope.Controls.Add(this.floorslopecontrol);
+			this.gbFloorSlope.Location = new System.Drawing.Point(3, 261);
+			this.gbFloorSlope.Name = "gbFloorSlope";
+			this.gbFloorSlope.Size = new System.Drawing.Size(298, 266);
+			this.gbFloorSlope.TabIndex = 1;
+			this.gbFloorSlope.TabStop = false;
+			this.gbFloorSlope.Text = " Floor slope ";
 			// 
 			// floorslopecontrol
 			// 
@@ -1235,15 +1253,15 @@
 			this.floorslopecontrol.OnPivotModeChanged += new System.EventHandler(this.floorslopecontrol_OnPivotModeChanged);
 			this.floorslopecontrol.OnResetClicked += new System.EventHandler(this.floorslopecontrol_OnResetClicked);
 			// 
-			// groupBox4
+			// gbCeilingSlope
 			// 
-			this.groupBox4.Controls.Add(this.ceilingslopecontrol);
-			this.groupBox4.Location = new System.Drawing.Point(3, 3);
-			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(298, 252);
-			this.groupBox4.TabIndex = 0;
-			this.groupBox4.TabStop = false;
-			this.groupBox4.Text = " Ceiling slope ";
+			this.gbCeilingSlope.Controls.Add(this.ceilingslopecontrol);
+			this.gbCeilingSlope.Location = new System.Drawing.Point(3, 3);
+			this.gbCeilingSlope.Name = "gbCeilingSlope";
+			this.gbCeilingSlope.Size = new System.Drawing.Size(298, 252);
+			this.gbCeilingSlope.TabIndex = 0;
+			this.gbCeilingSlope.TabStop = false;
+			this.gbCeilingSlope.Text = " Ceiling slope ";
 			// 
 			// ceilingslopecontrol
 			// 
@@ -1379,8 +1397,8 @@
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.tabslopes.ResumeLayout(false);
-			this.groupBox5.ResumeLayout(false);
-			this.groupBox4.ResumeLayout(false);
+			this.gbFloorSlope.ResumeLayout(false);
+			this.gbCeilingSlope.ResumeLayout(false);
 			this.tabcomment.ResumeLayout(false);
 			this.tabcustom.ResumeLayout(false);
 			this.ResumeLayout(false);
@@ -1427,8 +1445,8 @@
 		private System.Windows.Forms.CheckBox cbUseFloorLineAngles;
 		private System.Windows.Forms.CheckBox cbUseCeilLineAngles;
 		private System.Windows.Forms.TabPage tabslopes;
-		private System.Windows.Forms.GroupBox groupBox5;
-		private System.Windows.Forms.GroupBox groupBox4;
+		private System.Windows.Forms.GroupBox gbFloorSlope;
+		private System.Windows.Forms.GroupBox gbCeilingSlope;
 		private CodeImp.DoomBuilder.Controls.SectorSlopeControl floorslopecontrol;
 		private CodeImp.DoomBuilder.Controls.SectorSlopeControl ceilingslopecontrol;
 		private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox heightoffset;

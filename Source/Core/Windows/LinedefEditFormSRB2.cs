@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using CodeImp.DoomBuilder.Config;
 using CodeImp.DoomBuilder.Controls;
@@ -142,8 +143,12 @@ namespace CodeImp.DoomBuilder.Windows
 			// Initialize
 			InitializeComponent();
 
+			DoUDMFControls(tabproperties, General.Map.Config.LinedefFields);
+			DoUDMFControls(tabfront, General.Map.Config.SidedefFields);
+			DoUDMFControls(tabback, General.Map.Config.SidedefFields);
+
 			// Widow setup
-			if(General.Settings.StoreSelectedEditTab)
+			if (General.Settings.StoreSelectedEditTab)
 			{
 				int activetab = General.Settings.ReadSetting("windows." + configname + ".activetab", 0);
 				
@@ -216,58 +221,6 @@ namespace CodeImp.DoomBuilder.Windows
 			lightbackupper.Setup(VisualModes.VisualGeometryType.WALL_UPPER);
 			lightbackmiddle.Setup(VisualModes.VisualGeometryType.WALL_MIDDLE);
 			lightbacklower.Setup(VisualModes.VisualGeometryType.WALL_LOWER);
-
-			// Disable top/mid/bottom texture offset controls?
-			if (!General.Map.Config.UseLocalSidedefTextureOffsets)
-			{
-				pfcFrontOffsetTop.Enabled = false;
-				pfcFrontOffsetMid.Enabled = false;
-				pfcFrontOffsetBottom.Enabled = false;
-
-				pfcBackOffsetTop.Enabled = false;
-				pfcBackOffsetMid.Enabled = false;
-				pfcBackOffsetBottom.Enabled = false;
-
-				labelFrontOffsetTop.Enabled = false;
-				labelFrontOffsetMid.Enabled = false;
-				labelFrontOffsetBottom.Enabled = false;
-
-				labelBackOffsetTop.Enabled = false;
-				labelBackOffsetMid.Enabled = false;
-				labelBackOffsetBottom.Enabled = false;
-			}
-
-			// Disable brightness controls?
-			if (!General.Map.Config.DistinctWallBrightness)
-			{
-				labelLightFront.Enabled = false;
-				lightFront.Enabled = false;
-				cbLightAbsoluteFront.Enabled = false;
-				resetfrontlight.Enabled = false;
-
-				labelLightBack.Enabled = false;
-				lightBack.Enabled = false;
-				cbLightAbsoluteBack.Enabled = false;
-				resetbacklight.Enabled = false;
-			}
-
-			// Disable texture scaling, for now.
-			pfcFrontScaleTop.Enabled = false;
-			pfcFrontScaleMid.Enabled = false;
-			pfcFrontScaleBottom.Enabled = false;
-
-			pfcBackScaleTop.Enabled = false;
-			pfcBackScaleMid.Enabled = false;
-			pfcBackScaleBottom.Enabled = false;
-
-			labelFrontScaleTop.Enabled = false;
-			labelFrontScaleMid.Enabled = false;
-			labelFrontScaleBottom.Enabled = false;
-
-			labelBackScaleTop.Enabled = false;
-			labelBackScaleMid.Enabled = false;
-			labelBackScaleBottom.Enabled = false;
-
 		}
 
 		#endregion
@@ -652,6 +605,36 @@ namespace CodeImp.DoomBuilder.Windows
 		public void ValuesChangedExternal()
 		{
 			OnValuesChanged?.Invoke(this, EventArgs.Empty);
+		}
+
+		/// <summary>
+		/// Enables or disables controls depending on if their tag is one of the UDMF fields set in the game config.
+		/// </summary>
+		/// <param name="control">Control to process</param>
+		private void DoUDMFControls(Control control, List<UniversalFieldInfo> info)
+		{
+			if (control.Tag is string name && !string.IsNullOrWhiteSpace(name))
+			{
+				EnableDisableControlAndChildren(control, info.Any(f => f.Name == name));
+			}
+			else
+			{
+				foreach (Control c in control.Controls)
+					DoUDMFControls(c, info);
+			}
+		}
+
+		/// <summary>
+		/// Enables or disables a control and all its children.
+		/// </summary>
+		/// <param name="control">Control the enable or disable</param>
+		/// <param name="state">If to enable or disable</param>
+		private void EnableDisableControlAndChildren(Control control, bool state)
+		{
+			control.Enabled = state;
+
+			foreach (Control c in control.Controls)
+				EnableDisableControlAndChildren(c, state);
 		}
 
 		#endregion

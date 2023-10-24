@@ -143,6 +143,7 @@
 			this.cbrandomroll.Name = "cbrandomroll";
 			this.cbrandomroll.Size = new System.Drawing.Size(66, 17);
 			this.cbrandomroll.TabIndex = 5;
+			this.cbrandomroll.Tag = "roll";
 			this.cbrandomroll.Text = "Random";
 			this.cbrandomroll.UseVisualStyleBackColor = true;
 			this.cbrandomroll.CheckedChanged += new System.EventHandler(this.cbrandomroll_CheckedChanged);
@@ -154,6 +155,7 @@
 			this.cbrandompitch.Name = "cbrandompitch";
 			this.cbrandompitch.Size = new System.Drawing.Size(66, 17);
 			this.cbrandompitch.TabIndex = 3;
+			this.cbrandompitch.Tag = "pitch";
 			this.cbrandompitch.Text = "Random";
 			this.cbrandompitch.UseVisualStyleBackColor = true;
 			this.cbrandompitch.CheckedChanged += new System.EventHandler(this.cbrandompitch_CheckedChanged);
@@ -186,6 +188,7 @@
 			this.roll.Size = new System.Drawing.Size(60, 24);
 			this.roll.StepValues = null;
 			this.roll.TabIndex = 4;
+			this.roll.Tag = "roll";
 			this.roll.WhenTextChanged += new System.EventHandler(this.roll_WhenTextChanged);
 			// 
 			// labelroll
@@ -214,6 +217,7 @@
 			this.pitch.Size = new System.Drawing.Size(60, 24);
 			this.pitch.StepValues = null;
 			this.pitch.TabIndex = 2;
+			this.pitch.Tag = "pitch";
 			this.pitch.WhenTextChanged += new System.EventHandler(this.pitch_WhenTextChanged);
 			// 
 			// labelpitch
@@ -355,6 +359,7 @@
 			this.rollControl.Name = "rollControl";
 			this.rollControl.Size = new System.Drawing.Size(64, 64);
 			this.rollControl.TabIndex = 20;
+			this.rollControl.Tag = "roll";
 			this.rollControl.AngleChanged += new System.EventHandler(this.rollControl_AngleChanged);
 			// 
 			// grouppitch
@@ -376,6 +381,7 @@
 			this.pitchControl.Name = "pitchControl";
 			this.pitchControl.Size = new System.Drawing.Size(64, 64);
 			this.pitchControl.TabIndex = 20;
+			this.pitchControl.Tag = "pitch";
 			this.pitchControl.AngleChanged += new System.EventHandler(this.pitchControl_AngleChanged);
 			// 
 			// groupangle
@@ -530,6 +536,7 @@
 			this.labelScale.Name = "labelScale";
 			this.labelScale.Size = new System.Drawing.Size(80, 14);
 			this.labelScale.TabIndex = 32;
+			this.labelScale.Tag = "scalex";
 			this.labelScale.Text = "Scale:";
 			this.labelScale.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
@@ -551,6 +558,7 @@
 			this.scale.Size = new System.Drawing.Size(72, 24);
 			this.scale.StepValues = null;
 			this.scale.TabIndex = 0;
+			this.scale.Tag = "scalex";
 			this.scale.WhenTextChanged += new System.EventHandler(this.scale_WhenTextChanged);
 			// 
 			// actiongroup

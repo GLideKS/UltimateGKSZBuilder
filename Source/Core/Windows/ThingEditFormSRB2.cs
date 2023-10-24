@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using CodeImp.DoomBuilder.Config;
 using CodeImp.DoomBuilder.Controls;
@@ -92,6 +93,8 @@ namespace CodeImp.DoomBuilder.Windows
 		{
 			// Initialize
 			InitializeComponent();
+
+			DoUDMFControls(this);
 
 			//mxd. Load settings
 			useabsoluteheight = General.Settings.ReadSetting("windows." + configname + ".useabsoluteheight", false);
@@ -359,6 +362,37 @@ namespace CodeImp.DoomBuilder.Windows
 
 			// Store current flag names
 			flagsrename = newflagsrename;
+		}
+
+		/// <summary>
+		/// Enables or disables controls depending on if their tag is one of the UDMF fields set in the game config.
+		/// </summary>
+		/// <param name="control">Control to process</param>
+		private void DoUDMFControls(Control control)
+		{
+			if (control.Tag is string name && !string.IsNullOrWhiteSpace(name))
+			{
+				//EnableDisableControlAndChildren(control, General.Map.Config.HasUniversalFieldOrFlag<Thing>(name));
+				EnableDisableControlAndChildren(control, General.Map.Config.ThingFields.Any(f => f.Name == name));
+			}
+			else
+			{
+				foreach (Control c in control.Controls)
+					DoUDMFControls(c);
+			}
+		}
+
+		/// <summary>
+		/// Enables or disables a control and all its children.
+		/// </summary>
+		/// <param name="control">Control the enable or disable</param>
+		/// <param name="state">If to enable or disable</param>
+		private void EnableDisableControlAndChildren(Control control, bool state)
+		{
+			control.Enabled = state;
+
+			foreach (Control c in control.Controls)
+				EnableDisableControlAndChildren(c, state);
 		}
 
 		#endregion
