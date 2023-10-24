@@ -193,6 +193,7 @@ namespace CodeImp.DoomBuilder.Windows
 			label6.Name = "label6";
 			label6.Size = new System.Drawing.Size(37, 13);
 			label6.TabIndex = 17;
+			label6.Tag = "alpha";
 			label6.Text = "Alpha:";
 			// 
 			// labelrenderstyle
@@ -202,6 +203,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.labelrenderstyle.Name = "labelrenderstyle";
 			this.labelrenderstyle.Size = new System.Drawing.Size(69, 13);
 			this.labelrenderstyle.TabIndex = 11;
+			this.labelrenderstyle.Tag = "renderstyle";
 			this.labelrenderstyle.Text = "Render style:";
 			// 
 			// labellockpick
@@ -211,6 +213,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.labellockpick.Name = "labellockpick";
 			this.labellockpick.Size = new System.Drawing.Size(72, 13);
 			this.labellockpick.TabIndex = 15;
+			this.labellockpick.Tag = "locknumber";
 			this.labellockpick.Text = "Lock number:";
 			// 
 			// labelLightFront
@@ -219,7 +222,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.labelLightFront.Name = "labelLightFront";
 			this.labelLightFront.Size = new System.Drawing.Size(80, 14);
 			this.labelLightFront.TabIndex = 25;
-			this.labelLightFront.Tag = "";
+			this.labelLightFront.Tag = "light";
 			this.labelLightFront.Text = "Brightness:";
 			this.labelLightFront.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -402,6 +405,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.resetalpha.Name = "resetalpha";
 			this.resetalpha.Size = new System.Drawing.Size(23, 23);
 			this.resetalpha.TabIndex = 70;
+			this.resetalpha.Tag = "alpha";
 			this.tooltip.SetToolTip(this.resetalpha, "Reset");
 			this.resetalpha.UseVisualStyleBackColor = true;
 			this.resetalpha.Click += new System.EventHandler(this.resetalpha_Click);
@@ -413,6 +417,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.lockpick.Name = "lockpick";
 			this.lockpick.Size = new System.Drawing.Size(115, 21);
 			this.lockpick.TabIndex = 19;
+			this.lockpick.Tag = "locknumber";
 			// 
 			// alpha
 			// 
@@ -431,6 +436,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.alpha.Size = new System.Drawing.Size(65, 24);
 			this.alpha.StepValues = null;
 			this.alpha.TabIndex = 18;
+			this.alpha.Tag = "alpha";
 			this.alpha.WhenTextChanged += new System.EventHandler(this.alpha_WhenTextChanged);
 			// 
 			// renderStyle
@@ -441,6 +447,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.renderStyle.Name = "renderStyle";
 			this.renderStyle.Size = new System.Drawing.Size(86, 21);
 			this.renderStyle.TabIndex = 12;
+			this.renderStyle.Tag = "renderstyle";
 			this.renderStyle.SelectedIndexChanged += new System.EventHandler(this.cbRenderStyle_SelectedIndexChanged);
 			// 
 			// activationGroup
@@ -576,7 +583,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.labelFrontScaleBottom.Name = "labelFrontScaleBottom";
 			this.labelFrontScaleBottom.Size = new System.Drawing.Size(80, 14);
 			this.labelFrontScaleBottom.TabIndex = 42;
-			this.labelFrontScaleBottom.Tag = "";
+			this.labelFrontScaleBottom.Tag = "scalex_bottom";
 			this.labelFrontScaleBottom.Text = "Lower scale:";
 			this.labelFrontScaleBottom.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -586,7 +593,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.labelFrontScaleMid.Name = "labelFrontScaleMid";
 			this.labelFrontScaleMid.Size = new System.Drawing.Size(80, 14);
 			this.labelFrontScaleMid.TabIndex = 41;
-			this.labelFrontScaleMid.Tag = "";
+			this.labelFrontScaleMid.Tag = "scalex_mid";
 			this.labelFrontScaleMid.Text = "Middle scale:";
 			this.labelFrontScaleMid.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -596,7 +603,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.labelFrontScaleTop.Name = "labelFrontScaleTop";
 			this.labelFrontScaleTop.Size = new System.Drawing.Size(80, 14);
 			this.labelFrontScaleTop.TabIndex = 28;
-			this.labelFrontScaleTop.Tag = "";
+			this.labelFrontScaleTop.Tag = "scalex_top";
 			this.labelFrontScaleTop.Text = "Upper scale:";
 			this.labelFrontScaleTop.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -617,6 +624,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.pfcFrontScaleTop.Name = "pfcFrontScaleTop";
 			this.pfcFrontScaleTop.Size = new System.Drawing.Size(186, 26);
 			this.pfcFrontScaleTop.TabIndex = 38;
+			this.pfcFrontScaleTop.Tag = "scalex_top";
 			this.pfcFrontScaleTop.OnValuesChanged += new System.EventHandler(this.pfcFrontScaleTop_OnValuesChanged);
 			// 
 			// pfcFrontScaleBottom
@@ -636,6 +644,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.pfcFrontScaleBottom.Name = "pfcFrontScaleBottom";
 			this.pfcFrontScaleBottom.Size = new System.Drawing.Size(186, 26);
 			this.pfcFrontScaleBottom.TabIndex = 40;
+			this.pfcFrontScaleBottom.Tag = "scalex_bottom";
 			this.pfcFrontScaleBottom.OnValuesChanged += new System.EventHandler(this.pfcFrontScaleBottom_OnValuesChanged);
 			// 
 			// pfcFrontScaleMid
@@ -655,6 +664,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.pfcFrontScaleMid.Name = "pfcFrontScaleMid";
 			this.pfcFrontScaleMid.Size = new System.Drawing.Size(186, 26);
 			this.pfcFrontScaleMid.TabIndex = 39;
+			this.pfcFrontScaleMid.Tag = "scalex_mid";
 			this.pfcFrontScaleMid.OnValuesChanged += new System.EventHandler(this.pfcFrontScaleMid_OnValuesChanged);
 			// 
 			// groupBox6
@@ -690,7 +700,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.labelFrontOffsetBottom.Name = "labelFrontOffsetBottom";
 			this.labelFrontOffsetBottom.Size = new System.Drawing.Size(80, 14);
 			this.labelFrontOffsetBottom.TabIndex = 45;
-			this.labelFrontOffsetBottom.Tag = "";
+			this.labelFrontOffsetBottom.Tag = "offsetx_bottom";
 			this.labelFrontOffsetBottom.Text = "Lower offset:";
 			this.labelFrontOffsetBottom.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -713,7 +723,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.labelFrontOffsetMid.Name = "labelFrontOffsetMid";
 			this.labelFrontOffsetMid.Size = new System.Drawing.Size(80, 14);
 			this.labelFrontOffsetMid.TabIndex = 44;
-			this.labelFrontOffsetMid.Tag = "";
+			this.labelFrontOffsetMid.Tag = "offsetx_mid";
 			this.labelFrontOffsetMid.Text = "Middle offset:";
 			this.labelFrontOffsetMid.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -734,6 +744,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.pfcFrontOffsetTop.Name = "pfcFrontOffsetTop";
 			this.pfcFrontOffsetTop.Size = new System.Drawing.Size(186, 26);
 			this.pfcFrontOffsetTop.TabIndex = 35;
+			this.pfcFrontOffsetTop.Tag = "offsetx_top";
 			this.pfcFrontOffsetTop.OnValuesChanged += new System.EventHandler(this.pfcFrontOffsetTop_OnValuesChanged);
 			// 
 			// labelFrontOffsetTop
@@ -742,7 +753,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.labelFrontOffsetTop.Name = "labelFrontOffsetTop";
 			this.labelFrontOffsetTop.Size = new System.Drawing.Size(80, 14);
 			this.labelFrontOffsetTop.TabIndex = 43;
-			this.labelFrontOffsetTop.Tag = "";
+			this.labelFrontOffsetTop.Tag = "offsetx_top";
 			this.labelFrontOffsetTop.Text = "Upper offset:";
 			this.labelFrontOffsetTop.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -763,6 +774,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.pfcFrontOffsetMid.Name = "pfcFrontOffsetMid";
 			this.pfcFrontOffsetMid.Size = new System.Drawing.Size(186, 26);
 			this.pfcFrontOffsetMid.TabIndex = 36;
+			this.pfcFrontOffsetMid.Tag = "offsetx_mid";
 			this.pfcFrontOffsetMid.OnValuesChanged += new System.EventHandler(this.pfcFrontOffsetMid_OnValuesChanged);
 			// 
 			// pfcFrontOffsetBottom
@@ -782,6 +794,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.pfcFrontOffsetBottom.Name = "pfcFrontOffsetBottom";
 			this.pfcFrontOffsetBottom.Size = new System.Drawing.Size(186, 26);
 			this.pfcFrontOffsetBottom.TabIndex = 37;
+			this.pfcFrontOffsetBottom.Tag = "offsetx_bottom";
 			this.pfcFrontOffsetBottom.OnValuesChanged += new System.EventHandler(this.pfcFrontOffsetBottom_OnValuesChanged);
 			// 
 			// groupBox5
@@ -808,6 +821,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.lightfrontlower.Name = "lightfrontlower";
 			this.lightfrontlower.Size = new System.Drawing.Size(262, 29);
 			this.lightfrontlower.TabIndex = 29;
+			this.lightfrontlower.Tag = "light_bottom";
 			// 
 			// lightfrontmiddle
 			// 
@@ -815,6 +829,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.lightfrontmiddle.Name = "lightfrontmiddle";
 			this.lightfrontmiddle.Size = new System.Drawing.Size(262, 29);
 			this.lightfrontmiddle.TabIndex = 29;
+			this.lightfrontmiddle.Tag = "light_mid";
 			// 
 			// lightfrontupper
 			// 
@@ -822,6 +837,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.lightfrontupper.Name = "lightfrontupper";
 			this.lightfrontupper.Size = new System.Drawing.Size(262, 29);
 			this.lightfrontupper.TabIndex = 29;
+			this.lightfrontupper.Tag = "light_top";
 			// 
 			// resetfrontlight
 			// 
@@ -830,6 +846,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.resetfrontlight.Name = "resetfrontlight";
 			this.resetfrontlight.Size = new System.Drawing.Size(23, 23);
 			this.resetfrontlight.TabIndex = 28;
+			this.resetfrontlight.Tag = "light";
 			this.tooltip.SetToolTip(this.resetfrontlight, "Reset Front Brightness");
 			this.resetfrontlight.UseVisualStyleBackColor = true;
 			this.resetfrontlight.Click += new System.EventHandler(this.resetfrontlight_Click);
@@ -879,7 +896,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.lightFront.Size = new System.Drawing.Size(62, 24);
 			this.lightFront.StepValues = null;
 			this.lightFront.TabIndex = 26;
-			this.lightFront.Tag = "";
+			this.lightFront.Tag = "light";
 			this.lightFront.WhenTextChanged += new System.EventHandler(this.lightFront_WhenTextChanged);
 			// 
 			// cbLightAbsoluteFront

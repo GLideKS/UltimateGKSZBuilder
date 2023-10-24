@@ -1483,7 +1483,6 @@
     <None Include="Resources\PuzzlePiece.png" />
     <None Include="Resources\Search.png" />
     <None Include="Resources\SnapVerts.png" />
-    <EmbeddedResource Include="Resources\UDMF_UI.cfg" />
     <None Include="Resources\Unlink.png" />
     <None Include="Resources\Unpin.png" />
     <None Include="Resources\Pin.png" />

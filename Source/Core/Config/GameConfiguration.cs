@@ -1433,7 +1433,58 @@ namespace CodeImp.DoomBuilder.Config
 
 			return supported;
 		}
-		
+
+		/// <summary>
+		/// Checks if a MapElement type has a UDMF field or flag defined.
+		/// </summary>
+		/// <typeparam name="T">Type inherited from MapElement</typeparam>
+		/// <param name="name">Name of the UDMF field or flag</param>
+		/// <returns>true if the field or flag exists, false if it doesn't</returns>
+		public bool HasUniversalFieldOrFlag<T>(string name) where T : MapElement
+		{
+			Type type = typeof(T);
+			List<UniversalFieldInfo> ufi;
+			Dictionary<string, string> flags;
+
+			if (type == typeof(Thing))
+			{
+				ufi = thingfields;
+				flags = thingflags;
+			}
+			else if (type == typeof(Linedef))
+			{
+				ufi = linedeffields;
+				flags = linedefflags;
+			}
+			else if (type == typeof(Sidedef))
+			{
+				ufi = sidedeffields;
+				flags = sidedefflags;
+			}
+			else if (type == typeof(Sector))
+			{
+				ufi = sectorfields;
+				flags = sectorflags;
+			}
+			else if (type == typeof(Vertex))
+			{
+				ufi = vertexfields;
+				flags = new Dictionary<string, string>(); // Vertices don't have flags
+			}
+			else
+				throw new NotSupportedException("Unsupported MapElement type: " + type.Name);
+
+			// Check for regular UDMF fields
+			if (ufi.Where(f => f.Name == name).FirstOrDefault() != null)
+				return true;
+
+			// Check for flags
+			if (flags.ContainsKey(name))
+				return true;
+
+			return false;
+		}
+	
 		#endregion
 	}
 }
