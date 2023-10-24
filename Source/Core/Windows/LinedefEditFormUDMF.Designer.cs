@@ -1013,6 +1013,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.lightbacklower.Name = "lightbacklower";
 			this.lightbacklower.Size = new System.Drawing.Size(262, 29);
 			this.lightbacklower.TabIndex = 32;
+			this.lightbacklower.Tag = "light_bottom";
 			// 
 			// lightbackmiddle
 			// 
@@ -1020,6 +1021,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.lightbackmiddle.Name = "lightbackmiddle";
 			this.lightbackmiddle.Size = new System.Drawing.Size(262, 29);
 			this.lightbackmiddle.TabIndex = 33;
+			this.lightbackmiddle.Tag = "light_mid";
 			// 
 			// lightbackupper
 			// 
@@ -1027,6 +1029,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.lightbackupper.Name = "lightbackupper";
 			this.lightbackupper.Size = new System.Drawing.Size(262, 29);
 			this.lightbackupper.TabIndex = 34;
+			this.lightbackupper.Tag = "light_top";
 			// 
 			// resetbacklight
 			// 
@@ -1035,6 +1038,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.resetbacklight.Name = "resetbacklight";
 			this.resetbacklight.Size = new System.Drawing.Size(23, 23);
 			this.resetbacklight.TabIndex = 31;
+			this.resetbacklight.Tag = "light";
 			this.tooltip.SetToolTip(this.resetbacklight, "Reset Back Brightness");
 			this.resetbacklight.UseVisualStyleBackColor = true;
 			this.resetbacklight.Click += new System.EventHandler(this.resetbacklight_Click);
@@ -1093,7 +1097,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.labelLightBack.Name = "labelLightBack";
 			this.labelLightBack.Size = new System.Drawing.Size(80, 14);
 			this.labelLightBack.TabIndex = 28;
-			this.labelLightBack.Tag = "";
+			this.labelLightBack.Tag = "light";
 			this.labelLightBack.Text = "Brightness:";
 			this.labelLightBack.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -1154,7 +1158,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.labelBackScaleBottom.Name = "labelBackScaleBottom";
 			this.labelBackScaleBottom.Size = new System.Drawing.Size(80, 14);
 			this.labelBackScaleBottom.TabIndex = 45;
-			this.labelBackScaleBottom.Tag = "";
+			this.labelBackScaleBottom.Tag = "scalex_bottom";
 			this.labelBackScaleBottom.Text = "Lower scale:";
 			this.labelBackScaleBottom.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -1164,7 +1168,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.labelBackScaleMid.Name = "labelBackScaleMid";
 			this.labelBackScaleMid.Size = new System.Drawing.Size(80, 14);
 			this.labelBackScaleMid.TabIndex = 44;
-			this.labelBackScaleMid.Tag = "";
+			this.labelBackScaleMid.Tag = "scalex_mid";
 			this.labelBackScaleMid.Text = "Middle scale:";
 			this.labelBackScaleMid.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -1174,7 +1178,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.labelBackScaleTop.Name = "labelBackScaleTop";
 			this.labelBackScaleTop.Size = new System.Drawing.Size(80, 14);
 			this.labelBackScaleTop.TabIndex = 43;
-			this.labelBackScaleTop.Tag = "";
+			this.labelBackScaleTop.Tag = "scalex_top";
 			this.labelBackScaleTop.Text = "Upper scale:";
 			this.labelBackScaleTop.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -1195,6 +1199,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.pfcBackScaleTop.Name = "pfcBackScaleTop";
 			this.pfcBackScaleTop.Size = new System.Drawing.Size(186, 26);
 			this.pfcBackScaleTop.TabIndex = 38;
+			this.pfcBackScaleTop.Tag = "scalex_top";
 			this.pfcBackScaleTop.OnValuesChanged += new System.EventHandler(this.pfcBackScaleTop_OnValuesChanged);
 			// 
 			// pfcBackScaleBottom
@@ -1214,6 +1219,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.pfcBackScaleBottom.Name = "pfcBackScaleBottom";
 			this.pfcBackScaleBottom.Size = new System.Drawing.Size(186, 26);
 			this.pfcBackScaleBottom.TabIndex = 40;
+			this.pfcBackScaleBottom.Tag = "scalex_bottom";
 			this.pfcBackScaleBottom.OnValuesChanged += new System.EventHandler(this.pfcBackScaleBottom_OnValuesChanged);
 			// 
 			// pfcBackScaleMid
@@ -1233,6 +1239,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.pfcBackScaleMid.Name = "pfcBackScaleMid";
 			this.pfcBackScaleMid.Size = new System.Drawing.Size(186, 26);
 			this.pfcBackScaleMid.TabIndex = 39;
+			this.pfcBackScaleMid.Tag = "scalex_mid";
 			this.pfcBackScaleMid.OnValuesChanged += new System.EventHandler(this.pfcBackScaleMid_OnValuesChanged);
 			// 
 			// groupBox1
@@ -1268,7 +1275,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.labelBackOffsetBottom.Name = "labelBackOffsetBottom";
 			this.labelBackOffsetBottom.Size = new System.Drawing.Size(80, 14);
 			this.labelBackOffsetBottom.TabIndex = 49;
-			this.labelBackOffsetBottom.Tag = "";
+			this.labelBackOffsetBottom.Tag = "offsetx_bottom";
 			this.labelBackOffsetBottom.Text = "Lower offset:";
 			this.labelBackOffsetBottom.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -1278,7 +1285,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.labelBackOffsetMid.Name = "labelBackOffsetMid";
 			this.labelBackOffsetMid.Size = new System.Drawing.Size(80, 14);
 			this.labelBackOffsetMid.TabIndex = 48;
-			this.labelBackOffsetMid.Tag = "";
+			this.labelBackOffsetMid.Tag = "offsetx_mid";
 			this.labelBackOffsetMid.Text = "Middle offset:";
 			this.labelBackOffsetMid.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -1288,7 +1295,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.labelBackOffsetTop.Name = "labelBackOffsetTop";
 			this.labelBackOffsetTop.Size = new System.Drawing.Size(80, 14);
 			this.labelBackOffsetTop.TabIndex = 47;
-			this.labelBackOffsetTop.Tag = "";
+			this.labelBackOffsetTop.Tag = "offsetx_top";
 			this.labelBackOffsetTop.Text = "Upper offset:";
 			this.labelBackOffsetTop.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -1309,6 +1316,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.pfcBackOffsetTop.Name = "pfcBackOffsetTop";
 			this.pfcBackOffsetTop.Size = new System.Drawing.Size(186, 26);
 			this.pfcBackOffsetTop.TabIndex = 35;
+			this.pfcBackOffsetTop.Tag = "offsetx_top";
 			this.pfcBackOffsetTop.OnValuesChanged += new System.EventHandler(this.pfcBackOffsetTop_OnValuesChanged);
 			// 
 			// pfcBackOffsetMid
@@ -1328,6 +1336,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.pfcBackOffsetMid.Name = "pfcBackOffsetMid";
 			this.pfcBackOffsetMid.Size = new System.Drawing.Size(186, 26);
 			this.pfcBackOffsetMid.TabIndex = 36;
+			this.pfcBackOffsetMid.Tag = "offsetx_mid";
 			this.pfcBackOffsetMid.OnValuesChanged += new System.EventHandler(this.pfcBackOffsetMid_OnValuesChanged);
 			// 
 			// pfcBackOffsetBottom
@@ -1347,6 +1356,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.pfcBackOffsetBottom.Name = "pfcBackOffsetBottom";
 			this.pfcBackOffsetBottom.Size = new System.Drawing.Size(186, 26);
 			this.pfcBackOffsetBottom.TabIndex = 37;
+			this.pfcBackOffsetBottom.Tag = "offsetx_bottom";
 			this.pfcBackOffsetBottom.OnValuesChanged += new System.EventHandler(this.pfcBackOffsetBottom_OnValuesChanged);
 			// 
 			// backTextureOffset
