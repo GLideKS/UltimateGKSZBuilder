@@ -107,7 +107,7 @@ namespace CodeImp.DoomBuilder.Controls
 
 			for (int i = 0; i < stringargs.Length; i++)
 				if (!string.IsNullOrEmpty(stringargs[i].Text))
-					UniFields.SetString(l.Fields, "stringarg" + i, stringargs[i].Text, string.Empty);
+					l.Fields["stringarg" + i] = new UniValue(UniversalType.String, stringargs[i].Text);
 		}
 
 		public void Apply(Thing t, int step)
@@ -117,7 +117,7 @@ namespace CodeImp.DoomBuilder.Controls
 
 			for (int i = 0; i < stringargs.Length; i++)
 				if (!string.IsNullOrEmpty(stringargs[i].Text))
-					UniFields.SetString(t.Fields, "stringarg" + i, stringargs[i].Text, string.Empty);
+					t.Fields["stringarg" + i] = new UniValue(UniversalType.String, stringargs[i].Text);
 		}
 
 		#endregion
