@@ -67,8 +67,8 @@ namespace CodeImp.DoomBuilder.IO
 		public override int MaxThings { get { return int.MaxValue; } }
 		public override int MinTextureOffset { get { return int.MinValue; } }
 		public override int MaxTextureOffset { get { return int.MaxValue; } }
-		public override int VertexDecimals { get { return 5; } }
-		public override string DecimalsFormat { get { return "0.00000"; } }
+		public override int VertexDecimals { get { return 0; } } // SRB2 only has integer coordinates for the time being
+		public override string DecimalsFormat { get { return "0"; } } // SRB2 only has integer coordinates for the time being
 		public override bool HasLinedefTag { get { return true; } }
 		public override bool HasThingTag { get { return true; } }
 		public override bool HasThingAction { get { return true; } }

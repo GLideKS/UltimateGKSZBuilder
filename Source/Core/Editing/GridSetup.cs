@@ -165,7 +165,7 @@ namespace CodeImp.DoomBuilder.Editing
 		internal void SetGridSize(double size)
 		{
 			//mxd. Bad things happen when size <= 0
-			size = Math.Max(size, ((General.Map != null && General.Map.UDMF) ? MINIMUM_GRID_SIZE_UDMF : MINIMUM_GRID_SIZE));
+			size = Math.Max(size, MINIMUM_GRID_SIZE); // ((General.Map != null && General.Map.UDMF) ? MINIMUM_GRID_SIZE_UDMF : MINIMUM_GRID_SIZE));
 			
 			// Change grid
 			gridsizef = size;
@@ -309,7 +309,7 @@ namespace CodeImp.DoomBuilder.Editing
 		internal void DecreaseGrid()
 		{
 			//mxd. Not lower than 0.125 in UDMF or 1 otherwise
-			float preminsize = (General.Map.UDMF ? MINIMUM_GRID_SIZE_UDMF * 2 : MINIMUM_GRID_SIZE * 2);
+			float preminsize = MINIMUM_GRID_SIZE * 2; // (General.Map.UDMF ? MINIMUM_GRID_SIZE_UDMF * 2 : MINIMUM_GRID_SIZE * 2);
 			if(gridsizef >= preminsize)
 			{
 				//mxd. Disable automatic grid resizing
