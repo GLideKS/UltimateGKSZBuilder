@@ -37,3 +37,5 @@ bin
 /Build/System.Numerics.Vectors.dll
 /Build/System.Runtime.CompilerServices.Unsafe.dll
 /Build/Updater.ini
+/Build.Native
+/builder

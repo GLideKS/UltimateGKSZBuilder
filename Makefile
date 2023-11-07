@@ -1,7 +1,47 @@
-
 BUILDTYPE ?= Release
 
-all: linux
+TARGET_EXEC := libBuilderNative.so
+
+BUILD_DIR := ./Build.Native
+SRC_DIRS := ./Source/Native
+
+SRCS := $(shell find $(SRC_DIRS) -name '*.cpp' -or -name '*.c' -or -name '*.s')
+
+OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
+
+DEPS := $(OBJS:.o=.d)
+
+INC_DIRS := ./Source/Native
+
+INC_FLAGS := $(addprefix -I,$(INC_DIRS))
+
+CPPFLAGS_ := $(INC_FLAGS) -MMD -MP
+
+CFLAGS_ = -O2 -g3 -fPIC
+
+CXXFLAGS_ = -std=c++14 $(CFLAGS_)
+
+LDFLAGS_ =  --shared -ldl
+
+all: builder Build/libBuilderNative.so
+
+$(BUILD_DIR)/%.c.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CPPFLAGS_) $(CPPFLAGS) $(CFLAGS_) $(CFLAGS) -c $< -o $@
+
+$(BUILD_DIR)/%.cpp.o: %.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CPPFLAGS_) $(CPPFLAGS) $(CXXFLAGS_) $(CXXFLAGS) -c $< -o $@
+
+$(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
+	$(CXX) $(OBJS) $(LDFLAGS_) $(LDFLAGS) -o $@
+
+Build/libBuilderNative.so: $(BUILD_DIR)/$(TARGET_EXEC)
+	cp $< $@
+
+.PHONY: clean
+clean:
+	-rm --force --recursive $(BUILD_DIR)/Source $(BUILD_DIR)/$(TARGET_EXEC) $(BUILD_DIR)/builder $(BUILD_DIR)/Builder.exe Build/libBuilderNative.so
 
 run:
 	cd Build && mono Builder.exe
@@ -10,13 +50,19 @@ linux: builder native
 
 mac: builder nativemac
 
-builder:
+builder: $(BUILD_DIR)/Builder.exe Build/builder
+
+$(BUILD_DIR)/Builder.exe: BuilderMono.sln Build/builder
 	msbuild /nologo /verbosity:minimal -p:Configuration=$(BUILDTYPE) BuilderMono.sln
+
+Build/builder:
 	cp builder.sh Build/builder
 	chmod +x Build/builder
 
 nativemac:
-	g++ -std=c++14 -O2 --shared -g3 -o Build/libBuilderNative.so -fPIC -I Source/Native Source/Native/*.cpp Source/Native/OpenGL/*.cpp Source/Native/OpenGL/gl_load/*.c -ldl
+	$(CXX) -std=c++14 -O2 --shared -g3 -o Build/libBuilderNative.so -fPIC -I Source/Native Source/Native/*.cpp Source/Native/OpenGL/*.cpp Source/Native/OpenGL/gl_load/*.c -ldl
 
 native:
-	g++ -std=c++14 -O2 --shared -g3 -o Build/libBuilderNative.so -fPIC -I Source/Native Source/Native/*.cpp Source/Native/OpenGL/*.cpp Source/Native/OpenGL/gl_load/*.c -lX11 -ldl
+	$(CXX) -std=c++14 -O2 --shared -g3 -o Build/libBuilderNative.so -fPIC -I Source/Native Source/Native/*.cpp Source/Native/OpenGL/*.cpp Source/Native/OpenGL/gl_load/*.c -lX11 -ldl
+
+-include $(DEPS)

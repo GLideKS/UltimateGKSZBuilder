@@ -566,11 +566,11 @@ void GLRenderDevice::GarbageCollectBuffer(int size, VertexFormat format)
 
 	GLuint handle = old->GetVAO();
 	glDeleteVertexArrays(1, &handle);
-	if (handle == oldvao) oldvao = sharedbuf->GetVAO();
+	if ((size_t)handle == (size_t)oldvao) oldvao = sharedbuf->GetVAO();
 
 	handle = old->GetBuffer();
 	glDeleteBuffers(1, &handle);
-	if (handle == oldarray) oldarray = sharedbuf->GetBuffer();
+	if ((size_t)handle == (size_t)oldarray) oldarray = sharedbuf->GetBuffer();
 
 	glBindBuffer(GL_ARRAY_BUFFER, oldarray);
 	glBindVertexArray(oldvao);
