@@ -378,11 +378,13 @@ namespace CodeImp.DoomBuilder.VisualModes
 					// Similar to FLATSPRITE but is not affected by pitch.
 					case ThingRenderMode.WALLSPRITE:
 						transform = Matrix.Scaling((float)thing.ScaleX, (float)thing.ScaleX, (float)thing.ScaleY);
-						
+
+						float paperspriteangle = (float)(thing.Angle + Angle2D.PIHALF);
+
 						// Apply roll?
 						if(thing.Roll != 0)
 						{
-							rotation = Matrix.RotationY((float)-thing.RollRad) * Matrix.RotationZ((float)thing.Angle);
+							rotation = Matrix.RotationY((float)-thing.RollRad) * Matrix.RotationZ(paperspriteangle);
 							if(info.RollCenter)
 								transform *= Matrix.Translation((float)-centerx, (float)-centerx, (float)-centerz) * rotation * Matrix.Translation((float)centerx, (float)centerx, (float)centerz);
 							else
@@ -390,7 +392,7 @@ namespace CodeImp.DoomBuilder.VisualModes
 						}
 						else
 						{
-							transform *= Matrix.RotationZ((float)thing.Angle);
+							transform *= Matrix.RotationZ(paperspriteangle);
 						}
 
 						// Apply transform
