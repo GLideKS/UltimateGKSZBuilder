@@ -18,6 +18,7 @@ static void* AppleGLGetProcAddress (const char *name)
 #endif /* __APPLE__ */
 
 /* BEGINNING OF MANUAL CHANGES, DO NOT REMOVE! */
+#if 0 // Unused function
 #if defined(__sgi) || defined (__sun) || defined(__unix__)
 #include <dlfcn.h>
 #include <stdio.h>
@@ -39,6 +40,7 @@ static void* PosixGetProcAddress (const GLubyte* name)
     return dlsym(h, (const char*)name);
 }
 #endif /* __sgi || __sun || __unix__ */
+#endif
 
 #if defined(_WIN32)
 

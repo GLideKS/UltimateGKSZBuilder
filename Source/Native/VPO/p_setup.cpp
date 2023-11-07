@@ -706,8 +706,8 @@ void Context::CalcDoorAltHeight(sector_t *sec)
 	fixed_t door_h = sec->floorheight;  // == sec->ceilingheight
 
 	// compute lowest ceiling and highest floor of neighbor sectors
-	fixed_t low_ceil   =  32767 << FRACBITS;
-	fixed_t high_floor = -32767 << FRACBITS;
+	fixed_t low_ceil   = INT32_MAX;
+	fixed_t high_floor = INT32_MIN;
 
 	int k, pass;
 
