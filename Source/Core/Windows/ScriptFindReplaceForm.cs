@@ -228,6 +228,17 @@ namespace CodeImp.DoomBuilder.Windows
 			}
 		}
 
+		// The form doesn't have a regular "close" button, so we have to intercept the Esc key
+		protected override bool ProcessDialogKey(Keys keyData)
+		{
+			if (ModifierKeys == Keys.None && keyData == Keys.Escape)
+			{
+				this.Hide();
+				return true;
+			}
+			return base.ProcessDialogKey(keyData);
+		}
+
 		#endregion
 
 		#region ================== Events
@@ -385,6 +396,24 @@ namespace CodeImp.DoomBuilder.Windows
 			if(tabs.SelectedTab == tabfind) findbox.Focus();
 			else if(tabs.SelectedTab == tabreplace) replacefindbox.Focus();
 			else throw new NotImplementedException("Unsupported tab type");
+		}
+
+		private void findbox_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+				findnextbutton_Click(sender, EventArgs.Empty);
+		}
+
+		private void replacefindbox_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+				findnextbutton_Click(sender, EventArgs.Empty);
+		}
+
+		private void replacebox_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+				replacebutton_Click(sender, EventArgs.Empty);
 		}
 
 		#endregion

@@ -47,6 +47,13 @@ namespace CodeImp.DoomBuilder.Config
 		}
 	}
 
+	public enum SkewStyle
+	{
+		None,
+		GZDoom,
+		EternityEngine
+	}
+
 	public class GameConfiguration
 	{
 		#region ================== Constants
@@ -230,6 +237,9 @@ namespace CodeImp.DoomBuilder.Config
 		// Dehacked
 		private DehackedData dehackeddata;
 
+		// Skew style
+		private SkewStyle skewstyle;
+
         #endregion
 
         #region ================== Properties
@@ -404,6 +414,9 @@ namespace CodeImp.DoomBuilder.Config
 
 		// Dehacked
 		public DehackedData DehackedData { get { return dehackeddata; } }
+
+		// Skew style
+		public SkewStyle SkewStyle { get { return skewstyle; } }
 		
 		#endregion
 
@@ -662,6 +675,16 @@ namespace CodeImp.DoomBuilder.Config
 
 			// Dehacked
 			dehackeddata = new DehackedData(cfg, "dehacked");
+
+			// Determine skew style
+			skewstyle = SkewStyle.None;
+			if (sidedeftextureskewing)
+			{
+				if (sidedeffields.Any(lf => lf.Name == "skew_top" || lf.Name == "skew_middle" || lf.Name == "skew_bottom"))
+					skewstyle = SkewStyle.GZDoom;
+				else if (sidedeffields.Any(lf => lf.Name == "skew_top_type" || lf.Name == "skew_middle_type" || lf.Name == "skew_bottom_type"))
+					skewstyle = SkewStyle.EternityEngine;
+			}
 		}
 
 		// Destructor
