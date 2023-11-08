@@ -39,10 +39,16 @@
 #define M_PI 3.14159265358979323846
 #endif
 
-#ifdef _WIN32
+#ifndef FORCEINLINE
+#if defined (_MSC_VER)
 #define FORCEINLINE __forceinline
+//#elif defined (__MINGW32__)
+//#define FORCEINLINE inline
+#elif defined (__GNUC__)
+#define FORCEINLINE inline __attribute__((always_inline))
 #else
-#define FORCEINLINE
+#define FORCEINLINE inline
+#endif
 #endif
 
 // This uses a sine table with linear interpolation
