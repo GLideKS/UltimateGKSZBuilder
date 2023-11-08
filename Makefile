@@ -23,6 +23,10 @@ CPPFLAGS_ := $(INC_FLAGS) -MMD -MP
 
 CFLAGS_ = -O2 -g3 -fPIC
 
+ifdef MINGW
+CFLAGS_ += -msse2
+endif
+
 CXXFLAGS_ = -std=c++14 $(CFLAGS_)
 
 ifdef MINGW

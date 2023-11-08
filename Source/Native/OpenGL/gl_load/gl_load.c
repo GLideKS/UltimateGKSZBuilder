@@ -69,7 +69,7 @@ static int TestPointer(const PROC pTest)
 	return 1;
 }
 
-static PROC WinGetProcAddress(const char *name)
+static void *WinGetProcAddress(const char *name)
 {
 	HMODULE glMod = NULL;
 	PROC pFunc = wglGetProcAddress((LPCSTR)name);

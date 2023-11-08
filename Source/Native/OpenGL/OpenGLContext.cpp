@@ -178,14 +178,14 @@ void OpenGLContext::SwapBuffers()
 
 int OpenGLContext::GetWidth() const
 {
-	RECT box = { 0 };
+	RECT box = { 0, 0, 0, 0 };
 	GetClientRect(window, &box);
 	return box.right - box.left;
 }
 
 int OpenGLContext::GetHeight() const
 {
-	RECT box = { 0 };
+	RECT box = { 0, 0, 0, 0 };
 	GetClientRect(window, &box);
 	return box.bottom - box.top;
 }
@@ -217,10 +217,10 @@ OpenGLContext::CreateFunctions OpenGLContext::GetCreateFunctions(HWND window)
 			{
 				wglMakeCurrent(queryDC, queryContext);
 
-				functions.wglCreateContextAttribsARB = (ptr_wglCreateContextAttribsARB)wglGetProcAddress("wglCreateContextAttribsARB");
-				functions.wglGetPixelFormatAttribivEXT = (ptr_wglGetPixelFormatAttribivEXT)wglGetProcAddress("wglGetPixelFormatAttribivEXT");
-				functions.wglGetPixelFormatAttribfvEXT = (ptr_wglGetPixelFormatAttribfvEXT)wglGetProcAddress("wglGetPixelFormatAttribfvEXT");
-				functions.wglChoosePixelFormatEXT = (ptr_wglChoosePixelFormatEXT)wglGetProcAddress("wglChoosePixelFormatEXT");
+				functions.wglCreateContextAttribsARB = (ptr_wglCreateContextAttribsARB)(void*)wglGetProcAddress("wglCreateContextAttribsARB");
+				functions.wglGetPixelFormatAttribivEXT = (ptr_wglGetPixelFormatAttribivEXT)(void*)wglGetProcAddress("wglGetPixelFormatAttribivEXT");
+				functions.wglGetPixelFormatAttribfvEXT = (ptr_wglGetPixelFormatAttribfvEXT)(void*)wglGetProcAddress("wglGetPixelFormatAttribfvEXT");
+				functions.wglChoosePixelFormatEXT = (ptr_wglChoosePixelFormatEXT)(void*)wglGetProcAddress("wglChoosePixelFormatEXT");
 
 				HMODULE opengl32 = LoadLibrary("opengl32.dll");
 				if (opengl32)

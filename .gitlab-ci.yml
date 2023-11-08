@@ -95,7 +95,7 @@ default:
     - - |
           # apt_common
           echo -e "\e[0Ksection_start:`date +%s`:apt_common[collapsed=true]\r\e[0KInstalling common packages"
-      - apt-get install make git ccache
+      - apt-get install make git ccache libsimde-dev
       - |
           # apt_common
           echo -e "\e[0Ksection_end:`date +%s`:apt_common\r\e[0K"
@@ -219,6 +219,7 @@ i386:
   variables:
     CC: ccache i686-linux-gnu-gcc
     CXX: ccache i686-linux-gnu-g++
+    CPPFLAGS: -msse2 -U NO_SSE
 
   artifacts:
     paths:
@@ -343,6 +344,8 @@ win32:
   variables:
     CC: ccache i686-w64-mingw32-gcc-posix
     CXX: ccache i686-w64-mingw32-g++-posix
+    CFLAGS: -Wall -Wextra -Werror
+    CXXFLAGS: -Wall -Wextra -Werror -Wno-unused-parameter
 
   artifacts:
     paths:
@@ -376,6 +379,8 @@ win64:
   variables:
     CC: ccache x86_64-w64-mingw32-gcc-posix
     CXX: ccache x86_64-w64-mingw32-g++-posix
+    CFLAGS: -Wall -Wextra -Werror
+    CXXFLAGS: -Wall -Wextra -Werror -Wno-unused-parameter
 
   artifacts:
     paths:

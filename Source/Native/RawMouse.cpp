@@ -105,7 +105,7 @@ LRESULT RawMouse::OnMessage(INT message, WPARAM wparam, LPARAM lparam)
 		{
 			std::vector<uint32_t> buf((size + 3) / 4);
 			result = GetRawInputData(rawinputHandle, RID_INPUT, buf.data(), &size, sizeof(RAWINPUTHEADER));
-			if (result >= 0)
+			if (result != (UINT)-1)
 			{
 				RAWINPUT* rawinput = (RAWINPUT*)buf.data();
 				if (rawinput->header.dwType == RIM_TYPEMOUSE)
