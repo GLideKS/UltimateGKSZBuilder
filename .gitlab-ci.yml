@@ -334,6 +334,74 @@ arm64:
           # make
           echo -e "\e[0Ksection_end:`date +%s`:make\r\e[0K"
 
+win32:
+  extends:
+    - .COMMONENV
+
+  stage: build
+
+  variables:
+    CC: ccache i686-w64-mingw32-gcc-posix
+    CXX: ccache i686-w64-mingw32-g++-posix
+
+  artifacts:
+    paths:
+      - "Build/BuilderNative.dll"
+    expose_as: "Windows x86"
+    name: "$CI_PROJECT_PATH_SLUG-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA-$CI_JOB_NAME_SLUG"
+
+  script:
+   - - |
+          # apt_toolchain
+          echo -e "\e[0Ksection_start:`date +%s`:apt_toolchain[collapsed=true]\r\e[0KInstalling toolchain packages"
+     - apt-get install g++-mingw-w64-x86-64-posix
+     - |
+          # apt_toolchain
+          echo -e "\e[0Ksection_end:`date +%s`:apt_toolchain\r\e[0K"
+
+   - - |
+          # make
+          echo -e "\e[0Ksection_start:`date +%s`:make[collapsed=false]\r\e[0KCompiling Native"
+     - make --keep-going Build/BuilderNative.dll MINGW=1 || make --keep-going Build/BuilderNative.dll MINGW=1
+     - |
+          # make
+          echo -e "\e[0Ksection_end:`date +%s`:make\r\e[0K"
+
+win64:
+  extends:
+    - .COMMONENV
+
+  stage: build
+
+  variables:
+    CC: ccache x86_64-w64-mingw32-gcc-posix
+    CXX: ccache x86_64-w64-mingw32-g++-posix
+
+  when: manual
+
+  artifacts:
+    paths:
+      - "Build/BuilderNative.dll"
+    expose_as: "Windows amd64"
+    name: "$CI_PROJECT_PATH_SLUG-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA-$CI_JOB_NAME_SLUG"
+
+  script:
+   - - |
+          # apt_toolchain
+          echo -e "\e[0Ksection_start:`date +%s`:apt_toolchain[collapsed=true]\r\e[0KInstalling toolchain packages"
+     - apt-get install g++-mingw-w64-x86-64-posix
+     - |
+          # apt_toolchain
+          echo -e "\e[0Ksection_end:`date +%s`:apt_toolchain\r\e[0K"
+
+   - - |
+          # make
+          echo -e "\e[0Ksection_start:`date +%s`:make[collapsed=false]\r\e[0KCompiling Native"
+     - make --keep-going Build/BuilderNative.dll MINGW=1 || make --keep-going Build/BuilderNative.dll MINGW=1
+     - |
+          # make
+          echo -e "\e[0Ksection_end:`date +%s`:make\r\e[0K"
+
 Debug:
   extends:
     - .COMMONENV

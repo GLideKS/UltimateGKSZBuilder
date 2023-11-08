@@ -39,7 +39,7 @@
 #define M_PI 3.14159265358979323846
 #endif
 
-#ifdef WIN32
+#ifdef _WIN32
 #define FORCEINLINE __forceinline
 #else
 #define FORCEINLINE

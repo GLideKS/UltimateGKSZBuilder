@@ -24,6 +24,7 @@
 #include "../Backend.h"
 #include "OpenGLContext.h"
 #include <list>
+#include <mutex>
 
 class GLSharedVertexBuffer;
 class GLShader;

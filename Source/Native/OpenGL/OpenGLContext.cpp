@@ -30,9 +30,9 @@ public:
 	OpenGLLoadFunctions() { ogl_LoadFunctions(); }
 };
 
-#ifdef WIN32
+#ifdef _WIN32
 
-#include <CommCtrl.h>
+#include <commctrl.h>
 
 #define WGL_CONTEXT_MAJOR_VERSION_ARB           0x2091
 #define WGL_CONTEXT_MINOR_VERSION_ARB           0x2092

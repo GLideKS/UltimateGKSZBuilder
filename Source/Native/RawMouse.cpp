@@ -22,7 +22,7 @@
 #include "Precomp.h"
 #include "RawMouse.h"
 
-#ifdef WIN32
+#ifdef _WIN32
 
 #ifndef HID_USAGE_PAGE_GENERIC
 #define HID_USAGE_PAGE_GENERIC		((USHORT) 0x01)
@@ -172,7 +172,7 @@ extern "C"
 
 RawMouse* RawMouse_New(void* hwnd)
 {
-#ifdef WIN32
+#ifdef _WIN32
 	return new RawMouse(hwnd);
 #else
 	return nullptr;

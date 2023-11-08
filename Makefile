@@ -1,6 +1,10 @@
 BUILDTYPE ?= Release
 
+ifdef MINGW
+TARGET_EXEC := BuilderNative.dll
+else
 TARGET_EXEC := libBuilderNative.so
+endif
 
 BUILD_DIR := ./Build.Native
 SRC_DIRS := ./Source/Native
@@ -21,9 +25,13 @@ CFLAGS_ = -O2 -g3 -fPIC
 
 CXXFLAGS_ = -std=c++14 $(CFLAGS_)
 
-LDFLAGS_ =  --shared -ldl
+ifdef MINGW
+LDFLAGS_ = --shared -lopengl32 -lgdi32 -Wl,--subsystem,windows
+else
+LDFLAGS_ = --shared -ldl
+endif
 
-all: builder Build/libBuilderNative.so
+all: builder Build/$(TARGET_EXEC)
 
 $(BUILD_DIR)/%.c.o: %.c
 	@mkdir -p $(dir $@)
@@ -36,7 +44,7 @@ $(BUILD_DIR)/%.cpp.o: %.cpp
 $(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
 	$(CXX) $(OBJS) $(LDFLAGS_) $(LDFLAGS) -o $@
 
-Build/libBuilderNative.so: $(BUILD_DIR)/$(TARGET_EXEC)
+Build/$(TARGET_EXEC): $(BUILD_DIR)/$(TARGET_EXEC)
 	cp $< $@
 
 .PHONY: clean
