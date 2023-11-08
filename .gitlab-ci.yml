@@ -354,7 +354,7 @@ win32:
    - - |
           # apt_toolchain
           echo -e "\e[0Ksection_start:`date +%s`:apt_toolchain[collapsed=true]\r\e[0KInstalling toolchain packages"
-     - apt-get install g++-mingw-w64-x86-64-posix
+     - apt-get install g++-mingw-w64-i686
      - |
           # apt_toolchain
           echo -e "\e[0Ksection_end:`date +%s`:apt_toolchain\r\e[0K"
@@ -377,8 +377,6 @@ win64:
     CC: ccache x86_64-w64-mingw32-gcc-posix
     CXX: ccache x86_64-w64-mingw32-g++-posix
 
-  when: manual
-
   artifacts:
     paths:
       - "Build/BuilderNative.dll"
@@ -389,7 +387,7 @@ win64:
    - - |
           # apt_toolchain
           echo -e "\e[0Ksection_start:`date +%s`:apt_toolchain[collapsed=true]\r\e[0KInstalling toolchain packages"
-     - apt-get install g++-mingw-w64-x86-64-posix
+     - apt-get install g++-mingw-w64-x86-64
      - |
           # apt_toolchain
           echo -e "\e[0Ksection_end:`date +%s`:apt_toolchain\r\e[0K"
