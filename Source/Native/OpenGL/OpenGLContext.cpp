@@ -225,7 +225,7 @@ OpenGLContext::CreateFunctions OpenGLContext::GetCreateFunctions(HWND window)
 				HMODULE opengl32 = LoadLibrary("opengl32.dll");
 				if (opengl32)
 				{
-					functions.error = reinterpret_cast<ptr_glError>(GetProcAddress(opengl32, "glGetError"));
+					functions.error = reinterpret_cast<ptr_glError>((void*)GetProcAddress(opengl32, "glGetError"));
 					FreeLibrary(opengl32);
 				}
 
