@@ -210,7 +210,7 @@ i386:
   variables:
     CC: ccache i686-linux-gnu-gcc
     CXX: ccache i686-linux-gnu-g++
-    CPPFLAGS: -msse2 -Werror
+    CPPFLAGS: -msse2
 
   artifacts:
     paths:
@@ -249,7 +249,6 @@ amd64:
   variables:
     CC: ccache x86_64-linux-gnu-gcc
     CXX: ccache x86_64-linux-gnu-gcc
-    CPPFLAGS: -Werror
 
   artifacts:
     paths:
@@ -288,7 +287,6 @@ arm64:
   variables:
     CC: ccache aarch64-linux-gnu-gcc
     CXX: ccache aarch64-linux-gnu-g++
-    CPPFLAGS: -Werror
 
   artifacts:
     paths:
@@ -327,7 +325,6 @@ win32:
   variables:
     CC: ccache i686-w64-mingw32-gcc-posix
     CXX: ccache i686-w64-mingw32-g++-posix
-    CPPFLAGS: -Werror
 
   artifacts:
     paths:
@@ -358,7 +355,6 @@ win64:
   variables:
     CC: ccache x86_64-w64-mingw32-gcc-posix
     CXX: ccache x86_64-w64-mingw32-g++-posix
-    CPPFLAGS: -Werror
 
   artifacts:
     paths:

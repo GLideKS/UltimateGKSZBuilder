@@ -21,7 +21,7 @@ INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
 CPPFLAGS_ := $(INC_FLAGS) -MMD -MP
 
-CFLAGS_ = -O2 --shared -g3 -fPIC -Wall -Wextra -Wno-unused-parameter
+CFLAGS_ = -O2 -g3 -fPIC -Wall -Wextra -Wno-unused-parameter -Werror
 
 ifdef MINGW
 CFLAGS_ += -msse2
@@ -30,9 +30,9 @@ endif
 CXXFLAGS_ = -std=c++14 $(CFLAGS_)
 
 ifdef MINGW
-LDFLAGS_ = -lopengl32 -lgdi32 --shared -Wl,--subsystem,windows
+LDFLAGS_ = -lopengl32 -lgdi32 -shared -Wl,--subsystem,windows
 else
-LDFLAGS_ = -lX11 -ldl --shared
+LDFLAGS_ = -lX11 -ldl -shared
 endif
 
 all: builder Build/$(TARGET_EXEC)
