@@ -63,7 +63,6 @@ private:
 	int mHeight = 0;
 	PixelFormat mFormat = {};
 	bool mCubeTexture = false;
-	bool mPBOTexture = false;
 	GLuint mTexture = 0;
 	GLuint mFramebuffer = 0;
 	GLuint mDepthRenderbuffer = 0;

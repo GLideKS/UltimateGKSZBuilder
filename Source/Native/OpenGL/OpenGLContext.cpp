@@ -513,9 +513,6 @@ private:
 	
 	bool is_glx_extension_supported(const char* ext_name);
 	
-	int major_version = 3;
-	int minor_version = 2;
-	
 	void* opengl_lib_handle = nullptr;
 };
 
