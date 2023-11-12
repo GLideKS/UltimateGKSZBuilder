@@ -4216,6 +4216,8 @@ int ogl_GetMinorVersion(void);
 int ogl_GetMajorVersion(void);
 int ogl_IsVersionGEQ(int majorVersion, int minorVersion);
 
+void* GL_GetProcAddress(const char* proc);
+
 #ifdef __cplusplus
 }
 #endif /*__cplusplus*/
