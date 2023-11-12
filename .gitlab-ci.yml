@@ -1,9 +1,5 @@
-.COMMONENV:
-  variables:
-    BUILDTYPE: Release
-    CFLAGS: -Wall -Wextra -Werror
-    CXXFLAGS: -Wall -Wextra -Werror -Wno-unused-parameter -Wno-unused-private-field
-    CPPFLAGS: -D NO_SSE
+variables:
+  BUILDTYPE: Release
 
 default:
   image: mono:slim
@@ -174,8 +170,6 @@ stages:
   - build
 
 Release:
-  extends:
-    - .COMMONENV
 
   image: mono:latest
 
@@ -219,7 +213,7 @@ i386:
   variables:
     CC: ccache i686-linux-gnu-gcc
     CXX: ccache i686-linux-gnu-g++
-    CPPFLAGS: -msse2 -U NO_SSE
+    CPPFLAGS: -msse2 -Werror
 
   artifacts:
     paths:
@@ -253,15 +247,12 @@ i386:
           echo -e "\e[0Ksection_end:`date +%s`:make\r\e[0K"
 
 amd64:
-  extends:
-    - .COMMONENV
-
   stage: build
 
   variables:
     CC: ccache x86_64-linux-gnu-gcc
     CXX: ccache x86_64-linux-gnu-gcc
-    CPPFLAGS: -U NO_SSE
+    CPPFLAGS: -Werror
 
   artifacts:
     paths:
@@ -295,14 +286,12 @@ amd64:
           echo -e "\e[0Ksection_end:`date +%s`:make\r\e[0K"
 
 arm64:
-  extends:
-    - .COMMONENV
-
   stage: build
 
   variables:
     CC: ccache aarch64-linux-gnu-gcc
     CXX: ccache aarch64-linux-gnu-g++
+    CPPFLAGS: -Werror
 
   artifacts:
     paths:
@@ -344,8 +333,7 @@ win32:
   variables:
     CC: ccache i686-w64-mingw32-gcc-posix
     CXX: ccache i686-w64-mingw32-g++-posix
-    CFLAGS: -Wall -Wextra -Werror
-    CXXFLAGS: -Wall -Wextra -Werror -Wno-unused-parameter
+    CPPFLAGS: -Werror
 
   artifacts:
     paths:
@@ -379,8 +367,7 @@ win64:
   variables:
     CC: ccache x86_64-w64-mingw32-gcc-posix
     CXX: ccache x86_64-w64-mingw32-g++-posix
-    CFLAGS: -Wall -Wextra -Werror
-    CXXFLAGS: -Wall -Wextra -Werror -Wno-unused-parameter
+    CPPFLAGS: -Werror
 
   artifacts:
     paths:

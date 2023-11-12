@@ -26,6 +26,22 @@
 #include <cmath>
 #include "fasttrig.h"
 
+#if defined (__GNUC__) && !defined (__i386__) && !defined (__x86_64__)
+#define NO_SSE
+#endif
+
+#if defined (_MSC_VER) && defined (_M_IX86_FP) && (_M_IX86_FP <= 1)
+#define NO_SSE
+#endif
+
+#if defined (_MSC_VER) && defined (_M_ARM)
+#define NO_SSE
+#endif
+
+#if defined (_MSC_VER) && defined (_M_ARM64)
+#define NO_SSE
+#endif
+
 #ifndef NO_SSE
 #include <xmmintrin.h>
 #endif

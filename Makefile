@@ -21,7 +21,7 @@ INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
 CPPFLAGS_ := $(INC_FLAGS) -MMD -MP
 
-CFLAGS_ = -O2 --shared -g3 -fPIC -Wall -Wextra -Wno-unused-parameter -Werror
+CFLAGS_ = -O2 --shared -g3 -fPIC -Wall -Wextra -Wno-unused-parameter
 
 ifdef MINGW
 CFLAGS_ += -msse2
