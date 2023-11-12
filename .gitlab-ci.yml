@@ -205,9 +205,6 @@ Release:
           echo -e "\e[0Ksection_end:`date +%s`:make\r\e[0K"
 
 i386:
-  extends:
-    - .COMMONENV
-
   stage: build
 
   variables:
@@ -325,9 +322,6 @@ arm64:
           echo -e "\e[0Ksection_end:`date +%s`:make\r\e[0K"
 
 win32:
-  extends:
-    - .COMMONENV
-
   stage: build
 
   variables:
@@ -359,9 +353,6 @@ win32:
           echo -e "\e[0Ksection_end:`date +%s`:make\r\e[0K"
 
 win64:
-  extends:
-    - .COMMONENV
-
   stage: build
 
   variables:
@@ -394,7 +385,6 @@ win64:
 
 Debug:
   extends:
-    - .COMMONENV
     - Release
 
   allow_failure: true
