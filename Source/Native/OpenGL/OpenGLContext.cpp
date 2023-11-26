@@ -934,7 +934,7 @@ std::unique_ptr<IOpenGLContext> IOpenGLContext::Create(void* disp, void* window)
 	return ctx;
 }
 
-void* GL_GetProcAddress(const char* function_name)
+extern "C" void* GL_GetProcAddress(const char* function_name)
 {
 	if (glx_global.glXGetProcAddressARB)
 		return (void*)glx_global.glXGetProcAddressARB((GLubyte*)function_name);
