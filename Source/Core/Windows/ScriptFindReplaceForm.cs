@@ -174,7 +174,7 @@ namespace CodeImp.DoomBuilder.Windows
 			findbox.Text = findtext;
 			findbox.SelectAll();
 			findbox.Items.AddRange(findtexts.ToArray());
-			findinbox.SelectedIndex = searchmode;
+			findinbox.SelectedIndex = searchmode > findinbox.Items.Count - 1 ? 0 : searchmode;
 			findmatchcase.Checked = matchcase;
 			findwholeword.Checked = matchwholeword;
 
@@ -186,7 +186,7 @@ namespace CodeImp.DoomBuilder.Windows
 			replacebox.MaxDropDownItems = MAX_DROPDOWN_ITEMS;
 			replacebox.Text = replacetext;
 			replacebox.Items.AddRange(replacetexts.ToArray());
-			replaceinbox.SelectedIndex = searchmode;
+			replaceinbox.SelectedIndex = searchmode > replaceinbox.Items.Count - 1 ? 0 : searchmode;
 			replacematchcase.Checked = matchcase;
 			replacewholeword.Checked = matchwholeword;
 

@@ -1249,7 +1249,7 @@
 			// 
 			// floorAngleControl
 			// 
-			this.floorAngleControl.Angle = -2610;
+			this.floorAngleControl.Angle = -2700;
 			this.floorAngleControl.AngleOffset = 90;
 			this.floorAngleControl.DoomAngleClamping = false;
 			this.floorAngleControl.Location = new System.Drawing.Point(6, 156);
@@ -1555,7 +1555,7 @@
 			// 
 			// ceilAngleControl
 			// 
-			this.ceilAngleControl.Angle = -2610;
+			this.ceilAngleControl.Angle = -2700;
 			this.ceilAngleControl.AngleOffset = 90;
 			this.ceilAngleControl.DoomAngleClamping = false;
 			this.ceilAngleControl.Location = new System.Drawing.Point(6, 156);
@@ -1809,7 +1809,7 @@
 			this.floorportalrenderstyle.Name = "floorportalrenderstyle";
 			this.floorportalrenderstyle.Size = new System.Drawing.Size(103, 21);
 			this.floorportalrenderstyle.TabIndex = 55;
-			this.floorportalrenderstyle.Tag = "renderstylefloor";
+			this.floorportalrenderstyle.Tag = "portal_floor_overlaytype";
 			// 
 			// groupBox6
 			// 
@@ -1899,7 +1899,7 @@
 			this.ceilportalrenderstyle.Name = "ceilportalrenderstyle";
 			this.ceilportalrenderstyle.Size = new System.Drawing.Size(103, 21);
 			this.ceilportalrenderstyle.TabIndex = 55;
-			this.ceilportalrenderstyle.Tag = "renderstyleceiling";
+			this.ceilportalrenderstyle.Tag = "portal_ceil_overlaytype";
 			// 
 			// gbFloorSlope
 			// 

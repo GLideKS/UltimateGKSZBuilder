@@ -436,6 +436,9 @@ namespace CodeImp.DoomBuilder.SoundPropagationMode
 			// To show things that will wake up we need to know the sector they are in
 			Parallel.ForEach(General.Map.Map.Things, t => t.DetermineSector(blockmap));
 
+			// Recreate the overlay geometry
+			UpdateData();
+
 			// Update
 			ResetSoundPropagation();
 			General.Interface.RedrawDisplay();
@@ -465,6 +468,9 @@ namespace CodeImp.DoomBuilder.SoundPropagationMode
 
 			// To show things that will wake up we need to know the sector they are in
 			Parallel.ForEach(General.Map.Map.Things, t => t.DetermineSector(blockmap));
+
+			// Recreate the overlay geometry
+			UpdateData();
 
 			// Update
 			ResetSoundPropagation();

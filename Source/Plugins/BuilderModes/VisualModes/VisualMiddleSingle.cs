@@ -372,8 +372,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 					skew = new Vector2f(
 						Vertices.Min(v => v.u), // Get the lowest horizontal texture offset
-						(float)((rightz - leftz) / Sidedef.Line.Length * ((double)Texture.Width / Texture.Height))
-						);
+						(float)((rightz - leftz) / Sidedef.Line.Length * ((double)Texture.Width / Texture.Height) * Sidedef.Fields.GetValue("scaley_mid", 1.0) / Sidedef.Fields.GetValue("scalex_mid", 1.0))
+					);
 				}
 			}
 			else if (General.Map.Config.SkewStyle == Config.SkewStyle.EternityEngine)
