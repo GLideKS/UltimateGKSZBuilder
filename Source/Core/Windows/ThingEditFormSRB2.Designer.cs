@@ -441,7 +441,7 @@
 			// 
 			// posX
 			// 
-			this.posX.AllowDecimal = true;
+			this.posX.AllowDecimal = false; // SRB2 doesn't support decimal positions (yet?)
 			this.posX.AllowExpressions = true;
 			this.posX.AllowNegative = true;
 			this.posX.AllowRelative = true;
@@ -460,7 +460,7 @@
 			// 
 			// posY
 			// 
-			this.posY.AllowDecimal = true;
+			this.posY.AllowDecimal = false; // SRB2 doesn't support decimal positions (yet?)
 			this.posY.AllowExpressions = true;
 			this.posY.AllowNegative = true;
 			this.posY.AllowRelative = true;
