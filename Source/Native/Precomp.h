@@ -30,8 +30,8 @@
 #include <memory>
 #include <string>
 
-#ifdef WIN32
-#include <Windows.h>
+#ifdef _WIN32
+#include <windows.h>
 #undef min
 #undef max
 #endif

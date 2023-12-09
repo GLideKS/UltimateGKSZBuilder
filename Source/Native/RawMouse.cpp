@@ -22,7 +22,7 @@
 #include "Precomp.h"
 #include "RawMouse.h"
 
-#ifdef WIN32
+#ifdef _WIN32
 
 #ifndef HID_USAGE_PAGE_GENERIC
 #define HID_USAGE_PAGE_GENERIC		((USHORT) 0x01)
@@ -105,7 +105,7 @@ LRESULT RawMouse::OnMessage(INT message, WPARAM wparam, LPARAM lparam)
 		{
 			std::vector<uint32_t> buf((size + 3) / 4);
 			result = GetRawInputData(rawinputHandle, RID_INPUT, buf.data(), &size, sizeof(RAWINPUTHEADER));
-			if (result >= 0)
+			if (result != (UINT)-1)
 			{
 				RAWINPUT* rawinput = (RAWINPUT*)buf.data();
 				if (rawinput->header.dwType == RIM_TYPEMOUSE)
@@ -172,7 +172,7 @@ extern "C"
 
 RawMouse* RawMouse_New(void* hwnd)
 {
-#ifdef WIN32
+#ifdef _WIN32
 	return new RawMouse(hwnd);
 #else
 	return nullptr;

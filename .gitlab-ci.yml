@@ -1,9 +1,5 @@
-.COMMONENV:
-  variables:
-    BUILDTYPE: Release
-    CFLAGS: -Wall -Wextra -Werror
-    CXXFLAGS: -Wall -Wextra -Werror -Wno-unused-parameter -Wno-unused-private-field
-    CPPFLAGS: -D NO_SSE
+variables:
+  BUILDTYPE: Release
 
 default:
   image: mono:slim
@@ -174,8 +170,6 @@ stages:
   - build
 
 Release:
-  extends:
-    - .COMMONENV
 
   image: mono:latest
 
@@ -211,14 +205,12 @@ Release:
           echo -e "\e[0Ksection_end:`date +%s`:make\r\e[0K"
 
 i386:
-  extends:
-    - .COMMONENV
-
   stage: build
 
   variables:
     CC: ccache i686-linux-gnu-gcc
     CXX: ccache i686-linux-gnu-g++
+    CPPFLAGS: -msse2
 
   artifacts:
     paths:
@@ -252,15 +244,11 @@ i386:
           echo -e "\e[0Ksection_end:`date +%s`:make\r\e[0K"
 
 amd64:
-  extends:
-    - .COMMONENV
-
   stage: build
 
   variables:
     CC: ccache x86_64-linux-gnu-gcc
     CXX: ccache x86_64-linux-gnu-gcc
-    CPPFLAGS: -U NO_SSE
 
   artifacts:
     paths:
@@ -294,9 +282,6 @@ amd64:
           echo -e "\e[0Ksection_end:`date +%s`:make\r\e[0K"
 
 arm64:
-  extends:
-    - .COMMONENV
-
   stage: build
 
   variables:
@@ -334,9 +319,68 @@ arm64:
           # make
           echo -e "\e[0Ksection_end:`date +%s`:make\r\e[0K"
 
+win32:
+  stage: build
+
+  variables:
+    CC: ccache i686-w64-mingw32-gcc-posix
+    CXX: ccache i686-w64-mingw32-g++-posix
+
+  artifacts:
+    paths:
+      - "Build/BuilderNative.dll"
+    expose_as: "Windows x86"
+    name: "$CI_PROJECT_PATH_SLUG-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA-$CI_JOB_NAME_SLUG"
+
+  script:
+   - - |
+          # apt_toolchain
+          echo -e "\e[0Ksection_start:`date +%s`:apt_toolchain[collapsed=true]\r\e[0KInstalling toolchain packages"
+     - apt-get install g++-mingw-w64-i686
+     - |
+          # apt_toolchain
+          echo -e "\e[0Ksection_end:`date +%s`:apt_toolchain\r\e[0K"
+
+   - - |
+          # make
+          echo -e "\e[0Ksection_start:`date +%s`:make[collapsed=false]\r\e[0KCompiling Native"
+     - make --keep-going Build/BuilderNative.dll MINGW=1 || make --keep-going Build/BuilderNative.dll MINGW=1
+     - |
+          # make
+          echo -e "\e[0Ksection_end:`date +%s`:make\r\e[0K"
+
+win64:
+  stage: build
+
+  variables:
+    CC: ccache x86_64-w64-mingw32-gcc-posix
+    CXX: ccache x86_64-w64-mingw32-g++-posix
+
+  artifacts:
+    paths:
+      - "Build/BuilderNative.dll"
+    expose_as: "Windows amd64"
+    name: "$CI_PROJECT_PATH_SLUG-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA-$CI_JOB_NAME_SLUG"
+
+  script:
+   - - |
+          # apt_toolchain
+          echo -e "\e[0Ksection_start:`date +%s`:apt_toolchain[collapsed=true]\r\e[0KInstalling toolchain packages"
+     - apt-get install g++-mingw-w64-x86-64
+     - |
+          # apt_toolchain
+          echo -e "\e[0Ksection_end:`date +%s`:apt_toolchain\r\e[0K"
+
+   - - |
+          # make
+          echo -e "\e[0Ksection_start:`date +%s`:make[collapsed=false]\r\e[0KCompiling Native"
+     - make --keep-going Build/BuilderNative.dll MINGW=1 || make --keep-going Build/BuilderNative.dll MINGW=1
+     - |
+          # make
+          echo -e "\e[0Ksection_end:`date +%s`:make\r\e[0K"
+
 Debug:
   extends:
-    - .COMMONENV
     - Release
 
   allow_failure: true

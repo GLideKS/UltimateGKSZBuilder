@@ -30,9 +30,9 @@ public:
 	OpenGLLoadFunctions() { ogl_LoadFunctions(); }
 };
 
-#ifdef WIN32
+#ifdef _WIN32
 
-#include <CommCtrl.h>
+#include <commctrl.h>
 
 #define WGL_CONTEXT_MAJOR_VERSION_ARB           0x2091
 #define WGL_CONTEXT_MINOR_VERSION_ARB           0x2092
@@ -178,14 +178,14 @@ void OpenGLContext::SwapBuffers()
 
 int OpenGLContext::GetWidth() const
 {
-	RECT box = { 0 };
+	RECT box = { 0, 0, 0, 0 };
 	GetClientRect(window, &box);
 	return box.right - box.left;
 }
 
 int OpenGLContext::GetHeight() const
 {
-	RECT box = { 0 };
+	RECT box = { 0, 0, 0, 0 };
 	GetClientRect(window, &box);
 	return box.bottom - box.top;
 }
@@ -217,15 +217,15 @@ OpenGLContext::CreateFunctions OpenGLContext::GetCreateFunctions(HWND window)
 			{
 				wglMakeCurrent(queryDC, queryContext);
 
-				functions.wglCreateContextAttribsARB = (ptr_wglCreateContextAttribsARB)wglGetProcAddress("wglCreateContextAttribsARB");
-				functions.wglGetPixelFormatAttribivEXT = (ptr_wglGetPixelFormatAttribivEXT)wglGetProcAddress("wglGetPixelFormatAttribivEXT");
-				functions.wglGetPixelFormatAttribfvEXT = (ptr_wglGetPixelFormatAttribfvEXT)wglGetProcAddress("wglGetPixelFormatAttribfvEXT");
-				functions.wglChoosePixelFormatEXT = (ptr_wglChoosePixelFormatEXT)wglGetProcAddress("wglChoosePixelFormatEXT");
+				functions.wglCreateContextAttribsARB = (ptr_wglCreateContextAttribsARB)(void*)wglGetProcAddress("wglCreateContextAttribsARB");
+				functions.wglGetPixelFormatAttribivEXT = (ptr_wglGetPixelFormatAttribivEXT)(void*)wglGetProcAddress("wglGetPixelFormatAttribivEXT");
+				functions.wglGetPixelFormatAttribfvEXT = (ptr_wglGetPixelFormatAttribfvEXT)(void*)wglGetProcAddress("wglGetPixelFormatAttribfvEXT");
+				functions.wglChoosePixelFormatEXT = (ptr_wglChoosePixelFormatEXT)(void*)wglGetProcAddress("wglChoosePixelFormatEXT");
 
 				HMODULE opengl32 = LoadLibrary("opengl32.dll");
 				if (opengl32)
 				{
-					functions.error = reinterpret_cast<ptr_glError>(GetProcAddress(opengl32, "glGetError"));
+					functions.error = reinterpret_cast<ptr_glError>((void*)GetProcAddress(opengl32, "glGetError"));
 					FreeLibrary(opengl32);
 				}
 
@@ -512,9 +512,6 @@ private:
 	void create_glx_1_3(::Display* disp);
 	
 	bool is_glx_extension_supported(const char* ext_name);
-	
-	int major_version = 3;
-	int minor_version = 2;
 	
 	void* opengl_lib_handle = nullptr;
 };
