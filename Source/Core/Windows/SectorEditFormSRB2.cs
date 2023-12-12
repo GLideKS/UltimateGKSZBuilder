@@ -332,10 +332,10 @@ namespace CodeImp.DoomBuilder.Windows
 			// Sector colors
 			fadeColor.SetValueFrom(sc.Fields, true);
 			lightColor.SetValueFrom(sc.Fields, true);
-			lightAlpha.Text = UniFields.GetInteger(sc.Fields, "lightalpha", General.Map.Config.MaxColormapAlpha).ToString();
-			fadeAlpha.Text = UniFields.GetInteger(sc.Fields, "fadealpha", General.Map.Config.MaxColormapAlpha).ToString();
-			fadeStart.Text = UniFields.GetInteger(sc.Fields, "fadestart", 0).ToString();
-			fadeEnd.Text = UniFields.GetInteger(sc.Fields, "fadeend", General.Map.Config.NumBrightnessLevels - 1).ToString();
+			lightAlpha.Text = sc.Fields.GetValue("lightalpha", General.Map.Config.MaxColormapAlpha).ToString();
+			fadeAlpha.Text = sc.Fields.GetValue("fadealpha", General.Map.Config.MaxColormapAlpha).ToString();
+			fadeStart.Text = sc.Fields.GetValue("fadestart", 0).ToString();
+			fadeEnd.Text = sc.Fields.GetValue("fadeend", General.Map.Config.NumBrightnessLevels - 1).ToString();
 
 			// Slopes
 			SetupFloorSlope(sc, true);
@@ -752,6 +752,18 @@ namespace CodeImp.DoomBuilder.Windows
 				if (!string.IsNullOrEmpty(triggerer.Text))
 					UniFields.SetString(s.Fields, "triggerer", triggerer.Text, TRIGGERER_DEFAULT);
 
+				if (!string.IsNullOrEmpty(lightAlpha.Text))
+					UniFields.SetInteger(s.Fields, "lightalpha", lightAlpha.GetResult(s.Fields.GetValue("lightalpha", General.Map.Config.MaxColormapAlpha)), 0);
+
+				if (!string.IsNullOrEmpty(fadeAlpha.Text))
+					UniFields.SetInteger(s.Fields, "fadealpha", fadeAlpha.GetResult(s.Fields.GetValue("fadealpha", General.Map.Config.MaxColormapAlpha)), 0);
+
+				if (!string.IsNullOrEmpty(fadeStart.Text))
+					UniFields.SetInteger(s.Fields, "fadestart", fadeStart.GetResult(s.Fields.GetValue("fadestart", 0)), 0);
+
+				if (!string.IsNullOrEmpty(fadeEnd.Text))
+					UniFields.SetInteger(s.Fields, "fadeend", fadeEnd.GetResult(s.Fields.GetValue("fadeend", General.Map.Config.NumBrightnessLevels - 1)), 0);
+
 				// Clear horizontal slopes
 				double diff = Math.Abs(Math.Round(s.FloorSlopeOffset) - s.FloorSlopeOffset);
 				if (Math.Abs(s.FloorSlope.z) == 1.0 && diff < 0.000000001)
@@ -1156,7 +1168,7 @@ namespace CodeImp.DoomBuilder.Windows
 			{
 				foreach (Sector s in sectors)
 				{
-					int val = General.Clamp(fadeStart.GetResult(sectorprops[s].FadeStart), 0, General.Map.Config.NumBrightnessLevels - 2);
+					int val = General.Clamp(fadeStart.GetResult(sectorprops[s].FadeStart), 0, General.Map.Config.NumBrightnessLevels - 1);
 					UniFields.SetInteger(s.Fields, "fadestart", val, 0);
 				}
 			}
