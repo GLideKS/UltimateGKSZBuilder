@@ -1108,7 +1108,10 @@ namespace CodeImp.DoomBuilder.Windows
 			if (string.IsNullOrEmpty(lightAlpha.Text))
 			{
 				foreach (Sector s in sectors)
+				{
 					UniFields.SetInteger(s.Fields, "lightalpha", sectorprops[s].LightAlpha, General.Map.Config.MaxColormapAlpha);
+					s.UpdateNeeded = true;
+				}
 			}
 			else //update values
 			{
@@ -1116,6 +1119,8 @@ namespace CodeImp.DoomBuilder.Windows
 				{
 					int alpha = General.Clamp(lightAlpha.GetResult(sectorprops[s].LightAlpha), 0, General.Map.Config.MaxColormapAlpha);
 					UniFields.SetInteger(s.Fields, "lightalpha", alpha, General.Map.Config.MaxColormapAlpha);
+					s.UpdateNeeded = true;
+
 				}
 			}
 
@@ -1135,7 +1140,10 @@ namespace CodeImp.DoomBuilder.Windows
 			if (string.IsNullOrEmpty(fadeAlpha.Text))
 			{
 				foreach (Sector s in sectors)
+				{
 					UniFields.SetInteger(s.Fields, "fadealpha", sectorprops[s].FadeAlpha, General.Map.Config.MaxColormapAlpha);
+					s.UpdateNeeded = true;
+				}
 			}
 			else //update values
 			{
@@ -1143,6 +1151,7 @@ namespace CodeImp.DoomBuilder.Windows
 				{
 					int alpha = General.Clamp(fadeAlpha.GetResult(sectorprops[s].FadeAlpha), 0, General.Map.Config.MaxColormapAlpha);
 					UniFields.SetInteger(s.Fields, "fadealpha", alpha, General.Map.Config.MaxColormapAlpha);
+					s.UpdateNeeded = true;
 				}
 			}
 
@@ -1162,7 +1171,10 @@ namespace CodeImp.DoomBuilder.Windows
 			if (string.IsNullOrEmpty(fadeStart.Text))
 			{
 				foreach (Sector s in sectors)
+				{
 					UniFields.SetInteger(s.Fields, "fadestart", sectorprops[s].FadeStart, 0);
+					s.UpdateNeeded = true;
+				}
 			}
 			else //update values
 			{
@@ -1170,6 +1182,7 @@ namespace CodeImp.DoomBuilder.Windows
 				{
 					int val = General.Clamp(fadeStart.GetResult(sectorprops[s].FadeStart), 0, General.Map.Config.NumBrightnessLevels - 1);
 					UniFields.SetInteger(s.Fields, "fadestart", val, 0);
+					s.UpdateNeeded = true;
 				}
 			}
 
@@ -1189,7 +1202,10 @@ namespace CodeImp.DoomBuilder.Windows
 			if (string.IsNullOrEmpty(fadeEnd.Text))
 			{
 				foreach (Sector s in sectors)
+				{
 					UniFields.SetInteger(s.Fields, "fadeend", sectorprops[s].FadeEnd, General.Map.Config.NumBrightnessLevels - 1);
+					s.UpdateNeeded = true;
+				}
 			}
 			else //update values
 			{
@@ -1197,6 +1213,7 @@ namespace CodeImp.DoomBuilder.Windows
 				{
 					int val = General.Clamp(fadeEnd.GetResult(sectorprops[s].FadeEnd), 1, General.Map.Config.NumBrightnessLevels - 1);
 					UniFields.SetInteger(s.Fields, "fadeend", val, General.Map.Config.NumBrightnessLevels - 1);
+					s.UpdateNeeded = true;
 				}
 			}
 

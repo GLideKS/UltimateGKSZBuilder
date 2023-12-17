@@ -522,7 +522,7 @@ namespace CodeImp.DoomBuilder.Config
 			distinctsidedefpartbrightness = cfg.ReadSetting("distinctsidedefpartbrightness", false);
 			sectormultitag = cfg.ReadSetting("sectormultitag", false);
 			for (int i = 0; i < Linedef.NUM_ARGS; i++) makedoorargs[i] = cfg.ReadSetting("makedoorarg" + i.ToString(CultureInfo.InvariantCulture), 0);
-			maxcolormapalpha = cfg.ReadSetting("maxcolormapalpha", 25);
+			maxcolormapalpha = cfg.ReadSetting("maxcolormapalpha", 25); //TODO: update to 255
 			numbrightnesslevels = cfg.ReadSetting("numbrightnesslevels", 32);
 			for (int i = 0; i < makedoorargs.Length; i++) makedoorargs[i] = cfg.ReadSetting("makedoorarg" + i.ToString(CultureInfo.InvariantCulture), 0);
 			soundsupport = cfg.ReadSetting("soundsupport", true);
