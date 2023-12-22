@@ -753,16 +753,16 @@ namespace CodeImp.DoomBuilder.Windows
 					UniFields.SetString(s.Fields, "triggerer", triggerer.Text, TRIGGERER_DEFAULT);
 
 				if (!string.IsNullOrEmpty(lightAlpha.Text))
-					UniFields.SetInteger(s.Fields, "lightalpha", lightAlpha.GetResult(s.Fields.GetValue("lightalpha", General.Map.Config.MaxColormapAlpha)), 0);
+					UniFields.SetInteger(s.Fields, "lightalpha", lightAlpha.GetResult(s.Fields.GetValue("lightalpha", General.Map.Config.MaxColormapAlpha)), General.Map.Config.MaxColormapAlpha);
 
 				if (!string.IsNullOrEmpty(fadeAlpha.Text))
-					UniFields.SetInteger(s.Fields, "fadealpha", fadeAlpha.GetResult(s.Fields.GetValue("fadealpha", General.Map.Config.MaxColormapAlpha)), 0);
+					UniFields.SetInteger(s.Fields, "fadealpha", fadeAlpha.GetResult(s.Fields.GetValue("fadealpha", General.Map.Config.MaxColormapAlpha)), General.Map.Config.MaxColormapAlpha);
 
 				if (!string.IsNullOrEmpty(fadeStart.Text))
 					UniFields.SetInteger(s.Fields, "fadestart", fadeStart.GetResult(s.Fields.GetValue("fadestart", 0)), 0);
 
 				if (!string.IsNullOrEmpty(fadeEnd.Text))
-					UniFields.SetInteger(s.Fields, "fadeend", fadeEnd.GetResult(s.Fields.GetValue("fadeend", General.Map.Config.NumBrightnessLevels - 1)), 0);
+					UniFields.SetInteger(s.Fields, "fadeend", fadeEnd.GetResult(s.Fields.GetValue("fadeend", General.Map.Config.NumBrightnessLevels - 1)), General.Map.Config.NumBrightnessLevels - 1);
 
 				// Clear horizontal slopes
 				double diff = Math.Abs(Math.Round(s.FloorSlopeOffset) - s.FloorSlopeOffset);
