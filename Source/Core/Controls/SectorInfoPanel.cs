@@ -162,8 +162,14 @@ namespace CodeImp.DoomBuilder.Controls
 						labelFade.Enabled = false;
 					}
 
+					lightalpha.Text = s.Fields.GetValue("lightalpha", General.Map.Config.MaxColormapAlpha).ToString();
+					fadealpha.Text = s.Fields.GetValue("fadealpha", General.Map.Config.MaxColormapAlpha).ToString();
+
+					lightalpha.Enabled = s.Fields.ContainsKey("lightalpha");
+					fadealpha.Enabled = s.Fields.ContainsKey("fadealpha");
+
 					//light
-					if(s.Fields.ContainsKey("lightceiling") || s.Fields.ContainsKey("lightceilingabsolute")) 
+					if (s.Fields.ContainsKey("lightceiling") || s.Fields.ContainsKey("lightceilingabsolute")) 
 					{
 						showExtededCeilingInfo = true;
 						ceilingLight.Enabled = true;

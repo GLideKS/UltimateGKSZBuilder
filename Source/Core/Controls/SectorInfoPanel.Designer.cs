@@ -47,6 +47,8 @@ namespace CodeImp.DoomBuilder.Controls
 			this.panelLightColor = new System.Windows.Forms.Panel();
 			this.labelFade = new System.Windows.Forms.Label();
 			this.labelLight = new System.Windows.Forms.Label();
+			this.lightalpha = new System.Windows.Forms.Label();
+			this.fadealpha = new System.Windows.Forms.Label();
 			this.brightness = new System.Windows.Forms.Label();
 			this.height = new System.Windows.Forms.Label();
 			this.tag = new System.Windows.Forms.Label();
@@ -221,6 +223,8 @@ namespace CodeImp.DoomBuilder.Controls
 			this.sectorinfo.Controls.Add(this.panelLightColor);
 			this.sectorinfo.Controls.Add(this.labelFade);
 			this.sectorinfo.Controls.Add(this.labelLight);
+			this.sectorinfo.Controls.Add(this.lightalpha);
+			this.sectorinfo.Controls.Add(this.fadealpha);
 			this.sectorinfo.Controls.Add(this.brightness);
 			this.sectorinfo.Controls.Add(label13);
 			this.sectorinfo.Controls.Add(this.height);
@@ -244,7 +248,7 @@ namespace CodeImp.DoomBuilder.Controls
 			// panelFadeColor
 			// 
 			this.panelFadeColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.panelFadeColor.Location = new System.Drawing.Point(260, 50);
+			this.panelFadeColor.Location = new System.Drawing.Point(230, 50);
 			this.panelFadeColor.Name = "panelFadeColor";
 			this.panelFadeColor.Size = new System.Drawing.Size(20, 12);
 			this.panelFadeColor.TabIndex = 21;
@@ -252,14 +256,14 @@ namespace CodeImp.DoomBuilder.Controls
 			// panelLightColor
 			// 
 			this.panelLightColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.panelLightColor.Location = new System.Drawing.Point(260, 35);
+			this.panelLightColor.Location = new System.Drawing.Point(230, 35);
 			this.panelLightColor.Name = "panelLightColor";
 			this.panelLightColor.Size = new System.Drawing.Size(20, 12);
 			this.panelLightColor.TabIndex = 20;
 			// 
 			// labelFade
 			// 
-			this.labelFade.Location = new System.Drawing.Point(183, 49);
+			this.labelFade.Location = new System.Drawing.Point(158, 49);
 			this.labelFade.Name = "labelFade";
 			this.labelFade.Size = new System.Drawing.Size(70, 14);
 			this.labelFade.TabIndex = 19;
@@ -268,12 +272,28 @@ namespace CodeImp.DoomBuilder.Controls
 			// 
 			// labelLight
 			// 
-			this.labelLight.Location = new System.Drawing.Point(183, 34);
+			this.labelLight.Location = new System.Drawing.Point(158, 34);
 			this.labelLight.Name = "labelLight";
 			this.labelLight.Size = new System.Drawing.Size(70, 14);
 			this.labelLight.TabIndex = 18;
 			this.labelLight.Text = "Light:";
 			this.labelLight.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// lightalpha
+			// 
+			this.lightalpha.Location = new System.Drawing.Point(257, 34);
+			this.lightalpha.Name = "lightalpha";
+			this.lightalpha.Size = new System.Drawing.Size(38, 14);
+			this.lightalpha.TabIndex = 18;
+			this.lightalpha.Text = "0";
+			// 
+			// fadealpha
+			// 
+			this.fadealpha.Location = new System.Drawing.Point(257, 49);
+			this.fadealpha.Name = "fadealpha";
+			this.fadealpha.Size = new System.Drawing.Size(38, 14);
+			this.fadealpha.TabIndex = 18;
+			this.fadealpha.Text = "0";
 			// 
 			// brightness
 			// 
@@ -667,6 +687,8 @@ namespace CodeImp.DoomBuilder.Controls
 		private System.Windows.Forms.Panel panelLightColor;
 		private System.Windows.Forms.Label labelFade;
 		private System.Windows.Forms.Label labelLight;
+		private System.Windows.Forms.Label lightalpha;
+		private System.Windows.Forms.Label fadealpha;
 		private System.Windows.Forms.GroupBox flagsPanel;
 		private CodeImp.DoomBuilder.Controls.TransparentListView flags;
 		private System.Windows.Forms.GroupBox triggerPanel;
