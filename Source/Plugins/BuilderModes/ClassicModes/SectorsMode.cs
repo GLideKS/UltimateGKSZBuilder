@@ -87,6 +87,9 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		// Sectors that will be edited
 		private ICollection<Sector> editsectors;
 
+		// Autosave
+		private bool allowautosave;
+
 		#endregion
 
 		#region ================== Properties
@@ -873,6 +876,9 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			UpdateSelectedLabels();
 			UpdateOverlaySurfaces();//mxd
 			UpdateSelectionInfo(); //mxd
+
+			// By default we allow autosave
+			allowautosave = true;
 		}
 
 		// Mode disengages
@@ -1116,10 +1122,15 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				{
 					if(General.Interface.IsActiveWindow)
 					{
+						// Prevent autosave while the editing dialog is shown
+						allowautosave = false;
+
 						//mxd. Show realtime vertex edit dialog
 						General.Interface.OnEditFormValuesChanged += sectorEditForm_OnValuesChanged;
 						DialogResult result = General.Interface.ShowEditSectors(editsectors);
 						General.Interface.OnEditFormValuesChanged -= sectorEditForm_OnValuesChanged;
+
+						allowautosave = true;
 
 						General.Map.Renderer2D.UpdateExtraFloorFlag(); //mxd
 
@@ -1319,6 +1330,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				if((highlighted != null) && !highlighted.IsDisposed)
 				{
 					ICollection<Sector> dragsectors;
+					ICollection<Thing> dragthings = null;
 
 					// Highlighted item not selected?
 					if (!highlighted.Selected)
@@ -1326,6 +1338,11 @@ namespace CodeImp.DoomBuilder.BuilderModes
 						// Select only this sector for dragging
 						General.Map.Map.ClearSelectedSectors();
 						dragsectors = new List<Sector> { highlighted };
+
+
+						if (BuilderPlug.Me.SyncronizeThingEdit)
+							dragthings = General.Map.Map.Things.Where(t => t.Sector == highlighted).ToList();
+
 						UpdateOverlaySurfaces(); //mxd
 					}
 					else
@@ -1335,7 +1352,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 					// Start dragging the selection
 					if(!BuilderPlug.Me.DontMoveGeometryOutsideMapBoundary || CanDrag(dragsectors)) //mxd
-						General.Editing.ChangeMode(new DragSectorsMode(mousedownmappos, dragsectors));
+						General.Editing.ChangeMode(new DragSectorsMode(mousedownmappos, dragsectors, dragthings));
 				}
 			}
 		}
@@ -1619,6 +1636,11 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			
 			// Pass to base
 			base.ToggleHighlight();
+		}
+
+		public override bool OnAutoSaveBegin()
+		{
+			return allowautosave;
 		}
 
 		//mxd

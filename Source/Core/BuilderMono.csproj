@@ -239,6 +239,7 @@
     <Compile Include="Data\FileImage.cs" />
     <Compile Include="Data\FlatImage.cs" />
     <Compile Include="Data\ImageLoadState.cs" />
+    <Compile Include="General\AutoSaver.cs" />
     <Compile Include="General\Hasher.cs" />
     <Compile Include="General\SHA256Hash.cs" />
     <Compile Include="General\ToastManager.cs" />

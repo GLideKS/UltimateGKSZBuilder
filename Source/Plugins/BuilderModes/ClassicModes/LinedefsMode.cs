@@ -74,6 +74,9 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		// Linedefs that will be edited
 		ICollection<Linedef> editlines;
 
+		// Autosave
+		private bool allowautosave;
+
 		#endregion
 
 		#region ================== Properties
@@ -629,6 +632,9 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			General.Map.Map.ConvertSelection(SelectionType.Linedefs);
 			UpdateSelectionInfo(); //mxd
 			SetupSectorLabels(); //mxd
+
+			// By default we allow autosave
+			allowautosave = true;
 		}
 		
 		// Mode disengages
@@ -835,10 +841,15 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				{
 					if(General.Interface.IsActiveWindow)
 					{
+						// Prevent autosave while the editing dialog is shown
+						allowautosave = false;
+
 						// Show line edit dialog
 						General.Interface.OnEditFormValuesChanged += linedefEditForm_OnValuesChanged;
 						DialogResult result = General.Interface.ShowEditLinedefs(editlines);
 						General.Interface.OnEditFormValuesChanged -= linedefEditForm_OnValuesChanged;
+
+						allowautosave = true;
 
 						General.Map.Map.Update();
 						
@@ -1248,6 +1259,11 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			base.OnMapElementsChanged();
 
 			CreateBlockmap();
+		}
+
+		public override bool OnAutoSaveBegin()
+		{
+			return allowautosave;
 		}
 
 		//mxd

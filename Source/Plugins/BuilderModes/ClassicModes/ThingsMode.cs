@@ -79,6 +79,9 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		// Things that will be edited
 		private ICollection<Thing> editthings;
 
+		// Autosave
+		private bool allowautosave;
+
 		#endregion
 
 		#region ================== Properties
@@ -177,6 +180,9 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			UpdateSelectionInfo(); //mxd
 			UpdateHelperObjects(); //mxd
 			SetupSectorLabels(); //mxd
+
+			// By default we allow autosave
+			allowautosave = true;
 		}
 
 		// Mode disengages
@@ -553,10 +559,15 @@ namespace CodeImp.DoomBuilder.BuilderModes
 						// Edit only when preferred
 						if(!thinginserted || BuilderPlug.Me.EditNewThing)
 						{
+							// Prevent autosave while the editing dialog is shown
+							allowautosave = false;
+
 							//mxd. Show realtime thing edit dialog
 							General.Interface.OnEditFormValuesChanged += thingEditForm_OnValuesChanged;
 							DialogResult result = General.Interface.ShowEditThings(editthings);
 							General.Interface.OnEditFormValuesChanged -= thingEditForm_OnValuesChanged;
+
+							allowautosave = true;
 
 							//mxd. Update helper lines
 							UpdateHelperObjects();
@@ -828,6 +839,12 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				}
 			}
 		}
+
+		public override bool OnAutoSaveBegin()
+		{
+			return allowautosave;
+		}
+
 
 		//mxd. Check if any selected thing is outside of map boundary
 		private static bool CanDrag(ICollection<Thing> dragthings) 

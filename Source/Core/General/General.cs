@@ -239,6 +239,9 @@ namespace CodeImp.DoomBuilder
 		// Toasts
 		private static ToastManager toastmanager;
 
+		// Autosaving
+		private static AutoSaver autosaver;
+
 		#endregion
 
 		#region ================== Properties
@@ -284,6 +287,7 @@ namespace CodeImp.DoomBuilder
 		public static ErrorLogger ErrorLogger { get { return errorlogger; } }
 		public static string CommitHash { get { return commithash; } } //mxd
 		public static ToastManager ToastManager { get => toastmanager; }
+		internal static AutoSaver AutoSaver { get => autosaver; }
 
 		#endregion
 
@@ -808,6 +812,9 @@ namespace CodeImp.DoomBuilder
 				if(General.Settings.CheckForUpdates) UpdateChecker.PerformCheck(false);
 #endif
 
+				// Prepare autosaving
+				autosaver = new AutoSaver();
+
 				// Run application from the main window
 				Application.Run(mainwindow);
 			}
@@ -821,6 +828,7 @@ namespace CodeImp.DoomBuilder
 		private static void RegisterToasts()
 		{
 			toastmanager.RegisterToast("resourcewarningsanderrors", "Resource warnings and errors", "When there are errors or warning while (re)loading the resources");
+			toastmanager.RegisterToast("autosave", "Autosave", "Notifications related to autosaving");
 		}
 
 		// This parses the command line arguments
@@ -1160,7 +1168,7 @@ namespace CodeImp.DoomBuilder
 
 					//mxd. Also reset the clock...
 					MainWindow.ResetClock();
-					
+
 					Cursor.Current = Cursors.Default;
 				}
 			}

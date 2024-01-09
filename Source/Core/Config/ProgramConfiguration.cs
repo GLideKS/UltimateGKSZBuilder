@@ -165,6 +165,11 @@ namespace CodeImp.DoomBuilder.Config
 		private int defaultthingtype = 1;
 		private double defaultthingangle;
 		private List<string> defaultthingflags;
+
+		// Autosave
+		private bool autosave;
+		private int autosavecount;
+		private int autosaveinterval;
 		
 		#endregion
 
@@ -307,6 +312,11 @@ namespace CodeImp.DoomBuilder.Config
 
 		public int DefaultThingType { get { return defaultthingtype; } set { defaultthingtype = value; } }
 		public double DefaultThingAngle { get { return defaultthingangle; } set { defaultthingangle = value; } }
+
+		// Autosave
+		public bool Autosave { get { return autosave; } internal set { autosave = value; } }
+		public int AutosaveCount { get { return autosavecount; } internal set { autosavecount = value; } }
+		public int AutosaveInterval { get { return autosaveinterval; } internal set { autosaveinterval = value; } }
 
 		#endregion
 
@@ -471,6 +481,11 @@ namespace CodeImp.DoomBuilder.Config
 					}
 				}
 
+				// Autosave
+				autosave = cfg.ReadSetting("autosave", true);
+				autosavecount = cfg.ReadSetting("autosavecount", 5);
+				autosaveinterval = cfg.ReadSetting("autosaveinterval", 5);
+
 				// Success
 				return true;
 			}
@@ -604,6 +619,11 @@ namespace CodeImp.DoomBuilder.Config
 			// Color dialog custom colors
 			for (int i = 0; i < 16; i++)
 				cfg.WriteSetting("colordialogcustomcolors.color" + i, colordialogcustomcolors[i]);
+
+			// Autosave
+			cfg.WriteSetting("autosave", autosave);
+			cfg.WriteSetting("autosavecount", autosavecount);
+			cfg.WriteSetting("autosaveinterval", autosaveinterval);
 
 			// Save settings configuration
 			General.WriteLogLine("Saving program configuration to \"" + filepathname + "\"...");
