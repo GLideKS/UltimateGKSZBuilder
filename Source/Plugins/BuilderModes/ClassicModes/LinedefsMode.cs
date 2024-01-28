@@ -284,8 +284,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					offset.y %= texture.Height / s.Fields.GetValue((alignFloors ? "yscalefloor" : "yscaleceiling"), 1.0);
 				}
 
-				UniFields.SetFloat(s.Fields, (alignFloors ? "xpanningfloor" : "xpanningceiling"), Math.Round(-offset.x), 0.0);
-				UniFields.SetFloat(s.Fields, (alignFloors ? "ypanningfloor" : "ypanningceiling"), Math.Round(offset.y), 0.0);
+				UniFields.SetFloat(s.Fields, (alignFloors ? "xpanningfloor" : "xpanningceiling"), Math.Round(-offset.x, 6), 0.0);
+				UniFields.SetFloat(s.Fields, (alignFloors ? "ypanningfloor" : "ypanningceiling"), Math.Round(offset.y, 6), 0.0);
 
 				//update
 				s.UpdateNeeded = true;

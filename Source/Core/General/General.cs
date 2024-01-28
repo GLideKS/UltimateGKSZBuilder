@@ -23,6 +23,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.AccessControl;
@@ -292,6 +293,13 @@ namespace CodeImp.DoomBuilder
 		#endregion
 
 		#region ================== Configurations
+
+		/// <summary>
+		/// Checks if a given game configuration file exists.
+		/// </summary>
+		/// <param name="filename">The file name of the game configuration file.</param>
+		/// <returns>true if the game configuration exists, false if it doesn't</returns>
+		internal static bool ConfigurationInfoExist(string filename) => configs.Any(ci => string.Compare(Path.GetFileNameWithoutExtension(ci.Filename), Path.GetFileNameWithoutExtension(filename), true) == 0);
 
 		// This returns the game configuration info by filename
 		internal static ConfigurationInfo GetConfigurationInfo(string filename)

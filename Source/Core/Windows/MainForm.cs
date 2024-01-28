@@ -565,7 +565,7 @@ namespace CodeImp.DoomBuilder.Windows
 						configfile = General.AutoLoadConfig;
 
 					if (string.IsNullOrEmpty(configfile)) configfile = mapsettings.ReadSetting("gameconfig", "");
-					if(configfile.Trim().Length == 0)
+					if(configfile.Trim().Length == 0 || !General.ConfigurationInfoExist(configfile))
 					{
 						showdialog = true;
 					}

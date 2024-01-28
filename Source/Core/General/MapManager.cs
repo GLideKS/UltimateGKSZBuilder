@@ -421,7 +421,16 @@ namespace CodeImp.DoomBuilder
 
 			// Copy the map lumps to the temp file
 			General.WriteLogLine("Copying map lumps to temporary file...");
-			CopyLumpsByType(mapwad, options.CurrentName, tempwadreader.WadFile, TEMP_MAP_HEADER, true, true, true, true);
+			if (!CopyLumpsByType(mapwad, options.CurrentName, tempwadreader.WadFile, TEMP_MAP_HEADER, true, true, true, true))
+			{
+				// Ooops, the map doesn't exit. This should only happend when run from the command line using the "-map" parameter
+				General.ErrorLogger.Add(ErrorType.Error, $"Map \"{options.CurrentName}\" does not exist in file \"{filepathname}\".");
+
+				// Close the map file
+				mapwad.Dispose();
+
+				return false;
+			}
 
 			// Close the map file
 			mapwad.Dispose();
@@ -1660,7 +1669,7 @@ namespace CodeImp.DoomBuilder
 		}
 
 		// This copies specific map lumps from one WAD to another
-		private void CopyLumpsByType(WAD source, string sourcemapname,
+		private bool CopyLumpsByType(WAD source, string sourcemapname,
 									 WAD target, string targetmapname,
 									 bool copyrequired, bool copyblindcopy,
 									 bool copynodebuild, bool copyscript,
@@ -1734,7 +1743,11 @@ namespace CodeImp.DoomBuilder
 
 				target.WriteHeaders(); //mxd
                 target.Compress(); // [ZZ]
+
+				return true;
 			}
+
+			return false;
 		}
 
 		// This finds a lump within the range of known lump names
