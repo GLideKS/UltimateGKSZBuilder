@@ -190,7 +190,7 @@
 			this.cancel.Location = new System.Drawing.Point(330, 194);
 			this.cancel.Name = "cancel";
 			this.cancel.Size = new System.Drawing.Size(112, 25);
-			this.cancel.TabIndex = 0;
+			this.cancel.TabIndex = 1;
 			this.cancel.Text = "Cancel";
 			this.cancel.UseVisualStyleBackColor = true;
 			this.cancel.Click += new System.EventHandler(this.cancel_Click);
@@ -201,7 +201,7 @@
 			this.apply.Location = new System.Drawing.Point(212, 194);
 			this.apply.Name = "apply";
 			this.apply.Size = new System.Drawing.Size(112, 25);
-			this.apply.TabIndex = 1;
+			this.apply.TabIndex = 0;
 			this.apply.Text = "OK";
 			this.apply.UseVisualStyleBackColor = true;
 			this.apply.Click += new System.EventHandler(this.apply_Click);
