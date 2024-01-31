@@ -121,7 +121,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 
 		private static string ReadFracunit(string input)
 		{
-			if (input.Contains("FRACUNIT") || input.Contains("FRACBITS"))
+			if (input.Contains("FRACUNIT") || input.Contains("FRACBITS") || input.Contains("FU"))
 				return new string(input.Where(c => char.IsDigit(c)).ToArray());
 			else
 				return (Int32.Parse(input) >> 16).ToString();
