@@ -102,7 +102,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 									goto default;
 								case "height":
 								case "radius":
-									props[tokenname] = new List<string>() { ReadFracunit(values[0]).ToString() };
+									props[tokenname] = new List<string>() { ReadFracunit(values[0], parser) };
 									break;
 								default:
 									props[tokenname] = values;
@@ -117,14 +117,6 @@ namespace CodeImp.DoomBuilder.ZDoom
 
 			// parsing done, process thing arguments
 			ParseCustomArguments();
-		}
-
-		private static string ReadFracunit(string input)
-		{
-			if (input.Contains("FRACUNIT") || input.Contains("FRACBITS") || input.Contains("FU"))
-				return new string(input.Where(c => char.IsDigit(c)).ToArray());
-			else
-				return (Int32.Parse(input) >> 16).ToString();
 		}
 
 		#endregion

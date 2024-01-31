@@ -23,6 +23,8 @@ using CodeImp.DoomBuilder.Config;
 using CodeImp.DoomBuilder.Data;
 using CodeImp.DoomBuilder.Types;
 using CodeImp.DoomBuilder.Map;
+using System.Linq;
+
 
 #endregion
 
@@ -442,6 +444,18 @@ namespace CodeImp.DoomBuilder.ZDoom
 			if (baseclass != null)
 				return baseclass.GetStringArgumentInfo(idx);
 			return null;
+		}
+		public string ReadFracunit(string input, ZDTextParser parser)
+		{
+			if (input.Contains("FRACUNIT") || input.Contains("FRACBITS") || input.Contains("FU"))
+				return new string(input.Where(c => char.IsDigit(c)).ToArray());
+			else if (int.TryParse(input, out int result))
+				return (result >> 16).ToString();
+			else
+			{
+				parser.ReportError("Unknown text found in height/radius field: defaulting to 8");
+				return "8";
+			}
 		}
 
 		#endregion
