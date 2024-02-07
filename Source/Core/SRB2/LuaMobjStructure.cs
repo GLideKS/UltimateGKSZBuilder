@@ -26,7 +26,9 @@ namespace CodeImp.DoomBuilder.ZDoom
             {
                 parser.ReportError("Lua object structure has no object name or map thing number");
                 return;
-            }
+			}
+			else
+				props["$title"] = new List<string> { objname };
 
 			if (editnum > 0)
 				doomednum = editnum;
@@ -64,7 +66,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 									token = "$title";
 									goto default;
 								default:
-									props[token] = new List<string> { (parser.SkipWhitespace(false) ? parser.ReadLine() : "") };
+									props[token] = new List<string> { parser.SkipWhitespace(false) ? parser.ReadLine() : "" };
 									break;
 							}
 						}

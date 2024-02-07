@@ -11,34 +11,39 @@ using System.Text;
 namespace CodeImp.DoomBuilder.ZDoom
 {
 
-    public sealed class SOCMobjStructure : ActorStructure
+	public sealed class SOCMobjStructure : ActorStructure
 	{
-        #region ================== SOC Mobj Structure parsing
-
-        internal SOCMobjStructure(ZDTextParser zdparser, string objname)
-        {
+		#region ================== SOC Mobj Structure parsing
+		
+		internal SOCMobjStructure(ZDTextParser zdparser, string objname)
+		{
 			classname = string.Empty;
 
-            SOCParser parser = (SOCParser)zdparser;
-			General.WriteLogLine(objname);
+			SOCParser parser = (SOCParser)zdparser;
+			//General.WriteLogLine(objname);
 
 			if (string.IsNullOrEmpty(objname))
-            {
-                parser.ReportError("SOC object structure has no object name or map thing number");
-                return;
-            }
+			{
+				parser.ReportError("SOC object structure has no object name or map thing number");
+				return;
+			}
+			else
+				props["$title"] = new List<string> { objname };
+
+			// Skip initial newline & comments
+			parser.ReadLine();
 
 			// Now parse the contents of actor structure
-
 			while (parser.SkipWhitespace(false, true))
 			{
 				string token = parser.ReadToken();
 				token = token.ToLowerInvariant();
 
+				// SOC definitions are terminated by an empty line. Blegh.
 				if (token == "\n")
 				{
-					parser.SkipWhitespace(false, true);
-					token = parser.ReadToken();
+					//General.WriteLogLine("object definition done");
+					break;
 				}
 
 				// Property begins with $? Then the whole line is a single value
@@ -58,7 +63,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 							token = "$title";
 							goto default;
 						default:
-							props[token] = new List<string> { (parser.SkipWhitespace(false, true) ? parser.ReadLine() : "") };
+							props[token] = new List<string> { parser.SkipWhitespace(false, true) ? parser.ReadLine() : "" };
 							break;
 					}
 				}
@@ -68,15 +73,8 @@ namespace CodeImp.DoomBuilder.ZDoom
 					parser.SkipWhitespace(false, true);
 					token = parser.ReadToken();
 
-					General.WriteLogLine(tokenname);
-					General.WriteLogLine(token);
-
-					// SOC definitions are terminated by an empty line. Blegh.
-					if (tokenname == "\n")
-					{
-						General.WriteLogLine("object definition done");
-						break;
-					}
+					//General.WriteLogLine("token name = " + tokenname);
+					//General.WriteLogLine("token = " + token);
 
 					if (token != "=")
 					{
@@ -85,7 +83,13 @@ namespace CodeImp.DoomBuilder.ZDoom
 					}
 
 					parser.SkipWhitespace(true, true);
-					token = parser.ReadToken();
+					token = parser.ReadLine();
+
+					// Strip comments
+					int comment = token.IndexOf('#');
+					if (comment >= 0)
+						token = token.Substring(0, comment);
+
 					tokenname = tokenname.ToLowerInvariant();
 
 					List<string> values = new List<string>() { token.TrimEnd(new char[] { ',' }) };
