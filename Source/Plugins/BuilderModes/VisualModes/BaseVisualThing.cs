@@ -219,7 +219,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				if(!info.Bright)
 				{
 					double thingz = Thing.IsFlipped ? sd.Ceiling.plane.GetZ(Thing.Position) - Thing.Position.z - Thing.Height : Thing.Position.z + sd.Floor.plane.GetZ(Thing.Position);
-					Vector3D thingpos = new Vector3D(Thing.Position.x, Thing.Position.y, thingz);
+					Vector3D thingpos = new Vector3D(Thing.Position.x, Thing.Position.y, Thing.AbsoluteZ ? Thing.Position.z : thingz);
 
 					// If is thing's height is flush to a 3D floor top it's not rendered at the brightness of the 3D floor, so take the level above that.
 					// It's actually a bit more intricate, since GZDoom can render multiple vertical brightness levels for each thing, which UDB can't,
@@ -300,7 +300,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				else
 				{
 					double thingz = Thing.IsFlipped ? sd.Ceiling.plane.GetZ(Thing.Position) - Thing.Position.z - Thing.Height : Thing.Position.z + sd.Floor.plane.GetZ(Thing.Position);
-					Vector3D thingpos = new Vector3D(Thing.Position.x, Thing.Position.y, thingz);
+					Vector3D thingpos = new Vector3D(Thing.Position.x, Thing.Position.y, Thing.AbsoluteZ ? Thing.Position.z : thingz);
 					SectorLevel level = sd.GetLevelAboveOrAt(thingpos);
 
 					if(level != null && level.sector.FogMode > SectorFogMode.CLASSIC)
@@ -842,7 +842,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				if((General.Map.UndoRedo.NextUndo == null) || (General.Map.UndoRedo.NextUndo.TicketID != undoticket))
 					undoticket = mode.CreateUndo("Change thing height");
 
-				Thing.Move(Thing.Position + new Vector3D(0.0f, 0.0f, (Thing.IsFlipped ? -amount : amount)));
+				Thing.Move(Thing.Position + new Vector3D(0.0f, 0.0f, (Thing.IsFlipped && !Thing.AbsoluteZ) ? -amount : amount));
 
 				mode.SetActionResult("Changed thing height to " + Thing.Position.z + ".");
 				
