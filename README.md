@@ -1,6 +1,6 @@
 **System requirements:**
 - 2.4 GHz CPU or faster (multi-core recommended)
-- Windows 7, 8 or 10
+- Windows 7 or above
 - Graphics card with OpenGL 3.2 support
 
 **Required software on Windows:**
@@ -19,7 +19,7 @@ __Note:__ this is experimental. None of the developers are using Linux as a desk
 - Run UDB: `cd Build && ./builder`
 
 **Links:**
-- SRB2MB thread - tbd
+- [SRB2MB thread](https://mb.srb2.org/addons/ultimate-zone-builder.6126/)
 
 Ultimate Doom Builder:
 - [UDB repository](https://github.com/UltimateDoomBuilder/UltimateDoomBuilder)
