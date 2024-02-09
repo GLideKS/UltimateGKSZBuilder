@@ -328,8 +328,9 @@ namespace CodeImp.DoomBuilder.ZDoom
 		
 		// This reads a token (all sequential non-whitespace characters or a single character)
 		// Returns null when the end of the stream has been reached
-		protected internal string ReadToken() { return ReadToken(true); } //mxd. Added "multiline" param
-		protected internal string ReadToken(bool multiline)
+		protected internal string ReadToken() { return ReadToken(true, false); } //mxd. Added "multiline" param
+		protected internal string ReadToken(bool multiline) { return ReadToken(multiline, false); } //sphere
+		protected internal string ReadToken(bool multiline, bool SOC)
 		{
 			//mxd. Return empty string when the end of the stream has been reached
 			if(datastream.Position == datastream.Length) return string.Empty;
@@ -387,7 +388,8 @@ namespace CodeImp.DoomBuilder.ZDoom
 						if(!quotedstring) break;
 					}
 					// Potential comment?
-					else if((c == '/') && !quotedstring)
+					// TODO: figure out why double slashes in SOC scripts cause UZB to freeze forever
+					else if (!SOC && (c == '/') && !quotedstring)
 					{
 						// Check the next byte
 						if(datastream.Position == datastream.Length) return token;

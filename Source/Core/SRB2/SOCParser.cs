@@ -121,7 +121,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 			while (SkipWhitespace(true, true))
 			{
 				// Read a token
-				string token = ReadToken();
+				string token = ReadToken(true, true);
 
 				if (!string.IsNullOrEmpty(token))
 				{
@@ -131,7 +131,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 					if (token.StartsWith("thing") || token.EndsWith("mobj") || token.EndsWith("object"))
 					{
 						SkipWhitespace(true, true);
-						token = ReadToken();
+						token = ReadToken(true, true);
 
 						if (!token.ToUpper().StartsWith("MT_"))
 							continue;
@@ -148,7 +148,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 					else if (token.Equals("level"))
 					{
 						SkipWhitespace(true, true);
-						token = ReadToken();
+						token = ReadToken(true, true);
 
 						string mapname = GetMapName(token);
 
