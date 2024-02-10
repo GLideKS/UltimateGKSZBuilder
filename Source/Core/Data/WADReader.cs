@@ -1141,7 +1141,7 @@ namespace CodeImp.DoomBuilder.Data
 		{
 			if (issuspended) throw new Exception("Data reader is suspended");
 
-			return GetAllLumpsDataWithPrefix("LUA_");
+			return GetAllPrefixedLumps("LUA_");
 		}
 
 		// sphere
@@ -1150,9 +1150,9 @@ namespace CodeImp.DoomBuilder.Data
 			if (issuspended) throw new Exception("Data reader is suspended");
 
 			List<TextResourceData> soclumps = new List<TextResourceData>();
-			soclumps = soclumps.Concat(GetAllLumpsDataWithPrefix("SOC_")).ToList();
-			soclumps = soclumps.Concat(GetAllLumpsDataWithPrefix("MAINCFG")).ToList();
-			soclumps = soclumps.Concat(GetAllLumpsDataWithPrefix("OBJCTCFG")).ToList();
+			soclumps = soclumps.Concat(GetAllPrefixedLumps("SOC_")).ToList();
+			soclumps = soclumps.Concat(GetAllPrefixedLumps("MAINCFG")).ToList();
+			soclumps = soclumps.Concat(GetAllPrefixedLumps("OBJCTCFG")).ToList();
 
 			return soclumps;
 		}
@@ -1220,6 +1220,25 @@ namespace CodeImp.DoomBuilder.Data
 
 				// Find next entry
 				lumpindex = file.FindLumpIndexWithPrefix(prefix, lumpindex + 1);
+			}
+
+			return result;
+		}
+
+		//sphere
+		private List<TextResourceData> GetAllPrefixedLumps(string prefix)
+		{
+			List<TextResourceData> result = new List<TextResourceData>();
+
+			// Loop through the lumps
+			for (int i = 0; i < file.Lumps.Count - 1; i++)
+			{
+				// Check if the lump name matches
+				if (file.Lumps[i].Name.StartsWith(prefix))
+				{
+					// Found the lump!
+					result.Add(new TextResourceData(this, file.Lumps[i].GetSafeStream(), file.Lumps[i].Name, i, true));
+				}
 			}
 
 			return result;
