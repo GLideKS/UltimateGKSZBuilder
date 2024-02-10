@@ -1206,25 +1206,6 @@ namespace CodeImp.DoomBuilder.Data
 			return result;
 		}
 
-		//mxd
-		private List<TextResourceData> GetAllLumpsDataWithPrefix(string prefix)
-		{
-			List<TextResourceData> result = new List<TextResourceData>();
-
-			// Find all lumps with given name
-			int lumpindex = file.FindLumpIndexWithPrefix(prefix);
-			while (lumpindex > -1)
-			{
-				// Add to collection
-				result.Add(new TextResourceData(this, file.Lumps[lumpindex].GetSafeStream(), prefix, lumpindex, true));
-
-				// Find next entry
-				lumpindex = file.FindLumpIndexWithPrefix(prefix, lumpindex + 1);
-			}
-
-			return result;
-		}
-
 		//sphere
 		private List<TextResourceData> GetAllPrefixedLumps(string prefix)
 		{
@@ -1233,10 +1214,10 @@ namespace CodeImp.DoomBuilder.Data
 			// Loop through the lumps
 			for (int i = 0; i < file.Lumps.Count - 1; i++)
 			{
-				// Check if the lump name matches
+				// Check if the lump name contains the given prefix
 				if (file.Lumps[i].Name.StartsWith(prefix))
 				{
-					// Found the lump!
+					// Found a matching lump!
 					result.Add(new TextResourceData(this, file.Lumps[i].GetSafeStream(), file.Lumps[i].Name, i, true));
 				}
 			}

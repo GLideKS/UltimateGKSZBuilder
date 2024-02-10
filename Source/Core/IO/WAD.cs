@@ -568,44 +568,6 @@ namespace CodeImp.DoomBuilder.IO
 			return -1;
 		}
 
-		// This finds a lump with given prefix, returns -1 when not found
-		public int FindLumpIndexWithPrefix(string prefix)
-		{
-			// Do search
-			return FindLumpIndexWithPrefix(prefix, 0, lumps.Count - 1);
-		}
-
-		// This finds a lump with given prefix, returns -1 when not found
-		public int FindLumpIndexWithPrefix(string prefix, int start)
-		{
-			// Do search
-			return FindLumpIndex(prefix, start, lumps.Count - 1);
-		}
-
-		// This finds a lump with given prefix, returns -1 when not found
-		public int FindLumpIndexWithPrefix(string prefix, int start, int end)
-		{
-			if (prefix.Length > 8 || lumps.Count == 0 || start > lumps.Count - 1) return -1; //mxd. Can't be here. Go away!
-
-			// Fix start/end when they exceed safe bounds
-			start = Math.Max(start, 0);
-			end = General.Clamp(end, 0, lumps.Count - 1);
-
-			// Loop through the lumps
-			for (int i = start; i < end + 1; i++)
-			{
-				// Check if the lump name matches
-				if (lumps[i].Name.StartsWith(prefix))
-				{
-					// Found the lump!
-					return i;
-				}
-			}
-
-			// Nothing found
-			return -1;
-		}
-
 		//mxd. Same as above, but searches in reversed order
 
 		// This finds a lump by name, returns null when not found
