@@ -28,9 +28,6 @@ namespace CodeImp.DoomBuilder.BuilderEffects
 		private static bool allowNegativePitch;
 		private static bool allowNegativeRoll;
 		private static bool relativeScale;
-		private static bool allowNegativeScaleX;
-		private static bool allowNegativeScaleY;
-		private static bool uniformScale;
 
 		private struct ThingData 
 		{
@@ -38,8 +35,7 @@ namespace CodeImp.DoomBuilder.BuilderEffects
 			public int Angle;
 			public int Pitch;
 			public int Roll;
-			public double ScaleX;
-			public double ScaleY;
+			public double Scale;
 			public int SectorHeight;
 			public int ZOffset;
 			public int SafeDistance;
@@ -47,8 +43,7 @@ namespace CodeImp.DoomBuilder.BuilderEffects
 			public float JitterRotation;
 			public float JitterPitch;
 			public float JitterRoll;
-			public float JitterScaleX;
-			public float JitterScaleY;
+			public double JitterScale;
 			public float JitterHeight;
 		}
 
@@ -64,14 +59,14 @@ namespace CodeImp.DoomBuilder.BuilderEffects
 			InitializeComponent();
 
 			//have thing height?
-			heightJitterAmmount.Enabled = General.Map.FormatInterface.HasThingHeight;
+			heightJitterAmount.Enabled = General.Map.FormatInterface.HasThingHeight;
 			bUpdateHeight.Enabled = General.Map.FormatInterface.HasThingHeight;
 
 			//disable pitch/roll/scale?
 			if(!General.Map.UDMF) 
 			{
-				pitchAmmount.Enabled = false;
-				rollAmmount.Enabled = false;
+				pitchAmount.Enabled = false;
+				rollAmount.Enabled = false;
 				bUpdatePitch.Enabled = false;
 				bUpdateRoll.Enabled = false;
 				scalegroup.Enabled = false;
@@ -122,8 +117,7 @@ namespace CodeImp.DoomBuilder.BuilderEffects
 				d.Angle = t.AngleDoom;
 				d.Pitch = t.Pitch;
 				d.Roll = t.Roll;
-				d.ScaleX = t.ScaleX;
-				d.ScaleY = t.ScaleY;
+				d.Scale = UniFields.GetFloat(t.Fields, "mobjscale", 1.0);
 
 				if(General.Map.FormatInterface.HasThingHeight) 
 				{
@@ -139,8 +133,8 @@ namespace CodeImp.DoomBuilder.BuilderEffects
 				thingData.Add(d);
 			}
 
-			positionJitterAmmount.Maximum = MaxSafeDistance;
-			heightJitterAmmount.Maximum = MaxSafeHeightDistance;
+			positionJitterAmount.Maximum = MaxSafeDistance;
+			heightJitterAmount.Maximum = MaxSafeHeightDistance;
 
 			//create undo
 			General.Map.UndoRedo.ClearAllRedos();
@@ -152,14 +146,10 @@ namespace CodeImp.DoomBuilder.BuilderEffects
 			UpdateRotationAngles();
 			UpdatePitchAngles();
 			UpdateRollAngles();
-			UpdateScaleX();
-			UpdateScaleY();
+			UpdateScale();
 
 			//apply settings
 			cbRelativeScale.Checked = relativeScale;
-			cbUniformScale.Checked = uniformScale;
-			cbNegativeScaleX.Checked = allowNegativeScaleX;
-			cbNegativeScaleY.Checked = allowNegativeScaleY;
 			cbRelativePitch.Checked = relativePitch;
 			cbRelativeRoll.Checked = relativeRoll;
 			cbNegativePitch.Checked = allowNegativePitch;
@@ -168,16 +158,10 @@ namespace CodeImp.DoomBuilder.BuilderEffects
 
 			//add event listeners
 			cbRelativeScale.CheckedChanged += cbRelativeScale_CheckedChanged;
-			cbUniformScale.CheckedChanged += cbUniformScale_CheckedChanged;
-			cbNegativeScaleX.CheckedChanged += cbNegativeScaleX_CheckedChanged;
-			cbNegativeScaleY.CheckedChanged += cbNegativeScaleY_CheckedChanged;
 			cbRelativePitch.CheckedChanged += cbRelativePitch_CheckedChanged;
 			cbRelativeRoll.CheckedChanged += cbRelativeRoll_CheckedChanged;
 			cbNegativePitch.CheckedChanged += cbNegativePitch_CheckedChanged;
 			cbNegativeRoll.CheckedChanged += cbNegativeRoll_CheckedChanged;
-
-			//disable controls if necessary
-			if(uniformScale) cbUniformScale_CheckedChanged(cbUniformScale, EventArgs.Empty);
 
 			//tricky way to actually store undo information...
 			foreach(Thing t in selection) t.Move(t.Position);
@@ -187,23 +171,23 @@ namespace CodeImp.DoomBuilder.BuilderEffects
 
 		#region Apply logic
 
-		private void ApplyTranslation(int ammount) 
+		private void ApplyTranslation(int Amount) 
 		{
 			for(int i = 0; i < selection.Count; i++) 
 			{
-				int curAmmount = ammount > thingData[i].SafeDistance ? thingData[i].SafeDistance : ammount;
-				selection[i].Move(new Vector2D(thingData[i].Position.x + (int)(Math.Sin(thingData[i].OffsetAngle) * curAmmount), thingData[i].Position.y + (int)(Math.Cos(thingData[i].OffsetAngle) * curAmmount)));
+				int curAmount = Amount > thingData[i].SafeDistance ? thingData[i].SafeDistance : Amount;
+				selection[i].Move(new Vector2D(thingData[i].Position.x + (int)(Math.Sin(thingData[i].OffsetAngle) * curAmount), thingData[i].Position.y + (int)(Math.Cos(thingData[i].OffsetAngle) * curAmount)));
 				selection[i].DetermineSector();
 			}
 
 			UpdateGeometry();
 		}
 
-		private void ApplyRotation(int ammount) 
+		private void ApplyRotation(int Amount) 
 		{
 			for(int i = 0; i < selection.Count; i++)
 			{
-				int newangle = (int)Math.Round(thingData[i].Angle + ammount * thingData[i].JitterRotation);
+				int newangle = (int)Math.Round(thingData[i].Angle + Amount * thingData[i].JitterRotation);
 				if(General.Map.Config.DoomThingRotationAngles) newangle = newangle / 45 * 45;
 				selection[i].Rotate(newangle % 360);
 			}
@@ -212,18 +196,18 @@ namespace CodeImp.DoomBuilder.BuilderEffects
 			if(editingModeName == "ThingsMode") General.Interface.RedrawDisplay();
 		}
 
-		private void ApplyPitch(int ammount) 
+		private void ApplyPitch(int Amount) 
 		{
 			for(int i = 0; i < selection.Count; i++) 
 			{
 				int p;
 				if(cbRelativePitch.Checked) 
 				{
-					p = (int)((thingData[i].Pitch + ammount * thingData[i].JitterPitch) % 360);
+					p = (int)((thingData[i].Pitch + Amount * thingData[i].JitterPitch) % 360);
 				} 
 				else 
 				{
-					p = (int)((ammount * thingData[i].JitterPitch) % 360);
+					p = (int)((Amount * thingData[i].JitterPitch) % 360);
 				}
 				
 				selection[i].SetPitch(p);
@@ -233,18 +217,18 @@ namespace CodeImp.DoomBuilder.BuilderEffects
 			if(editingModeName == "ThingsMode") General.Interface.RedrawDisplay();
 		}
 
-		private void ApplyRoll(int ammount) 
+		private void ApplyRoll(int Amount) 
 		{
 			for(int i = 0; i < selection.Count; i++) 
 			{
 				int r;
 				if(cbRelativeRoll.Checked) 
 				{
-					r = (int)((thingData[i].Roll + ammount * thingData[i].JitterRoll) % 360);
+					r = (int)((thingData[i].Roll + Amount * thingData[i].JitterRoll) % 360);
 				} 
 				else 
 				{
-					r = (int)((ammount * thingData[i].JitterRoll) % 360);
+					r = (int)((Amount * thingData[i].JitterRoll) % 360);
 				}
 
 				selection[i].SetRoll(r);
@@ -254,13 +238,13 @@ namespace CodeImp.DoomBuilder.BuilderEffects
 			if(editingModeName == "ThingsMode") General.Interface.RedrawDisplay();
 		}
 
-		private void ApplyHeight(int ammount) 
+		private void ApplyHeight(int Amount) 
 		{
 			for(int i = 0; i < selection.Count; i++) 
 			{
 				if(thingData[i].SectorHeight == 0) continue;
-				int curAmmount = Math.Min(thingData[i].SectorHeight, Math.Max(0, thingData[i].ZOffset + ammount));
-				selection[i].Move(selection[i].Position.x, selection[i].Position.y, curAmmount * thingData[i].JitterHeight);
+				int curAmount = Math.Min(thingData[i].SectorHeight, Math.Max(0, thingData[i].ZOffset + Amount));
+				selection[i].Move(selection[i].Position.x, selection[i].Position.y, curAmount * thingData[i].JitterHeight);
 			}
 
 			UpdateGeometry();
@@ -268,44 +252,29 @@ namespace CodeImp.DoomBuilder.BuilderEffects
 
 		private void ApplyScale() 
 		{
-			ApplyScale((float)minScaleX.Value, (float)maxScaleX.Value, (float)minScaleY.Value, (float)maxScaleY.Value);
+			ApplyScale((float)minScale.Value, (float)maxScale.Value);
 
 			//update view
 			if(editingModeName == "ThingsMode") General.Interface.RedrawDisplay();
 		}
 
-		private void ApplyScale(float minX, float maxX, float minY, float maxY) 
+		private void ApplyScale(double min, double max)
 		{
-			if(cbUniformScale.Checked)
+			if (min > max) General.Swap(ref min, ref max);
+
+			double diff = max - min;
+
+			for (int i = 0; i < selection.Count; i++)
 			{
-				minY = minX;
-				maxY = maxX;
-			}
-			
-			if(minX > maxX) General.Swap(ref minX, ref maxX);
-			if(minY > maxY) General.Swap(ref minY, ref maxY);
+				double jitter = thingData[i].JitterScale;
+				double result;
 
-			float diffX = maxX - minX;
-			float diffY = maxY - minY;
+				if (cbRelativeScale.Checked)
+					result = thingData[i].Scale + min + diff * jitter;
+				else
+					result = min + diff * jitter;
 
-			for(int i = 0; i < selection.Count; i++) 
-			{
-				double jitterX = thingData[i].JitterScaleX;
-				double jitterY = (cbUniformScale.Checked ? jitterX : thingData[i].JitterScaleY);
-				double sx, sy;
-
-				if(cbRelativeScale.Checked) 
-				{
-					sx = thingData[i].ScaleX + minX + diffX * jitterX;
-					sy = thingData[i].ScaleY + minY + diffY * jitterY;
-				} 
-				else 
-				{
-					sx = minX + diffX * jitterX;
-					sy = minY + diffY * jitterY;
-				}
-
-				selection[i].SetScale(sx, sy);
+				UniFields.SetFloat(selection[i].Fields, "mobjscale", Math.Round(result, 2));
 			}
 		}
 
@@ -388,24 +357,12 @@ namespace CodeImp.DoomBuilder.BuilderEffects
 			}
 		}
 
-		private void UpdateScaleX() 
+		private void UpdateScale()
 		{
-			int min = (cbNegativeScaleX.Checked ? -100 : 0);
-			for(int i = 0; i < thingData.Count; i++) 
+			for (int i = 0; i < thingData.Count; i++)
 			{
 				ThingData td = thingData[i];
-				td.JitterScaleX = (General.Random(min, 100) / 100f);
-				thingData[i] = td;
-			}
-		}
-
-		private void UpdateScaleY() 
-		{
-			int min = (cbNegativeScaleY.Checked ? -100 : 0);
-			for(int i = 0; i < thingData.Count; i++) 
-			{
-				ThingData td = thingData[i];
-				td.JitterScaleY = (General.Random(min, 100) / 100f);
+				td.JitterScale = (General.Random(0, 100) / 100f);
 				thingData[i] = td;
 			}
 		}
@@ -420,9 +377,6 @@ namespace CodeImp.DoomBuilder.BuilderEffects
 			relativePitch = cbRelativePitch.Checked;
 			relativeRoll = cbRelativeRoll.Checked;
 			relativeScale = cbRelativeScale.Checked;
-			allowNegativeScaleX = cbNegativeScaleX.Checked;
-			allowNegativeScaleY = cbNegativeScaleY.Checked;
-			uniformScale = cbUniformScale.Checked;
 			allowNegativePitch = cbNegativePitch.Checked;
 			allowNegativeRoll = cbNegativeRoll.Checked;
 
@@ -448,37 +402,32 @@ namespace CodeImp.DoomBuilder.BuilderEffects
 				General.Map.UndoRedo.WithdrawUndo(); //undo changes
 		}
 
-		private void positionJitterAmmount_OnValueChanged(object sender, EventArgs e) 
+		private void positionJitterAmount_OnValueChanged(object sender, EventArgs e) 
 		{
-			ApplyTranslation(positionJitterAmmount.Value);
+			ApplyTranslation(positionJitterAmount.Value);
 		}
 
-		private void rotationJitterAmmount_OnValueChanged(object sender, EventArgs e) 
+		private void rotationJitterAmount_OnValueChanged(object sender, EventArgs e) 
 		{
-			ApplyRotation(rotationJitterAmmount.Value);
+			ApplyRotation(rotationJitterAmount.Value);
 		}
 
-		private void heightJitterAmmount_OnValueChanging(object sender, EventArgs e) 
+		private void heightJitterAmount_OnValueChanging(object sender, EventArgs e) 
 		{
-			ApplyHeight(heightJitterAmmount.Value);
+			ApplyHeight(heightJitterAmount.Value);
 		}
 
-		private void pitchAmmount_OnValueChanging(object sender, EventArgs e) 
+		private void pitchAmount_OnValueChanging(object sender, EventArgs e) 
 		{
-			ApplyPitch(pitchAmmount.Value);
+			ApplyPitch(pitchAmount.Value);
 		}
 
-		private void rollAmmount_OnValueChanging(object sender, EventArgs e) 
+		private void rollAmount_OnValueChanging(object sender, EventArgs e) 
 		{
-			ApplyRoll(rollAmmount.Value);
+			ApplyRoll(rollAmount.Value);
 		}
 
-		private void minScaleX_ValueChanged(object sender, EventArgs e) 
-		{
-			ApplyScale();
-		}
-
-		private void minScaleY_ValueChanged(object sender, EventArgs e) 
+		private void minScale_ValueChanged(object sender, EventArgs e) 
 		{
 			ApplyScale();
 		}
@@ -490,93 +439,64 @@ namespace CodeImp.DoomBuilder.BuilderEffects
 		private void bUpdateTranslation_Click(object sender, EventArgs e) 
 		{
 			UpdateOffsetAngles();
-			ApplyTranslation(positionJitterAmmount.Value);
+			ApplyTranslation(positionJitterAmount.Value);
 		}
 
 		private void bUpdateHeight_Click(object sender, EventArgs e) 
 		{
 			UpdateHeights();
-			ApplyHeight(heightJitterAmmount.Value);
+			ApplyHeight(heightJitterAmount.Value);
 		}
 
 		private void bUpdateAngle_Click(object sender, EventArgs e) 
 		{
 			UpdateRotationAngles();
-			ApplyRotation(rotationJitterAmmount.Value);
+			ApplyRotation(rotationJitterAmount.Value);
 		}
 
 		private void bUpdatePitch_Click(object sender, EventArgs e) 
 		{
 			UpdatePitchAngles();
-			ApplyPitch(pitchAmmount.Value);
+			ApplyPitch(pitchAmount.Value);
 		}
 
 		private void bUpdateRoll_Click(object sender, EventArgs e) 
 		{
 			UpdateRollAngles();
-			ApplyRoll(rollAmmount.Value);
+			ApplyRoll(rollAmount.Value);
 		}
 
-		private void bUpdateScaleX_Click(object sender, EventArgs e) 
+		private void bUpdateScale_Click(object sender, EventArgs e) 
 		{
-			UpdateScaleX();
-			ApplyScale();
-		}
-
-		private void bUpdateScaleY_Click(object sender, EventArgs e) 
-		{
-			UpdateScaleY();
 			ApplyScale();
 		}
 
 		private void cbRelativePitch_CheckedChanged(object sender, EventArgs e) 
 		{
 			UpdatePitchAngles();
-			ApplyPitch(pitchAmmount.Value);
+			ApplyPitch(pitchAmount.Value);
 		}
 
 		private void cbRelativeRoll_CheckedChanged(object sender, EventArgs e) 
 		{
 			UpdateRollAngles();
-			ApplyRoll(rollAmmount.Value);
+			ApplyRoll(rollAmount.Value);
 		}
 
 		private void cbNegativePitch_CheckedChanged(object sender, EventArgs e) 
 		{
 			UpdatePitchAngles();
-			ApplyPitch(pitchAmmount.Value);
+			ApplyPitch(pitchAmount.Value);
 		}
 
 		private void cbNegativeRoll_CheckedChanged(object sender, EventArgs e) 
 		{
 			UpdateRollAngles();
-			ApplyRoll(rollAmmount.Value);
+			ApplyRoll(rollAmount.Value);
 		}
 
 		private void cbRelativeScale_CheckedChanged(object sender, EventArgs e) 
 		{
-			ApplyScale();
-		}
-
-		private void cbUniformScale_CheckedChanged(object sender, EventArgs e) 
-		{
-			bUpdateScaleY.Enabled = !cbUniformScale.Checked;
-			minScaleY.Enabled = !cbUniformScale.Checked;
-			maxScaleY.Enabled = !cbUniformScale.Checked;
-			minScaleYLabel.Enabled = !cbUniformScale.Checked;
-			maxScaleYLabel.Enabled = !cbUniformScale.Checked;
-			ApplyScale();
-		}
-
-		private void cbNegativeScaleX_CheckedChanged(object sender, EventArgs e) 
-		{
-			UpdateScaleX();
-			ApplyScale();
-		}
-
-		private void cbNegativeScaleY_CheckedChanged(object sender, EventArgs e) 
-		{
-			UpdateScaleY();
 			ApplyScale();
 		}
 
