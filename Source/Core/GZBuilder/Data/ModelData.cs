@@ -42,7 +42,7 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 
 		internal Vector3f Scale { get { return scale; } }
 		internal Vector3f RotationCenter { get { return rotationcenter; } set { rotationcenter = value; } }
-		internal Matrix Transform { get { /* return (General.Settings.GZStretchView ? transformstretched : transform); */ return transformstretched; } }
+		internal Matrix Transform { get { /* return (General.Settings.DOOMStretchView ? transformstretched : transform); */ return transformstretched; } }
         internal Matrix TransformRotation { get { return transformrotation; } }
 		internal bool OverridePalette; // Used for voxel models only 
 		internal float AngleOffset; // Used for voxel models only

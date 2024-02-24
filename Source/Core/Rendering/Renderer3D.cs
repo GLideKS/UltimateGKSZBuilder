@@ -266,7 +266,7 @@ namespace CodeImp.DoomBuilder.Rendering
 		internal void CreateProjection()
 		{
 			// Calculate aspect
-			float screenheight = General.Map.Graphics.RenderTarget.ClientSize.Height * (General.Settings.GZStretchView ? General.Map.Data.InvertedVerticalViewStretch : 1.0f); //mxd
+			float screenheight = General.Map.Graphics.RenderTarget.ClientSize.Height * (General.Settings.DOOMStretchView ? General.Map.Data.InvertedVerticalViewStretch : 1.0f); //mxd
 			float aspect = General.Map.Graphics.RenderTarget.ClientSize.Width / screenheight;
 			
 			// The DirectX PerspectiveFovRH matrix method calculates the scaling in X and Y as follows:

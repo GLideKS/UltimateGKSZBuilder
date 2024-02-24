@@ -110,7 +110,7 @@ namespace CodeImp.DoomBuilder.Windows
 			cbSynchCameras.Checked = General.Settings.GZSynchCameras;
 			tbDynLightCount.Value = General.Clamp(General.Settings.GZMaxDynamicLights / 16, tbDynLightCount.Minimum, tbDynLightCount.Maximum);
 			labelDynLightCount.Text = General.Settings.GZMaxDynamicLights.ToString();
-			cbStretchView.Checked = General.Settings.GZStretchView;
+			cbStretchView.Checked = General.Settings.DOOMStretchView;
 			cbOldHighlightMode.Checked = General.Settings.GZOldHighlightMode;
 			vertexScale.Value = General.Clamp((int)(General.Settings.GZVertexScale2D * 4.0), vertexScale.Minimum, vertexScale.Maximum);
 			vertexScaleLabel.Text = vertexScale.Value * 25 + "%" + (vertexScale.Value == 4 ? " (default)" : "");
@@ -449,7 +449,7 @@ namespace CodeImp.DoomBuilder.Windows
 			General.Settings.GZMaxDynamicLights = tbDynLightCount.Value * 16;
 			General.Settings.FilterAnisotropy = RenderDevice.AF_STEPS[anisotropicfiltering.Value];
 			General.Settings.AntiAliasingSamples = RenderDevice.AA_STEPS[antialiasing.Value];
-			General.Settings.GZStretchView = cbStretchView.Checked;
+			General.Settings.DOOMStretchView = cbStretchView.Checked;
 			General.Settings.GZVertexScale2D = (float)vertexScale.Value / 4.0f;
 			General.Settings.GZOldHighlightMode = cbOldHighlightMode.Checked;
 			General.Settings.GZMarkExtraFloors = cbMarkExtraFloors.Checked;

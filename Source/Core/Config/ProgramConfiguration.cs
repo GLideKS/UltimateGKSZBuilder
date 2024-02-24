@@ -130,7 +130,7 @@ namespace CodeImp.DoomBuilder.Config
 		private bool gzShowEventLines;
 		private bool gzOldHighlightMode;
 		private int gzMaxDynamicLights;
-		private bool gzStretchView;
+		private bool doomStretchView;
 		private float gzVertexScale2D;
 		private bool gzShowVisualVertices;
 		private float gzVertexScale3D;
@@ -272,7 +272,7 @@ namespace CodeImp.DoomBuilder.Config
 		public bool GZShowEventLines { get { return gzShowEventLines; } internal set { gzShowEventLines = value; } }
 		public bool GZOldHighlightMode { get { return gzOldHighlightMode; } internal set { gzOldHighlightMode = value; } }
 		public int GZMaxDynamicLights { get { return gzMaxDynamicLights; } internal set { gzMaxDynamicLights = value; } }
-		public bool GZStretchView { get { return gzStretchView; } internal set { gzStretchView = value; } }
+		public bool DOOMStretchView { get { return doomStretchView; } internal set { doomStretchView = value; } }
 		public float GZVertexScale2D { get { return gzVertexScale2D; } internal set { gzVertexScale2D = value; } }
 		public bool GZShowVisualVertices { get { return gzShowVisualVertices; } internal set { gzShowVisualVertices = value; } }
 		public float GZVertexScale3D { get { return gzVertexScale3D; } internal set { gzVertexScale3D = value; } }
@@ -425,7 +425,7 @@ namespace CodeImp.DoomBuilder.Config
 				gzShowEventLines = cfg.ReadSetting("gzshoweventlines", true);
 				gzOldHighlightMode = cfg.ReadSetting("gzoldhighlightmode", false);
 				gzMaxDynamicLights = cfg.ReadSetting("gzmaxdynamiclights", 16);
-				gzStretchView = cfg.ReadSetting("gzstretchview", false);
+				doomStretchView = cfg.ReadSetting("doomstretchview", false);
 				gzVertexScale2D = cfg.ReadSetting("gzvertexscale2d", 1.0f);
 				gzShowVisualVertices = cfg.ReadSetting("gzshowvisualvertices", true);
 				gzVertexScale3D = cfg.ReadSetting("gzvertexscale3d", 1.0f);
@@ -579,7 +579,7 @@ namespace CodeImp.DoomBuilder.Config
 			cfg.WriteSetting("gzoldhighlightmode", gzOldHighlightMode);
 			cfg.WriteSetting("gztoolbargzdoom", gzToolbarGZDoom);
 			cfg.WriteSetting("gzmaxdynamiclights", gzMaxDynamicLights);
-			cfg.WriteSetting("gzstretchview", gzStretchView);
+			cfg.WriteSetting("doomstretchview", doomStretchView);
 			cfg.WriteSetting("gzvertexscale2d", gzVertexScale2D);
 			cfg.WriteSetting("gzshowvisualvertices", gzShowVisualVertices);
 			cfg.WriteSetting("gzvertexscale3d", gzVertexScale3D);
