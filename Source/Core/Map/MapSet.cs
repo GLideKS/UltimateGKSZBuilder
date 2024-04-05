@@ -3832,6 +3832,9 @@ namespace CodeImp.DoomBuilder.Map
 							if(tag == 0) continue;
 							if(!usedtags.ContainsKey(tag)) usedtags.Add(tag, false);
 						}
+						// SRB2 also has separate trigger tag field
+						int triggertag = sectors[i].Fields.GetValue("triggertag", 0);
+						if (triggertag > 0) usedtags.Add(triggertag, false);
 					}
 					break;
 			}
@@ -3923,6 +3926,8 @@ namespace CodeImp.DoomBuilder.Map
 					bool changed = false;
 					// Make a copy of tags, otherwise BeforePropsChange will be triggered after tag changes
 					List<int> tags = new List<int>(s.Tags);
+					// SRB2 also has separate trigger tag field
+					tags.Add(s.Fields.GetValue("triggertag", 0));
 					for(int i = 0; i < tags.Count; i++)
 					{
 						int tag = tags[i];
