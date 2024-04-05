@@ -21,7 +21,7 @@ size
 let lines = UDB.Map.getSelectedLinedefs();
 
 if(lines.length < 2)
-    die('You need to select at least 2 connected linedefs');
+    UDB.die('You need to select at least 2 connected linedefs');
 
 let vertices = new Set();
 

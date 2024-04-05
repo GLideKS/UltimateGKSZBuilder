@@ -41,12 +41,12 @@ fixoriginaloffset
 let lines = UDB.Map.getSelectedOrHighlightedLinedefs();
 
 if(lines.length == 0)
-    die('No linedefs selcted or highlighted');
+    UDB.die('No linedefs selcted or highlighted');
 
 lines.forEach(ld => {
     // The line has to be long enough the flank it
     if(ld.length < UDB.ScriptOptions.width * 2)
-        die(ld + ' is too short to flank');
+        UDB.die(ld + ' is too short to flank');
 
     // Compute how far along the line the flank with is
     let length = 1.0 / ld.length * UDB.ScriptOptions.width;
