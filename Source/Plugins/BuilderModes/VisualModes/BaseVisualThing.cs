@@ -483,7 +483,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					// Check if above ceiling
 					if(!nointeraction)
 					{
-						double maxz = sd.Ceiling.plane.GetZ(Thing.Position) - info.Height;
+						double maxz = sd.Ceiling.plane.GetZ(Thing.Position) - (info.CenterHitbox ? info.Height / 2 : info.Height);
 						if(pos.z > maxz) pos.z = Math.Max(minz, maxz);
 					}
 				}
