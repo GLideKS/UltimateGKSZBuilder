@@ -100,7 +100,7 @@ namespace CodeImp.DoomBuilder.Config
 			string argtype = isstringarg ? ".stringarg" : ".arg";
 			string argpath = argspath + argtype + argindex.ToString(CultureInfo.InvariantCulture);
 			this.used = cfg.SettingExists(argpath);
-			this.title = cfg.ReadSetting(argpath + ".title", (isstringarg ? "String argument " : "Argument ") + (argindex + 1));
+			this.title = cfg.ReadSetting(argpath + ".title", (isstringarg ? "String arg. " : "Argument ") + (argindex + 1));
 			this.tooltip = cfg.ReadSetting(argpath + ".tooltip", string.Empty); //mxd
 			this.type = cfg.ReadSetting(argpath + ".type", 0);
             this.str = cfg.ReadSetting(argpath + ".str", false);

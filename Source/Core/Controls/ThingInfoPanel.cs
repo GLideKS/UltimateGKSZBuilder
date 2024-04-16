@@ -38,6 +38,8 @@ namespace CodeImp.DoomBuilder.Controls
 		private readonly int doomformatwidth;
 		private Label[] arglabels;
 		private Label[] args;
+		private Label[] stringarglabels;
+		private Label[] stringargs;
 
 		// Constructor
 		public ThingInfoPanel()
@@ -52,6 +54,8 @@ namespace CodeImp.DoomBuilder.Controls
 
 			arglabels = new Label[] { arglbl1, arglbl2, arglbl3, arglbl4, arglbl5, arglbl6, arglbl7, arglbl8, arglbl9, arglbl10 };
 			args = new Label[] { arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10 };
+			stringarglabels = new Label[] { stringarglbl1, stringarglbl2 };
+			stringargs = new Label[] { stringarg1, stringarg2 };
 		}
 
 		// This shows the info
@@ -67,8 +71,8 @@ namespace CodeImp.DoomBuilder.Controls
 			infopanel.Width = (hasArgs ? hexenformatwidth : doomformatwidth);
 
 			//mxd
-			action.Visible = General.Map.FormatInterface.HasThingAction;
-			labelaction.Visible = General.Map.FormatInterface.HasThingAction;
+			//action.Visible = General.Map.FormatInterface.HasThingAction;
+			//labelaction.Visible = General.Map.FormatInterface.HasThingAction;
 
 			// Move panel
 			spritepanel.Left = infopanel.Left + infopanel.Width + infopanel.Margin.Right + spritepanel.Margin.Left;
@@ -112,11 +116,19 @@ namespace CodeImp.DoomBuilder.Controls
 			position.Text = t.Position.x.ToString(CultureInfo.InvariantCulture) + ", " + t.Position.y.ToString(CultureInfo.InvariantCulture) + ", " + zinfo;
 			tag.Text = t.Tag + (General.Map.Options.TagLabels.ContainsKey(t.Tag) ? " - " + General.Map.Options.TagLabels[t.Tag] : string.Empty);
 			angle.Text = t.AngleDoom + "\u00B0";
+			pitch.Text = t.Pitch + "\u00B0";
+			roll.Text = t.Roll + "\u00B0";
 			anglecontrol.Angle = t.AngleDoom;
-			anglecontrol.Left = angle.Right + 1;
-			
+
+			//tag.Enabled = (t.Tag != 0);
+			//taglabel.Enabled = (t.Tag != 0);
+			//pitch.Enabled = (t.Pitch != 0);
+			//pitchlabel.Enabled = (t.Pitch != 0);
+			//roll.Enabled = (t.Roll != 0);
+			//rolllabel.Enabled = (t.Roll != 0);
+
 			// Sprite
-			if(ti.Sprite.ToLowerInvariant().StartsWith(DataManager.INTERNAL_PREFIX) && (ti.Sprite.Length > DataManager.INTERNAL_PREFIX.Length))
+			if (ti.Sprite.ToLowerInvariant().StartsWith(DataManager.INTERNAL_PREFIX) && (ti.Sprite.Length > DataManager.INTERNAL_PREFIX.Length))
 			{
 				spritename.Text = "";
 				spritetex.Image = General.Map.Data.GetSpriteImage(ti.Sprite).GetSpritePreview();
@@ -134,6 +146,7 @@ namespace CodeImp.DoomBuilder.Controls
 
 			// Arguments
 			ArgumentInfo[] arginfo = ((t.Action == 0 && ti.Args[0] != null) ? ti.Args : act.Args); //mxd
+			ArgumentInfo[] stringarginfo = ti.StringArgs;
 
             //mxd. ACS script argument names
             bool isacsscript = (Array.IndexOf(GZGeneral.ACS_SPECIALS, t.Action) != -1);
@@ -203,8 +216,17 @@ namespace CodeImp.DoomBuilder.Controls
                 }
             }
 
-            //mxd. Set argument value and label
-            if (isarg0str) arg1.Text = arg0str;
+			// SRB2 string arguments
+			for (int i = 0; i < stringargs.Length; i++)
+			{
+				stringarglabels[i].Text = stringarginfo[i].Title + ":";
+				stringarglabels[i].Enabled = stringarginfo[i].Used;
+				stringargs[i].Enabled = stringarginfo[i].Used;
+				stringargs[i].Text = t.Fields.GetValue("stringarg" + i, string.Empty);
+			}
+
+			//mxd. Set argument value and label
+			if (isarg0str) arg1.Text = arg0str;
             else SetArgumentText(act.Args[0], arg1, t.Args[0]);
 			for (int i = 1; i < args.Length; i++)
 				SetArgumentText(arginfo[i], args[i], t.Args[i]);
