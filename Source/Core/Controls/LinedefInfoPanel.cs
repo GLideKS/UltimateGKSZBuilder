@@ -38,6 +38,8 @@ namespace CodeImp.DoomBuilder.Controls
 		private readonly int doomformatwidth;
 		private Label[] arglabels;
 		private Label[] args;
+		private Label[] stringarglabels;
+		private Label[] stringargs;
 
 		// Constructor
 		public LinedefInfoPanel()
@@ -52,6 +54,8 @@ namespace CodeImp.DoomBuilder.Controls
 
 			arglabels = new Label[] { arglbl1, arglbl2, arglbl3, arglbl4, arglbl5, arglbl6, arglbl7, arglbl8, arglbl9, arglbl10 };
 			args = new Label[] { arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10 };
+			stringarglabels = new Label[] { stringarglbl1, stringarglbl2 };
+			stringargs = new Label[] { stringarg1, stringarg2 };
 
 			// We have to set the parernt (and subsequently the new location relative to the parent) here since
 			// we can't set the parent in the designer. And if the parent is not set to the ConfigurablePictureBox
@@ -282,8 +286,17 @@ namespace CodeImp.DoomBuilder.Controls
 				}
 			}
 
+			// SRB2 string arguments
+			for (int i = 0; i < stringargs.Length; i++)
+			{
+				stringarglabels[i].Text = act.StringArgs[i].Title + ":";
+				stringarglabels[i].Enabled = act.StringArgs[i].Used;
+				stringargs[i].Enabled = act.StringArgs[i].Used;
+				stringargs[i].Text = l.Fields.GetValue("stringarg" + i, string.Empty);
+			}
+
 			//mxd. Set argument value and label
-			if(isarg0str) arg1.Text = arg0str;
+			if (isarg0str) arg1.Text = arg0str;
 			else SetArgumentText(act.Args[0], arg1, l.Args[0]);
 			for (int i = 1; i < args.Length; i++)
 				SetArgumentText(act.Args[i], args[i], l.Args[i]);

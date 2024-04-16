@@ -444,7 +444,7 @@ namespace CodeImp.DoomBuilder.Config
 		internal ArgumentInfo(int argindex, bool isstringarg)
 		{
 			this.used = false;
-			this.title = (isstringarg ? "String argument " : "Argument ") + (argindex + 1);
+			this.title = (isstringarg ? "String arg. " : "Argument ") + (argindex + 1);
 			this.type = 0;
 			this.enumlist = new EnumList();
 			this.flagslist = new EnumList(); //mxd
