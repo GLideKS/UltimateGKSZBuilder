@@ -303,11 +303,31 @@ namespace CodeImp.DoomBuilder.Windows
 			// Then add nodes, which titles contain given text
 			foreach(TreeNode n in allNodes)
 			{
-				foreach(TreeNode cn in n.Nodes)
+				foreach (TreeNode cn in n.Nodes)
 				{
 					LinedefActionInfo ai = cn.Tag as LinedefActionInfo;
-					if(ai != null && !added.Contains(ai.Title) && ai.Title.ToUpperInvariant().Contains(text))
+					if (ai != null && !added.Contains(ai.Title) && ai.Title.ToUpperInvariant().Contains(text))
+					{ 
 						filterednodes.Add(cn);
+						added.Add(ai.Title);
+					}
+				}
+			}
+
+			// Then if the filter is a number, add nodes whose action number starts with that number
+			if (int.TryParse(tbFilter.Text.Trim(), out int number))
+			{
+				foreach (TreeNode n in allNodes)
+				{
+					foreach (TreeNode cn in n.Nodes)
+					{
+						LinedefActionInfo ai = cn.Tag as LinedefActionInfo;
+						if (ai != null && !added.Contains(ai.Title) && ai.Index.ToString().StartsWith(number.ToString()))
+						{
+							filterednodes.Add(cn);
+							added.Add(ai.Title);
+						}
+					}
 				}
 			}
 

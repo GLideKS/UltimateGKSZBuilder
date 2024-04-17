@@ -471,8 +471,22 @@ namespace CodeImp.DoomBuilder.Controls
 				// Then add nodes, which titles contain given text
 				foreach(TreeNode node in nodes)
 				{
-					if(!added.Contains(node.Text) && node.Text.ToUpperInvariant().Contains(match)) 
+					if (!added.Contains(node.Text) && node.Text.ToUpperInvariant().Contains(match))
+					{
 						typelist.Nodes.Add(node);
+						added.Add(node.Text);
+					}
+				}
+
+				// Then if the filter is a number, add nodes whose thing number starts with that number
+				if (int.TryParse(tbFilter.Text.Trim(), out int number))
+				{
+					foreach (TreeNode node in nodes)
+						if (!added.Contains(node.Text) && (node.Tag as ThingTypeInfo).Index.ToString().StartsWith(number.ToString()))
+						{
+							typelist.Nodes.Add(node);
+							added.Add(node.Text);
+						}
 				}
 
 				doupdatenode = true;
