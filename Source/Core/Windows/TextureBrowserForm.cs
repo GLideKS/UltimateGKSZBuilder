@@ -124,6 +124,9 @@ namespace CodeImp.DoomBuilder.Windows
 			item.ImageIndex = 1;
 			item.SelectedImageIndex = item.ImageIndex;
 
+			// Sort sets alphabetically
+			tvTextureSets.Sort();
+
 			//mxd. Should we bother finding the correct texture set?
 			if(General.Settings.LocateTextureGroup)
 			{
