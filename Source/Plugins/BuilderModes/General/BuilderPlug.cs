@@ -387,6 +387,9 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					int color, light;
 					bool absolute;
 
+					if (General.Map.Config.ScaledFlatOffsets)
+						offset /= scale;
+
 					//mxd. Apply GLDEFS override?
 					if(General.Map.Data.GlowingFlats.ContainsKey(s.LongFloorTexture) 
 						&& General.Map.Data.GlowingFlats[s.LongFloorTexture].Fullbright)
@@ -447,8 +450,11 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					int color, light;
 					bool absolute;
 
+					if (General.Map.Config.ScaledFlatOffsets)
+						offset /= scale;
+
 					//mxd. Apply GLDEFS override?
-					if(General.Map.Data.GlowingFlats.ContainsKey(s.LongCeilTexture)
+					if (General.Map.Data.GlowingFlats.ContainsKey(s.LongCeilTexture)
 						&& General.Map.Data.GlowingFlats[s.LongCeilTexture].Fullbright)
 					{
 						color = -1;

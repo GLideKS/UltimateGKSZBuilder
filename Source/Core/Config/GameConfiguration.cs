@@ -74,6 +74,7 @@ namespace CodeImp.DoomBuilder.Config
 		private readonly string defaultfloortexture; //mxd
 		private readonly string defaultceilingtexture; //mxd
 		private readonly bool scaledtextureoffsets;
+		private readonly bool scaledflatoffsets; //sphere
 		private readonly string defaultsavecompiler;
 		private readonly string defaulttestcompiler;
 		private readonly string formatinterface;
@@ -255,6 +256,7 @@ namespace CodeImp.DoomBuilder.Config
 		public string DefaultFloorTexture { get { return defaultfloortexture; } } //mxd
 		public string DefaultCeilingTexture { get { return defaultceilingtexture; } } //mxd
 		public bool ScaledTextureOffsets { get { return scaledtextureoffsets; } }
+		public bool ScaledFlatOffsets { get { return scaledflatoffsets; } } // sphere
 		public string FormatInterface { get { return formatinterface; } }
 		public string DefaultLinedefActivationFlag { get { return defaultlinedefactivation; } } //mxd
 		public string SingleSidedFlag { get { return singlesidedflag; } }
@@ -484,6 +486,7 @@ namespace CodeImp.DoomBuilder.Config
 			defaultfloortexture = cfg.ReadSetting("defaultfloortexture", "FLOOR0_1"); //mxd
 			defaultceilingtexture = cfg.ReadSetting("defaultceilingtexture", "CEIL1_1"); //mxd
 			scaledtextureoffsets = cfg.ReadSetting("scaledtextureoffsets", true);
+			scaledflatoffsets = cfg.ReadSetting("scaledflatoffsets", true);
 			formatinterface = cfg.ReadSetting("formatinterface", "");
 			mixtexturesflats = cfg.ReadSetting("mixtexturesflats", false);
 			generalizedactions = cfg.ReadSetting("generalizedlinedefs", false);

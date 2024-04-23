@@ -83,9 +83,12 @@ namespace CodeImp.DoomBuilder.BuilderModes
 										   s.Fields.GetValue("ypanningceiling", 0.0));
 			Vector2D scale = new Vector2D(s.Fields.GetValue("xscaleceiling", 1.0),
 										  s.Fields.GetValue("yscaleceiling", 1.0));
-			
+
+			if (General.Map.Config.ScaledFlatOffsets)
+				offset /= scale;
+
 			//Load ceiling texture
-			if(s.LongCeilTexture != MapSet.EmptyLongName) 
+			if (s.LongCeilTexture != MapSet.EmptyLongName) 
 			{
 				base.Texture = General.Map.Data.GetFlatImage(s.LongCeilTexture);
 				if(base.Texture == null || base.Texture is UnknownImage) 
@@ -544,8 +547,11 @@ namespace CodeImp.DoomBuilder.BuilderModes
                 Vector2D scale = new Vector2D(level.sector.Fields.GetValue("xscaleceiling", 1.0), level.sector.Fields.GetValue("yscaleceiling", 1.0));
                 Vector2D texscale = new Vector2D(1.0f / Texture.ScaledWidth, 1.0f / Texture.ScaledHeight);
 
-                // Texture coordinates
-                Vector2D o = pickintersect;
+				if (General.Map.Config.ScaledFlatOffsets)
+					offset /= scale;
+
+				// Texture coordinates
+				Vector2D o = pickintersect;
                 o = o.GetRotated(rotate);
                 o.y = -o.y;
                 o = (o + offset) * scale * texscale;
