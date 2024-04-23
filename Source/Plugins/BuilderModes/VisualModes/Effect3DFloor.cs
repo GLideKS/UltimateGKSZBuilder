@@ -144,6 +144,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					ignorebottomheight = linedef.Args[1] == 1;
 					break;
 				case "srb2_fofintangibleinvisible":
+				case "srb2_foffog":
 					alpha = 0;
 					break;
 				case "srb2_fofintangible":
