@@ -289,9 +289,9 @@ namespace CodeImp.DoomBuilder.Windows
 			// executordelay
 			// 
 			this.executordelay.AllowDecimal = false;
-			this.executordelay.AllowExpressions = false;
+			this.executordelay.AllowExpressions = true;
 			this.executordelay.AllowNegative = false;
-			this.executordelay.AllowRelative = false;
+			this.executordelay.AllowRelative = true;
 			this.executordelay.ButtonStep = 1;
 			this.executordelay.ButtonStepBig = 35F;
 			this.executordelay.ButtonStepFloat = 1F;

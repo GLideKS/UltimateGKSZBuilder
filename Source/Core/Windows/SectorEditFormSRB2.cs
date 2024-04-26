@@ -62,6 +62,7 @@ namespace CodeImp.DoomBuilder.Windows
 			public readonly int FadeAlpha;
 			public readonly int FadeStart;
 			public readonly int FadeEnd;
+			public readonly int TriggerTag;
 
 			//UDMF Ceiling
 			public readonly double CeilOffsetX;
@@ -108,6 +109,7 @@ namespace CodeImp.DoomBuilder.Windows
 				FadeAlpha = UniFields.GetInteger(s.Fields, "fadealpha", General.Map.Config.MaxColormapAlpha);
 				FadeStart = UniFields.GetInteger(s.Fields, "fadestart", 0);
 				FadeEnd = UniFields.GetInteger(s.Fields, "fadeend", General.Map.Config.NumBrightnessLevels - 1);
+				TriggerTag = UniFields.GetInteger(s.Fields, "triggertag", 0);
 
 				//UDMF Ceiling
 				CeilOffsetX = UniFields.GetFloat(s.Fields, "xpanningceiling", 0.0);
@@ -745,9 +747,6 @@ namespace CodeImp.DoomBuilder.Windows
 
 				if (!string.IsNullOrEmpty(friction.Text))
 					UniFields.SetFloat(s.Fields, "friction", friction.GetResultFloat(s.Fields.GetValue("friction", 0.90625)), 0.90625);
-
-				if (!string.IsNullOrEmpty(triggerTag.Text))
-					UniFields.SetInteger(s.Fields, "triggertag", triggerTag.GetResult(s.Fields.GetValue("triggertag", 0)), 0);
 
 				if (!string.IsNullOrEmpty(triggerer.Text))
 					UniFields.SetString(s.Fields, "triggerer", triggerer.Text, TRIGGERER_DEFAULT);
@@ -1799,7 +1798,34 @@ namespace CodeImp.DoomBuilder.Windows
 			floorslopecontrol.StepValues = (floorslopecontrol.UseLineAngles ? anglesteps : null);
 		}
 
+		private void triggerTag_WhenTextChanged(object sender, EventArgs e)
+		{
+			if (preventchanges) return;
+			MakeUndo(); //mxd
+
+			// Reset increment steps, otherwise it's just keep counting and counting
+			triggerTag.ResetIncrementStep();
+
+			//restore values
+			if (string.IsNullOrEmpty(triggerTag.Text))
+			{
+				foreach (Sector s in sectors)
+				{
+					UniFields.SetInteger(s.Fields, "triggertag", sectorprops[s].TriggerTag, 0);
+					s.UpdateNeeded = true;
+				}
+			}
+			else //update values
+			{
+				foreach (Sector s in sectors)
+				{
+					UniFields.SetInteger(s.Fields, "triggertag", triggerTag.GetResult(sectorprops[s].TriggerTag), 0);
+					s.UpdateNeeded = true;
+				}
+			}
+		}
+
 		#endregion
 
-    }
+	}
 }

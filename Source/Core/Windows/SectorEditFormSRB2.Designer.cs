@@ -224,9 +224,9 @@
 			// triggerTag
 			// 
 			this.triggerTag.AllowDecimal = false;
-			this.triggerTag.AllowExpressions = false;
+			this.triggerTag.AllowExpressions = true;
 			this.triggerTag.AllowNegative = false;
-			this.triggerTag.AllowRelative = false;
+			this.triggerTag.AllowRelative = true;
 			this.triggerTag.ButtonStep = 1;
 			this.triggerTag.ButtonStepBig = 1F;
 			this.triggerTag.ButtonStepFloat = 1F;
@@ -238,6 +238,7 @@
 			this.triggerTag.Size = new System.Drawing.Size(81, 24);
 			this.triggerTag.StepValues = null;
 			this.triggerTag.TabIndex = 20;
+			this.triggerTag.WhenTextChanged += new System.EventHandler(this.triggerTag_WhenTextChanged);
 			// 
 			// label16
 			// 

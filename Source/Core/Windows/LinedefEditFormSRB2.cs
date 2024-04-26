@@ -908,6 +908,9 @@ namespace CodeImp.DoomBuilder.Windows
 			MakeUndo(); //mxd
 			int i = 0;
 
+			// Reset increment steps, otherwise it's just keep counting and counting
+			executordelay.ResetIncrementStep();
+
 			//restore values
 			if (string.IsNullOrEmpty(executordelay.Text))
 			{
@@ -918,7 +921,7 @@ namespace CodeImp.DoomBuilder.Windows
 			{
 				foreach (Linedef l in lines)
 				{
-					UniFields.SetInteger(l.Fields, "executordelay", executordelay.GetResult(0), 0);
+					UniFields.SetInteger(l.Fields, "executordelay", executordelay.GetResult(l.Fields.GetValue("executordelay", 0)), 0);
 				}
 			}
 
