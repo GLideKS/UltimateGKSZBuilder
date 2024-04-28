@@ -37,7 +37,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 
 			SOCParser parser = (SOCParser)zdparser;
 
-			// Now parse the contents of actor structure
+			// Parse contents of level header
 			string line = parser.ReadLine();
 			while (line != null)
 			{
@@ -57,14 +57,17 @@ namespace CodeImp.DoomBuilder.ZDoom
 				tokens[0] = tokens[0].Trim().ToLowerInvariant();
 				tokens[1] = tokens[1].Trim();
 
-				//mxd. Translate scale to xscale and yscale
 				switch (tokens[0])
 				{
 					case "levelname":
 						levelname = tokens[1];
 						break;
 					case "act":
-						actnum = int.Parse(tokens[1]);
+						if (!int.TryParse(tokens[1], out actnum) || actnum > 99)
+						{
+							parser.LogWarning("Invalid act number (" + tokens[1] + ") found; must be a number ranging from 0 to 99");
+							actnum = 0;
+						}
 						break;
 					case "nozone":
 						string value = tokens[1].ToLowerInvariant();
