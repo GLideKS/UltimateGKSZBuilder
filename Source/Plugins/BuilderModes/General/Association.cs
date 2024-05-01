@@ -269,7 +269,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			}
 
 			// Get tags of map elements the element is referencing. This is used for the forward associations
-			if (element is Linedef || element is Thing)
+			if (element is Linedef || element is Thing || element is Sector)
 				actiontags = GetTagsByType();
 
 			// Store presence of different types once, so that we don't have to do a lookup for each map element
@@ -293,7 +293,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					addforward = true;
 
 				// Check the reverse association (from the sector to the element)
-				// Nothing here yet
+				if (IsAssociatedToSector(s))
+					addreverse = true;
 
 				if (addforward || addreverse)
 				{
@@ -494,7 +495,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		private Dictionary<int, HashSet<int>> GetTagsByType()
 		{
 			LinedefActionInfo action = null;
-			int[] actionargs = new int[5];
+			int[] actionargs = new int[10];
 			Dictionary<int, HashSet<int>> actiontags = new Dictionary<int, HashSet<int>>();
 
 			// Get the action and its arguments from a linedef or a thing, if they have them
@@ -516,7 +517,17 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 				actionargs = t.Args;
 			}
-			else // element is a Sector
+			else if (element is Sector)
+			{
+				Sector s = element as Sector;
+
+				int triggertag = s.Fields.GetValue("triggertag", 0);
+				if (triggertag > 0)
+				{
+					actiontags[(int)UniversalType.LinedefTag] = new HashSet<int>{triggertag};
+				}
+			}
+			else
 			{
 				return actiontags;
 			}
@@ -646,6 +657,26 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		}
 
 		/// <summary>
+		/// Checks if there's an association between the element and a Sector
+		/// </summary>
+		/// <param name="sector">Sector to check the association against</param>
+		/// <returns>true if the Sector and the element are associated, false if not</returns>
+		private bool IsAssociatedToSector(Sector sector)
+		{
+			int triggertag = sector.Fields.GetValue("triggertag", 0);
+
+			if (triggertag > 0 && element is Linedef)
+			{
+				Linedef l = element as Linedef;
+
+				if (l.Tags.Contains(triggertag))
+					return true;
+			}
+
+			return false;
+		}
+
+		/// <summary>
 		/// Returns a string that contains the description of the action and its arguments, based on the given Linedef or Thing
 		/// </summary>
 		/// <param name="se">An instance of Thing or Linedef</param>
@@ -653,7 +684,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		private string GetActionDescription(SelectableElement se)
 		{
 			int action = 0;
-			int[] actionargs = new int[5];
+			int[] actionargs = new int[10];
 
 			if (se is Thing)
 			{
