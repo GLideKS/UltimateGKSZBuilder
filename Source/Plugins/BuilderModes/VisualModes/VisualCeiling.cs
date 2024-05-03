@@ -302,9 +302,11 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		{
 			//mxd
 			Sector s = GetControlSector();
+			double texsizex = General.Map.Config.ScaledFlatOffsets ? Texture.ScaledWidth : (Texture.ScaledWidth / s.Fields.GetValue("xscaleceiling", 1.0));
+			double texsizey = General.Map.Config.ScaledFlatOffsets ? Texture.ScaledHeight : (Texture.ScaledHeight / s.Fields.GetValue("yscaleceiling", 1.0));
 			s.Fields.BeforeFieldsChange();
-			double nx = (s.Fields.GetValue("xpanningceiling", 0.0) + offsetx) % (Texture.ScaledWidth / s.Fields.GetValue("xscaleceiling", 1.0));
-			double ny = (s.Fields.GetValue("ypanningceiling", 0.0) + offsety) % (Texture.ScaledHeight / s.Fields.GetValue("yscaleceiling", 1.0));
+			double nx = (s.Fields.GetValue("xpanningceiling", 0.0) + offsetx) % texsizex;
+			double ny = (s.Fields.GetValue("ypanningceiling", 0.0) + offsety) % texsizey;
 			s.Fields["xpanningceiling"] = new UniValue(UniversalType.Float, nx);
 			s.Fields["ypanningceiling"] = new UniValue(UniversalType.Float, ny);
 			s.UpdateNeeded = true;
