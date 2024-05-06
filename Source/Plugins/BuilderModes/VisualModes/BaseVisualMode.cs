@@ -4962,6 +4962,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				if(j.forward) 
 				{
 					// Apply alignment
+					// SRB2 flips the usage of control & in-level lines' sides
 					//if(alignx) j.controlSide.OffsetX = (int)j.offsetx;
 					//if(aligny) j.sidedef.OffsetY = (int)Math.Round((first.ceilingHeight - j.ceilingHeight) / scaley) + ystartalign;
 					if (alignx) j.sidedef.OffsetX = (int)j.offsetx;
@@ -4977,7 +4978,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					{
 						if(alignx) j.sidedef.OffsetX %= texture.Width;
 						//if(aligny) j.sidedef.OffsetY %= texture.Height;
-						if(aligny) j.controlSide.OffsetY %= texture.Height;
+						if(aligny) j.controlSide.OffsetY %= texture.Height; // SRB2, see above
 					}
 
 					// Add sidedefs backward (connected to the left vertex)
@@ -4991,6 +4992,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				else 
 				{
 					// Apply alignment
+					// SRB2 flips the usage of control & in-level lines' sides
 					//if(alignx) j.controlSide.OffsetX = (int)j.offsetx - (int)Math.Round(j.sidedef.Line.Length / scalex);
 					//if(aligny) j.sidedef.OffsetY = (int)Math.Round((first.ceilingHeight - j.ceilingHeight) / scaley) + ystartalign;
 					if (alignx) j.sidedef.OffsetX = (int)j.offsetx - (int)Math.Round(j.sidedef.Line.Length / scalex);
@@ -5006,7 +5008,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					{
 						if(alignx) j.sidedef.OffsetX %= texture.Width;
 						//if(aligny) j.sidedef.OffsetY %= texture.Height;
-						if (aligny) j.controlSide.OffsetY %= texture.Height;
+						if (aligny) j.controlSide.OffsetY %= texture.Height; // SRB2, see above
 					}
 
 					// Add sidedefs forward (connected to the right vertex)

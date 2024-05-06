@@ -88,11 +88,12 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			Vector2D toffset2 = new Vector2D(0.0, 0.0);
 
 			// If the upper or lower textures are used we have to take the scale of those, not of the source
-			if (useuppertexture)
-				tscale = new Vector2D(Sidedef.Fields.GetValue("scalex_top", 1.0), Sidedef.Fields.GetValue("scaley_top", 1.0));
-			else if (uselowertexture)
-				tscale = new Vector2D(Sidedef.Fields.GetValue("scalex_bottom", 1.0), Sidedef.Fields.GetValue("scaley_bottom", 1.0));
-			else
+			// Not in SRB2, though
+			//if (useuppertexture)
+			//	tscale = new Vector2D(Sidedef.Fields.GetValue("scalex_top", 1.0), Sidedef.Fields.GetValue("scaley_top", 1.0));
+			//else if (uselowertexture)
+			//	tscale = new Vector2D(Sidedef.Fields.GetValue("scalex_bottom", 1.0), Sidedef.Fields.GetValue("scaley_bottom", 1.0));
+			//else
 			{
 				tscale = new Vector2D(sourceside.Fields.GetValue("scalex_mid", 1.0), sourceside.Fields.GetValue("scaley_mid", 1.0));
 
@@ -101,8 +102,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			}
 
 			Vector2D tscaleAbs = new Vector2D(Math.Abs(tscale.x), Math.Abs(tscale.y));
-            Vector2D toffset1 = new Vector2D(Sidedef.Fields.GetValue("offsetx_mid", 0.0),
-											 Sidedef.Fields.GetValue("offsety_mid", 0.0));
+			Vector2D toffset1 = new Vector2D(Sidedef.Fields.GetValue("offsetx_mid", 0.0), 0.0); // SRB2 only uses middle X offset
+											 //Sidedef.Fields.GetValue("offsety_mid", 0.0));
 		
 			// Left and right vertices for this sidedef
 			if(Sidedef.IsFront)
@@ -456,17 +457,22 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		protected override void MoveTextureOffset(int offsetx, int offsety)
 		{
 			Sidedef.Fields.BeforeFieldsChange();
+
+			// SRB2 aligns the source side's Y offset instead of the in-level sidedef
+			Sidedef sourceside = extrafloor.Linedef.Front;
+			sourceside.Fields.BeforeFieldsChange();
+
 			bool worldpanning = this.Texture.WorldPanning || General.Map.Data.MapInfo.ForceWorldPanning;
 			double oldx = Sidedef.Fields.GetValue("offsetx_mid", 0.0);
-			double oldy = Sidedef.Fields.GetValue("offsety_mid", 0.0);
-			double scalex = extrafloor.Linedef.Front.Fields.GetValue("scalex_mid", 1.0);
-			double scaley = extrafloor.Linedef.Front.Fields.GetValue("scaley_mid", 1.0);
+			double oldy = sourceside.Fields.GetValue("offsety_mid", 0.0);
+			double scalex = sourceside.Fields.GetValue("scalex_mid", 1.0);
+			double scaley = sourceside.Fields.GetValue("scaley_mid", 1.0);
 			bool textureloaded = (Texture != null && Texture.IsImageLoaded); //mxd
 			double width = textureloaded ? (worldpanning ? this.Texture.ScaledWidth / scalex : this.Texture.Width) : -1; // biwa
 			double height = textureloaded ? (worldpanning ? this.Texture.ScaledHeight / scaley : this.Texture.Height) : -1; // biwa
 
 			Sidedef.Fields["offsetx_mid"] = new UniValue(UniversalType.Float, GetNewTexutreOffset(oldx, offsetx, width)); //mxd // biwa
-			Sidedef.Fields["offsety_mid"] = new UniValue(UniversalType.Float, GetNewTexutreOffset(oldy, offsety, height)); //mxd // biwa
+			sourceside.Fields["offsety_mid"] = new UniValue(UniversalType.Float, GetNewTexutreOffset(oldy, offsety, height)); //mxd // biwa
 		}
 
 		protected override Point GetTextureOffset()
@@ -563,47 +569,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 			// Update the model sector to update all 3d floors
 			mode.GetVisualSector(extrafloor.Linedef.Front.Sector).UpdateSectorGeometry(false);
-		}
-
-		// Texture offset change
-		public override bool OnChangeTextureOffset(int horizontal, int vertical, bool doSurfaceAngleCorrection)
-		{
-			if ((General.Map.UndoRedo.NextUndo == null) || (General.Map.UndoRedo.NextUndo.TicketID != undoticket))
-				undoticket = mode.CreateUndo("Change texture offsets");
-
-			//mxd
-			if (General.Map.UDMF && General.Map.Config.UseLocalSidedefTextureOffsets)
-			{
-				// Apply per-texture offsets
-				MoveTextureOffset(-horizontal, -vertical);
-				Point p = GetTextureOffset();
-				mode.SetActionResult("Changed texture offsets to " + p.X + ", " + p.Y + ".");
-
-				// Update this part only
-				this.Setup();
-			}
-			else
-			{
-				//mxd. Apply classic offsets
-				Sidedef sourceside = extrafloor.Linedef.Front;
-				bool textureloaded = (Texture != null && Texture.IsImageLoaded);
-				Sidedef.OffsetX = (Sidedef.OffsetX - horizontal);
-				if (textureloaded) Sidedef.OffsetX %= Texture.Width;
-				sourceside.OffsetY = (sourceside.OffsetY - vertical);
-				if (geometrytype != VisualGeometryType.WALL_MIDDLE && textureloaded) sourceside.OffsetY %= Texture.Height;
-
-				mode.SetActionResult("Changed texture offsets to " + Sidedef.OffsetX + ", " + sourceside.OffsetY + ".");
-
-				// Update all sidedef geometry
-				VisualSidedefParts parts = Sector.GetSidedefParts(Sidedef);
-				parts.SetupAllParts();
-			}
-
-			//mxd. Update linked effects
-			SectorData sd = mode.GetSectorDataEx(Sector.Sector);
-			if (sd != null) sd.Reset(true);
-
-			return true;
 		}
 
 		#endregion

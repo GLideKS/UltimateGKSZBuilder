@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using CodeImp.DoomBuilder.Map;
 using CodeImp.DoomBuilder.Geometry;
 using CodeImp.DoomBuilder.Rendering;
@@ -266,47 +265,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			
 			base.SetVertices(null); //mxd
 			return false;
-		}
-
-		// Texture offset change
-		public override bool OnChangeTextureOffset(int horizontal, int vertical, bool doSurfaceAngleCorrection)
-		{
-			if ((General.Map.UndoRedo.NextUndo == null) || (General.Map.UndoRedo.NextUndo.TicketID != undoticket))
-				undoticket = mode.CreateUndo("Change texture offsets");
-
-			//mxd
-			if (General.Map.UDMF && General.Map.Config.UseLocalSidedefTextureOffsets)
-			{
-				// Apply per-texture offsets
-				MoveTextureOffset(-horizontal, -vertical);
-				Point p = GetTextureOffset();
-				mode.SetActionResult("Changed texture offsets to " + p.X + ", " + p.Y + ".");
-
-				// Update this part only
-				this.Setup();
-			}
-			else
-			{
-				//mxd. Apply classic offsets
-				Sidedef sourceside = extrafloor.Linedef.Front;
-				bool textureloaded = (Texture != null && Texture.IsImageLoaded);
-				Sidedef.OffsetX = (Sidedef.OffsetX - horizontal);
-				if (textureloaded) Sidedef.OffsetX %= Texture.Width;
-				sourceside.OffsetY = (sourceside.OffsetY - vertical);
-				if (geometrytype != VisualGeometryType.WALL_MIDDLE && textureloaded) sourceside.OffsetY %= Texture.Height;
-
-				mode.SetActionResult("Changed texture offsets to " + Sidedef.OffsetX + ", " + sourceside.OffsetY + ".");
-
-				// Update all sidedef geometry
-				VisualSidedefParts parts = Sector.GetSidedefParts(Sidedef);
-				parts.SetupAllParts();
-			}
-
-			//mxd. Update linked effects
-			SectorData sd = mode.GetSectorDataEx(Sector.Sector);
-			if (sd != null) sd.Reset(true);
-
-			return true;
 		}
 
 		#endregion
