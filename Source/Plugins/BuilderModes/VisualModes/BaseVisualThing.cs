@@ -196,9 +196,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			fogfactor = 0f; //mxd
 
 			//mxd. Check thing size 
-			float mobjscale = (float)UniFields.GetFloat(Thing.Fields, "mobjscale", 1.0f);
-			float thingradius = Thing.Size * mobjscale; // Thing.Size has ThingRadius arg override applied
-			thingheight = Thing.Height * mobjscale; // Thing.Height has ThingHeight arg override applied
+			float thingradius = Thing.Size; // Thing.Size has ThingRadius arg override applied
+			thingheight = Thing.Height; // Thing.Height has ThingHeight arg override applied
 
 			if(thingradius < 0.1f || thingheight < 0.1f) 
 			{
