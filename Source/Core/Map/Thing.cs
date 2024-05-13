@@ -113,9 +113,9 @@ namespace CodeImp.DoomBuilder.Map
 		internal Dictionary<string, bool> Flags { get { return flags; } }
 		public int Action { get { return action; } set { BeforePropsChange(); action = value; } }
 		public int[] Args { get { return args; } }
-		public float Size { get { return GetScaledObjectSize(size); } }
+		public float Size { get { return size * GetObjectScale(); } }
 		public float RenderSize { get { return rendersize; } }
-		public float Height { get { return GetScaledObjectSize(height); } } //mxd
+		public float Height { get { return height * GetObjectScale(); } } //mxd
 		public PixelColor Color { get { return color; } }
 		public bool FixedSize { get { return fixedsize; } }
 		public int Tag { get { return tag; } set { BeforePropsChange(); tag = value; if((tag < General.Map.FormatInterface.MinTag) || (tag > General.Map.FormatInterface.MaxTag)) throw new ArgumentOutOfRangeException("Tag", "Invalid tag number"); } }
@@ -761,12 +761,12 @@ namespace CodeImp.DoomBuilder.Map
 			map?.ChangeThingIndex(Index, newindex);
 		}
 
-		public float GetScaledObjectSize(float value)
+		public float GetObjectScale()
 		{
 			if (General.Map.Config.EngineName == "srb2")
-				value *= (float)UniFields.GetFloat(this.Fields, "mobjscale", 1.0f);
-
-			return value;
+				return (float)UniFields.GetFloat(this.Fields, "mobjscale", 1.0f) * General.Map.Data.MapInfo.ObjectScale;
+			else
+				return 1.0f;
 		}
 
 		#endregion

@@ -489,16 +489,18 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			}
 
 			// SRB2 floating things hack
-			// TODO: replace this with config-based parameter once SOC/Lua parsing exists
+			// TODO: replace this with... something better
 			int[] float16 = new int[] {558, 559, 560};
 			int[] float24 = new int[] {300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 320, 321, 330, 331, 332, 333, 334, 335, 520, 1706, 1800};
 
+			int sign = Thing.IsFlipped ? -1 : 1;
+
 			if (Thing.Type == 322 && Thing.Args[1] == 0) // Emblems have float flag on args[1]
-				pos.z = (Thing.IsFlipped) ? pos.z - 24 : pos.z + 24;
+				pos.z += (24 * sign) * Thing.GetObjectScale();
 			else if (float16.Contains(Thing.Type) && Thing.Args[0] == 0)
-				pos.z = (Thing.IsFlipped) ? pos.z - 16 : pos.z + 16;
+				pos.z += (16 * sign) * Thing.GetObjectScale();
 			else if (float24.Contains(Thing.Type) && Thing.Args[0] == 0)
-				pos.z = (Thing.IsFlipped) ? pos.z - 24 : pos.z + 24;
+				pos.z += (24 * sign) * Thing.GetObjectScale();
 
 			//if (info.ZOffset != 0) pos.z += Thing.IsFlipped ? -info.ZOffset : info.ZOffset;
 

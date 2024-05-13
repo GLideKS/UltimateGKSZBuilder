@@ -76,6 +76,9 @@ namespace CodeImp.DoomBuilder.ZDoom
 					case "skynum":
 						mapinfo.Sky1 = "SKY" + tokens[1];
 						break;
+					case "objectscale":
+						mapinfo.ObjectScale = 1.0f; // SRB2 todo: add proper conversion from FRACUNIT-based values to float
+						break;
 					default:
 						break;
 				}

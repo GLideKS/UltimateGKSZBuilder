@@ -53,6 +53,9 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 		// biwa
 		private bool forceworldpanning;
 
+		// SRB2
+		private float objectscale;
+
 		#endregion
 
 		#region ================== Properties
@@ -84,6 +87,9 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 		// biwa
 		public bool ForceWorldPanning { get { return forceworldpanning; } internal set { forceworldpanning = value; isdefined = true; } }
 
+		// SRB2
+		public float ObjectScale { get { return objectscale; } internal set { objectscale = value; isdefined = true; } }
+
 		#endregion
 
 		#region ================== Constructor
@@ -96,6 +102,7 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 			outsidefogdensity = 255;
 			lightmode = GZDoomLightMode.UNDEFINED;
             pixelratio = DataManager.DOOM_PIXEL_RATIO;
+			objectscale = 1.0f;
 		}
 
 		#endregion
