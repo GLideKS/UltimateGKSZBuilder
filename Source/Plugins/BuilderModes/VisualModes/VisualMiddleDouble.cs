@@ -505,7 +505,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			Sidedef.Fields["offsetx_mid"] = new UniValue(UniversalType.Float, GetNewTexutreOffset(oldx, offsetx, width)); //mxd // biwa
 
 			//mxd. Don't clamp offsetY of clipped mid textures
-			bool dontClamp = (!textureloaded || (!Sidedef.IsFlagSet("wrapmidtex") && !Sidedef.Line.IsFlagSet("wrapmidtex")));
+			//Never clamp midtexture Y offset for SRB2
+			bool dontClamp = true; //(!textureloaded || (!Sidedef.IsFlagSet("wrapmidtex") && !Sidedef.Line.IsFlagSet("wrapmidtex")));
 			Sidedef.Fields["offsety_mid"] = new UniValue(UniversalType.Float, GetNewTexutreOffset(oldy, offsety, dontClamp ? double.MaxValue : Texture.Height)); // biwa
 		}
 
