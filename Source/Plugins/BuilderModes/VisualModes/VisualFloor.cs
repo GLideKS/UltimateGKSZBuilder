@@ -278,21 +278,24 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 			s.Fields.BeforeFieldsChange();
 
-			if(incrementX != 0) 
+			if (Math.Abs(incrementX) == 1)
 			{
-				double pix = (int)Math.Round(Texture.Width * scaleX) - incrementX;
-				double newscaleX = Math.Round(pix / Texture.Width, 3);
-				scaleX = (newscaleX == 0 ? scaleX * -1 : newscaleX);
-				UniFields.SetFloat(s.Fields, "xscalefloor", scaleX, 1.0);
+				incrementX *= scaleX < 1.0 || (scaleX < 1.1 && incrementX < 0) ? 5 : 10; // Finer control at smaller (<1.0) scales
+				UniFields.SetFloat(s.Fields, "xscalefloor", ((scaleX * 100) + incrementX) / 100, 1.0);
 			}
+			else if (Math.Abs(incrementX) == 2)
+				UniFields.SetFloat(s.Fields, "xscalefloor", incrementX < 0 ? scaleX / 2 : scaleX * 2, 1.0);
 
-			if(incrementY != 0)
+			if (Math.Abs(incrementY) == 1)
 			{
-				double pix = (int)Math.Round(Texture.Height * scaleY) - incrementY;
-				double newscaleY = Math.Round(pix / Texture.Height, 3);
-				scaleY = (newscaleY == 0 ? scaleY * -1 : newscaleY);
-				UniFields.SetFloat(s.Fields, "yscalefloor", scaleY, 1.0);
+				incrementY *= scaleY < 1.0 || (scaleY < 1.1 && incrementY < 0) ? 5 : 10; // Finer control at smaller (<1.0) scales
+				UniFields.SetFloat(s.Fields, "yscalefloor", ((scaleY * 100) + incrementY) / 100, 1.0);
 			}
+			else if (Math.Abs(incrementY) == 2)
+				UniFields.SetFloat(s.Fields, "yscalefloor", incrementY < 0 ? scaleY / 2 : scaleY * 2, 1.0);
+
+			scaleX = s.Fields.GetValue("xscalefloor", 1.0);
+			scaleY = s.Fields.GetValue("yscalefloor", 1.0);
 
 			mode.SetActionResult("Floor scale changed to " + scaleX.ToString("F03", CultureInfo.InvariantCulture) + ", " + scaleY.ToString("F03", CultureInfo.InvariantCulture) + " (" + (int)Math.Round(Texture.Width / scaleX) + " x " + (int)Math.Round(Texture.Height / scaleY) + ").");
 		}

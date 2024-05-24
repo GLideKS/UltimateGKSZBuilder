@@ -975,7 +975,7 @@
 			this.floorScale.ButtonStep = 1;
 			this.floorScale.ButtonStepBig = 1F;
 			this.floorScale.ButtonStepFloat = 0.1F;
-			this.floorScale.ButtonStepSmall = 0.01F;
+			this.floorScale.ButtonStepSmall = 0.05F;
 			this.floorScale.ButtonStepsUseModifierKeys = true;
 			this.floorScale.DefaultValue = 1F;
 			this.floorScale.Field1 = "xscalefloor";
@@ -1177,7 +1177,7 @@
 			this.ceilScale.ButtonStep = 1;
 			this.ceilScale.ButtonStepBig = 1F;
 			this.ceilScale.ButtonStepFloat = 0.1F;
-			this.ceilScale.ButtonStepSmall = 0.01F;
+			this.ceilScale.ButtonStepSmall = 0.05F;
 			this.ceilScale.ButtonStepsUseModifierKeys = true;
 			this.ceilScale.DefaultValue = 1F;
 			this.ceilScale.Field1 = "xscaleceiling";

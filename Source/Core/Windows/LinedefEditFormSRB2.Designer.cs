@@ -604,7 +604,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.pfcFrontScaleTop.ButtonStep = 1;
 			this.pfcFrontScaleTop.ButtonStepBig = 1F;
 			this.pfcFrontScaleTop.ButtonStepFloat = 0.1F;
-			this.pfcFrontScaleTop.ButtonStepSmall = 0.01F;
+			this.pfcFrontScaleTop.ButtonStepSmall = 0.05F;
 			this.pfcFrontScaleTop.ButtonStepsUseModifierKeys = true;
 			this.pfcFrontScaleTop.DefaultValue = 1F;
 			this.pfcFrontScaleTop.Field1 = "scalex_top";
@@ -624,7 +624,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.pfcFrontScaleBottom.ButtonStep = 1;
 			this.pfcFrontScaleBottom.ButtonStepBig = 1F;
 			this.pfcFrontScaleBottom.ButtonStepFloat = 0.1F;
-			this.pfcFrontScaleBottom.ButtonStepSmall = 0.01F;
+			this.pfcFrontScaleBottom.ButtonStepSmall = 0.05F;
 			this.pfcFrontScaleBottom.ButtonStepsUseModifierKeys = true;
 			this.pfcFrontScaleBottom.DefaultValue = 1F;
 			this.pfcFrontScaleBottom.Field1 = "scalex_bottom";
@@ -644,7 +644,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.pfcFrontScaleMid.ButtonStep = 1;
 			this.pfcFrontScaleMid.ButtonStepBig = 1F;
 			this.pfcFrontScaleMid.ButtonStepFloat = 0.1F;
-			this.pfcFrontScaleMid.ButtonStepSmall = 0.01F;
+			this.pfcFrontScaleMid.ButtonStepSmall = 0.05F;
 			this.pfcFrontScaleMid.ButtonStepsUseModifierKeys = true;
 			this.pfcFrontScaleMid.DefaultValue = 1F;
 			this.pfcFrontScaleMid.Field1 = "scalex_mid";
@@ -1239,7 +1239,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.pfcBackScaleBottom.ButtonStep = 1;
 			this.pfcBackScaleBottom.ButtonStepBig = 1F;
 			this.pfcBackScaleBottom.ButtonStepFloat = 0.1F;
-			this.pfcBackScaleBottom.ButtonStepSmall = 0.01F;
+			this.pfcBackScaleBottom.ButtonStepSmall = 0.05F;
 			this.pfcBackScaleBottom.ButtonStepsUseModifierKeys = true;
 			this.pfcBackScaleBottom.DefaultValue = 1F;
 			this.pfcBackScaleBottom.Field1 = "scalex_bottom";
@@ -1259,7 +1259,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.pfcBackScaleMid.ButtonStep = 1;
 			this.pfcBackScaleMid.ButtonStepBig = 1F;
 			this.pfcBackScaleMid.ButtonStepFloat = 0.1F;
-			this.pfcBackScaleMid.ButtonStepSmall = 0.01F;
+			this.pfcBackScaleMid.ButtonStepSmall = 0.05F;
 			this.pfcBackScaleMid.ButtonStepsUseModifierKeys = true;
 			this.pfcBackScaleMid.DefaultValue = 1F;
 			this.pfcBackScaleMid.Field1 = "scalex_mid";

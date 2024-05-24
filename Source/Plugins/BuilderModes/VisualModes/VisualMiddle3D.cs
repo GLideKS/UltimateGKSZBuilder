@@ -516,20 +516,10 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			target.Fields.BeforeFieldsChange();
 
 			if(incrementX != 0)
-			{
-				double pix = (int)Math.Round(Texture.Width * scaleX) - incrementX;
-				double newscaleX = Math.Round(pix / Texture.Width, 3);
-				scaleX = (newscaleX == 0 ? scaleX * -1 : newscaleX);
-				UniFields.SetFloat(target.Fields, "scalex_mid", scaleX, 1.0);
-			}
+				UniFields.SetFloat(target.Fields, "scalex_mid", scaleX + (incrementX / 10), 1.0);
 
 			if(incrementY != 0)
-			{
-				double pix = (int)Math.Round(Texture.Height * scaleY) - incrementY;
-				double newscaleY = Math.Round(pix / Texture.Height, 3);
-				scaleY = (newscaleY == 0 ? scaleY * -1 : newscaleY);
-				UniFields.SetFloat(target.Fields, "scaley_mid", scaleY, 1.0);
-			}
+				UniFields.SetFloat(target.Fields, "scaley_mid", scaleY + (incrementY / 10), 1.0);
 			
 			// Update the model sector to update all 3d floors
 			mode.GetVisualSector(extrafloor.Linedef.Front.Sector).UpdateSectorGeometry(false);
