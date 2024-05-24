@@ -145,8 +145,8 @@ namespace CodeImp.DoomBuilder.Controls
 			}
 
 			// Arguments
-			ArgumentInfo[] arginfo = ((t.Action == 0 && ti.Args[0] != null) ? ti.Args : act.Args); //mxd
-			ArgumentInfo[] stringarginfo = ti.StringArgs;
+			ArgumentInfo[] arginfo = (t.Action == 0 && ti.Args[0] != null) ? ti.Args : act.Args; //mxd
+			ArgumentInfo[] stringarginfo = ti.StringArgs[0] != null ? ti.StringArgs : act.StringArgs;
 
             //mxd. ACS script argument names
             bool isacsscript = (Array.IndexOf(GZGeneral.ACS_SPECIALS, t.Action) != -1);
