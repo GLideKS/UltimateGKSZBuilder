@@ -874,21 +874,39 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			double scaleY = Thing.ScaleY;
 			ImageData sprite = sprites[0];
 
-			if(incrementX != 0) 
+			if (incrementX == incrementY) // change mobjscale instead
 			{
-				double pix = (int)Math.Round(sprite.Width * scaleX) + incrementX;
-				double newscaleX = Math.Round(pix / sprite.Width, 3);
-				scaleX = (newscaleX == 0 ? scaleX * -1 : newscaleX);
+				scaleX = UniFields.GetFloat(Thing.Fields, "mobjscale", 1.0);
+
+				if (Math.Abs(incrementX) == 1)
+				{
+					incrementX *= scaleX < 1.0 || (scaleX < 1.1 && incrementX < 0) ? 5 : 10; // Finer control at smaller (<1.0) scales
+					UniFields.SetFloat(Thing.Fields, "mobjscale", ((scaleX * 100) + incrementX) / 100, 1.0);
+				}
+				else if (Math.Abs(incrementX) == 2)
+					UniFields.SetFloat(Thing.Fields, "mobjscale", incrementX < 0 ? scaleX / 2 : scaleX * 2, 1.0);
+
+				scaleX = scaleY = UniFields.GetFloat(Thing.Fields, "mobjscale", 1.0);
+			}
+			else // shitty old behavior
+			{
+				if (incrementX != 0)
+				{
+					double pix = (int)Math.Round(sprite.Width * scaleX) + incrementX;
+					double newscaleX = Math.Round(pix / sprite.Width, 3);
+					scaleX = (newscaleX == 0 ? scaleX * -1 : newscaleX);
+				}
+
+				if (incrementY != 0)
+				{
+					double pix = (int)Math.Round(sprite.Height * scaleY) + incrementY;
+					double newscaleY = Math.Round(pix / sprite.Height, 3);
+					scaleY = (newscaleY == 0 ? scaleY * -1 : newscaleY);
+				}
+
+				Thing.SetScale(scaleX, scaleY);
 			}
 
-			if(incrementY != 0) 
-			{
-				double pix = (int)Math.Round(sprite.Height * scaleY) + incrementY;
-				double newscaleY = Math.Round(pix / sprite.Height, 3);
-				scaleY = (newscaleY == 0 ? scaleY * -1 : newscaleY);
-			}
-
-			Thing.SetScale(scaleX, scaleY);
 			mode.SetActionResult("Changed thing scale to " + scaleX.ToString("F03", CultureInfo.InvariantCulture) + ", " + scaleY.ToString("F03", CultureInfo.InvariantCulture) + " (" + (int)Math.Round(sprite.Width * scaleX) + " x " + (int)Math.Round(sprite.Height * scaleY) + ").");
 
 			// Update what must be updated
