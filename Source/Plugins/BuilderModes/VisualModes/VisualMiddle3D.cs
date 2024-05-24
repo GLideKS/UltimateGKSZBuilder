@@ -26,6 +26,8 @@ using CodeImp.DoomBuilder.Rendering;
 using CodeImp.DoomBuilder.Types;
 using CodeImp.DoomBuilder.VisualModes;
 using CodeImp.DoomBuilder.Data;
+using System.Windows.Forms;
+
 
 #endregion
 
@@ -515,12 +517,25 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 			target.Fields.BeforeFieldsChange();
 
-			if(incrementX != 0)
-				UniFields.SetFloat(target.Fields, "scalex_mid", scaleX + (incrementX / 10), 1.0);
+			if (Math.Abs(incrementX) == 1)
+			{
+				incrementX *= scaleX < 1.0 || (scaleX < 1.1 && incrementX < 0) ? 5 : 10; // Finer control at smaller (<1.0) scales
+				UniFields.SetFloat(target.Fields, "scalex_mid", ((scaleX * 100) + incrementX) / 100, 1.0);
+			}
+			else if (Math.Abs(incrementX) == 2)
+				UniFields.SetFloat(target.Fields, "scalex_mid", incrementX < 0 ? scaleX / 2 : scaleX * 2, 1.0);
 
-			if(incrementY != 0)
-				UniFields.SetFloat(target.Fields, "scaley_mid", scaleY + (incrementY / 10), 1.0);
-			
+			if (Math.Abs(incrementY) == 1)
+			{
+				incrementY *= scaleY < 1.0 || (scaleY < 1.1 && incrementY < 0) ? 5 : 10; // Finer control at smaller (<1.0) scales
+				UniFields.SetFloat(target.Fields, "scaley_mid", ((scaleY * 100) + incrementY) / 100, 1.0);
+			}
+			else if (Math.Abs(incrementY) == 2)
+				UniFields.SetFloat(target.Fields, "scaley_mid", incrementY < 0 ? scaleY / 2 : scaleY * 2, 1.0);
+
+			scaleX = target.Fields.GetValue("scalex_mid", 1.0);
+			scaleY = target.Fields.GetValue("scaley_mid", 1.0);
+
 			// Update the model sector to update all 3d floors
 			mode.GetVisualSector(extrafloor.Linedef.Front.Sector).UpdateSectorGeometry(false);
 
