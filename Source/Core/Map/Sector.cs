@@ -932,15 +932,6 @@ namespace CodeImp.DoomBuilder.Map
 			}
 		}
 
-		public bool IsControlSector()
-		{
-			foreach (Sidedef side in this.Sidedefs)
-				if (side.Line.Action >= 100 && side.Line.Action < 300 && side.Line.Front.Sector == this)
-					return true;
-
-			return false;
-		}
-
 		#endregion
 	}
 }

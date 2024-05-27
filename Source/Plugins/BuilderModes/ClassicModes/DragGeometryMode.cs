@@ -432,7 +432,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				//mxd. Update floor/ceiling texture offsets and slopes?
 				if (General.Map.UDMF)
 				{
-					HashSet<Sector> controlsectors = new HashSet<Sector>();
 					Vector2D offset = dragitem.Position - dragitemposition;
 
 					// Sectors may've been created/removed when applying dragging...
@@ -442,6 +441,10 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					// Sectors that have to be updated. They contain the dragged sectors, but also 3D floor control sectors
 					HashSet<Sector> updatesectors = new HashSet<Sector>(draggedsectors);
 
+					// Keep track of control sectors in general, and control sectors relevant to other dragged sectors
+					HashSet<Sector> controlsectors = new HashSet<Sector>();
+					HashSet<Sector> addcontrolsectors = new HashSet<Sector>();
+
 					// Check if the dragged sectors are referenced as 3D floors, and add the control sectors to the list of
 					// sectors that need updating
 					foreach (Linedef ld in General.Map.Map.Linedefs)
@@ -449,13 +452,18 @@ namespace CodeImp.DoomBuilder.BuilderModes
 						if (ld.Action < 100 && ld.Action >= 300) // SRB2 FOF types
 							continue;
 
+						if (ld.Args[0] == 0)  // First argument of the action is the sector tag. 0 is not a valid value
+							continue;
+
+						controlsectors.Add(ld.Front.Sector);
+
 						foreach (Sector s in draggedsectors)
 						{
-							if (ld.Args[0] == 0 || !s.Tags.Contains(ld.Args[0])) // First argument of the action is the sector tag. 0 is not a valid value
+							if (!s.Tags.Contains(ld.Args[0]))
 								continue;
 
 							updatesectors.Add(ld.Front.Sector);
-							controlsectors.Add(ld.Front.Sector);
+							addcontrolsectors.Add(ld.Front.Sector);
 						}
 					}
 
@@ -463,7 +471,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					foreach (Sector s in updatesectors)
 					{
 						bool updateoffsets = (draggedsectors.Contains(s) && BuilderPlug.Me.LockSectorTextureOffsetsWhileDragging) || (!draggedsectors.Contains(s) && BuilderPlug.Me.Lock3DFloorSectorTextureOffsetsWhileDragging);
-						bool updateslopes = !((s.IsControlSector() ^ controlsectors.Contains(s)) && draggedsectors.Contains(s));
+						bool updateslopes = !((controlsectors.Contains(s) ^ addcontrolsectors.Contains(s)) && draggedsectors.Contains(s));
 
 						// Update texture offsets
 						if (updateoffsets)
@@ -525,6 +533,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 								}
 							}
 						}
+
 						if (updateslopes)
 						{
 							// Update floor slope?
