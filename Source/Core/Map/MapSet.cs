@@ -2156,9 +2156,9 @@ namespace CodeImp.DoomBuilder.Map
 		}
 
 		/// <summary>This filters vertices by a rectangular area.</summary>
-		public static ICollection<Vertex> FilterByArea(ICollection<Vertex> verts, ref RectangleF area)
+		public static HashSet<Vertex> FilterByArea(ICollection<Vertex> verts, ref RectangleF area)
 		{
-			ICollection<Vertex> newverts = new List<Vertex>(verts.Count);
+			HashSet<Vertex> newverts = new HashSet<Vertex>();
 
 			// Go for all verts
 			foreach(Vertex v in verts)
@@ -2194,25 +2194,25 @@ namespace CodeImp.DoomBuilder.Map
 			
 			// Find all non-moving lines
 			HashSet<Linedef> fixedlines = new HashSet<Linedef>(LinedefsFromMarkedVertices(true, false, false));
-			
+
 			// Determine area in which we are editing
 			RectangleF editarea = CreateArea(movinglines);
 			editarea = IncreaseArea(editarea, movingverts);
 			editarea.Inflate(1.0f, 1.0f);
-			
+			fixedverts = FilterByArea(fixedverts, ref editarea);
+
 			// Join nearby vertices
 			BeginAddRemove();
 			JoinVertices(fixedverts, movingverts, true, STITCH_DISTANCE);
 			EndAddRemove();
-			
+
 			// Update cached values of lines because we need their length/angle
 			Update(true, false);
 
 			BeginAddRemove();
-			
+
 			// Split moving lines with unselected vertices
-			ICollection<Vertex> nearbyfixedverts = FilterByArea(fixedverts, ref editarea);
-			if (!SplitLinesByVertices(movinglines, nearbyfixedverts, STITCH_DISTANCE, movinglines, mergemode))
+			if (!SplitLinesByVertices(movinglines, fixedverts, STITCH_DISTANCE, movinglines, mergemode))
 			{
 				EndAddRemove(); // Unfreeze arrays before returning
 				return false;
@@ -2233,7 +2233,7 @@ namespace CodeImp.DoomBuilder.Map
 				EndAddRemove(); // Unfreeze arrays before returning
 				return false;
 			}
-			
+
 			// Remove looped linedefs
 			RemoveLoopedLinedefs(movinglines);
 
