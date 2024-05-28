@@ -12,13 +12,13 @@ namespace CodeImp.DoomBuilder.ZDoom
 
     public sealed class LuaMobjStructure : ActorStructure
 	{
-        #region ================== DECORATE Actor Structure parsing
+        #region ================== Lua Actor Structure parsing
 
         internal LuaMobjStructure(ZDTextParser zdparser, string objname, int editnum)
         {
 			classname = string.Empty;
 
-            LuaParser parser = (LuaParser)zdparser;
+			LuaParser parser = (LuaParser)zdparser;
             bool done = false; //mxd
 			General.WriteLogLine(objname);
 
@@ -31,7 +31,15 @@ namespace CodeImp.DoomBuilder.ZDoom
 				props["$title"] = new List<string> { objname };
 
 			if (editnum > 0)
-				doomednum = editnum;
+			{
+				Dictionary<int, ThingTypeInfo> thingtypes = General.Map.Config.GetThingTypes();
+				thingtypes.TryGetValue(editnum, out ThingTypeInfo ti);
+				if (ti != null)
+				{
+					doomednum = editnum;
+					props["category"] = new List<string>() { ti.Category.Title };
+				}
+			}
 
 			// Now parse the contents of actor structure
 
