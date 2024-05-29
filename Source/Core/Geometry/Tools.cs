@@ -1093,7 +1093,14 @@ namespace CodeImp.DoomBuilder.Geometry
 				map.BeginAddRemove();
 				MapSet.JoinVertices(mergeverts, MapSet.STITCH_DISTANCE); //mxd
 				map.EndAddRemove();
-				
+
+				// Filter old lines and vertices by edited area
+				RectangleF editarea = MapSet.CreateArea(newlines);
+				editarea = MapSet.IncreaseArea(editarea, mergeverts);
+				editarea.Inflate(1.0f, 1.0f);
+				oldlines = new List<Linedef>(MapSet.FilterByArea(oldlines, ref editarea));
+				nonmergeverts = new List<Vertex>(MapSet.FilterByArea(nonmergeverts, ref editarea));
+
 				/***************************************************\
 					Find a way to close the drawing
 				\***************************************************/
