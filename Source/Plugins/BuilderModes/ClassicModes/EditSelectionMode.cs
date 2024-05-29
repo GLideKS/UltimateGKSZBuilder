@@ -1806,13 +1806,18 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					Sector vsector = null;
 					General.Settings.FindDefaultDrawSettings();
 
-					// Go for all sidedes in the new geometry
-					List<Sidedef> newsides = General.Map.Map.GetMarkedSidedefs(true);
-					List<Linedef> oldlines = General.Map.Map.GetMarkedLinedefs(false); //mxd
+					// Go for all sidedefs in the new geometry
+					HashSet<Sidedef> newsides = new HashSet<Sidedef>(General.Map.Map.GetMarkedSidedefs(true));
+					HashSet<Linedef> oldlines = new HashSet<Linedef>(General.Map.Map.GetMarkedLinedefs(false));
+
+					// Determine area in which we are editing
+					RectangleF editarea = MapSet.CreateArea(General.Map.Map.GetMarkedLinedefs(true));
+					editarea = MapSet.IncreaseArea(editarea, General.Map.Map.GetMarkedVertices(true));
+					editarea.Inflate(1.0f, 1.0f);
+					oldlines = MapSet.FilterByArea(oldlines, ref editarea);
 
 					//mxd. Let's use a blockmap...
-					RectangleF area = MapSet.CreateArea(oldlines);
-					BlockMap<BlockEntry> blockmap = new BlockMap<BlockEntry>(area);
+					BlockMap<BlockEntry> blockmap = new BlockMap<BlockEntry>(editarea);
 					blockmap.AddLinedefsSet(oldlines);
 
 					foreach(Sidedef s in newsides) 
