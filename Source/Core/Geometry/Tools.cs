@@ -966,7 +966,7 @@ namespace CodeImp.DoomBuilder.Geometry
 			List<Vertex> newverts = new List<Vertex>();
 			List<Vertex> intersectverts = new List<Vertex>();
 			List<Linedef> newlines = new List<Linedef>();
-			List<Linedef> oldlines = new List<Linedef>(General.Map.Map.Linedefs);
+			List<Linedef> alllines = new List<Linedef>(General.Map.Map.Linedefs);
 			List<Sidedef> insidesides = new List<Sidedef>();
 			List<Vertex> mergeverts = new List<Vertex>();
 			List<Vertex> nonmergeverts = new List<Vertex>(General.Map.Map.Vertices);
@@ -1098,7 +1098,7 @@ namespace CodeImp.DoomBuilder.Geometry
 				RectangleF editarea = MapSet.CreateArea(newlines);
 				editarea = MapSet.IncreaseArea(editarea, mergeverts);
 				editarea.Inflate(1.0f, 1.0f);
-				oldlines = new List<Linedef>(MapSet.FilterByArea(oldlines, ref editarea));
+				List<Linedef> oldlines = new List<Linedef>(MapSet.FilterByArea(alllines, ref editarea));
 				nonmergeverts = new List<Vertex>(MapSet.FilterByArea(nonmergeverts, ref editarea));
 
 				/***************************************************\
@@ -1458,7 +1458,7 @@ namespace CodeImp.DoomBuilder.Geometry
 							{
 								// Make the new sector
 								//mxd. Apply sector overrides only if a closed drawing is created
-								Sector newsector = Tools.MakeSector(sectorlines, oldlines, (useOverrides && drawingclosed && newlines.Count > 2));
+								Sector newsector = Tools.MakeSector(sectorlines, alllines, (useOverrides && drawingclosed && newlines.Count > 2));
 								if(newsector == null) return false;
 
 								if(istruenewsector) newsector.Marked = true;
