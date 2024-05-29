@@ -157,6 +157,7 @@ namespace CodeImp.DoomBuilder.Config
 		private bool srb2rendernights;
 		private bool srb2renderzoomtubes;
 		private bool srb2renderpolyobjects;
+		private bool snaptointeger;
 
 		// These are not stored in the configuration, only used at runtime
 		private int defaultbrightness;
@@ -301,6 +302,7 @@ namespace CodeImp.DoomBuilder.Config
 		public bool SRB2RenderNiGHTS { get { return srb2rendernights; } internal set { srb2rendernights = value; } }
 		public bool SRB2RenderZoomTubes { get { return srb2renderzoomtubes; } internal set { srb2renderzoomtubes = value; } }
 		public bool SRB2RenderPolyobjects { get { return srb2renderpolyobjects; } internal set { srb2renderpolyobjects = value; } }
+		public bool SnapToInteger { get { return snaptointeger; } internal set { snaptointeger = value; } }
 
 		//mxd. Left here for compatibility reasons...
 		public string DefaultTexture { get { return General.Map != null ? General.Map.Options.DefaultWallTexture : "-"; } set { if(General.Map != null) General.Map.Options.DefaultWallTexture = value; } }
@@ -452,6 +454,7 @@ namespace CodeImp.DoomBuilder.Config
 				srb2rendernights = cfg.ReadSetting("srb2rendernights", true);
 				srb2renderpolyobjects = cfg.ReadSetting("srb2renderpolyobjects", true);
 				srb2renderzoomtubes = cfg.ReadSetting("srb2renderzoomtubes", true);
+				snaptointeger = cfg.ReadSetting("snaptointeger", true);
 
 				//mxd. Sector defaults
 				defaultceilheight = cfg.ReadSetting("defaultceilheight", 128);
@@ -607,6 +610,7 @@ namespace CodeImp.DoomBuilder.Config
 			cfg.WriteSetting("srb2rendernights", srb2rendernights);
 			cfg.WriteSetting("srb2renderzoomtubes", srb2renderzoomtubes);
 			cfg.WriteSetting("srb2renderpolyobjects", srb2renderpolyobjects);
+			cfg.WriteSetting("snaptointeger", snaptointeger);
 
 			// Toasts
 			General.ToastManager.WriteSettings(cfg);

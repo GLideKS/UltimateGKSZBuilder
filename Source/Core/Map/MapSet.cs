@@ -3761,8 +3761,7 @@ namespace CodeImp.DoomBuilder.Map
 		/// <summary>This snaps all vertices to the map format accuracy. Call this to ensure the vertices are at valid coordinates.</summary>
 		public void SnapAllToAccuracy(bool usepreciseposition)
 		{
-			// SRB2 doesn't support decimals for X/Y position, but does still require VertexDecimals for other float fields/values...
-			if (General.Map.Config.EngineName == "srb2")
+			if (General.Settings.SnapToInteger)
 				usepreciseposition = false;
 
 			foreach (Vertex v in vertices) v.SnapToAccuracy(usepreciseposition);

@@ -726,7 +726,7 @@ namespace CodeImp.DoomBuilder.Map
 		// This snaps the vertex to the map format accuracy
 		public void SnapToAccuracy()
 		{
-			SnapToAccuracy(!(General.Map.Config.EngineName == "srb2"));
+			SnapToAccuracy(!General.Settings.SnapToInteger);
 		}
 
 		// This snaps the vertex to the map format accuracy
