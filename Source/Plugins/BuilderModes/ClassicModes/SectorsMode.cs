@@ -780,7 +780,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		{
 			RectangleF area = MapSet.CreateArea(General.Map.Map.Vertices);
 			area = MapSet.IncreaseArea(area, General.Map.Map.Things);
-			blockmap = new BlockMap<BlockEntry>(area);
+			blockmap = new BlockMap<BlockEntry>(area, 512);
 			blockmap.AddSectorsSet(General.Map.Map.Sectors);
 			blockmap.AddThingsSet(General.Map.Map.Things);
 
