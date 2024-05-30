@@ -56,9 +56,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		// Interface
 		new private bool editpressed;
 
-		// The blockmap makes is used to make finding lines faster
-		BlockMap<BlockEntry> blockmap;
-
 		// Vertices that will be edited
 		ICollection<Vertex> editvertices;
 
@@ -80,17 +77,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		#endregion
 
 		#region ================== Methods
-
-		/// <summary>
-		/// Create a blockmap containing linedefs. This is used to speed up determining the closest line
-		/// to the mouse cursor
-		/// </summary>
-		private void CreateBlockmap()
-		{
-			RectangleF area = MapSet.CreateArea(General.Map.Map.Vertices);
-			blockmap = new BlockMap<BlockEntry>(area);
-			blockmap.AddLinedefsSet(General.Map.Map.Linedefs);
-		}
 
 		public override void OnHelp()
 		{
@@ -123,9 +109,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				General.Interface.AddButton(BuilderPlug.Me.MenusForm.TextureOffset3DFloorLock, ToolbarSection.Geometry);
 				General.Interface.EndToolbarUpdate(); //mxd
 			}
-
-			// Create the blockmap
-			CreateBlockmap();
 
 			// Convert geometry selection to vertices only
 			General.Map.Map.ConvertSelection(SelectionType.Vertices);
@@ -378,9 +361,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					}
 					//BuilderPlug.Me.AdjustSplitCoordinates(l, sld);
 
-					// Create the blockmap
-					CreateBlockmap();
-
 					// Update
 					General.Map.Map.Update();
 
@@ -578,9 +558,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		{
 			base.OnUndoEnd();
 
-			// Recreate the blockmap
-			CreateBlockmap();
-
 			// Select changed map elements
 			if (BuilderPlug.Me.SelectChangedafterUndoRedo)
 			{
@@ -593,9 +570,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		{
 			base.OnRedoEnd();
 
-			// Recreate the blockmap
-			CreateBlockmap();
-
 			// Select changed map elements
 			if (BuilderPlug.Me.SelectChangedafterUndoRedo)
 			{
@@ -607,8 +581,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		public override void OnScriptRunEnd()
 		{
 			base.OnScriptRunEnd();
-
-			CreateBlockmap();
 
 			General.Interface.RedrawDisplay();
 		}
@@ -781,16 +753,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			}
 			
 			return base.OnCopyBegin();
-		}
-
-		/// <summary>
-		/// If map elements have changed the blockmap needs to be recreated.
-		/// </summary>
-		public override void OnMapElementsChanged()
-		{
-			base.OnMapElementsChanged();
-
-			CreateBlockmap();
 		}
 
 		#endregion
@@ -986,7 +948,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				if(snaptonearest)
 				{
 					//mxd. Check if snapped vertex is still on top of a linedef
-					l = MapSet.NearestLinedefRange(blockmap, v.Position, BuilderPlug.Me.SplitLinedefsRange / renderer.Scale);
+					l = General.Map.Map.NearestLinedefRange(v.Position, BuilderPlug.Me.SplitLinedefsRange / renderer.Scale);
 					
 					if(l != null) 
 					{
@@ -1012,9 +974,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				{
 					General.Interface.DisplayStatus(StatusType.Action, "Inserted a vertex.");
 				}
-
-				// Create the blockmap
-				CreateBlockmap();
 
 				// Update
 				General.Map.Map.Update();
@@ -1068,9 +1027,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			// Update cache values
 			General.Map.IsChanged = true;
 			General.Map.Map.Update();
-
-			// Create the blockmap
-			CreateBlockmap();
 
 			// Invoke a new mousemove so that the highlighted item updates
 			MouseEventArgs e = new MouseEventArgs(MouseButtons.None, 0, (int)mousepos.x, (int)mousepos.y, 0);
@@ -1150,9 +1106,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			// Update cache values
 			General.Map.Map.Update();
 			General.Map.IsChanged = true;
-
-			// Create the blockmap
-			CreateBlockmap();
 
 			// Invoke a new mousemove so that the highlighted item updates
 			MouseEventArgs e = new MouseEventArgs(MouseButtons.None, 0, (int)mousepos.x, (int)mousepos.y, 0);
