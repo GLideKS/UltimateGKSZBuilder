@@ -1814,7 +1814,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					RectangleF editarea = MapSet.CreateArea(General.Map.Map.GetMarkedLinedefs(true));
 					editarea = MapSet.IncreaseArea(editarea, General.Map.Map.GetMarkedVertices(true));
 					editarea.Inflate(1.0f, 1.0f);
-					oldlines = MapSet.FilterByArea(oldlines, ref editarea);
+					//oldlines = MapSet.FilterByArea(oldlines, ref editarea);
 
 					//mxd. Let's use a blockmap...
 					BlockMap<BlockEntry> blockmap = new BlockMap<BlockEntry>(editarea);
