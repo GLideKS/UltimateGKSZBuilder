@@ -449,10 +449,13 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					// sectors that need updating
 					foreach (Linedef ld in General.Map.Map.Linedefs)
 					{
-						if (ld.Action < 100 && ld.Action >= 300) // SRB2 FOF types
+						if (ld.Action < 100 || ld.Action >= 300) // SRB2 FOF types
 							continue;
 
 						if (ld.Args[0] == 0)  // First argument of the action is the sector tag. 0 is not a valid value
+							continue;
+
+						if (ld.Front.Sector == null) // In case we somehow end up with a stray FOF line
 							continue;
 
 						controlsectors.Add(ld.Front.Sector);
