@@ -949,12 +949,15 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			List<Linedef>[] slopelinedefpass = new List<Linedef>[] { new List<Linedef>(), new List<Linedef>() };
 			List<Thing>[] slopethingpass = new List<Thing>[] { new List<Thing>(), new List<Thing>() };
 
-			if (!General.Settings.EnhancedRenderingEffects) //mxd
+			if (!General.Settings.EnhancedRenderingEffects || !General.Settings.SRB2RenderingEffects) //mxd
 			{
 				// Store all sectors with effects
-				if(sectordata != null && sectordata.Count > 0) 
+				if (sectordata != null && sectordata.Count > 0)
 					effectsectors = new HashSet<Sector>(sectordata.Keys);
-
+			}
+			
+			if (!General.Settings.EnhancedRenderingEffects) //mxd
+			{
 				// Remove all vertex handles from selection
 				if(vertices != null && vertices.Count > 0) 
 				{
@@ -1223,7 +1226,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					case "srb2_foflight":
 					case "srb2_foffog":
 					case "srb2_fofintangibleinvisible":
-						if (l.Front != null && sectortags.ContainsKey(l.Args[0]))
+						if (General.Settings.SRB2RenderingEffects && l.Front != null && sectortags.ContainsKey(l.Args[0]))
 						{
 							List<Sector> sectors = sectortags[l.Args[0]];
 							foreach (Sector s in sectors)
@@ -4232,6 +4235,15 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		public void ToggleEnhancedRendering() 
 		{
 			// Actual toggling is done in MainForm.ToggleEnhancedRendering(), so we only need to update the view here
+			RebuildElementData();
+			UpdateChangedObjects();
+		}
+
+		//sphere
+		[BeginAction("togglesrb2invisiblefof", BaseAction = true)]
+		public void ToggleSRB2InvisibleFOFRendering()
+		{
+			// Actual toggling is done in MainForm.ToggleSRB2InvisibleFOFRendering(), so we only need to update the view here
 			RebuildElementData();
 			UpdateChangedObjects();
 		}

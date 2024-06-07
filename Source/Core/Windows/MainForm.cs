@@ -3287,6 +3287,25 @@ namespace CodeImp.DoomBuilder.Windows
 		}
 
 		//mxd
+		[BeginAction("togglesrb2invisiblefof")]
+		public void ToggleSRB2InvisibleFOFRendering()
+		{
+			General.Settings.SRB2RenderingEffects = !General.Settings.SRB2RenderingEffects;
+
+			string shorttext = "SRB2 invisible FOF rendering is " + (General.Settings.SRB2RenderingEffects ? "ENABLED" : "DISABLED") + ".";
+			string text = shorttext;
+			string key = Actions.Action.GetShortcutKeyDesc(General.Actions.Current.ShortcutKey);
+
+			if (!string.IsNullOrEmpty(key))
+				text += $" Press '{key}' to toggle.";
+
+			General.ToastManager.ShowToast("togglesrb2invisiblefof", ToastType.INFO, "Changed invisible FOF rendering", text, shorttext);
+
+			UpdateGZDoomPanel();
+			UpdateViewMenu();
+		}
+
+		//mxd
 		[BeginAction("gztogglefog")]
 		internal void ToggleFog()
 		{

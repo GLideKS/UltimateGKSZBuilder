@@ -138,6 +138,7 @@ namespace CodeImp.DoomBuilder.Config
 		private string lastUsedMapFolder;
 		private bool gzMarkExtraFloors;
 		private bool enhancedrenderingeffects = true; //mxd
+		private bool srb2renderingeffects = true; //sphere
 		private int maxRecentFiles;
 		private bool autoClearSideTextures;
 		private bool storeSelectedEditTab;
@@ -281,6 +282,7 @@ namespace CodeImp.DoomBuilder.Config
 		public string LastUsedMapFolder { get { return lastUsedMapFolder; } internal set { lastUsedMapFolder = value; } }
 		public bool GZMarkExtraFloors { get { return gzMarkExtraFloors; } internal set { gzMarkExtraFloors = value; } }
 		public bool EnhancedRenderingEffects { get { return enhancedrenderingeffects; } set { enhancedrenderingeffects = value; } } //mxd
+		public bool SRB2RenderingEffects { get { return srb2renderingeffects; } set { srb2renderingeffects = value; } } //sphere
 		public int MaxRecentFiles { get { return maxRecentFiles; } internal set { maxRecentFiles = General.Clamp(value, 8, 25); } }
 		public bool AutoClearSidedefTextures { get { return autoClearSideTextures; } internal set { autoClearSideTextures = value; } }
 		public bool StoreSelectedEditTab { get { return storeSelectedEditTab; } internal set { storeSelectedEditTab = value; } }
