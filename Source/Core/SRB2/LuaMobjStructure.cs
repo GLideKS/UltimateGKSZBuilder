@@ -108,7 +108,10 @@ namespace CodeImp.DoomBuilder.ZDoom
 									props["yscale"] = values;
 									break;
 								case "doomednum":
-									doomednum = (editnum > 0) ? editnum : int.Parse(values[0]);
+									if (editnum > 0)
+										doomednum = editnum;
+									else if (!int.TryParse(values[0], out doomednum))
+										doomednum = 0;
 									goto default;
 								case "height":
 								case "radius":

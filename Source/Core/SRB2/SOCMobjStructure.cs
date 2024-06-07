@@ -73,9 +73,6 @@ namespace CodeImp.DoomBuilder.ZDoom
 					parser.SkipWhitespace(false, true);
 					token = parser.ReadToken();
 
-					//General.WriteLogLine("token name = " + tokenname);
-					//General.WriteLogLine("token = " + token);
-
 					if (token != "=")
 					{
 						parser.ReportError("Invalid SOC object parameter definition, missing =");
@@ -103,7 +100,8 @@ namespace CodeImp.DoomBuilder.ZDoom
 							break;
 						case "doomednum":
 						case "mapthingnum":
-							doomednum = int.Parse(values[0]);
+							if (!int.TryParse(values[0], out doomednum))
+								doomednum = 0;
 							goto default;
 						case "height":
 						case "radius":
