@@ -65,9 +65,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		// Interface
 		new private bool editpressed;
 
-		// The blockmap makes is used to make finding lines faster
-		BlockMap<BlockEntry> blockmap;
-
 		// Stores sizes of the text for text labels so that they only have to be computed once
 		private Dictionary<string, float> textlabelsizecache;
 
@@ -470,17 +467,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		}
 
 		/// <summary>
-		/// Create a blockmap containing linedefs. This is used to speed up determining the closest line
-		/// to the mouse cursor
-		/// </summary>
-		private void CreateBlockmap()
-		{
-			RectangleF area = MapSet.CreateArea(General.Map.Map.Vertices);
-			blockmap = new BlockMap<BlockEntry>(area);
-			blockmap.AddLinedefsSet(General.Map.Map.Linedefs);
-		}
-
-		/// <summary>
 		/// Renders the overlay with the (selection) labels and insert vertex preview.
 		/// </summary>
 		private void RenderOverlay()
@@ -628,9 +614,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			//mxd. Update the tooltip
 			BuilderPlug.Me.MenusForm.SyncronizeThingEditButton.ToolTipText = "Synchronized Things Editing" + Environment.NewLine + BuilderPlug.Me.MenusForm.SyncronizeThingEditLinedefsItem.ToolTipText;
 			General.Interface.EndToolbarUpdate(); //mxd
-
-			// Create the blockmap
-			CreateBlockmap();
 
 			// Convert geometry selection to linedefs selection
 			General.Map.Map.ConvertSelection(SelectionType.Linedefs);
@@ -881,9 +864,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		{
 			base.OnUndoEnd();
 
-			// Recreate the blockmap to not include the potentially un-done lines anymore
-			CreateBlockmap();
-
 			// Select changed map elements
 			if (BuilderPlug.Me.SelectChangedafterUndoRedo)
 			{
@@ -905,9 +885,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		{
 			base.OnRedoEnd();
 
-			// Recreate the blockmap to include the potentially re-done linedefs again
-			CreateBlockmap();
-
 			// Select changed map elements
 			if (BuilderPlug.Me.SelectChangedafterUndoRedo)
 			{
@@ -927,9 +904,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		public override void OnScriptRunEnd()
 		{
 			base.OnScriptRunEnd();
-
-			// The script might have added new geometry
-			CreateBlockmap();
 
 			UpdateSelectionInfo();
 
@@ -1001,7 +975,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					bool snaptogrid = General.Interface.ShiftState ^ General.Interface.SnapToGrid;
 					bool snaptonearest = General.Interface.CtrlState ^ General.Interface.AutoMerge;
 
-					Vector2D v = DrawGeometryMode.GetCurrentPosition(mousemappos, snaptonearest, snaptogrid, false, false, renderer, new List<DrawnVertex>(), blockmap).pos;
+					Vector2D v = DrawGeometryMode.GetCurrentPosition(mousemappos, snaptonearest, snaptogrid, false, false, renderer, new List<DrawnVertex>()).pos;
 
 					if (v != insertpreview)
 					{
@@ -1255,16 +1229,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			return base.OnCopyBegin();
 		}
 
-		/// <summary>
-		/// If map elements have changed the blockmap needs to be recreated.
-		/// </summary>
-		public override void OnMapElementsChanged()
-		{
-			base.OnMapElementsChanged();
-
-			CreateBlockmap();
-		}
-
 		public override bool OnAutoSaveBegin()
 		{
 			return allowautosave;
@@ -1498,9 +1462,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			General.Map.IsChanged = true;
 			General.Map.Map.Update();
 
-			// Recreate the blockmap since it shouldn't include the deleted linedefs anymore
-			CreateBlockmap();
-
 			// Redraw screen
 			SetupSectorLabels(); //mxd
 			UpdateSelectionInfo(); //mxd
@@ -1571,9 +1532,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				General.Map.IsChanged = true;
 				General.Map.Map.Update();
 
-				// Recreate the blockmap since it shouldn't include the dissolved linedefs anymore
-				CreateBlockmap();
-
 				// Redraw screen
 				SetupSectorLabels(); //mxd
 				UpdateSelectionInfo(); //mxd
@@ -1643,9 +1601,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					}
 					//BuilderPlug.Me.AdjustSplitCoordinates(ld, sld);
 				}
-
-				// Create the blockmap
-				CreateBlockmap();
 
 				// Update cache values
 				General.Map.IsChanged = true;
