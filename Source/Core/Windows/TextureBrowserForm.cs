@@ -46,15 +46,19 @@ namespace CodeImp.DoomBuilder.Windows
 		private TreeNode selectedset; //mxd
 		private long selecttextureonfill; //mxd. Was string, which wasn't reliable whem dealing with long texture names
 		private readonly bool browseflats; //mxd
+		private readonly bool showsubfolder; //sphere
 		
 		// Properties
 		public string SelectedName { get { return selectedname; } }
-		
+
 		// Constructor
 		public TextureBrowserForm(string selecttexture, bool browseflats)
 		{
 			Cursor.Current = Cursors.WaitCursor;
 			General.Interface.DisableProcessing(); //mxd
+
+			//sphere
+			showsubfolder = true;
 
 			TreeNode item; //mxd
 			long longname = Lump.MakeLongName(selecttexture ?? "");
@@ -538,24 +542,33 @@ namespace CodeImp.DoomBuilder.Windows
 			{
 				TreeNodeData data = (TreeNodeData)child.Tag;
 				browser.AddFolder(ImageBrowserItemType.FOLDER, data.FolderName);
+
+				//sphere: Add textures from subfolders
+				if (showsubfolder)
+					FillSubfolderImagesList(child, data);
 			}
 
-			// Add textures
-			if(browseflats) 
-			{
-				// Add all available flats
-				foreach(ImageData img in set.Flats) browser.AddItem(img);
-			}
-			else
-			{
-				// Add all available textures
-				foreach (ImageData img in set.Textures)	browser.AddItem(img);
-			}
+			// Add textures (or flats)
+			foreach (ImageData img in (browseflats ? set.Flats : set.Textures))
+				browser.AddItem(img);
 
 			browser.MakeTexturesUnique(); // biwa
 
 			// Done adding
 			browser.EndAdding();
+		}
+
+		//sphere
+		private void FillSubfolderImagesList(TreeNode node, TreeNodeData data)
+		{
+			IFilledTextureSet subset = data.Set;
+			foreach (ImageData img in (browseflats ? subset.Flats : subset.Textures))
+				browser.AddItem(img);
+
+			foreach (TreeNode child in node.Nodes)
+			{
+				FillSubfolderImagesList(child, (TreeNodeData)child.Tag);
+			}
 		}
 
 		private void FillCategoriesList()
