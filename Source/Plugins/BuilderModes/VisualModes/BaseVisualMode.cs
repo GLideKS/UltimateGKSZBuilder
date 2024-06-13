@@ -3560,6 +3560,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		//sphere
 		[BeginAction("scalemultiply")] public void ScaleTextureMultiply() { ScaleTexture(2, 2); }
 		[BeginAction("scaledivide")] public void ScaleTextureDivide() { ScaleTexture(-2, -2); }
+		[BeginAction("invertscalex")] public void ScaleInvertX() { ScaleTexture(3, 0); }
+		[BeginAction("invertscaley")] public void ScaleInvertY() { ScaleTexture(0, 3); }
 
 		//mxd
 		private void ScaleTexture(int incrementx, int incrementy)

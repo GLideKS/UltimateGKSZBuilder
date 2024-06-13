@@ -1748,6 +1748,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			}
 			else if (Math.Abs(incrementX) == 2)
 				UniFields.SetFloat(Sidedef.Fields, keyX, incrementX < 0 ? scaleX / 2 : scaleX * 2, 1.0);
+			else if (Math.Abs(incrementX) == 3)
+				UniFields.SetFloat(Sidedef.Fields, keyX, -scaleX, 1.0);
 
 			if (Math.Abs(incrementY) == 1)
 			{
@@ -1756,6 +1758,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			}
 			else if (Math.Abs(incrementY) == 2)
 				UniFields.SetFloat(Sidedef.Fields, keyY, incrementY < 0 ? scaleY / 2 : scaleY * 2, 1.0);
+			else if (Math.Abs(incrementY) == 3)
+				UniFields.SetFloat(Sidedef.Fields, keyY, -scaleY, 1.0);
 
 			// Update geometry
 			Setup();

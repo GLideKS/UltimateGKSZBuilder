@@ -285,6 +285,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			}
 			else if (Math.Abs(incrementX) == 2)
 				UniFields.SetFloat(s.Fields, "xscalefloor", incrementX < 0 ? scaleX / 2 : scaleX * 2, 1.0);
+			else if (Math.Abs(incrementX) == 3)
+				UniFields.SetFloat(s.Fields, "xscalefloor", -scaleX, 1.0);
 
 			if (Math.Abs(incrementY) == 1)
 			{
@@ -293,6 +295,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			}
 			else if (Math.Abs(incrementY) == 2)
 				UniFields.SetFloat(s.Fields, "yscalefloor", incrementY < 0 ? scaleY / 2 : scaleY * 2, 1.0);
+			else if (Math.Abs(incrementY) == 3)
+				UniFields.SetFloat(s.Fields, "yscalefloor", -scaleY, 1.0);
 
 			scaleX = s.Fields.GetValue("xscalefloor", 1.0);
 			scaleY = s.Fields.GetValue("yscalefloor", 1.0);
