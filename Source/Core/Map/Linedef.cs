@@ -855,12 +855,23 @@ namespace CodeImp.DoomBuilder.Map
 		// This flips the sidedefs
 		public void FlipSidedefs()
 		{
+			FlipSidedefs(false);
+		}
+		public void FlipSidedefs(bool correctsectors)
+		{
 			// Flip sidedefs
 			Sidedef oldfront = front;
 			Sidedef oldback = back;
 			AttachFront(oldback);
 			AttachBack(oldfront);
-			
+
+			if (correctsectors)
+			{
+				Sector old = back.Sector;
+				back.SetSector(front.Sector);
+				front.SetSector(old);
+			}
+
 			General.Map.IsChanged = true;
 		}
 		

@@ -1848,7 +1848,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			// Flip sidedefs in all selected linedefs
 			foreach(Linedef l in validlines) 
 			{
-				l.FlipSidedefs();
+				l.FlipSidedefs(true);
 				l.Front.Sector.UpdateNeeded = true;
 				l.Back.Sector.UpdateNeeded = true;
 			}
