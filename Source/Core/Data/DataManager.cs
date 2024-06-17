@@ -2735,10 +2735,17 @@ namespace CodeImp.DoomBuilder.Data
 		}
 
 		//mxd. This updates mapinfo class only
+		//sphere: Also reloads all SOC files for level headers
 		internal void ReloadMapInfoPartial()
 		{
 			Dictionary<int, string> spawnnums, doomednums;
 			LoadMapInfo(out spawnnums, out doomednums);
+			LoadSOCThings();
+
+			// Load SRB2 map information from parsed level headers
+			string mapname = General.Map.Options.LevelName.ToLowerInvariant();
+			if (soc.MapHeaders.ContainsKey(mapname))
+				mapinfo = soc.MapHeaders[mapname];
 		}
 
 		//mxd. This loads (Z)MAPINFO
