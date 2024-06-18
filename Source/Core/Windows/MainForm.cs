@@ -1587,7 +1587,10 @@ namespace CodeImp.DoomBuilder.Windows
 				List<ToolStripItem> items = new List<ToolStripItem>(General.Map.Config.Skills.Count * 2 + General.Map.ConfigSettings.TestEngines.Count + 2);
 				
 				// Positive skills are with monsters
-				foreach(SkillInfo si in General.Map.Config.Skills)
+
+				if (General.Map.Config.Skills.Count > 0)
+				{ 
+					foreach (SkillInfo si in General.Map.Config.Skills)
 				{
 					ToolStripMenuItem menuitem = new ToolStripMenuItem(si.ToString());
 					menuitem.Image = Resources.Monster2;
@@ -1605,7 +1608,7 @@ namespace CodeImp.DoomBuilder.Windows
 				items.Add(new ToolStripSeparator { Padding = new Padding(0, 3, 0, 3) });
 
 				// Negative skills are without monsters
-				foreach(SkillInfo si in General.Map.Config.Skills)
+					foreach (SkillInfo si in General.Map.Config.Skills)
 				{
 					ToolStripMenuItem menuitem = new ToolStripMenuItem(si.ToString());
 					menuitem.Image = Resources.Monster3;
@@ -1621,9 +1624,10 @@ namespace CodeImp.DoomBuilder.Windows
 
 				//mxd. Add separator
 				items.Add(new ToolStripSeparator { Padding = new Padding(0, 3, 0, 3) });
+				}
 
 				//mxd. Add test engines
-				for(int i = 0; i < General.Map.ConfigSettings.TestEngines.Count; i++)
+				for (int i = 0; i < General.Map.ConfigSettings.TestEngines.Count; i++)
 				{
 					if(General.Map.ConfigSettings.TestEngines[i].TestProgramName == EngineInfo.DEFAULT_ENGINE_NAME) continue;
 					ToolStripMenuItem menuitem = new ToolStripMenuItem(General.Map.ConfigSettings.TestEngines[i].TestProgramName);
