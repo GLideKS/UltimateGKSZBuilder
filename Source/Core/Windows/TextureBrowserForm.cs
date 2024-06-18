@@ -341,23 +341,27 @@ namespace CodeImp.DoomBuilder.Windows
 		}
 
 		//mxd
-		private void SetItemsCount(TreeNode node) 
+		private int SetItemsCount(TreeNode node) 
 		{
 			ResourceTextureSet ts = ((TreeNodeData)node.Tag).Set as ResourceTextureSet;
 			if(ts == null) throw new Exception("Expected ResourceTextureSet, but got null...");
-			
-			if(node.Parent != null && General.Map.Config.MixTexturesFlats)
+			int texcount = 0;
+
+			foreach (TreeNode child in node.Nodes) texcount += SetItemsCount(child);
+
+			if (node.Parent != null && General.Map.Config.MixTexturesFlats)
 			{
 				ts.MixTexturesAndFlats();
-				if(ts.Textures.Count > 0) node.Text += " [" + ts.Textures.Count + "]";
+				texcount += ts.Textures.Count;
+				if (texcount > 0) node.Text += " [" + texcount + "]";
+				return texcount;
 			} 
 			else
 			{
-				int texcount = (browseflats ? ts.Flats.Count : ts.Textures.Count);
+				texcount = (browseflats ? ts.Flats.Count : ts.Textures.Count);
 				if(texcount > 0) node.Text += " [" + texcount + "]";
+				return texcount;
 			}
-
-			foreach(TreeNode child in node.Nodes) SetItemsCount(child);
 		}
 
 		// Selection changed

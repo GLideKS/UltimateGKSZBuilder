@@ -70,8 +70,8 @@ namespace CodeImp.DoomBuilder.Data
 
 			//mxd
 			SetName(name);
-			this.virtualname = (!string.IsNullOrEmpty(virtualpath) ? virtualpath : "[TEXTURES]") + Path.AltDirectorySeparatorChar + this.name;
-			
+			this.virtualname = "[TEXTURES]" + Path.AltDirectorySeparatorChar + (!string.IsNullOrEmpty(virtualpath) ? virtualpath + Path.AltDirectorySeparatorChar : "") + this.name;
+
 			// We have no destructor
 			GC.SuppressFinalize(this);
 		}
