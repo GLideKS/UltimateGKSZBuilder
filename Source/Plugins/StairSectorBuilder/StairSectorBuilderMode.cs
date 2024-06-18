@@ -1067,10 +1067,11 @@ namespace CodeImp.DoomBuilder.StairSectorBuilderMode
 		private DrawnVertex SectorVertex(double x, double y)
 		{
 			DrawnVertex v = new DrawnVertex();
+			int precision = General.Settings.SnapToInteger ? 0 : General.Map.FormatInterface.VertexDecimals;
 
 			v.stitch = true;
 			v.stitchline = true;
-			v.pos = new Vector2D(Math.Round(x, General.Map.FormatInterface.VertexDecimals), Math.Round(y, General.Map.FormatInterface.VertexDecimals));
+			v.pos = new Vector2D(Math.Round(x, precision), Math.Round(y, precision));
 
 			return v;
 		}
