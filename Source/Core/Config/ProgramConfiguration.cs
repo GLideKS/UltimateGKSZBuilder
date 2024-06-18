@@ -90,6 +90,7 @@ namespace CodeImp.DoomBuilder.Config
 		private bool showtexturesizes;
         private bool texturesizesbelow; // [ZZ]
 		private bool locatetexturegroup; //mxd
+		private bool showsubfolderentries; //sphere
 		private SplitLineBehavior splitlinebehavior; //mxd
 		private MergeGeometryMode mergegeomode; //mxd
 		private bool splitjoinedsectors; //mxd
@@ -222,6 +223,7 @@ namespace CodeImp.DoomBuilder.Config
 		public bool ShowTextureSizes { get { return showtexturesizes; } internal set { showtexturesizes = value; } }
         public bool TextureSizesBelow { get { return texturesizesbelow; } internal set { texturesizesbelow = value; } }
 		public bool LocateTextureGroup { get { return locatetexturegroup; } internal set { locatetexturegroup = value; } } //mxd
+		public bool ShowSubfolderEntries { get { return showsubfolderentries; } internal set { showsubfolderentries = value; } } //mxd
 		public SplitLineBehavior SplitLineBehavior { get { return splitlinebehavior; } set { splitlinebehavior = value; } } //mxd
 		public MergeGeometryMode MergeGeometryMode { get { return mergegeomode; } internal set { mergegeomode = value; } } //mxd
 		public bool SplitJoinedSectors { get { return splitjoinedsectors; } internal set { splitjoinedsectors = value; } } //mxd
@@ -390,6 +392,7 @@ namespace CodeImp.DoomBuilder.Config
 				showtexturesizes = cfg.ReadSetting("showtexturesizes", true);
                 texturesizesbelow = cfg.ReadSetting("texturesizesbelow", false); // [ZZ]
                 locatetexturegroup = cfg.ReadSetting("locatetexturegroup", true); //mxd
+				showsubfolderentries = cfg.ReadSetting("showsubfolderentries", true); //sphere
 				splitlinebehavior = (SplitLineBehavior)General.Clamp(cfg.ReadSetting("splitlinebehavior", 0), 0, Enum.GetValues(typeof(SplitLineBehavior)).Length - 1); //mxd
 				mergegeomode = (MergeGeometryMode)General.Clamp(cfg.ReadSetting("mergegeometrymode", (int)MergeGeometryMode.REPLACE), 0, Enum.GetValues(typeof(MergeGeometryMode)).Length - 1); //mxd
 				splitjoinedsectors = cfg.ReadSetting("splitjoinedsectors", true); //mxd
@@ -547,6 +550,7 @@ namespace CodeImp.DoomBuilder.Config
 			cfg.WriteSetting("showtexturesizes", showtexturesizes);
             cfg.WriteSetting("texturesizesbelow", texturesizesbelow); // [ZZ]
             cfg.WriteSetting("locatetexturegroup", locatetexturegroup); //mxd
+			cfg.WriteSetting("showsubfolderentries", showsubfolderentries); //mxd
 			cfg.WriteSetting("splitlinebehavior", (int)splitlinebehavior); //mxd
 			cfg.WriteSetting("mergegeometrymode", (int)mergegeomode); //mxd
 			cfg.WriteSetting("splitjoinedsectors", splitjoinedsectors); //mxd

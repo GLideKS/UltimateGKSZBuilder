@@ -46,7 +46,6 @@ namespace CodeImp.DoomBuilder.Windows
 		private TreeNode selectedset; //mxd
 		private long selecttextureonfill; //mxd. Was string, which wasn't reliable whem dealing with long texture names
 		private readonly bool browseflats; //mxd
-		private readonly bool showsubfolder; //sphere
 		
 		// Properties
 		public string SelectedName { get { return selectedname; } }
@@ -56,9 +55,6 @@ namespace CodeImp.DoomBuilder.Windows
 		{
 			Cursor.Current = Cursors.WaitCursor;
 			General.Interface.DisableProcessing(); //mxd
-
-			//sphere
-			showsubfolder = true;
 
 			TreeNode item; //mxd
 			long longname = Lump.MakeLongName(selecttexture ?? "");
@@ -515,7 +511,7 @@ namespace CodeImp.DoomBuilder.Windows
 				browser.AddFolder(ImageBrowserItemType.FOLDER, data.FolderName);
 
 				//sphere: Add textures from subfolders
-				if (showsubfolder)
+				if (General.Settings.ShowSubfolderEntries)
 					FillSubfolderImagesList(child, data);
 			}
 

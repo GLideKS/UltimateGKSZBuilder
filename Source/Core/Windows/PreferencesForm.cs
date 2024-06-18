@@ -104,6 +104,7 @@ namespace CodeImp.DoomBuilder.Windows
 
 			//mxd
 			locatetexturegroup.Checked = General.Settings.LocateTextureGroup;
+			showsubfolderentries.Checked = General.Settings.ShowSubfolderEntries; // sphere
 			cbStoreEditTab.Checked = General.Settings.StoreSelectedEditTab;
 			checkforupdates.Checked = General.Settings.CheckForUpdates;
 			toolbar_gzdoom.Checked = General.Settings.GZToolbarGZDoom;
@@ -362,6 +363,7 @@ namespace CodeImp.DoomBuilder.Windows
 			General.Settings.StoreSelectedEditTab = cbStoreEditTab.Checked; //mxd
 			General.Settings.CheckForUpdates = checkforupdates.Checked; //mxd
 			General.Settings.LocateTextureGroup = locatetexturegroup.Checked; //mxd
+			General.Settings.ShowSubfolderEntries = showsubfolderentries.Checked; //sphere
 			General.Settings.MaxRecentFiles = recentFiles.Value; //mxd
 			General.Settings.ScreenshotsPath = screenshotsfolderpath.Text.Trim(); //mxd
 			General.Settings.ShowFPS = cbShowFPS.Checked;

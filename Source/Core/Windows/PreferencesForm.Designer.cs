@@ -44,6 +44,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.checkforupdates = new System.Windows.Forms.CheckBox();
 			this.cbStoreEditTab = new System.Windows.Forms.CheckBox();
 			this.locatetexturegroup = new System.Windows.Forms.CheckBox();
+			this.showsubfolderentries = new System.Windows.Forms.CheckBox();
 			this.recentFiles = new CodeImp.DoomBuilder.Controls.TransparentTrackBar();
 			this.labelRecentFiles = new System.Windows.Forms.Label();
 			this.label25 = new System.Windows.Forms.Label();
@@ -304,6 +305,7 @@ namespace CodeImp.DoomBuilder.Windows
 			groupBox1.Controls.Add(this.checkforupdates);
 			groupBox1.Controls.Add(this.cbStoreEditTab);
 			groupBox1.Controls.Add(this.locatetexturegroup);
+			groupBox1.Controls.Add(this.showsubfolderentries);
 			groupBox1.Controls.Add(this.recentFiles);
 			groupBox1.Controls.Add(this.labelRecentFiles);
 			groupBox1.Controls.Add(this.label25);
@@ -331,7 +333,7 @@ namespace CodeImp.DoomBuilder.Windows
 			// autolaunchontest
 			// 
 			this.autolaunchontest.AutoSize = true;
-			this.autolaunchontest.Location = new System.Drawing.Point(16, 392);
+			this.autolaunchontest.Location = new System.Drawing.Point(16, 415);
 			this.autolaunchontest.Name = "autolaunchontest";
 			this.autolaunchontest.Size = new System.Drawing.Size(301, 17);
 			this.autolaunchontest.TabIndex = 50;
@@ -351,7 +353,7 @@ namespace CodeImp.DoomBuilder.Windows
 			// blackbrowsers
 			// 
 			this.blackbrowsers.AutoSize = true;
-			this.blackbrowsers.Location = new System.Drawing.Point(16, 300);
+			this.blackbrowsers.Location = new System.Drawing.Point(16, 323);
 			this.blackbrowsers.Name = "blackbrowsers";
 			this.blackbrowsers.Size = new System.Drawing.Size(195, 17);
 			this.blackbrowsers.TabIndex = 10;
@@ -362,7 +364,7 @@ namespace CodeImp.DoomBuilder.Windows
 			// 
 			this.checkforupdates.Enabled = false;
 			this.checkforupdates.AutoSize = true;
-			this.checkforupdates.Location = new System.Drawing.Point(16, 369);
+			this.checkforupdates.Location = new System.Drawing.Point(16, 392);
 			this.checkforupdates.Name = "checkforupdates";
 			this.checkforupdates.Size = new System.Drawing.Size(160, 17);
 			this.checkforupdates.TabIndex = 14;
@@ -372,7 +374,7 @@ namespace CodeImp.DoomBuilder.Windows
 			// cbStoreEditTab
 			// 
 			this.cbStoreEditTab.AutoSize = true;
-			this.cbStoreEditTab.Location = new System.Drawing.Point(16, 346);
+			this.cbStoreEditTab.Location = new System.Drawing.Point(16, 369);
 			this.cbStoreEditTab.Name = "cbStoreEditTab";
 			this.cbStoreEditTab.Size = new System.Drawing.Size(203, 17);
 			this.cbStoreEditTab.TabIndex = 13;
@@ -390,6 +392,16 @@ namespace CodeImp.DoomBuilder.Windows
 			this.toolTip1.SetToolTip(this.locatetexturegroup, "When enabled, the group current texture belongs to\r\nwill be selected when opening" +
         " image browsers.\r\nWhen disabled, \"All\" texture group will be selected.");
 			this.locatetexturegroup.UseVisualStyleBackColor = true;
+			// 
+			// showsubfolderentries
+			// 
+			this.showsubfolderentries.AutoSize = true;
+			this.showsubfolderentries.Location = new System.Drawing.Point(16, 300);
+			this.showsubfolderentries.Name = "showsubfolderentries";
+			this.showsubfolderentries.Size = new System.Drawing.Size(195, 17);
+			this.showsubfolderentries.TabIndex = 10;
+			this.showsubfolderentries.Text = "Show subfolder entries of selected texture group";
+			this.showsubfolderentries.UseVisualStyleBackColor = true;
 			// 
 			// recentFiles
 			// 
@@ -461,7 +473,7 @@ namespace CodeImp.DoomBuilder.Windows
 			// cbSynchCameras
 			// 
 			this.cbSynchCameras.AutoSize = true;
-			this.cbSynchCameras.Location = new System.Drawing.Point(16, 323);
+			this.cbSynchCameras.Location = new System.Drawing.Point(16, 346);
 			this.cbSynchCameras.Name = "cbSynchCameras";
 			this.cbSynchCameras.Size = new System.Drawing.Size(294, 17);
 			this.cbSynchCameras.TabIndex = 12;
@@ -2956,6 +2968,7 @@ namespace CodeImp.DoomBuilder.Windows
 		private System.Windows.Forms.Label vertexScale3DLabel;
 		private System.Windows.Forms.Label label26;
 		private System.Windows.Forms.CheckBox locatetexturegroup;
+		private System.Windows.Forms.CheckBox showsubfolderentries;
 		private System.Windows.Forms.CheckBox cbStoreEditTab;
 		private System.Windows.Forms.CheckBox checkforupdates;
 		private System.Windows.Forms.TabPage tabscripteditor;
