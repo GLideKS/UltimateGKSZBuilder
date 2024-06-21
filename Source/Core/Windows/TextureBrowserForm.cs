@@ -124,6 +124,9 @@ namespace CodeImp.DoomBuilder.Windows
 			item.ImageIndex = 1;
 			item.SelectedImageIndex = item.ImageIndex;
 
+			if(!General.Settings.LocateTextureGroup)
+				selectedset = item;
+
 			// Sort sets alphabetically
 			tvTextureSets.Sort();
 
@@ -145,7 +148,7 @@ namespace CodeImp.DoomBuilder.Windows
 			//mxd. Select the found set or "All", if none were found
 			if(tvTextureSets.Nodes.Count > 0)
 			{
-				if(selectedset == null) selectedset = tvTextureSets.Nodes[tvTextureSets.Nodes.Count - 1];
+				if (selectedset == null) selectedset = tvTextureSets.Nodes[tvTextureSets.Nodes.Count - 1];
 				tvTextureSets.SelectedNodes.Clear();
 				tvTextureSets.SelectedNodes.Add(selectedset);
 				selectedset.EnsureVisible();
