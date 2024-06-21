@@ -1402,6 +1402,7 @@ namespace CodeImp.DoomBuilder.Geometry
 				// Before this point, the new geometry is not linked with the existing geometry.
 				// Now perform standard geometry stitching to merge the new geometry with the rest
 				// of the map. The marked vertices indicate the new geometry.
+				// TODO: figure out why this specific call requires NOT updating sector references
 				if (!map.StitchGeometry())
 					return false;
 				map.Update(true, false);
