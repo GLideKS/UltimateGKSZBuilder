@@ -432,7 +432,7 @@ namespace CodeImp.DoomBuilder.Windows
 		//mxd
 		private void UpdateTitle()
 		{
-			string programname = this.Text = Application.ProductName + " v" + General.ThisAssembly.GetName().Version.Major + "." + General.ThisAssembly.GetName().Version.Minor;
+			string programname = this.Text = Application.ProductName + " v" + FileVersionInfo.GetVersionInfo(General.ThisAssembly.Location).ProductVersion;
 			if (Environment.Is64BitProcess)
                 programname += " (64-bit)";
             else programname += " (32-bit)";
@@ -1585,45 +1585,45 @@ namespace CodeImp.DoomBuilder.Windows
 
 				// Make the new items list
 				List<ToolStripItem> items = new List<ToolStripItem>(General.Map.Config.Skills.Count * 2 + General.Map.ConfigSettings.TestEngines.Count + 2);
-				
+
 				// Positive skills are with monsters
 
 				if (General.Map.Config.Skills.Count > 0)
 				{ 
 					foreach (SkillInfo si in General.Map.Config.Skills)
-				{
-					ToolStripMenuItem menuitem = new ToolStripMenuItem(si.ToString());
-					menuitem.Image = Resources.Monster2;
-					menuitem.Click += TestSkill_Click;
-					menuitem.Tag = si.Index;
-					menuitem.Checked = (General.Settings.TestMonsters && (General.Map.ConfigSettings.TestSkill == si.Index));
-					items.Add(menuitem);
+					{
+						ToolStripMenuItem menuitem = new ToolStripMenuItem(si.ToString());
+						menuitem.Image = Resources.Monster2;
+						menuitem.Click += TestSkill_Click;
+						menuitem.Tag = si.Index;
+						menuitem.Checked = (General.Settings.TestMonsters && (General.Map.ConfigSettings.TestSkill == si.Index));
+						items.Add(menuitem);
 
-					int width = (int)MeasureString(si.ToString(), menuitem.Font).Width;
-					if (width > maxwidth)
-						maxwidth = width;
-				}
+						int width = (int)MeasureString(si.ToString(), menuitem.Font).Width;
+						if (width > maxwidth)
+							maxwidth = width;
+					}
 
-				// Add separator
-				items.Add(new ToolStripSeparator { Padding = new Padding(0, 3, 0, 3) });
+					// Add separator
+					items.Add(new ToolStripSeparator { Padding = new Padding(0, 3, 0, 3) });
 
-				// Negative skills are without monsters
+					// Negative skills are without monsters
 					foreach (SkillInfo si in General.Map.Config.Skills)
-				{
-					ToolStripMenuItem menuitem = new ToolStripMenuItem(si.ToString());
-					menuitem.Image = Resources.Monster3;
-					menuitem.Click += TestSkill_Click;
-					menuitem.Tag = -si.Index;
-					menuitem.Checked = (!General.Settings.TestMonsters && (General.Map.ConfigSettings.TestSkill == si.Index));
-					items.Add(menuitem);
+					{
+						ToolStripMenuItem menuitem = new ToolStripMenuItem(si.ToString());
+						menuitem.Image = Resources.Monster3;
+						menuitem.Click += TestSkill_Click;
+						menuitem.Tag = -si.Index;
+						menuitem.Checked = (!General.Settings.TestMonsters && (General.Map.ConfigSettings.TestSkill == si.Index));
+						items.Add(menuitem);
 
-					int width = (int)MeasureString(si.ToString(), menuitem.Font).Width;
-					if (width > maxwidth)
-						maxwidth = width;
-				}
+						int width = (int)MeasureString(si.ToString(), menuitem.Font).Width;
+						if (width > maxwidth)
+							maxwidth = width;
+					}
 
-				//mxd. Add separator
-				items.Add(new ToolStripSeparator { Padding = new Padding(0, 3, 0, 3) });
+					//mxd. Add separator
+					items.Add(new ToolStripSeparator { Padding = new Padding(0, 3, 0, 3) });
 				}
 
 				//mxd. Add test engines

@@ -6,7 +6,9 @@
 
 #define UZB_arch "x64"
 #define UZB_GetVersionString() \
-  Local[0] = GetVersionNumbersString("..\Build\Builder.exe")        
+  Local[0] = GetVersionNumbersString("..\Build\Builder.exe")     
+#define UZB_GetVersionInfo() \
+  Local[0] = GetStringFileInfo("..\Build\Builder.exe", PRODUCT_VERSION)    
 #define UZB_GetVersion() \
    GetVersionComponents("..\Build\Builder.exe", \
        Local[0], Local[1], Local[2], Local[3]), \
@@ -20,7 +22,7 @@
 
 [Setup]
 AppName=Ultimate Zone Builder
-AppVerName=Ultimate Zone Builder {#UZB_GetVersionString} ({#UZB_arch})   
+AppVerName=Ultimate Zone Builder {#UZB_GetVersionInfo} ({#UZB_arch})   
 VersionInfoVersion={#UZB_GetVersionString}
 AppPublisher=Sonic Team Junior
 AppPublisherURL=https://www.srb2.org/
@@ -31,7 +33,7 @@ DefaultGroupName=Ultimate Zone Builder
 AllowNoIcons=true
 LicenseFile=..\LICENSE.txt
 OutputDir=..\Release
-OutputBaseFilename="UZBuilder v{#UZB_GetVersion} Setup ({#UZB_bit})"
+OutputBaseFilename="UZBuilder v{#UZB_GetVersionInfo} Setup ({#UZB_bit})"
 Compression=lzma/ultra64
 SolidCompression=true
 SourceDir=..\Build
