@@ -39,3 +39,4 @@ bin
 /Build/Updater.ini
 /Build.Native
 /builder
+*.csproj.dtbcache.json
