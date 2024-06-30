@@ -458,6 +458,9 @@ namespace CodeImp.DoomBuilder.BuilderModes
 						if (ld.Front.Sector == null) // In case we somehow end up with a stray FOF line
 							continue;
 
+						if (ld.Front == null) // Must have a front side
+							continue;
+
 						controlsectors.Add(ld.Front.Sector);
 
 						foreach (Sector s in draggedsectors)

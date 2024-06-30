@@ -24,6 +24,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -1575,7 +1576,15 @@ namespace CodeImp.DoomBuilder.Windows
 		// This updates the skills list
 		private void UpdateSkills()
 		{
-			// Clear list
+			// Clear list. Mono Winforms apparently tries to redraw the PlaceholderToolStripTextBox
+			// after it got removed, so let us manually dispose it, which seems to fix the probelm.
+			for (int i=0; i < buttontest.DropDownItems.Count; i++)
+			{
+				if (buttontest.DropDownItems[i] is PlaceholderToolStripTextBox item)
+				{
+					item.Dispose();
+				}
+			}
 			buttontest.DropDownItems.Clear();
 
 			// Map loaded?
