@@ -455,9 +455,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 						if (ld.Args[0] == 0)  // First argument of the action is the sector tag. 0 is not a valid value
 							continue;
 
-						if (ld.Front.Sector == null) // In case we somehow end up with a stray FOF line
-							continue;
-
 						if (ld.Front == null) // Must have a front side
 							continue;
 
