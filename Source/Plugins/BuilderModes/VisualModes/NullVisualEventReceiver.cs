@@ -16,6 +16,7 @@
 
 #region ================== Namespaces
 
+using CodeImp.DoomBuilder.Map;
 using System.Windows.Forms;
 
 #endregion
@@ -50,6 +51,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		public void OnTextureFloodfill() { }
 		public void OnToggleUpperUnpegged()	{ }
 		public void OnToggleLowerUnpegged()	{ }
+		public void OnTogglePegMidtexture() { }
+		public void OnToggleSlopeSkew() { }
 		public void OnProcess(long deltatime) { }
 		public void OnInsert() { }
 		public void OnDelete() { }
@@ -58,6 +61,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		public void ApplyTexture(string texture) { }
 		public void ApplyUpperUnpegged(bool set) { }
 		public void ApplyLowerUnpegged(bool set) { }
+		public void ApplyLineFlag(Linedef line, string flag, string name) { }
 		public string GetTextureName() { return "";	}
 		public void SelectNeighbours(bool select, bool withSameTexture, bool withSameHeight, bool stopatselected) { } //mxd
 	}

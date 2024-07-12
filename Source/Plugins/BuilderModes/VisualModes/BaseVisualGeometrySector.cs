@@ -390,6 +390,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		public virtual void OnTextureFit(FitTextureOptions options) { } //mxd
 		public virtual void OnToggleUpperUnpegged() { }
 		public virtual void OnToggleLowerUnpegged() { }
+		public virtual void OnTogglePegMidtexture() { }
+		public virtual void OnToggleSlopeSkew() { }
 		public virtual void OnResetTextureOffset() { }
 		public virtual void OnResetLocalTextureOffset() { } //mxd
 		public virtual void OnCopyTextureOffsets() { }
@@ -398,6 +400,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		protected virtual void SetTexture(string texturename) { }
 		public virtual void ApplyUpperUnpegged(bool set) { }
 		public virtual void ApplyLowerUnpegged(bool set) { }
+		public virtual void ApplyLineFlag(Linedef line, string flag, string name) { }
 		protected abstract void MoveTextureOffset(int offsetx, int offsety);
 		protected abstract Point GetTextureOffset();
 		public virtual void OnPaintSelectEnd() { } // biwa

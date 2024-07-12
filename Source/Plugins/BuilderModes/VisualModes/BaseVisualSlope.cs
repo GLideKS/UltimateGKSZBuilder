@@ -120,6 +120,8 @@ namespace CodeImp.DoomBuilder.VisualModes
 		public void OnTextureAlign(bool alignx, bool aligny) { }
 		public void OnToggleUpperUnpegged() { }
 		public void OnToggleLowerUnpegged() { }
+		public void OnTogglePegMidtexture() { }
+		public void OnToggleSlopeSkew() { }
 		public void OnProcess(long deltatime) { }
 		public void OnTextureFloodfill() { }
 		public void OnInsert() { }
@@ -127,6 +129,7 @@ namespace CodeImp.DoomBuilder.VisualModes
 		public void ApplyTexture(string texture) { }
 		public void ApplyUpperUnpegged(bool set) { }
 		public void ApplyLowerUnpegged(bool set) { }
+		public void ApplyLineFlag(Linedef line, string flag, string name) { }
 		public void SelectNeighbours(bool select, bool withSameTexture, bool withSameHeight, bool stopatselected) { } //mxd
 		public virtual void OnPaintSelectEnd() { } // biwa
 		public void OnChangeScale(int x, int y) { }

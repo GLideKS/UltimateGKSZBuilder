@@ -2248,6 +2248,16 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			}
 		}
 
+		// Apply specified flag
+		public void ApplyLineFlag(Linedef line, string flag, string name)
+		{
+			List<IVisualEventReceiver> objs = GetSelectedObjects(false, true, false, false, false);
+			foreach (IVisualEventReceiver i in objs)
+			{
+				i.ApplyLineFlag(line, flag, name);
+			}
+		}
+
 		// Apply texture change
 		public void ApplySelectTexture(string texture, bool flat)
 		{
@@ -3772,6 +3782,22 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		{
 			PreAction(UndoGroup.None);
 			GetTargetEventReceiver(false).OnToggleLowerUnpegged();
+			PostAction();
+		}
+
+		[BeginAction("togglepegmidtexture")]
+		public void TogglePegMidtexture()
+		{
+			PreAction(UndoGroup.None);
+			GetTargetEventReceiver(false).OnTogglePegMidtexture();
+			PostAction();
+		}
+
+		[BeginAction("toggleslopeskew")]
+		public void ToggleSlopeSkew()
+		{
+			PreAction(UndoGroup.None);
+			GetTargetEventReceiver(false).OnToggleSlopeSkew();
 			PostAction();
 		}
 

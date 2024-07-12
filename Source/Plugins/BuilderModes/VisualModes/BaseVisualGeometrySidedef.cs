@@ -1060,7 +1060,32 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			}
 		}
 
-		
+		// Toggle midtexture pegging
+		public virtual void OnTogglePegMidtexture()
+		{
+			mode.ApplyLineFlag(this.Sidedef.Line, "midpeg", "Peg Midtexture");
+		}
+
+		// Toggle slope skew
+		public virtual void OnToggleSlopeSkew()
+		{
+			switch (this.GeometryType)
+			{
+				case VisualGeometryType.WALL_LOWER:
+				case VisualGeometryType.WALL_UPPER:
+					mode.ApplyLineFlag(this.Sidedef.Line, "skewtd", "Slope Skew");
+					break;
+
+				case VisualGeometryType.WALL_MIDDLE_3D:
+					mode.ApplyLineFlag(this.GetControlLinedef(), "skewtd", "Slope Skew");
+					break;
+
+				case VisualGeometryType.WALL_MIDDLE:
+					mode.ApplyLineFlag(this.Sidedef.Line, "noskew", "No Midtexture Skew");
+					break;
+			}
+		}
+
 		// This sets the Upper Unpegged flag
 		public virtual void ApplyUpperUnpegged(bool set)
 		{
@@ -1092,7 +1117,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			}
 		}
 		
-		
 		// This sets the Lower Unpegged flag
 		public virtual void ApplyLowerUnpegged(bool set)
 		{
@@ -1117,6 +1141,37 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 			// Update other sidedef geometry
 			if(Sidedef.Other != null)
+			{
+				BaseVisualSector othersector = (BaseVisualSector)mode.GetVisualSector(Sidedef.Other.Sector);
+				parts = othersector.GetSidedefParts(Sidedef.Other);
+				parts.SetupAllParts();
+			}
+		}
+
+		// This sets a specified flag
+		public virtual void ApplyLineFlag(Linedef line, string flag, string name)
+		{
+			if (line.IsFlagSet(flag))
+			{
+				// Remove flag
+				mode.CreateUndo("Remove " + name + " flag");
+				mode.SetActionResult("Removed " + name + " flag.");
+				line.SetFlag(flag, false);
+			}
+			else
+			{
+				// Add flag
+				mode.CreateUndo("Set " + name + " flag");
+				mode.SetActionResult("Set " + name + " flag.");
+				line.SetFlag(flag, true);
+			}
+
+			// Update sidedef geometry
+			VisualSidedefParts parts = Sector.GetSidedefParts(Sidedef);
+			parts.SetupAllParts();
+
+			// Update other sidedef geometry
+			if (Sidedef.Other != null)
 			{
 				BaseVisualSector othersector = (BaseVisualSector)mode.GetVisualSector(Sidedef.Other.Sector);
 				parts = othersector.GetSidedefParts(Sidedef.Other);
