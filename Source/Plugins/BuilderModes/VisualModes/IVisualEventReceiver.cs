@@ -64,7 +64,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		void ApplyTexture(string texture);
 		void ApplyUpperUnpegged(bool set);
 		void ApplyLowerUnpegged(bool set);
-		void ApplyLineFlag(Linedef line, string flag, string name);
+		void ApplyLineFlag(string flag, string name);
 
 		// Other methods
 		string GetTextureName();

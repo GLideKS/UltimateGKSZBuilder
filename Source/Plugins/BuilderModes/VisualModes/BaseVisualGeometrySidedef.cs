@@ -1063,7 +1063,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		// Toggle midtexture pegging
 		public virtual void OnTogglePegMidtexture()
 		{
-			mode.ApplyLineFlag(this.Sidedef.Line, "midpeg", "Peg Midtexture");
+			mode.ApplyLineFlag("midpeg", "Peg Midtexture");
 		}
 
 		// Toggle slope skew
@@ -1073,15 +1073,12 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			{
 				case VisualGeometryType.WALL_LOWER:
 				case VisualGeometryType.WALL_UPPER:
-					mode.ApplyLineFlag(this.Sidedef.Line, "skewtd", "Slope Skew");
-					break;
-
 				case VisualGeometryType.WALL_MIDDLE_3D:
-					mode.ApplyLineFlag(this.GetControlLinedef(), "skewtd", "Slope Skew");
+					mode.ApplyLineFlag("skewtd", "Slope Skew");
 					break;
 
 				case VisualGeometryType.WALL_MIDDLE:
-					mode.ApplyLineFlag(this.Sidedef.Line, "noskew", "No Midtexture Skew");
+					mode.ApplyLineFlag("noskew", "No Midtexture Skew");
 					break;
 			}
 		}
@@ -1149,8 +1146,13 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		}
 
 		// This sets a specified flag
-		public virtual void ApplyLineFlag(Linedef line, string flag, string name)
+		public virtual void ApplyLineFlag(string flag, string name)
 		{
+			Linedef line = this.Sidedef.Line;
+
+			if (this.GeometryType == VisualGeometryType.WALL_MIDDLE_3D)
+				line = this.GetControlLinedef();
+
 			if (line.IsFlagSet(flag))
 			{
 				// Remove flag

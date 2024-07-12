@@ -400,7 +400,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		protected virtual void SetTexture(string texturename) { }
 		public virtual void ApplyUpperUnpegged(bool set) { }
 		public virtual void ApplyLowerUnpegged(bool set) { }
-		public virtual void ApplyLineFlag(Linedef line, string flag, string name) { }
+		public virtual void ApplyLineFlag(string flag, string name) { }
 		protected abstract void MoveTextureOffset(int offsetx, int offsety);
 		protected abstract Point GetTextureOffset();
 		public virtual void OnPaintSelectEnd() { } // biwa

@@ -2249,12 +2249,12 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		}
 
 		// Apply specified flag
-		public void ApplyLineFlag(Linedef line, string flag, string name)
+		public void ApplyLineFlag(string flag, string name)
 		{
 			List<IVisualEventReceiver> objs = GetSelectedObjects(false, true, false, false, false);
 			foreach (IVisualEventReceiver i in objs)
 			{
-				i.ApplyLineFlag(line, flag, name);
+				i.ApplyLineFlag(flag, name);
 			}
 		}
 
