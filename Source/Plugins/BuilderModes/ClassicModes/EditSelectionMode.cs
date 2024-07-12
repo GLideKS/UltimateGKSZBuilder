@@ -1306,7 +1306,9 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			//mxd. Get EditPanel-related settings
 			usepreciseposition = General.Settings.ReadPluginSetting("editselectionmode.usepreciseposition", true);
 			heightadjustmode = (HeightAdjustMode)General.Settings.ReadPluginSetting("editselectionmode.heightadjustmode", (int)HeightAdjustMode.NONE);
-			
+			pinfloortextures = General.Settings.ReadPluginSetting("editselectionmode.pinfloortextures", false);
+			pinceilingtextures = General.Settings.ReadPluginSetting("editselectionmode.pinceilingtextures", false);
+
 			// Add docker
 			panel = new EditSelectionPanel(this);
 			docker = new Docker("editselection", "Edit Selection", panel);
@@ -1982,6 +1984,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			//mxd. Save EditPanel-related settings 
 			General.Settings.WritePluginSetting("editselectionmode.usepreciseposition", usepreciseposition);
 			General.Settings.WritePluginSetting("editselectionmode.heightadjustmode", (int)heightadjustmode);
+			General.Settings.WritePluginSetting("editselectionmode.pinfloortextures", pinfloortextures);
+			General.Settings.WritePluginSetting("editselectionmode.pinceilingtextures", pinceilingtextures);
 
 			// Remove docker
 			General.Interface.RemoveDocker(docker);
