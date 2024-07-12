@@ -979,7 +979,11 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			// Apply offsets
 			Sidedef.OffsetX = 0;
 			Sidedef.OffsetY = 0;
-			
+
+			// Reset texture offsets too
+			SetTextureOffsetX(0);
+			SetTextureOffsetY(0);
+
 			// Update sidedef geometry
 			VisualSidedefParts parts = Sector.GetSidedefParts(Sidedef);
 			parts.SetupAllParts();
@@ -1148,10 +1152,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		// This sets a specified flag
 		public virtual void ApplyLineFlag(string flag, string name)
 		{
-			Linedef line = this.Sidedef.Line;
-
-			if (this.GeometryType == VisualGeometryType.WALL_MIDDLE_3D)
-				line = this.GetControlLinedef();
+			bool middle3d = this.GeometryType == VisualGeometryType.WALL_MIDDLE_3D;
+			Linedef line = middle3d ? this.GetControlLinedef() : this.Sidedef.Line;
 
 			if (line.IsFlagSet(flag))
 			{
@@ -1179,6 +1181,10 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				parts = othersector.GetSidedefParts(Sidedef.Other);
 				parts.SetupAllParts();
 			}
+
+			//mxd. Update linked effects
+			SectorData sd = mode.GetSectorDataEx(Sector.Sector);
+			if (sd != null) sd.Reset(true);
 		}
 
 
@@ -1720,13 +1726,13 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				}
 			}
 		}
-		
+
 		// Texture offset change
 		public virtual bool OnChangeTextureOffset(int horizontal, int vertical, bool doSurfaceAngleCorrection)
 		{
 			if((General.Map.UndoRedo.NextUndo == null) || (General.Map.UndoRedo.NextUndo.TicketID != undoticket))
 				undoticket = mode.CreateUndo("Change texture offsets");
-			
+
 			//mxd
 			if(General.Map.UDMF && General.Map.Config.UseLocalSidedefTextureOffsets)
 			{
@@ -1737,8 +1743,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 				// Update this part only
 				this.Setup();
-			} 
-			else 
+			}
+			else
 			{
 				//mxd. Apply classic offsets
 				bool textureloaded = (Texture != null && Texture.IsImageLoaded);

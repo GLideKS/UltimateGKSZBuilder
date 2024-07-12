@@ -576,6 +576,24 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			mode.GetVisualSector(extrafloor.Linedef.Front.Sector).UpdateSectorGeometry(false);
 		}
 
+		//sphere: update FOF texture offsets and skewing properly
+		public override bool OnChangeTextureOffset(int horizontal, int vertical, bool doSurfaceAngleCorrection)
+		{
+			base.OnChangeTextureOffset(horizontal, vertical, doSurfaceAngleCorrection);
+
+			// Update the model sector to update all 3d floors
+			mode.GetVisualSector(extrafloor.Linedef.Front.Sector).UpdateSectorGeometry(false);
+
+			return true;
+		}
+		public override void OnToggleSlopeSkew()
+		{
+			base.OnToggleSlopeSkew();
+
+			// Update the model sector to update all 3d floors
+			mode.GetVisualSector(extrafloor.Linedef.Front.Sector).UpdateSectorGeometry(false);
+		}
+
 		#endregion
 	}
 }
