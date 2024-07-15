@@ -2553,6 +2553,16 @@ namespace CodeImp.DoomBuilder
 					foreach(Thing t in General.Map.Map.Things) t.TranslateToUDMF();
 				}
 
+				// Make sure the raw flags are up to date
+				if (oldiotype == typeof(DoomMapSetIO) || oldiotype == typeof(HexenMapSetIO))
+				{
+					foreach (Thing t in General.Map.map.Things)
+						t.UpdateRawFlagsFromFlags();
+
+					foreach (Linedef ld in General.Map.Map.Linedefs)
+						ld.UpdateRawFlagsFromFlags();
+				}
+
 				config = new GameConfiguration(configinfo.Configuration); //mxd
 				configinfo.ApplyDefaults(config);
 				General.Editing.UpdateCurrentEditModes();
@@ -2605,6 +2615,16 @@ namespace CodeImp.DoomBuilder
 						for(int i = 0; i < l.Args.Length; i++) l.Args[i] = 0;
 					foreach(Thing t in General.Map.Map.Things)
 						for(int i = 0; i < t.Args.Length; i++) t.Args[i] = 0;
+				}
+
+				// Make sure the flags dictionary is up to date with flags that did not exist in the old game configuration
+				if ((oldiotype == typeof(DoomMapSetIO) || oldiotype == typeof(HexenMapSetIO)) && (io is DoomMapSetIO || io is HexenMapSetIO))
+				{
+					foreach (Thing t in General.Map.Map.Things)
+						t.UpdateFlagsFromRawFlags();
+
+					foreach (Linedef ld in General.Map.Map.Linedefs)
+						ld.UpdateFlagsFromRawFlags();
 				}
 
 				map.UpdateCustomLinedefColors();

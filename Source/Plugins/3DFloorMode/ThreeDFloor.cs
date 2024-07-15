@@ -228,7 +228,7 @@ namespace CodeImp.DoomBuilder.ThreeDFloorMode
 				{
 					// We need to update the linedef's args, but we can't do it directly because otherwise their state will not be saved for the undo snapshot,
 					// so we're using the linedef's update method
-					sd.Line.Update(sd.Line.GetFlags(), sd.Line.Activate, sd.Line.Tags, sd.Line.Action, new int[] { sd.Line.Args[0], type, flags, alpha, sd.Line.Args[4] });
+					sd.Line.Update(sd.Line.GetFlags(), sd.Line.RawFlags, sd.Line.Activate, sd.Line.Tags, sd.Line.Action, new int[] { sd.Line.Args[0], type, flags, alpha, sd.Line.Args[4] });
 				}
 			}
 		}

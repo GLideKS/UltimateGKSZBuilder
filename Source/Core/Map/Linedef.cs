@@ -68,6 +68,7 @@ namespace CodeImp.DoomBuilder.Map
 		
 		// Properties
 		private Dictionary<string, bool> flags;
+		private ushort rawflags; // The actual flags bitmap that also might include unknown flags
 		private int action;
 		private int activate;
 		private List<int> tags; //mxd
@@ -92,6 +93,7 @@ namespace CodeImp.DoomBuilder.Map
 		public Sidedef Back { get { return back; } }
 		public Line2D Line { get { return new Line2D(start.Position, end.Position); } }
 		internal Dictionary<string, bool> Flags { get { return flags; } }
+		public ushort RawFlags { get { return rawflags; } }
 		public int Action { get { return action; } set { BeforePropsChange(); action = value; UpdateColorPreset(); } }
 		public int Activate { get { return activate; } set { BeforePropsChange(); activate = value; UpdateColorPreset(); } }
 
@@ -310,6 +312,7 @@ namespace CodeImp.DoomBuilder.Map
 			l.action = action;
 			l.args = (int[])args.Clone();
 			l.flags = new Dictionary<string, bool>(flags);
+			l.rawflags = rawflags;
 			l.tags = new List<int>(tags); //mxd
 			l.updateneeded = true;
 			l.activate = activate;
@@ -317,7 +320,40 @@ namespace CodeImp.DoomBuilder.Map
 			l.UpdateColorPreset();//mxd
 			base.CopyPropertiesTo(l);
 		}
-		
+
+		/// <summary>
+		/// Updates the raw flag bit map from the flags dictionary. Has to be called before the flags in the game config changed. Has to be called in conjunction with UpdateFlagsFromRawFlags.
+		/// </summary>
+		internal void UpdateRawFlagsFromFlags()
+		{
+			foreach (KeyValuePair<string, bool> f in flags)
+			{
+				if (ushort.TryParse(f.Key, out ushort fnum))
+				{
+					// Set bit to 0
+					rawflags &= (ushort)~fnum;
+
+					// Set bit if necessary
+					if (f.Value)
+						rawflags |= fnum;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Updates the flags dictionary from the raw flags. Has to be called after the flags in the game config changed. Has to be called in conjunction with UpdateRawFlagsFromFlags.
+		/// </summary>
+		internal void UpdateFlagsFromRawFlags()
+		{
+			foreach (string fname in General.Map.Config.LinedefFlags.Keys)
+			{
+				if (ushort.TryParse(fname, out ushort fnum))
+				{
+					flags[fname] = (rawflags & fnum) == fnum;
+				}
+			}
+		}
+
 		// This attaches a sidedef on the front
 		internal void AttachFront(Sidedef s)
 		{
@@ -1403,12 +1439,13 @@ namespace CodeImp.DoomBuilder.Map
 		#region ================== Changes
 		
 		// This updates all properties
-		public void Update(Dictionary<string, bool> flags, int activate, List<int> tags, int action, int[] args)
+		public void Update(Dictionary<string, bool> flags, ushort rawflags, int activate, List<int> tags, int action, int[] args)
 		{
 			BeforePropsChange();
 			
 			// Apply changes
 			this.flags = new Dictionary<string, bool>(flags);
+			this.rawflags = rawflags;
 			this.tags = new List<int>(tags); //mxd
 			this.activate = activate;
 			this.action = action;
