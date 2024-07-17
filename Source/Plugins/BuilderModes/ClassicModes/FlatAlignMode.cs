@@ -937,6 +937,82 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			General.Interface.RedrawDisplay();
 		}
 
+		// Flip vertically
+		[BeginAction("flipselectionv")]
+		public void FlipVertically()
+		{
+			scale.y = -scale.y;
+			//offset.y -= texture.Height * scale.y; // This doesn't account for rotated textures yet
+
+			UpdateSectors();
+			General.Interface.RedrawDisplay();
+		}
+		
+		// Flip horizontally
+		[BeginAction("flipselectionh")]
+		public void FlipHorizontally()
+		{
+			scale.x = -scale.x;
+			//offset.x += texture.Width * scale.x; // This doesn't account for rotated textures yet
+
+			UpdateSectors();
+			General.Interface.RedrawDisplay();
+		}
+
+		[BeginAction("moveselectionup")]
+		public void MoveSelectionUp()
+		{
+			offset.y -= General.Map.Grid.GridSize;
+
+			UpdateSectors();
+			General.Interface.RedrawDisplay();
+		}
+
+		[BeginAction("moveselectiondown")]
+		public void MoveSelectionDown()
+		{
+			offset.y += General.Map.Grid.GridSize;
+
+			UpdateSectors();
+			General.Interface.RedrawDisplay();
+		}
+
+		[BeginAction("moveselectionleft")]
+		public void MoveSelectionLeft()
+		{
+			offset.x += General.Map.Grid.GridSize;
+
+			UpdateSectors();
+			General.Interface.RedrawDisplay();
+		}
+
+		[BeginAction("moveselectionright")]
+		public void MoveSelectionRight()
+		{
+			offset.x -= General.Map.Grid.GridSize;
+
+			UpdateSectors();
+			General.Interface.RedrawDisplay();
+		}
+
+		[BeginAction("rotateclockwise")]
+		public void RotateCW()
+		{
+			rotation += Angle2D.DegToRad(5);
+
+			UpdateSectors();
+			General.Interface.RedrawDisplay();
+		}
+		
+		[BeginAction("rotatecounterclockwise")]
+		public void RotateCCW()
+		{
+			rotation -= Angle2D.DegToRad(5);
+
+			UpdateSectors();
+			General.Interface.RedrawDisplay();
+		}
+
 		#endregion
 	}
 }
