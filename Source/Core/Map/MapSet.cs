@@ -2182,9 +2182,8 @@ namespace CodeImp.DoomBuilder.Map
 		/// <summary>
 		/// Stitches marked geometry with non-marked geometry. Returns false when the operation failed.
 		/// </summary>
-		public bool StitchGeometry() { return StitchGeometry(MergeGeometryMode.CLASSIC, false); } //mxd. Compatibility TODO: figure out why this is needed and kill it
-		public bool StitchGeometry(MergeGeometryMode mergemode) { return StitchGeometry(mergemode, true); } //sphere: Compatibility
-		public bool StitchGeometry(MergeGeometryMode mergemode, bool fixsectors)
+		public bool StitchGeometry() { return StitchGeometry(MergeGeometryMode.CLASSIC); } //mxd. Compatibility
+		public bool StitchGeometry(MergeGeometryMode mergemode)
 		{
 			// Find vertices
 			HashSet<Vertex> movingverts = new HashSet<Vertex>(General.Map.Map.GetMarkedVertices(true));
@@ -2200,7 +2199,9 @@ namespace CodeImp.DoomBuilder.Map
 			RectangleF editarea = CreateArea(movinglines);
 			editarea = IncreaseArea(editarea, movingverts);
 			editarea.Inflate(1.0f, 1.0f);
-			fixedverts = FilterByArea(fixedverts, ref editarea);
+
+			if (mergemode != MergeGeometryMode.CLASSIC)
+				fixedverts = FilterByArea(fixedverts, ref editarea);
 
 			// Join nearby vertices
 			BeginAddRemove();
@@ -2293,7 +2294,7 @@ namespace CodeImp.DoomBuilder.Map
 			}
 
 			//mxd. Correct sector references
-			if (fixsectors)
+			if (mergemode != MergeGeometryMode.CLASSIC)
 			{
 				// Linedefs cache needs to be up to date...
 				Update(true, false);
@@ -2310,6 +2311,7 @@ namespace CodeImp.DoomBuilder.Map
 			else
 			{
 				FlipBackwardLinedefs(changedlines);
+				CorrectOuterSides(new HashSet<Linedef>(changedlines));
 			}
 			
 			return true;

@@ -1095,11 +1095,16 @@ namespace CodeImp.DoomBuilder.Geometry
 				map.EndAddRemove();
 
 				// Filter old lines and vertices by edited area
-				RectangleF editarea = MapSet.CreateArea(newlines);
-				editarea = MapSet.IncreaseArea(editarea, mergeverts);
-				editarea.Inflate(1.0f, 1.0f);
-				List<Linedef> oldlines = new List<Linedef>(MapSet.FilterByArea(alllines, ref editarea));
-				nonmergeverts = new List<Vertex>(MapSet.FilterByArea(nonmergeverts, ref editarea));
+				List<Linedef> oldlines = alllines;
+
+				if (General.Settings.MergeGeometryMode != MergeGeometryMode.CLASSIC)
+				{
+					RectangleF editarea = MapSet.CreateArea(newlines);
+					editarea = MapSet.IncreaseArea(editarea, mergeverts);
+					editarea.Inflate(1.0f, 1.0f);
+					oldlines = new List<Linedef>(MapSet.FilterByArea(alllines, ref editarea));
+					nonmergeverts = new List<Vertex>(MapSet.FilterByArea(nonmergeverts, ref editarea));
+				}
 
 				/***************************************************\
 					Find a way to close the drawing

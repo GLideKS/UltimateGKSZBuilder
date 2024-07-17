@@ -1815,11 +1815,16 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					HashSet<Sidedef> newsides = new HashSet<Sidedef>(General.Map.Map.GetMarkedSidedefs(true));
 					HashSet<Linedef> oldlines = new HashSet<Linedef>(General.Map.Map.GetMarkedLinedefs(false));
 
+					RectangleF editarea = MapSet.CreateArea(oldlines);
+
 					// Determine area in which we are editing
-					RectangleF editarea = MapSet.CreateArea(General.Map.Map.GetMarkedLinedefs(true));
-					editarea = MapSet.IncreaseArea(editarea, General.Map.Map.GetMarkedVertices(true));
-					editarea.Inflate(1.0f, 1.0f);
-					//oldlines = MapSet.FilterByArea(oldlines, ref editarea);
+					if (General.Settings.MergeGeometryMode != MergeGeometryMode.CLASSIC)
+					{
+						editarea = MapSet.CreateArea(General.Map.Map.GetMarkedLinedefs(true));
+						editarea = MapSet.IncreaseArea(editarea, General.Map.Map.GetMarkedVertices(true));
+						editarea.Inflate(1.0f, 1.0f);
+						//oldlines = MapSet.FilterByArea(oldlines, ref editarea);
+					}
 
 					//mxd. Let's use a blockmap...
 					BlockMap<BlockEntry> blockmap = new BlockMap<BlockEntry>(editarea);
