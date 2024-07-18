@@ -446,14 +446,19 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 		protected override void SetTextureOffsetX(int x)
 		{
+			// Sidedef sourceside = extrafloor.Linedef.Front;
+
 			Sidedef.Fields.BeforeFieldsChange();
 			Sidedef.Fields["offsetx_mid"] = new UniValue(UniversalType.Float, (double)x);
 		}
 
 		protected override void SetTextureOffsetY(int y)
 		{
-			Sidedef.Fields.BeforeFieldsChange();
-			Sidedef.Fields["offsety_mid"] = new UniValue(UniversalType.Float, (double)y);
+			// SRB2 aligns the source side's Y offset instead of the in-level sidedef
+			Sidedef sourceside = extrafloor.Linedef.Front;
+
+			sourceside.Fields.BeforeFieldsChange();
+			sourceside.Fields["offsety_mid"] = new UniValue(UniversalType.Float, (double)y);
 		}
 
 		protected override void MoveTextureOffset(int offsetx, int offsety)
@@ -479,8 +484,11 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 		protected override Point GetTextureOffset()
 		{
+			// SRB2 uses the source side's Y offset instead of the in-level sidedef
+			Sidedef sourceside = extrafloor.Linedef.Front;
+
 			double oldx = Sidedef.Fields.GetValue("offsetx_mid", 0.0);
-			double oldy = Sidedef.Fields.GetValue("offsety_mid", 0.0);
+			double oldy = sourceside.Fields.GetValue("offsety_mid", 0.0);
 			return new Point((int)oldx, (int)oldy);
 		}
 
@@ -555,7 +563,21 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		//mxd
 		public override void OnResetTextureOffset()
 		{
-			base.OnResetTextureOffset();
+			mode.CreateUndo("Reset FOF texture offsets");
+			mode.SetActionResult("FOF texture offsets reset.");
+
+			// Apply offsets
+			Sidedef sourceside = extrafloor.Linedef.Front;
+			sourceside.OffsetX = 0;
+			sourceside.OffsetY = 0;
+
+			// Reset texture offsets too
+			SetTextureOffsetX(0);
+			SetTextureOffsetY(0);
+
+			// Update sidedef geometry
+			VisualSidedefParts parts = Sector.GetSidedefParts(Sidedef);
+			parts.SetupAllParts();
 
 			// Update the model sector to update all 3d floors
 			mode.GetVisualSector(extrafloor.Linedef.Front.Sector).UpdateSectorGeometry(false);
