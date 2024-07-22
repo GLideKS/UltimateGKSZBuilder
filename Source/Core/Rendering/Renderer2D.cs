@@ -53,7 +53,7 @@ namespace CodeImp.DoomBuilder.Rendering
 		private const int THING_BUFFER_SIZE = 100;
 		private const float MINIMUM_THING_RADIUS = 0.5f; //used to be 1.5f
 		private const float MINIMUM_SPRITE_RADIUS = 2.0f; //used to be 8.0f
-		internal const float FIXED_THING_SIZE = 48.0f; //mxd
+		internal const float FIXED_THING_SIZE = 16.0f; //mxd
 
 		internal const int NUM_VIEW_MODES = 4;
 		
@@ -1079,7 +1079,7 @@ namespace CodeImp.DoomBuilder.Rendering
 		// Returns false when not on the screen
 		private bool CreateThingBoxVerts(Thing t, ref FlatVertex[] verts, ref List<Line3D> bboxes, Dictionary<Thing, Vector3D> thingsByPosition, int offset, PixelColor c, byte bboxalpha)
 		{
-			if(t.Size * scale < MINIMUM_THING_RADIUS) return false; //mxd. Don't render tiny little things
+			if(!General.Settings.FixedThingsScale && t.Size * scale < MINIMUM_THING_RADIUS) return false; //mxd. Don't render tiny little things
 
 			// Determine sizes
 			float circlesize, bboxsize;
@@ -1089,7 +1089,7 @@ namespace CodeImp.DoomBuilder.Rendering
 				circlesize = t.Size;
 				bboxsize = -1;
 			}
-			else if(General.Settings.FixedThingsScale && t.Size * scale > FIXED_THING_SIZE)
+			else if(General.Settings.FixedThingsScale)
 			{
 				circlesize = FIXED_THING_SIZE;
 				bboxsize = t.Size * scale;
@@ -1172,7 +1172,7 @@ namespace CodeImp.DoomBuilder.Rendering
 			float arrowsize;
 			if(t.FixedSize && scale > 1.0f)
 				arrowsize = t.Size * THING_ARROW_SIZE;
-			else if(General.Settings.FixedThingsScale && t.Size * scale > FIXED_THING_SIZE)
+			else if(General.Settings.FixedThingsScale)
 				arrowsize = FIXED_THING_SIZE * THING_ARROW_SIZE;
 			else
 				arrowsize = t.Size * scale * THING_ARROW_SIZE;
@@ -1416,7 +1416,7 @@ namespace CodeImp.DoomBuilder.Rendering
 								spritescale = 1.0f;
 								forcespriterendering = true; // Always render sprite when thing size is affected by FixedSize setting
 							}
-							else if(General.Settings.FixedThingsScale && t.Size * scale > FIXED_THING_SIZE)
+							else if(General.Settings.FixedThingsScale)
 							{
 								spritescale = FIXED_THING_SIZE / t.Size;
 								forcespriterendering = true; // Always render sprite when thing size is affected by FixedThingsScale setting

@@ -3728,7 +3728,7 @@ namespace CodeImp.DoomBuilder.Map
 				double ts;
 				if(t.FixedSize && General.Map.Renderer2D.Scale > 1.0f)
 					ts = t.Size / General.Map.Renderer2D.Scale;
-				else if(General.Settings.FixedThingsScale && t.Size * General.Map.Renderer2D.Scale > Renderer2D.FIXED_THING_SIZE)
+				else if(General.Settings.FixedThingsScale)
 					ts = Renderer2D.FIXED_THING_SIZE / General.Map.Renderer2D.Scale;
 				else
 					ts = t.Size;
