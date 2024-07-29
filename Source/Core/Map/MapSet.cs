@@ -31,6 +31,8 @@ using CodeImp.DoomBuilder.Types;
 using CodeImp.DoomBuilder.Windows;
 using CodeImp.DoomBuilder.VisualModes;
 using System.Diagnostics;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 
 #endregion
 
@@ -3840,7 +3842,8 @@ namespace CodeImp.DoomBuilder.Map
 						}
 						// SRB2 also has separate trigger tag field
 						int triggertag = sectors[i].Fields.GetValue("triggertag", 0);
-						if (triggertag > 0) usedtags.Add(triggertag, false);
+						if (triggertag == 0) continue;
+						if (!usedtags.ContainsKey(triggertag)) usedtags.Add(triggertag, false);
 					}
 					break;
 			}
