@@ -42,15 +42,16 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		#region ================== Variables
 
 		protected Effect3DFloor extrafloor;
-		
-		#endregion
-		
-		#region ================== Properties
 
 		#endregion
-		
+
+		#region ================== Properties
+		public Effect3DFloor ExtraFloor { get { return extrafloor; } }
+
+		#endregion
+
 		#region ================== Constructor / Setup
-		
+
 		// Constructor
 		public VisualMiddle3D(BaseVisualMode mode, VisualSector vs, Sidedef s) : base(mode, vs, s)
 		{

@@ -3556,7 +3556,23 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		{
 			PreAction(UndoGroup.TextureOffsetChange);
 			IEnumerable<IVisualEventReceiver> objs = RemoveDuplicateSidedefs(GetSelectedObjects(true, true, false, false, false));
-			foreach(IVisualEventReceiver i in objs) i.OnChangeTextureOffset(ox, oy, true);
+
+			// sphere: Have to keep track of processed FOF sides, so they don't get Y offset moved multiple times
+			HashSet<Sidedef> processed = new HashSet<Sidedef>();
+			foreach (IVisualEventReceiver i in objs)
+			{
+				if (i is VisualMiddle3D && oy != 0)
+				{
+					VisualMiddle3D vm = i as VisualMiddle3D;
+					if (!processed.Contains(vm.ExtraFloor.Linedef.Front))
+					{
+						processed.Add(vm.ExtraFloor.Linedef.Front);
+						i.OnChangeTextureOffset(ox, oy, true);
+					}
+				}
+				else
+					i.OnChangeTextureOffset(ox, oy, true);
+			}
 			PostAction();
 		}
 
@@ -3577,8 +3593,25 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		private void ScaleTexture(int incrementx, int incrementy)
 		{
 			PreAction(UndoGroup.TextureScaleChange);
-			List<IVisualEventReceiver> objs = GetSelectedObjects(true, true, true, false, false);
-			foreach(IVisualEventReceiver i in objs) i.OnChangeScale(incrementx, incrementy);
+			IEnumerable<IVisualEventReceiver> objs = RemoveDuplicateSidedefs(GetSelectedObjects(true, true, true, false, false));
+
+			// sphere: Have to keep track of processed FOF sides, so they don't get scaled multiple times
+			HashSet<Sidedef> processed = new HashSet<Sidedef>();
+			foreach (IVisualEventReceiver i in objs)
+			{
+				if (i is VisualMiddle3D)
+				{
+					VisualMiddle3D vm = i as VisualMiddle3D;
+					if (!processed.Contains(vm.ExtraFloor.Linedef.Front))
+					{
+						processed.Add(vm.ExtraFloor.Linedef.Front);
+						i.OnChangeScale(incrementx, incrementy);
+					}
+				}
+				else
+					i.OnChangeScale(incrementx, incrementy);
+			}
+
 			PostAction();
 		}
 
