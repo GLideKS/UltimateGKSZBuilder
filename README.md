@@ -21,10 +21,10 @@ __Note:__ this is experimental. None of the main developers are using Linux as a
   - **Arch:** `sudo pacman -S base-devel`
     - If you're using X11 display manager you may need to install these packages: `libx11 libxfixes`
     - If you are not using the proprietary nvidia driver you may need to install `mesa`
-- Go to a directory of your choice and clone the repository (it'll automatically create an `UltimateZoneBuilder` directory in the current directory): `git clone https://git.do.srb2.org/STJr/UltimateZoneBuilder.git`
-- Compile UZB: `cd UltimateZoneBuilder && make`
-- Run UZB: `cd Build && ./builder`
-- Alternatively, to compile UZB in debug mode:
+- Go to a directory of your choice and clone the repository (it'll automatically create an `UltimateZoneBuilder` directory in the current directory): `git clone https://github.com/UltimateDoomBuilder/UltimateDoomBuilder.git`
+- Compile UDB: `cd UltimateDoomBuilder && make`
+- Run UDB: `cd Build && ./builder`
+- Alternatively, to compile UDB in debug mode:
   - Run `make BUILDTYPE=Debug` in the root project directory
   - This includes a debug output terminal in the bottom panel
 
