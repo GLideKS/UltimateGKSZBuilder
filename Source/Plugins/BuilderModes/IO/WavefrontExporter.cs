@@ -66,7 +66,14 @@ namespace CodeImp.DoomBuilder.BuilderModes.IO
 			BasePath = form.BasePath;
 			ActorPath = form.ActorPath;
 			ModelPath = form.ModelPath;
-			SkipTextures = form.SkipTextures;
+
+			// Only skip textures if we're exporting for GZDoom
+			if (ExportForGZDoom)
+				SkipTextures = form.SkipTextures;
+			else
+				SkipTextures = new List<string>();
+
+
 			IgnoreControlSectors = form.IgnoreControlSectors;
 			NormalizeLowestVertex = form.NormalizeLowestVertex;
 			CenterModel = form.CenterModel;
