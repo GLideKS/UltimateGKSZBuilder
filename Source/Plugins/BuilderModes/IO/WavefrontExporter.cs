@@ -147,8 +147,11 @@ namespace CodeImp.DoomBuilder.BuilderModes.IO
 								continue;
 							}
 
-							Bitmap bmp = id.ExportBitmap();
-                            lock (bmp)
+							//Bitmap bmp = id.ExportBitmap();
+							// The image might have a color correction applied, but we need it without. So we use LocalGetBitmap, because it reloads the image,
+							// but doesn't applie the color correction if we set UseColorCorrection to false first
+							Bitmap bmp = new Bitmap(id.LocalGetBitmap(false));
+							lock (bmp)
                             {
 								string filepath = Path.Combine(settings.ObjPath, Path.GetDirectoryName(s), Path.GetFileNameWithoutExtension(s) + ".png");
 
@@ -179,7 +182,11 @@ namespace CodeImp.DoomBuilder.BuilderModes.IO
 								continue;
 							}
 
-							Bitmap bmp = id.ExportBitmap();
+							//Bitmap bmp = id.ExportBitmap();
+							// The image might have a color correction applied, but we need it without. So we use LocalGetBitmap, because it reloads the image,
+							// but doesn't applie the color correction if we set UseColorCorrection to false first
+							Bitmap bmp = new Bitmap(id.LocalGetBitmap(false));
+
 
 							// Handle duplicate names
 							string flatname = s;
