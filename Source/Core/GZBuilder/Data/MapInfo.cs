@@ -55,6 +55,7 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 
 		// SRB2
 		private float objectscale;
+		private string lightAttenuationMode;
 
 		#endregion
 
@@ -86,6 +87,7 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 
 		// biwa
 		public bool ForceWorldPanning { get { return forceworldpanning; } internal set { forceworldpanning = value; isdefined = true; } }
+		public string LightAttenuationMode { get { return lightAttenuationMode; } internal set { lightAttenuationMode = value; isdefined = true; } }
 
 		// SRB2
 		public float ObjectScale { get { return objectscale; } internal set { objectscale = value; isdefined = true; } }
