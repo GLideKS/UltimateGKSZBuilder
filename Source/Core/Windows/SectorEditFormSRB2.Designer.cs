@@ -55,7 +55,9 @@
 			this.heightoffset = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.ceilingheight = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.sectorheightlabel = new System.Windows.Forms.Label();
+			this.sectorheightlabel.AutoSize = true;
 			this.sectorheight = new System.Windows.Forms.Label();
+			this.sectorheight.AutoSize = true;
 			this.floorheight = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.friction = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.gravity = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
@@ -82,13 +84,17 @@
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.resetfloorlight = new System.Windows.Forms.Button();
 			this.labelFloorOffsets = new System.Windows.Forms.Label();
+			this.labelFloorOffsets.AutoSize = true;
 			this.labelFloorScale = new System.Windows.Forms.Label();
+			this.labelFloorScale.AutoSize = true;
 			this.cbUseFloorLineAngles = new System.Windows.Forms.CheckBox();
 			this.floorAngleControl = new CodeImp.DoomBuilder.Controls.AngleControlEx();
 			this.label11 = new System.Windows.Forms.Label();
+			this.label11.AutoSize = true;
 			this.floorRotation = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.floorLightAbsolute = new System.Windows.Forms.CheckBox();
 			this.label12 = new System.Windows.Forms.Label();
+			this.label12.AutoSize = true;
 			this.floorBrightness = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.floorScale = new CodeImp.DoomBuilder.Controls.PairedFieldsControl();
 			this.floorOffsets = new CodeImp.DoomBuilder.Controls.PairedFieldsControl();
@@ -96,13 +102,17 @@
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.resetceillight = new System.Windows.Forms.Button();
 			this.labelCeilOffsets = new System.Windows.Forms.Label();
+			this.labelCeilOffsets.AutoSize = true;
 			this.labelCeilScale = new System.Windows.Forms.Label();
+			this.labelCeilScale.AutoSize = true;
 			this.cbUseCeilLineAngles = new System.Windows.Forms.CheckBox();
 			this.ceilAngleControl = new CodeImp.DoomBuilder.Controls.AngleControlEx();
 			this.label1 = new System.Windows.Forms.Label();
+			this.label1.AutoSize = true;
 			this.ceilRotation = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.ceilLightAbsolute = new System.Windows.Forms.CheckBox();
 			this.labelLightFront = new System.Windows.Forms.Label();
+			this.labelLightFront.AutoSize = true;
 			this.ceilBrightness = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.ceilScale = new CodeImp.DoomBuilder.Controls.PairedFieldsControl();
 			this.ceilOffsets = new CodeImp.DoomBuilder.Controls.PairedFieldsControl();
@@ -199,6 +209,7 @@
 			// 
 			labelTriggerer.Location = new System.Drawing.Point(218, 16);
 			labelTriggerer.Name = "labelTriggerer";
+			labelTriggerer.AutoSize = true;
 			labelTriggerer.Size = new System.Drawing.Size(74, 14);
 			labelTriggerer.TabIndex = 2;
 			labelTriggerer.Text = "T&riggerer:";
@@ -216,6 +227,7 @@
 			// 
 			labelTriggerTag.Location = new System.Drawing.Point(9, 16);
 			labelTriggerTag.Name = "labelTriggerTag";
+			labelTriggerTag.AutoSize = true;
 			labelTriggerTag.Size = new System.Drawing.Size(74, 14);
 			labelTriggerTag.TabIndex = 0;
 			labelTriggerTag.Text = "Trigger &tag:";
@@ -244,6 +256,7 @@
 			// 
 			label16.Location = new System.Drawing.Point(9, 53);
 			label16.Name = "label16";
+			label16.AutoSize = true;
 			label16.Size = new System.Drawing.Size(74, 14);
 			label16.TabIndex = 4;
 			label16.Tag = "damagetype";
@@ -276,6 +289,7 @@
 			// 
 			labelFriction.Location = new System.Drawing.Point(9, 83);
 			labelFriction.Name = "labelFriction";
+			labelFriction.AutoSize = true;
 			labelFriction.Size = new System.Drawing.Size(74, 14);
 			labelFriction.TabIndex = 4;
 			labelFriction.Text = "Friction:";
@@ -294,6 +308,7 @@
 			// 
 			label2.Location = new System.Drawing.Point(9, 52);
 			label2.Name = "label2";
+			label2.AutoSize = true;
 			label2.Size = new System.Drawing.Size(74, 14);
 			label2.TabIndex = 2;
 			label2.Tag = "gravity";
@@ -325,6 +340,7 @@
 			label15.ForeColor = System.Drawing.SystemColors.HotTrack;
 			label15.Location = new System.Drawing.Point(9, 83);
 			label15.Name = "label15";
+			label15.AutoSize = true;
 			label15.Size = new System.Drawing.Size(74, 14);
 			label15.TabIndex = 4;
 			label15.Text = "&Height offset:";
@@ -336,6 +352,7 @@
 			// 
 			label6.Location = new System.Drawing.Point(9, 23);
 			label6.Name = "label6";
+			label6.AutoSize = true;
 			label6.Size = new System.Drawing.Size(74, 14);
 			label6.TabIndex = 0;
 			label6.Text = "&Ceiling height:";
@@ -345,6 +362,7 @@
 			// 
 			label5.Location = new System.Drawing.Point(9, 53);
 			label5.Name = "label5";
+			label5.AutoSize = true;
 			label5.Size = new System.Drawing.Size(74, 14);
 			label5.TabIndex = 2;
 			label5.Text = "&Floor height:";
@@ -463,6 +481,7 @@
 			labelFadeEnd.AutoSize = true;
 			labelFadeEnd.Location = new System.Drawing.Point(12, 177);
 			labelFadeEnd.Name = "labelFadeEnd";
+			labelFadeEnd.AutoSize = true;
 			labelFadeEnd.Size = new System.Drawing.Size(55, 13);
 			labelFadeEnd.TabIndex = 8;
 			labelFadeEnd.Tag = "fadecolor";

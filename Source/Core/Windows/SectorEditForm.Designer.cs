@@ -47,7 +47,9 @@ namespace CodeImp.DoomBuilder.Windows
             this.brightness = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
             this.ceilingheight = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
             this.sectorheightlabel = new System.Windows.Forms.Label();
+            this.sectorheightlabel.AutoSize = true;
             this.sectorheight = new System.Windows.Forms.Label();
+            this.sectorheight.AutoSize = true;
             this.floortex = new CodeImp.DoomBuilder.Controls.FlatSelectorControl();
             this.floorheight = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
             this.ceilingtex = new CodeImp.DoomBuilder.Controls.FlatSelectorControl();
@@ -75,6 +77,7 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             label1.Location = new System.Drawing.Point(271, 18);
             label1.Name = "label1";
+            label1.AutoSize = true;
             label1.Size = new System.Drawing.Size(83, 16);
             label1.TabIndex = 15;
             label1.Text = "Floor";
@@ -84,6 +87,7 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             label3.Location = new System.Drawing.Point(363, 18);
             label3.Name = "label3";
+            label3.AutoSize = true;
             label3.Size = new System.Drawing.Size(83, 16);
             label3.TabIndex = 14;
             label3.Text = "Ceiling";
@@ -132,6 +136,7 @@ namespace CodeImp.DoomBuilder.Windows
             label8.AutoSize = true;
             label8.Location = new System.Drawing.Point(12, 31);
             label8.Name = "label8";
+            label8.AutoSize = true;
             label8.Size = new System.Drawing.Size(45, 13);
             label8.TabIndex = 0;
             label8.Text = "Special:";
@@ -147,6 +152,7 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             label9.Location = new System.Drawing.Point(16, 159);
             label9.Name = "label9";
+            label9.AutoSize = true;
             label9.Size = new System.Drawing.Size(78, 14);
             label9.TabIndex = 2;
             label9.Text = "Brightness:";
@@ -182,6 +188,7 @@ namespace CodeImp.DoomBuilder.Windows
             label7.ForeColor = System.Drawing.SystemColors.HotTrack;
             label7.Location = new System.Drawing.Point(16, 100);
             label7.Name = "label7";
+            label7.AutoSize = true;
             label7.Size = new System.Drawing.Size(78, 14);
             label7.TabIndex = 25;
             label7.Text = "Height offset:";
@@ -193,6 +200,7 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             label5.Location = new System.Drawing.Point(16, 70);
             label5.Name = "label5";
+            label5.AutoSize = true;
             label5.Size = new System.Drawing.Size(78, 14);
             label5.TabIndex = 17;
             label5.Text = "Floor height:";
@@ -202,6 +210,7 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             label6.Location = new System.Drawing.Point(16, 40);
             label6.Name = "label6";
+            label6.AutoSize = true;
             label6.Size = new System.Drawing.Size(78, 14);
             label6.TabIndex = 19;
             label6.Text = "Ceiling height:";
@@ -269,6 +278,7 @@ namespace CodeImp.DoomBuilder.Windows
             label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             label2.Location = new System.Drawing.Point(196, 16);
             label2.Name = "label2";
+            label2.AutoSize = true;
             label2.Size = new System.Drawing.Size(114, 16);
             label2.TabIndex = 15;
             label2.Text = "Floor";
@@ -288,6 +298,7 @@ namespace CodeImp.DoomBuilder.Windows
             label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             label4.Location = new System.Drawing.Point(316, 16);
             label4.Name = "label4";
+            label4.AutoSize = true;
             label4.Size = new System.Drawing.Size(114, 16);
             label4.TabIndex = 14;
             label4.Text = "Ceiling";

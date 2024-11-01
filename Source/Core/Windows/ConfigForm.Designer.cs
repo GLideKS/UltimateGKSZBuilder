@@ -42,6 +42,7 @@ namespace CodeImp.DoomBuilder.Windows
             System.Windows.Forms.Label label10;
             this.linuxpaths = new System.Windows.Forms.CheckBox();
             this.labelparameters = new System.Windows.Forms.Label();
+            this.labelparameters.AutoSize = true;
             this.cancel = new System.Windows.Forms.Button();
             this.apply = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -55,13 +56,16 @@ namespace CodeImp.DoomBuilder.Windows
             this.btnNewEngine = new System.Windows.Forms.Button();
             this.cbEngineSelector = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.label13.AutoSize = true;
             this.shortpaths = new System.Windows.Forms.CheckBox();
             this.customparameters = new System.Windows.Forms.CheckBox();
             this.skill = new CodeImp.DoomBuilder.Controls.ActionSelectorControl();
             this.browsetestprogram = new System.Windows.Forms.Button();
             this.noresultlabel = new System.Windows.Forms.Label();
+            this.noresultlabel.AutoSize = true;
             this.testresult = new System.Windows.Forms.TextBox();
             this.labelresult = new System.Windows.Forms.Label();
+            this.labelresult.AutoSize = true;
             this.testparameters = new System.Windows.Forms.TextBox();
             this.testapplication = new System.Windows.Forms.TextBox();
             this.tabtextures = new System.Windows.Forms.TabPage();
@@ -78,6 +82,7 @@ namespace CodeImp.DoomBuilder.Windows
             this.tabmodes = new System.Windows.Forms.TabPage();
             this.startmode = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.label11.AutoSize = true;
             this.listmodes = new System.Windows.Forms.ListView();
             this.colmodename = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colmodeplugin = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -92,6 +97,7 @@ namespace CodeImp.DoomBuilder.Windows
             this.pastecolorpresets = new System.Windows.Forms.ToolStripMenuItem();
             this.testprogramdialog = new System.Windows.Forms.OpenFileDialog();
             this.hintlabel = new System.Windows.Forms.Label();
+            this.hintlabel.AutoSize = true;
             this.hint = new System.Windows.Forms.PictureBox();
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
             this.importtexturesetdialog = new System.Windows.Forms.OpenFileDialog();
@@ -124,6 +130,7 @@ namespace CodeImp.DoomBuilder.Windows
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(299, 39);
             label5.TabIndex = 19;
+            label5.AutoSize = true;
             label5.Text = "Drag && drop resources to add them.\r\nDrag items to change order (lower items over" +
     "ride higher items).\r\nUse the context menu to cut, copy, paste or remove items.";
             // 
@@ -136,6 +143,7 @@ namespace CodeImp.DoomBuilder.Windows
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(457, 37);
             label6.TabIndex = 21;
+            label6.AutoSize = true;
             label6.Text = "These are the resources that will be loaded when this configuration is chosen for" +
     " editing. Usually you add your IWAD (like DOOM.WAD or DOOM2.WAD) here.";
             // 
@@ -148,6 +156,7 @@ namespace CodeImp.DoomBuilder.Windows
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(468, 54);
             label3.TabIndex = 22;
+            label3.AutoSize = true;
             label3.Text = resources.GetString("label3.Text");
             // 
             // label2
@@ -157,6 +166,7 @@ namespace CodeImp.DoomBuilder.Windows
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(144, 13);
             label2.TabIndex = 24;
+            label2.AutoSize = true;
             label2.Text = "Configuration for saving map:";
             // 
             // label7
@@ -166,6 +176,7 @@ namespace CodeImp.DoomBuilder.Windows
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(121, 13);
             label7.TabIndex = 26;
+            label7.AutoSize = true;
             label7.Text = "Configuration for testing:";
             // 
             // label9
@@ -177,6 +188,7 @@ namespace CodeImp.DoomBuilder.Windows
             label9.Name = "label9";
             label9.Size = new System.Drawing.Size(477, 54);
             label9.TabIndex = 23;
+            label9.AutoSize = true;
             label9.Text = "Here you can specify the program settings to use for launching a game engine when" +
     " testing the map. Press F1 for help with custom parameters.";
             // 
@@ -187,6 +199,7 @@ namespace CodeImp.DoomBuilder.Windows
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(62, 13);
             label1.TabIndex = 24;
+            label1.AutoSize = true;
             label1.Text = "Application:";
             // 
             // label8
@@ -196,6 +209,7 @@ namespace CodeImp.DoomBuilder.Windows
             label8.Name = "label8";
             label8.Size = new System.Drawing.Size(58, 13);
             label8.TabIndex = 34;
+            label8.AutoSize = true;
             label8.Text = "Skill Level:";
             // 
             // label4
@@ -207,6 +221,7 @@ namespace CodeImp.DoomBuilder.Windows
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(483, 46);
             label4.TabIndex = 24;
+            label4.AutoSize = true;
             label4.Text = "Texture Sets are a way to group textures and flats into categories, so that you c" +
     "an easily find a texture for the specific style or purpose you need by selecting" +
     " one of the categories.";
@@ -220,6 +235,7 @@ namespace CodeImp.DoomBuilder.Windows
             label10.Name = "label10";
             label10.Size = new System.Drawing.Size(470, 58);
             label10.TabIndex = 25;
+            label10.AutoSize = true;
             label10.Text = resources.GetString("label10.Text");
             // 
             // linuxpaths

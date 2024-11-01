@@ -39,13 +39,16 @@ namespace CodeImp.DoomBuilder.Windows
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.linkLabel1 = new System.Windows.Forms.LinkLabel();
 			this.label1 = new System.Windows.Forms.Label();
+			this.label1.AutoSize = true;
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.version = new System.Windows.Forms.Label();
+			this.version.AutoSize = true;
 			this.copyversion = new System.Windows.Forms.Button();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.gitlink = new System.Windows.Forms.LinkLabel();
 			this.label2 = new System.Windows.Forms.Label();
+			this.label2.AutoSize = true;
 			this.zdoomorglink = new System.Windows.Forms.LinkLabel();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.linkLabel4 = new System.Windows.Forms.LinkLabel();
@@ -54,8 +57,10 @@ namespace CodeImp.DoomBuilder.Windows
 			this.pictureBox4 = new System.Windows.Forms.PictureBox();
 			this.builderlink = new System.Windows.Forms.LinkLabel();
 			this.label3 = new System.Windows.Forms.Label();
+			this.label3.AutoSize = true;
 			this.pictureBox6 = new System.Windows.Forms.PictureBox();
 			this.label5 = new System.Windows.Forms.Label();
+			this.label5.AutoSize = true;
 			pictureBox5 = new System.Windows.Forms.PictureBox();
 			pictureBox3 = new System.Windows.Forms.PictureBox();
 			label4 = new System.Windows.Forms.Label();
@@ -101,6 +106,7 @@ namespace CodeImp.DoomBuilder.Windows
 			label4.Location = new System.Drawing.Point(244, 129);
 			label4.Name = "label4";
 			label4.Size = new System.Drawing.Size(224, 80);
+			label4.AutoSize = true;
 			label4.TabIndex = 24;
 			label4.Text = "Doom Builder is designed and programmed by Pascal vd Heiden.\r\nSeveral game config" +
     "urations were written by various members of the Doom community. See the website " +

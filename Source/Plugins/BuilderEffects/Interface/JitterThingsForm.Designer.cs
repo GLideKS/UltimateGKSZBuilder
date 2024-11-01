@@ -47,9 +47,12 @@
 			this.scalegroup = new System.Windows.Forms.GroupBox();
 			this.cbRelativeScale = new System.Windows.Forms.CheckBox();
 			this.bUpdateScale = new System.Windows.Forms.Button();
+			this.bUpdateScale.AutoSize = true;
 			this.label3 = new System.Windows.Forms.Label();
+			this.label3.AutoSize = true;
 			this.maxScale = new System.Windows.Forms.NumericUpDown();
 			this.label2 = new System.Windows.Forms.Label();
+			this.label2.AutoSize = true;
 			this.minScale = new System.Windows.Forms.NumericUpDown();
 			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.groupBox1.SuspendLayout();
