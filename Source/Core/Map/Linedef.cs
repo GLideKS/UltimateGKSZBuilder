@@ -819,7 +819,7 @@ namespace CodeImp.DoomBuilder.Map
 		// This also enables an optional lower texture to be shown during a lightning weather effect.
 		public bool HasSkyTransferStaticInit()
 		{
-			return General.Map.Config.GetLinedefActionInfo(Action).Id.ToLowerInvariant() == "static_init" &&
+			return General.Map.Config.GetLinedefActionInfo(Action).Id?.ToLowerInvariant() == "static_init" &&
 				Args[1] == 255;
 		}
 
