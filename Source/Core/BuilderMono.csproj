@@ -1230,12 +1230,6 @@
     <Compile Include="Windows\LinedefColorPresetsForm.Designer.cs">
       <DependentUpon>LinedefColorPresetsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Windows\LinedefEditFormUDMF.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Windows\LinedefEditFormUDMF.Designer.cs">
-      <DependentUpon>LinedefEditFormUDMF.cs</DependentUpon>
-    </Compile>
     <Compile Include="Windows\MenuSection.cs" />
     <Compile Include="Windows\PasteOptionsForm.cs">
       <SubType>Form</SubType>
@@ -1250,12 +1244,6 @@
     <Compile Include="Windows\ScriptFindReplaceForm.Designer.cs">
       <DependentUpon>ScriptFindReplaceForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Windows\SectorEditFormUDMF.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Windows\SectorEditFormUDMF.Designer.cs">
-      <DependentUpon>SectorEditFormUDMF.cs</DependentUpon>
-    </Compile>
     <Compile Include="Windows\StatusInfo.cs" />
     <Compile Include="Windows\TanColorTable.cs" />
     <Compile Include="Windows\ThingBrowserForm.cs">
@@ -1263,12 +1251,6 @@
     </Compile>
     <Compile Include="Windows\ThingBrowserForm.Designer.cs">
       <DependentUpon>ThingBrowserForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ThingEditFormUDMF.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Windows\ThingEditFormUDMF.Designer.cs">
-      <DependentUpon>ThingEditFormUDMF.cs</DependentUpon>
     </Compile>
     <Compile Include="Windows\ToolbarSection.cs" />
     <Compile Include="Windows\UpdateForm.cs">
@@ -1589,9 +1571,6 @@
     <EmbeddedResource Include="Windows\LinedefColorPresetsForm.resx">
       <DependentUpon>LinedefColorPresetsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Windows\LinedefEditFormUDMF.resx">
-      <DependentUpon>LinedefEditFormUDMF.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Windows\PasteOptionsForm.resx">
       <DependentUpon>PasteOptionsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -1602,9 +1581,6 @@
     <EmbeddedResource Include="Windows\ScriptFindReplaceForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ScriptFindReplaceForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Windows\SectorEditFormUDMF.resx">
-      <DependentUpon>SectorEditFormUDMF.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\TextEditForm.resx">
       <SubType>Designer</SubType>
@@ -1621,9 +1597,6 @@
     <EmbeddedResource Include="Windows\ThingEditForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ThingEditForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Windows\ThingEditFormUDMF.resx">
-      <DependentUpon>ThingEditFormUDMF.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\ThingsFiltersForm.resx">
       <SubType>Designer</SubType>
