@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using CodeImp.DoomBuilder.Config;
 using CodeImp.DoomBuilder.Data;
 using CodeImp.DoomBuilder.Rendering;
@@ -32,6 +33,9 @@ namespace CodeImp.DoomBuilder.ZDoom
 		internal CvarInfoParser()
 		{
 			cvars = new CvarsCollection();
+
+			// Required for the "handlertoken" format
+			specialtokens += "()";
 		}
 
 		#endregion
@@ -59,25 +63,29 @@ namespace CodeImp.DoomBuilder.ZDoom
 				if(string.IsNullOrEmpty(token)) continue;
 
 				// According to the ZDoom wikie (https://zdoom.org/wiki/CVARINFO) the format has to be
-				//   <scope> [noarchive] [cheat] [latch] <type> <name> [= <defaultvalue>];
+				//   <scope> [noarchive] [cheat] [latch] [handlerclass("<classname>")] <type> <name> [= <defaultvalue>];
 				// where <scope> is one of "user", "server", or "nosave". This it just the intended format, GZDoom actually
 				// accepts and combination of the scope variables (apparently for backwards compatibility), even when it
 				// doesn't make sense.
 				// See https://github.com/jewalky/UltimateDoomBuilder/issues/748
+				// handlerclass doesn't actually have to be in quotes
 
 				if (flags.Contains(token))
 				{
-					// read (skip) flags
+					// read (skip) flags and handlerclass
 					while (true)
 					{
-						string flagtoken;
-
 						SkipWhitespace(true);
-						flagtoken = ReadToken().ToLowerInvariant();
+						token = ReadToken().ToLowerInvariant();
 
-						if (!flags.Contains(flagtoken))
+						if(token == "handlerclass")
 						{
-							DataStream.Seek(-flagtoken.Length - 1, SeekOrigin.Current);
+							if (!ParseHandlerClass())
+								return false;
+						}
+						else if (!flags.Contains(token))
+						{
+							DataStream.Seek(-token.Length - 1, SeekOrigin.Current);
 							break;
 						}
 					}
@@ -135,6 +143,37 @@ namespace CodeImp.DoomBuilder.ZDoom
 					ReportError("Unknown keyword");
 					return false;
 				}
+			}
+
+			return true;
+		}
+
+		/// <summary>
+		/// Reads a handler class in the form of '(TheHandlerClass)' or '("TheHandlerClass")'.
+		/// </summary>
+		/// <returns>true if the correct fromat was detected, false if not</returns>
+		private bool ParseHandlerClass()
+		{
+			string token = ReadToken();
+			if (string.IsNullOrEmpty(token) || token != "(")
+			{
+				ReportError($"Expected token '(', got {token}");
+				return false;
+			}
+
+			// The class can be an identifier or string literal
+			token = ReadToken();
+			if(!token.All(c => char.IsLetterOrDigit(c) || c == '"'))
+			{
+				ReportError($"Expected an alphanumeric string, got {token}");
+				return false;
+			}
+
+			token = ReadToken();
+			if (string.IsNullOrEmpty(token) || token != ")")
+			{
+				ReportError($"Expected token ')', got {token}");
+				return false;
 			}
 
 			return true;
