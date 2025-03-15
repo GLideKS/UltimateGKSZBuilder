@@ -56,7 +56,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 
 			// Continue until at the end of the stream
 			HashSet<string> knowntypes = new HashSet<string> { "int", "float", "color", "bool", "string" };
-			HashSet<string> flags = new HashSet<string> { "user", "server", "nosave", "noarchive", "cheat", "latch" };
+			HashSet<string> flags = new HashSet<string> { "user", "server", "nosave", "noarchive", "cheat", "latch", "local" };
 			while(SkipWhitespace(true))
 			{
 				string token = ReadToken().ToLowerInvariant();
@@ -67,6 +67,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 				// where <scope> is one of "user", "server", or "nosave". This it just the intended format, GZDoom actually
 				// accepts and combination of the scope variables (apparently for backwards compatibility), even when it
 				// doesn't make sense.
+				// Zandronum also has the "local" scope, which is not mentioned in the ZDoom wiki.
 				// See https://github.com/jewalky/UltimateDoomBuilder/issues/748
 				// handlerclass doesn't actually have to be in quotes
 
