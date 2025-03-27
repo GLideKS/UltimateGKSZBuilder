@@ -97,7 +97,8 @@ namespace CodeImp.DoomBuilder.SoundPropagationMode
 			highlighted = s;
 			highlightedsoundenvironment = null;
 
-			if(highlighted != null)
+			// Only crawl through the sound environments if they are not being updated
+			if(!worker.IsBusy && highlighted != null)
 			{
 				foreach(SoundEnvironment se in BuilderPlug.Me.SoundEnvironments)
 				{
@@ -284,6 +285,8 @@ namespace CodeImp.DoomBuilder.SoundPropagationMode
 
 		private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
 		{
+			if(e.Cancelled) return;
+
 			panel.HighlightSoundEnvironment(highlightedsoundenvironment); //mxd. Expand highlighted node in the treeview
 			General.Interface.DisplayStatus(StatusType.Ready, "Finished updating sound environments");
 			General.Interface.RedrawDisplay(); //mxd

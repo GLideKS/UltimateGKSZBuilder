@@ -259,7 +259,7 @@ namespace CodeImp.DoomBuilder.SoundPropagationMode
 				senumber.Add(soundenvironmenthings[i], i + 1);
 			}
 
-			while(soundenvironmenthings.Count > 0 && !worker.CancellationPending)
+			while(soundenvironmenthings.Count > 0)
 			{
 				// Sort things by distance to center of the screen, so that sound environments the user want to look at will (hopefully) be discovered first
 				Vector2D center = General.Map.Renderer2D.DisplayToMap(new Vector2D(General.Interface.Display.Width / 2f, General.Interface.Display.Height / 2f));
@@ -306,6 +306,13 @@ namespace CodeImp.DoomBuilder.SoundPropagationMode
 
 						if(!sectorstocheck.Contains(oppositesector) && !checkedsectors.Contains(oppositesector))
 							sectorstocheck.Add(oppositesector);
+					}
+
+					// Cancel processing if it was requested
+					if (worker.CancellationPending)
+					{
+						e.Cancel = true;
+						return;
 					}
 				}
 
@@ -408,7 +415,7 @@ namespace CodeImp.DoomBuilder.SoundPropagationMode
 			}
 
 			// Create overlay geometry for sectors that don't belong to a sound environment
-			foreach(Sector s in allsectors)
+			foreach (Sector s in allsectors)
 			{
 				FlatVertex[] fv = new FlatVertex[s.FlatVertices.Length];
 				s.FlatVertices.CopyTo(fv, 0);
