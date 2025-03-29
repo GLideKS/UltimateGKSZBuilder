@@ -69,10 +69,10 @@ namespace CodeImp.DoomBuilder.Windows
 			
 			// Interface
 			imagebrightness.Value = General.Settings.ImageBrightness;
-			doublesidedalpha.Value = General.Clamp((int)((1.0f - General.Settings.DoubleSidedAlpha) * 10.0f), doublesidedalpha.Minimum, doublesidedalpha.Maximum);
-			activethingsalpha.Value = General.Clamp((int)((1.0f - General.Settings.ActiveThingsAlpha) * 10.0f), activethingsalpha.Minimum, activethingsalpha.Maximum); //mxd
-			inactivethingsalpha.Value = General.Clamp((int)((1.0f - General.Settings.InactiveThingsAlpha) * 10.0f), inactivethingsalpha.Minimum, inactivethingsalpha.Maximum); //mxd
-			hiddenthingsalpha.Value = General.Clamp((int)((1.0f - General.Settings.HiddenThingsAlpha) * 10.0f), hiddenthingsalpha.Minimum, hiddenthingsalpha.Maximum); //mxd
+			doublesidedalpha.Value = General.Clamp((int)Math.Round((1.0f - General.Settings.DoubleSidedAlpha) * 10.0f), doublesidedalpha.Minimum, doublesidedalpha.Maximum);
+			activethingsalpha.Value = General.Clamp((int)Math.Round((1.0f - General.Settings.ActiveThingsAlpha) * 10.0f), activethingsalpha.Minimum, activethingsalpha.Maximum); //mxd
+			inactivethingsalpha.Value = General.Clamp((int)Math.Round((1.0f - General.Settings.InactiveThingsAlpha) * 10.0f), inactivethingsalpha.Minimum, inactivethingsalpha.Maximum); //mxd
+			hiddenthingsalpha.Value = General.Clamp((int)Math.Round((1.0f - General.Settings.HiddenThingsAlpha) * 10.0f), hiddenthingsalpha.Minimum, hiddenthingsalpha.Maximum); //mxd
 			defaultviewmode.SelectedIndex = General.Settings.DefaultViewMode;
 			fieldofview.Value = General.Clamp(General.Settings.VisualFOV / 10, fieldofview.Minimum, fieldofview.Maximum);
 			mousespeed.Value = General.Clamp(General.Settings.MouseSpeed / 100, mousespeed.Minimum, mousespeed.Maximum);
