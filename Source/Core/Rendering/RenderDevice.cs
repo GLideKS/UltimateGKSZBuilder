@@ -64,7 +64,6 @@ namespace CodeImp.DoomBuilder.Rendering
             DeclareUniform(UniformName.ignoreNormals, "ignoreNormals", UniformType.Float);
             DeclareUniform(UniformName.spotLight, "spotLight", UniformType.Float);
             DeclareUniform(UniformName.campos, "campos", UniformType.Vec4f);
-            DeclareUniform(UniformName.texturefactor, "texturefactor", UniformType.Vec4f);
             DeclareUniform(UniformName.fogsettings, "fogsettings", UniformType.Vec4f);
             DeclareUniform(UniformName.fogcolor, "fogcolor", UniformType.Vec4f);
             DeclareUniform(UniformName.sectorfogcolor, "sectorfogcolor", UniformType.Vec4f);
@@ -555,7 +554,6 @@ namespace CodeImp.DoomBuilder.Rendering
 			SetFillMode(FillMode.Solid);
 			SetMultisampleAntialias((General.Settings.AntiAliasingSamples > 0));
 			SetSourceBlend(Blend.SourceAlpha);
-			SetUniform(UniformName.texturefactor, new Color4(1f, 1f, 1f, 1f));
 			SetZEnable(false);
 			SetZWriteEnable(false);
 			
@@ -801,7 +799,6 @@ namespace CodeImp.DoomBuilder.Rendering
         ignoreNormals,
         spotLight,
         campos,
-        texturefactor,
         fogsettings,
         fogcolor,
         sectorfogcolor,

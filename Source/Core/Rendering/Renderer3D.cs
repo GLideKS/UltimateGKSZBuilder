@@ -410,7 +410,6 @@ namespace CodeImp.DoomBuilder.Rendering
 			graphics.SetDestinationBlend(Blend.InverseSourceAlpha);
 			graphics.SetUniform(UniformName.fogsettings, new Vector4f(-1.0f));
 			graphics.SetUniform(UniformName.fogcolor, General.Colors.Background.ToColorValue());
-			graphics.SetUniform(UniformName.texturefactor, new Color4(1f, 1f, 1f, 1f));
 			graphics.SetUniform(UniformName.doomlightlevels, General.Map.Config.DoomLightLevels);
             graphics.SetUniform(UniformName.highlightcolor, new Color4()); //mxd
             TextureFilter texFilter = (!General.Settings.ClassicRendering && General.Settings.VisualBilinear) ? TextureFilter.Linear : TextureFilter.Nearest;
@@ -499,7 +498,6 @@ namespace CodeImp.DoomBuilder.Rendering
 			graphics.SetZWriteEnable(true);
 			graphics.SetAlphaBlendEnable(false);
 			graphics.SetAlphaTestEnable(false);
-			graphics.SetUniform(UniformName.texturefactor, new Color4(1f, 1f, 1f, 1f));
 
             //mxd. SKY PASS
             if (skygeo.Count > 0)
@@ -695,9 +693,6 @@ namespace CodeImp.DoomBuilder.Rendering
 				graphics.SetVertexBuffer(t.CageBuffer);
 				graphics.Draw(PrimitiveType.LineList, 0, t.CageLength);
 			}
-
-			// Done
-			graphics.SetUniform(UniformName.texturefactor, new Color4(1f, 1f, 1f, 1f));
         }
 
 		//mxd
@@ -735,9 +730,6 @@ namespace CodeImp.DoomBuilder.Rendering
 				graphics.SetVertexBuffer(v.CeilingVertex ? vertexhandle.Upper : vertexhandle.Lower);
 				graphics.Draw(PrimitiveType.LineList, 0, 8);
 			}
-
-			// Done
-			graphics.SetUniform(UniformName.texturefactor, new Color4(1f, 1f, 1f, 1f));
         }
 
 		private void RenderSlopeHandles()
@@ -782,9 +774,6 @@ namespace CodeImp.DoomBuilder.Rendering
 					graphics.Draw(PrimitiveType.TriangleList, 0, 1);
 				}
 			}
-
-			// Done
-			graphics.SetUniform(UniformName.texturefactor, new Color4(1f, 1f, 1f, 1f));
 		}
 
 		//mxd
@@ -862,7 +851,6 @@ namespace CodeImp.DoomBuilder.Rendering
 			graphics.Draw(PrimitiveType.LineList, 0, pointscount / 2);
 
 			// Done
-			graphics.SetUniform(UniformName.texturefactor, new Color4(1f, 1f, 1f, 1f));
             vb.Dispose();
 		}
 
@@ -2068,7 +2056,6 @@ namespace CodeImp.DoomBuilder.Rendering
 			graphics.SetDestinationBlend(Blend.InverseSourceAlpha);
             graphics.SetShader(ShaderName.display2d_normal);
             graphics.SetUniform(UniformName.projection, world * view2d);
-            graphics.SetUniform(UniformName.texturefactor, new Color4(1f, 1f, 1f, 1f));
             graphics.SetUniform(UniformName.rendersettings, new Vector4f(1.0f, 1.0f, 0.0f, 1.0f));
             graphics.SetSamplerFilter(General.Settings.VisualBilinear ? TextureFilter.Linear : TextureFilter.Nearest);
 
