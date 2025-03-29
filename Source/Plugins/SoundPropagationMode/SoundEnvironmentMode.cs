@@ -363,8 +363,10 @@ namespace CodeImp.DoomBuilder.SoundPropagationMode
 			// Render things
 			if(renderer.StartThings(true))
 			{
-				renderer.RenderThingSet(General.Map.ThingsFilter.HiddenThings, General.Settings.HiddenThingsAlpha);
-				renderer.RenderThingSet(General.Map.ThingsFilter.VisibleThings, General.Settings.InactiveThingsAlpha);
+				// Multiply by 0.5 because in none-Things Mode the things layer has an alpha value of 0.5, but we want to render
+				// the sound enviroment things with full alpha, and other things like in the other modes
+				renderer.RenderThingSet(General.Map.ThingsFilter.HiddenThings, General.Settings.HiddenThingsAlpha * 0.5f);
+				renderer.RenderThingSet(General.Map.ThingsFilter.VisibleThings, General.Settings.ActiveThingsAlpha * 0.5f);
 
 				lock(BuilderPlug.Me.SoundEnvironments)
 				{
