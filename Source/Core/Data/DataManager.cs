@@ -2207,6 +2207,9 @@ namespace CodeImp.DoomBuilder.Data
 
 			foreach(DehackedThing t in dehacked.Things)
 			{
+				if (!t.HasDoomEdNum)
+					continue;
+
 				DecorateCategoryInfo dci = GetCategoryInfo(t, thingcategories);
 				ThingCategory cat = GetThingCategory(null, thingcategories, dci);
 				ThingTypeInfo tti = new ThingTypeInfo(cat, t);
