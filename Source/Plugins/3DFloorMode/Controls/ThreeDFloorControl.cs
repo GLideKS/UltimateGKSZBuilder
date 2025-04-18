@@ -195,9 +195,9 @@ namespace CodeImp.DoomBuilder.ThreeDFloorMode
 			threeDFloor.BottomFlat = sectorBottomFlat.TextureName;
 			threeDFloor.BorderTexture = sectorBorderTexture.TextureName;
 
-			threeDFloor.Type = int.Parse(typeArgument.Text);
-			threeDFloor.Flags = int.Parse(flagsArgument.Text);
-			threeDFloor.Alpha = int.Parse(alphaArgument.Text);
+			threeDFloor.Type = typeArgument.GetResult(threeDFloor.Type);
+			threeDFloor.Flags = flagsArgument.GetResult(threeDFloor.Flags);
+			threeDFloor.Alpha = alphaArgument.GetResult(threeDFloor.Alpha);
 			threeDFloor.Brightness = sectorBrightness.GetResult(threeDFloor.Brightness);
 
 			threeDFloor.Tags = sector.Tags;
