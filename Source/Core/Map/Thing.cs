@@ -800,10 +800,7 @@ namespace CodeImp.DoomBuilder.Map
 
 		public float GetObjectScale()
 		{
-			if (General.Map.Config.EngineName == "srb2")
-				return (float)UniFields.GetFloat(this.Fields, "mobjscale", 1.0f) * General.Map.Data.MapInfo.ObjectScale;
-			else
-				return 1.0f;
+			return (float)UniFields.GetFloat(this.Fields, "mobjscale", 1.0f) * General.Map.Data.MapInfo.ObjectScale;
 		}
 
 		#endregion
