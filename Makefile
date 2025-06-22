@@ -65,7 +65,7 @@ mac: builder nativemac
 builder: $(BUILD_DIR)/Builder.exe Build/builder
 
 $(BUILD_DIR)/Builder.exe: BuilderMono.sln Build/builder
-	msbuild /nologo /verbosity:minimal -p:Configuration=$(BUILDTYPE) BuilderMono.sln
+	msbuild /nologo /verbosity:minimal -p:Configuration=$(BUILDTYPE) -p:Platform=x86 BuilderMono.sln
 
 Build/builder:
 	cp builder.sh Build/builder
