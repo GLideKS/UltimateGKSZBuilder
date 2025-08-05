@@ -127,7 +127,11 @@ namespace CodeImp.DoomBuilder.ZDoom
 					string objname = null;
 					int editnum = 0;
 
-					if (token.Contains("$EditInfo"))
+					if (token.Contains("$SRB2_Skip"))
+					{
+						return (ErrorDescription == null);
+					}
+					else if (token.Contains("$EditInfo"))
 					{
 						SkipWhitespace(true);
 						token = ReadToken();
