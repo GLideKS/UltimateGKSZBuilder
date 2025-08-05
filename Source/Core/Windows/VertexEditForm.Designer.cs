@@ -62,10 +62,10 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             tabproperties.Controls.Add(this.groupposition);
             tabproperties.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            tabproperties.Location = new System.Drawing.Point(4, 24);
+            tabproperties.Location = new System.Drawing.Point(4, 22);
             tabproperties.Name = "tabproperties";
             tabproperties.Padding = new System.Windows.Forms.Padding(3);
-            tabproperties.Size = new System.Drawing.Size(428, 201);
+            tabproperties.Size = new System.Drawing.Size(428, 203);
             tabproperties.TabIndex = 0;
             tabproperties.Text = "Properties";
             tabproperties.UseVisualStyleBackColor = true;
@@ -221,7 +221,7 @@ namespace CodeImp.DoomBuilder.Windows
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(17, 13);
             label1.TabIndex = 23;
-            label1.Text = "Y:";
+            label1.Text = "&Y:";
             // 
             // label6
             // 
@@ -230,7 +230,7 @@ namespace CodeImp.DoomBuilder.Windows
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(17, 13);
             label6.TabIndex = 21;
-            label6.Text = "X:";
+            label6.Text = "&X:";
             // 
             // tabs
             // 
@@ -252,10 +252,10 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             this.tabcustom.Controls.Add(this.fieldslist);
             this.tabcustom.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabcustom.Location = new System.Drawing.Point(4, 24);
+            this.tabcustom.Location = new System.Drawing.Point(4, 22);
             this.tabcustom.Name = "tabcustom";
             this.tabcustom.Padding = new System.Windows.Forms.Padding(3);
-            this.tabcustom.Size = new System.Drawing.Size(428, 205);
+            this.tabcustom.Size = new System.Drawing.Size(428, 203);
             this.tabcustom.TabIndex = 1;
             this.tabcustom.Text = "Custom";
             this.tabcustom.UseVisualStyleBackColor = true;

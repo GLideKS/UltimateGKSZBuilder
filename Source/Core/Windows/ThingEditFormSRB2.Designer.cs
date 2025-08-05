@@ -132,7 +132,7 @@
 			this.groupBox2.Location = new System.Drawing.Point(428, 298);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(193, 98);
-			this.groupBox2.TabIndex = 6;
+			this.groupBox2.TabIndex = 0;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = " Rotation ";
 			// 
@@ -142,7 +142,7 @@
 			this.cbrandomroll.Location = new System.Drawing.Point(120, 71);
 			this.cbrandomroll.Name = "cbrandomroll";
 			this.cbrandomroll.Size = new System.Drawing.Size(66, 17);
-			this.cbrandomroll.TabIndex = 5;
+			this.cbrandomroll.TabIndex = 8;
 			this.cbrandomroll.Tag = "roll";
 			this.cbrandomroll.Text = "Random";
 			this.cbrandomroll.UseVisualStyleBackColor = true;
@@ -154,7 +154,7 @@
 			this.cbrandompitch.Location = new System.Drawing.Point(120, 46);
 			this.cbrandompitch.Name = "cbrandompitch";
 			this.cbrandompitch.Size = new System.Drawing.Size(66, 17);
-			this.cbrandompitch.TabIndex = 3;
+			this.cbrandompitch.TabIndex = 7;
 			this.cbrandompitch.Tag = "pitch";
 			this.cbrandompitch.Text = "Random";
 			this.cbrandompitch.UseVisualStyleBackColor = true;
@@ -166,7 +166,7 @@
 			this.cbrandomangle.Location = new System.Drawing.Point(120, 21);
 			this.cbrandomangle.Name = "cbrandomangle";
 			this.cbrandomangle.Size = new System.Drawing.Size(66, 17);
-			this.cbrandomangle.TabIndex = 1;
+			this.cbrandomangle.TabIndex = 6;
 			this.cbrandomangle.Text = "Random";
 			this.cbrandomangle.UseVisualStyleBackColor = true;
 			this.cbrandomangle.CheckedChanged += new System.EventHandler(this.cbrandomangle_CheckedChanged);
@@ -187,7 +187,7 @@
 			this.roll.Name = "roll";
 			this.roll.Size = new System.Drawing.Size(60, 24);
 			this.roll.StepValues = null;
-			this.roll.TabIndex = 4;
+			this.roll.TabIndex = 5;
 			this.roll.Tag = "roll";
 			this.roll.WhenTextChanged += new System.EventHandler(this.roll_WhenTextChanged);
 			// 
@@ -196,8 +196,8 @@
 			this.labelroll.Location = new System.Drawing.Point(5, 71);
 			this.labelroll.Name = "labelroll";
 			this.labelroll.Size = new System.Drawing.Size(44, 14);
-			this.labelroll.TabIndex = 23;
-			this.labelroll.Text = "Roll:";
+			this.labelroll.TabIndex = 4;
+			this.labelroll.Text = "&Roll:";
 			this.labelroll.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// pitch
@@ -216,7 +216,7 @@
 			this.pitch.Name = "pitch";
 			this.pitch.Size = new System.Drawing.Size(60, 24);
 			this.pitch.StepValues = null;
-			this.pitch.TabIndex = 2;
+			this.pitch.TabIndex = 3;
 			this.pitch.Tag = "pitch";
 			this.pitch.WhenTextChanged += new System.EventHandler(this.pitch_WhenTextChanged);
 			// 
@@ -225,8 +225,8 @@
 			this.labelpitch.Location = new System.Drawing.Point(5, 46);
 			this.labelpitch.Name = "labelpitch";
 			this.labelpitch.Size = new System.Drawing.Size(44, 14);
-			this.labelpitch.TabIndex = 21;
-			this.labelpitch.Text = "Pitch:";
+			this.labelpitch.TabIndex = 2;
+			this.labelpitch.Text = "&Pitch:";
 			this.labelpitch.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// angle
@@ -245,7 +245,7 @@
 			this.angle.Name = "angle";
 			this.angle.Size = new System.Drawing.Size(60, 24);
 			this.angle.StepValues = null;
-			this.angle.TabIndex = 0;
+			this.angle.TabIndex = 1;
 			this.angle.WhenTextChanged += new System.EventHandler(this.angle_WhenTextChanged);
 			// 
 			// labelAngle
@@ -253,8 +253,8 @@
 			this.labelAngle.Location = new System.Drawing.Point(5, 21);
 			this.labelAngle.Name = "labelAngle";
 			this.labelAngle.Size = new System.Drawing.Size(44, 14);
-			this.labelAngle.TabIndex = 8;
-			this.labelAngle.Text = "Angle:";
+			this.labelAngle.TabIndex = 0;
+			this.labelAngle.Text = "&Angle:";
 			this.labelAngle.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// anglecontrol
@@ -313,7 +313,7 @@
 			this.settingsgroup.Size = new System.Drawing.Size(295, 286);
 			this.settingsgroup.TabIndex = 1;
 			this.settingsgroup.TabStop = false;
-			this.settingsgroup.Text = " Flags ";
+			this.settingsgroup.Text = " &Flags ";
 			// 
 			// missingflags
 			// 
@@ -406,7 +406,7 @@
 			this.groupBox4.Location = new System.Drawing.Point(242, 298);
 			this.groupBox4.Name = "groupBox4";
 			this.groupBox4.Size = new System.Drawing.Size(180, 98);
-			this.groupBox4.TabIndex = 5;
+			this.groupBox4.TabIndex = 1;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = " Position";
 			// 
@@ -416,8 +416,8 @@
 			this.cbAbsoluteHeight.Location = new System.Drawing.Point(109, 71);
 			this.cbAbsoluteHeight.Name = "cbAbsoluteHeight";
 			this.cbAbsoluteHeight.Size = new System.Drawing.Size(67, 17);
-			this.cbAbsoluteHeight.TabIndex = 3;
-			this.cbAbsoluteHeight.Text = "Absolute";
+			this.cbAbsoluteHeight.TabIndex = 6;
+			this.cbAbsoluteHeight.Text = "&Absolute";
 			this.cbAbsoluteHeight.UseVisualStyleBackColor = true;
 			this.cbAbsoluteHeight.CheckedChanged += new System.EventHandler(this.cbAbsoluteHeight_CheckedChanged);
 			// 
@@ -426,8 +426,8 @@
 			this.label4.Location = new System.Drawing.Point(4, 21);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(22, 14);
-			this.label4.TabIndex = 15;
-			this.label4.Text = "X:";
+			this.label4.TabIndex = 0;
+			this.label4.Text = "&X:";
 			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// label5
@@ -435,13 +435,13 @@
 			this.label5.Location = new System.Drawing.Point(4, 46);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(22, 14);
-			this.label5.TabIndex = 14;
-			this.label5.Text = "Y:";
+			this.label5.TabIndex = 2;
+			this.label5.Text = "&Y:";
 			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// posX
 			// 
-			this.posX.AllowDecimal = false; // SRB2 doesn't support decimal positions (yet?)
+			this.posX.AllowDecimal = false;
 			this.posX.AllowExpressions = true;
 			this.posX.AllowNegative = true;
 			this.posX.AllowRelative = true;
@@ -455,12 +455,12 @@
 			this.posX.Name = "posX";
 			this.posX.Size = new System.Drawing.Size(72, 24);
 			this.posX.StepValues = null;
-			this.posX.TabIndex = 0;
+			this.posX.TabIndex = 1;
 			this.posX.WhenTextChanged += new System.EventHandler(this.posX_WhenTextChanged);
 			// 
 			// posY
 			// 
-			this.posY.AllowDecimal = false; // SRB2 doesn't support decimal positions (yet?)
+			this.posY.AllowDecimal = false;
 			this.posY.AllowExpressions = true;
 			this.posY.AllowNegative = true;
 			this.posY.AllowRelative = true;
@@ -474,7 +474,7 @@
 			this.posY.Name = "posY";
 			this.posY.Size = new System.Drawing.Size(72, 24);
 			this.posY.StepValues = null;
-			this.posY.TabIndex = 1;
+			this.posY.TabIndex = 3;
 			this.posY.WhenTextChanged += new System.EventHandler(this.posY_WhenTextChanged);
 			// 
 			// posZ
@@ -493,7 +493,7 @@
 			this.posZ.Name = "posZ";
 			this.posZ.Size = new System.Drawing.Size(72, 24);
 			this.posZ.StepValues = null;
-			this.posZ.TabIndex = 2;
+			this.posZ.TabIndex = 5;
 			this.posZ.WhenTextChanged += new System.EventHandler(this.posZ_WhenTextChanged);
 			// 
 			// zlabel
@@ -501,8 +501,8 @@
 			this.zlabel.Location = new System.Drawing.Point(4, 71);
 			this.zlabel.Name = "zlabel";
 			this.zlabel.Size = new System.Drawing.Size(22, 14);
-			this.zlabel.TabIndex = 9;
-			this.zlabel.Text = "Z:";
+			this.zlabel.TabIndex = 4;
+			this.zlabel.Text = "&Z:";
 			this.zlabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// tabeffects
@@ -537,7 +537,7 @@
 			this.labelScale.Size = new System.Drawing.Size(80, 14);
 			this.labelScale.TabIndex = 32;
 			this.labelScale.Tag = "scalex";
-			this.labelScale.Text = "Scale:";
+			this.labelScale.Text = "&Scale:";
 			this.labelScale.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// scale

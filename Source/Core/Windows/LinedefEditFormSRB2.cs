@@ -161,7 +161,26 @@ namespace CodeImp.DoomBuilder.Windows
 			
 			// Fill flags lists
 			foreach(KeyValuePair<string, string> lf in General.Map.Config.LinedefFlags)
-				flags.Add(lf.Value, lf.Key);
+			{
+				string text = lf.Value;
+
+				if (text == "Upper Unpegged")
+					text = "&Upper Unpegged";
+				else if (text == "Lower Unpegged")
+					text = "&Lower Unpegged";
+				else if (text == "Slope Skew")
+					text = "Slope S&kew";
+				else if (text == "No Midtexture Skew")
+					text = "&No Midtexture Skew";
+				else if (text == "Peg Midtexture")
+					text = "&Peg Midtexture";
+				else if (text == "Solid Midtexture")
+					text = "&Solid Midtexture";
+				else if (text == "Repeat Midtexture")
+					text = "&Repeat Midtexture";
+
+				flags.Add(text, lf.Key);
+			}
 			flags.Enabled = General.Map.Config.LinedefFlags.Count > 0;
 
 			// Fill sidedef flags lists

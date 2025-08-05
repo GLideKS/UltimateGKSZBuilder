@@ -77,7 +77,7 @@ namespace CodeImp.DoomBuilder.Controls
 			this.positioncaption.Location = new System.Drawing.Point(0, 22);
 			this.positioncaption.Name = "positioncaption";
 			this.positioncaption.Size = new System.Drawing.Size(54, 13);
-			this.positioncaption.TabIndex = 12;
+			this.positioncaption.TabIndex = 4;
 			this.positioncaption.Text = "Position:";
 			this.positioncaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
@@ -86,8 +86,8 @@ namespace CodeImp.DoomBuilder.Controls
 			this.typecaption.Location = new System.Drawing.Point(0, 6);
 			this.typecaption.Name = "typecaption";
 			this.typecaption.Size = new System.Drawing.Size(54, 13);
-			this.typecaption.TabIndex = 10;
-			this.typecaption.Text = "Type:";
+			this.typecaption.TabIndex = 2;
+			this.typecaption.Text = "&Type:";
 			this.typecaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// sizelabel
@@ -114,7 +114,7 @@ namespace CodeImp.DoomBuilder.Controls
 			this.positionlabel.Location = new System.Drawing.Point(60, 22);
 			this.positionlabel.Name = "positionlabel";
 			this.positionlabel.Size = new System.Drawing.Size(38, 13);
-			this.positionlabel.TabIndex = 13;
+			this.positionlabel.TabIndex = 5;
 			this.positionlabel.Text = "Ceiling";
 			// 
 			// thingimages
@@ -241,15 +241,15 @@ namespace CodeImp.DoomBuilder.Controls
 			this.label1.Location = new System.Drawing.Point(3, 6);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(32, 13);
-			this.label1.TabIndex = 19;
-			this.label1.Text = "Filter:";
+			this.label1.TabIndex = 0;
+			this.label1.Text = "&Filter:";
 			// 
 			// tbFilter
 			// 
 			this.tbFilter.Location = new System.Drawing.Point(42, 3);
 			this.tbFilter.Name = "tbFilter";
 			this.tbFilter.Size = new System.Drawing.Size(232, 20);
-			this.tbFilter.TabIndex = 20;
+			this.tbFilter.TabIndex = 1;
 			this.tbFilter.TextChanged += new System.EventHandler(this.tbFilter_TextChanged);
 			this.tbFilter.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbFilter_KeyUp);
 			// 
@@ -259,7 +259,7 @@ namespace CodeImp.DoomBuilder.Controls
 			this.bClear.Location = new System.Drawing.Point(277, 1);
 			this.bClear.Name = "bClear";
 			this.bClear.Size = new System.Drawing.Size(24, 23);
-			this.bClear.TabIndex = 21;
+			this.bClear.TabIndex = 2;
 			this.bClear.UseVisualStyleBackColor = true;
 			this.bClear.Click += new System.EventHandler(this.bClear_Click);
 			// 
@@ -280,13 +280,13 @@ namespace CodeImp.DoomBuilder.Controls
 			this.typelist.SelectionMode = CodeImp.DoomBuilder.Controls.TreeViewSelectionMode.SingleSelect;
 			this.typelist.ShowNodeToolTips = true;
 			this.typelist.Size = new System.Drawing.Size(304, 203);
-			this.typelist.TabIndex = 22;
-			this.typelist.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.typelist_MouseDoubleClick);
-			this.typelist.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.typelist_BeforeExpand);
-			this.typelist.BeforeCollapse += new System.Windows.Forms.TreeViewCancelEventHandler(this.typelist_BeforeCollapse);
-			this.typelist.MouseEnter += new System.EventHandler(this.typelist_MouseEnter);
-			this.typelist.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.typelist_KeyPress);
+			this.typelist.TabIndex = 4;
 			this.typelist.SelectionsChanged += new System.EventHandler(this.typelist_SelectionsChanged);
+			this.typelist.BeforeCollapse += new System.Windows.Forms.TreeViewCancelEventHandler(this.typelist_BeforeCollapse);
+			this.typelist.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.typelist_BeforeExpand);
+			this.typelist.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.typelist_KeyPress);
+			this.typelist.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.typelist_MouseDoubleClick);
+			this.typelist.MouseEnter += new System.EventHandler(this.typelist_MouseEnter);
 			// 
 			// spritetex
 			// 
@@ -307,6 +307,7 @@ namespace CodeImp.DoomBuilder.Controls
 			// typeid
 			// 
 			this.typeid.AllowDecimal = false;
+			this.typeid.AllowExpressions = false;
 			this.typeid.AllowNegative = false;
 			this.typeid.AllowRelative = false;
 			this.typeid.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -314,7 +315,7 @@ namespace CodeImp.DoomBuilder.Controls
 			this.typeid.Location = new System.Drawing.Point(60, 2);
 			this.typeid.Name = "typeid";
 			this.typeid.Size = new System.Drawing.Size(68, 20);
-			this.typeid.TabIndex = 1;
+			this.typeid.TabIndex = 3;
 			this.typeid.TextChanged += new System.EventHandler(this.typeid_TextChanged);
 			// 
 			// ThingBrowserControl

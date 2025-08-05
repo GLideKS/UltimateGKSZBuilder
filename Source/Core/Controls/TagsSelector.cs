@@ -280,7 +280,7 @@ namespace CodeImp.DoomBuilder.Controls
 			tagslist.Text = string.Join(TAGS_SEPARATOR, displaytags);
 
 			// Update current tag label
-			curtaglabel.Text = "Tag " + (curtagindex + 1) + ":";
+			curtaglabel.Text = "&Tag " + (curtagindex + 1) + ":";
 		}
 
 		private void UpdateTagPicker(int tag)
@@ -345,6 +345,7 @@ namespace CodeImp.DoomBuilder.Controls
 			if(tags.Count == 1 && tags[0] == 0)
 			{
 				newtag_Click(sender, e);
+				tagpicker.Focus();
 				return;
 			}
 			
@@ -367,6 +368,8 @@ namespace CodeImp.DoomBuilder.Controls
 
 			removetag.Enabled = true;
 			UpdateTagsList(tags);
+
+			tagpicker.Focus();
 		}
 
 		private void removetag_Click(object sender, EventArgs e)
@@ -415,11 +418,19 @@ namespace CodeImp.DoomBuilder.Controls
 		{
 			TagLinkData data = (TagLinkData)e.Link.LinkData;
 			curtagindex = data.Index;
-			curtaglabel.Text = "Tag " + (curtagindex + 1) + ":";
+			curtaglabel.Text = "&Tag " + (curtagindex + 1) + ":";
 
 			// Update interface
 			UpdateTagPicker(data.Tag);
 			UpdateTagsList(GetDisplayTags());
+
+			if ((Form.ModifierKeys & Keys.Control) != 0)
+			{
+				if (GetDisplayTags().Count > 1)
+					removetag_Click(sender, e);
+				else
+					clearalltags_Click(sender, e);
+			}
 		}
 
 		private void tagpicker_TextChanged(object sender, EventArgs e)

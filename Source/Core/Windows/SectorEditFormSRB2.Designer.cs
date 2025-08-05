@@ -168,14 +168,14 @@
 			groupaction.Size = new System.Drawing.Size(557, 80);
 			groupaction.TabIndex = 2;
 			groupaction.TabStop = false;
-			groupaction.Text = " Identification ";
+			groupaction.Text = " Identification";
 			// 
 			// tagsselector
 			// 
 			this.tagsselector.Location = new System.Drawing.Point(6, 15);
 			this.tagsselector.Name = "tagsselector";
 			this.tagsselector.Size = new System.Drawing.Size(545, 60);
-			this.tagsselector.TabIndex = 0;
+			this.tagsselector.TabIndex = 4;
 			// 
 			// groupeffect
 			// 
@@ -200,8 +200,8 @@
 			labelTriggerer.Location = new System.Drawing.Point(218, 16);
 			labelTriggerer.Name = "labelTriggerer";
 			labelTriggerer.Size = new System.Drawing.Size(74, 14);
-			labelTriggerer.TabIndex = 7;
-			labelTriggerer.Text = "Triggerer:";
+			labelTriggerer.TabIndex = 2;
+			labelTriggerer.Text = "T&riggerer:";
 			labelTriggerer.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// triggerer
@@ -210,15 +210,15 @@
 			this.triggerer.Location = new System.Drawing.Point(298, 12);
 			this.triggerer.Name = "triggerer";
 			this.triggerer.Size = new System.Drawing.Size(167, 21);
-			this.triggerer.TabIndex = 8;
+			this.triggerer.TabIndex = 3;
 			// 
 			// labelTriggerTag
 			// 
 			labelTriggerTag.Location = new System.Drawing.Point(9, 16);
 			labelTriggerTag.Name = "labelTriggerTag";
 			labelTriggerTag.Size = new System.Drawing.Size(74, 14);
-			labelTriggerTag.TabIndex = 21;
-			labelTriggerTag.Text = "Trigger tag:";
+			labelTriggerTag.TabIndex = 0;
+			labelTriggerTag.Text = "Trigger &tag:";
 			labelTriggerTag.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// triggerTag
@@ -237,7 +237,7 @@
 			this.triggerTag.Name = "triggerTag";
 			this.triggerTag.Size = new System.Drawing.Size(81, 24);
 			this.triggerTag.StepValues = null;
-			this.triggerTag.TabIndex = 20;
+			this.triggerTag.TabIndex = 1;
 			this.triggerTag.WhenTextChanged += new System.EventHandler(this.triggerTag_WhenTextChanged);
 			// 
 			// label16
@@ -245,9 +245,9 @@
 			label16.Location = new System.Drawing.Point(9, 53);
 			label16.Name = "label16";
 			label16.Size = new System.Drawing.Size(74, 14);
-			label16.TabIndex = 0;
+			label16.TabIndex = 4;
 			label16.Tag = "damagetype";
-			label16.Text = "Damage:";
+			label16.Text = "&Damage:";
 			label16.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// resetdamagetype
@@ -256,7 +256,7 @@
 			this.resetdamagetype.Location = new System.Drawing.Point(262, 47);
 			this.resetdamagetype.Name = "resetdamagetype";
 			this.resetdamagetype.Size = new System.Drawing.Size(28, 25);
-			this.resetdamagetype.TabIndex = 2;
+			this.resetdamagetype.TabIndex = 6;
 			this.resetdamagetype.Text = " ";
 			this.tooltip.SetToolTip(this.resetdamagetype, "Reset");
 			this.resetdamagetype.UseVisualStyleBackColor = true;
@@ -268,7 +268,7 @@
 			this.damagetype.Location = new System.Drawing.Point(89, 49);
 			this.damagetype.Name = "damagetype";
 			this.damagetype.Size = new System.Drawing.Size(167, 21);
-			this.damagetype.TabIndex = 1;
+			this.damagetype.TabIndex = 5;
 			this.damagetype.TextChanged += new System.EventHandler(this.damagetype_TextChanged);
 			this.damagetype.MouseDown += new System.Windows.Forms.MouseEventHandler(this.damagetype_MouseDown);
 			// 
@@ -277,7 +277,7 @@
 			labelFriction.Location = new System.Drawing.Point(9, 83);
 			labelFriction.Name = "labelFriction";
 			labelFriction.Size = new System.Drawing.Size(74, 14);
-			labelFriction.TabIndex = 22;
+			labelFriction.TabIndex = 4;
 			labelFriction.Text = "Friction:";
 			labelFriction.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -287,15 +287,15 @@
 			label9.Location = new System.Drawing.Point(21, 24);
 			label9.Name = "label9";
 			label9.Size = new System.Drawing.Size(59, 13);
-			label9.TabIndex = 3;
-			label9.Text = "Brightness:";
+			label9.TabIndex = 0;
+			label9.Text = "&Brightness:";
 			// 
 			// label2
 			// 
 			label2.Location = new System.Drawing.Point(9, 52);
 			label2.Name = "label2";
 			label2.Size = new System.Drawing.Size(74, 14);
-			label2.TabIndex = 5;
+			label2.TabIndex = 2;
 			label2.Tag = "gravity";
 			label2.Text = "Gravity:";
 			label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -327,7 +327,7 @@
 			label15.Name = "label15";
 			label15.Size = new System.Drawing.Size(74, 14);
 			label15.TabIndex = 4;
-			label15.Text = "Height offset:";
+			label15.Text = "&Height offset:";
 			label15.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			this.tooltip.SetToolTip(label15, "Changes floor and ceiling height by given value.\r\nUse \"++\" to raise by sector hei" +
         "ght.\r\nUse \"--\" to lower by sector height.");
@@ -338,7 +338,7 @@
 			label6.Name = "label6";
 			label6.Size = new System.Drawing.Size(74, 14);
 			label6.TabIndex = 0;
-			label6.Text = "Ceiling height:";
+			label6.Text = "&Ceiling height:";
 			label6.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// label5
@@ -347,7 +347,7 @@
 			label5.Name = "label5";
 			label5.Size = new System.Drawing.Size(74, 14);
 			label5.TabIndex = 2;
-			label5.Text = "Floor height:";
+			label5.Text = "&Floor height:";
 			label5.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// heightoffset
@@ -431,7 +431,7 @@
 			labelLightAlpha.Location = new System.Drawing.Point(6, 92);
 			labelLightAlpha.Name = "labelLightAlpha";
 			labelLightAlpha.Size = new System.Drawing.Size(62, 13);
-			labelLightAlpha.TabIndex = 18;
+			labelLightAlpha.TabIndex = 2;
 			labelLightAlpha.Tag = "lightcolor";
 			labelLightAlpha.Text = "Light alpha:";
 			labelLightAlpha.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -442,7 +442,7 @@
 			labelFadeAlpha.Location = new System.Drawing.Point(6, 118);
 			labelFadeAlpha.Name = "labelFadeAlpha";
 			labelFadeAlpha.Size = new System.Drawing.Size(63, 13);
-			labelFadeAlpha.TabIndex = 20;
+			labelFadeAlpha.TabIndex = 4;
 			labelFadeAlpha.Tag = "fadecolor";
 			labelFadeAlpha.Text = "Fade alpha:";
 			labelFadeAlpha.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -453,7 +453,7 @@
 			labelFadeStart.Location = new System.Drawing.Point(11, 149);
 			labelFadeStart.Name = "labelFadeStart";
 			labelFadeStart.Size = new System.Drawing.Size(57, 13);
-			labelFadeStart.TabIndex = 22;
+			labelFadeStart.TabIndex = 6;
 			labelFadeStart.Tag = "fadecolor";
 			labelFadeStart.Text = "Fade start:";
 			labelFadeStart.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -464,7 +464,7 @@
 			labelFadeEnd.Location = new System.Drawing.Point(12, 177);
 			labelFadeEnd.Name = "labelFadeEnd";
 			labelFadeEnd.Size = new System.Drawing.Size(55, 13);
-			labelFadeEnd.TabIndex = 24;
+			labelFadeEnd.TabIndex = 8;
 			labelFadeEnd.Tag = "fadecolor";
 			labelFadeEnd.Text = "Fade end:";
 			labelFadeEnd.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -482,9 +482,9 @@
 			groupmisc.Location = new System.Drawing.Point(7, 330);
 			groupmisc.Name = "groupmisc";
 			groupmisc.Size = new System.Drawing.Size(254, 109);
-			groupmisc.TabIndex = 24;
+			groupmisc.TabIndex = 0;
 			groupmisc.TabStop = false;
-			groupmisc.Text = " Misc";
+			groupmisc.Text = "Misc";
 			// 
 			// friction
 			// 
@@ -502,7 +502,7 @@
 			this.friction.Name = "friction";
 			this.friction.Size = new System.Drawing.Size(81, 24);
 			this.friction.StepValues = null;
-			this.friction.TabIndex = 23;
+			this.friction.TabIndex = 5;
 			// 
 			// gravity
 			// 
@@ -520,7 +520,7 @@
 			this.gravity.Name = "gravity";
 			this.gravity.Size = new System.Drawing.Size(81, 24);
 			this.gravity.StepValues = null;
-			this.gravity.TabIndex = 6;
+			this.gravity.TabIndex = 3;
 			this.gravity.Tag = "gravity";
 			// 
 			// brightness
@@ -539,7 +539,7 @@
 			this.brightness.Name = "brightness";
 			this.brightness.Size = new System.Drawing.Size(81, 24);
 			this.brightness.StepValues = null;
-			this.brightness.TabIndex = 4;
+			this.brightness.TabIndex = 1;
 			this.brightness.WhenTextChanged += new System.EventHandler(this.brightness_WhenTextChanged);
 			// 
 			// tabs
@@ -588,7 +588,7 @@
 			this.groupBox7.Size = new System.Drawing.Size(277, 174);
 			this.groupBox7.TabIndex = 1;
 			this.groupBox7.TabStop = false;
-			this.groupBox7.Text = " Colormap flags";
+			this.groupBox7.Text = " Colormap f&lags";
 			// 
 			// colormapflags
 			// 
@@ -600,7 +600,7 @@
 			this.colormapflags.Location = new System.Drawing.Point(15, 21);
 			this.colormapflags.Name = "colormapflags";
 			this.colormapflags.Size = new System.Drawing.Size(256, 147);
-			this.colormapflags.TabIndex = 0;
+			this.colormapflags.TabIndex = 8;
 			this.colormapflags.VerticalSpacing = 1;
 			// 
 			// groupBox8
@@ -620,7 +620,7 @@
 			this.groupBox8.Size = new System.Drawing.Size(277, 253);
 			this.groupBox8.TabIndex = 18;
 			this.groupBox8.TabStop = false;
-			this.groupBox8.Text = " Colormap";
+			this.groupBox8.Text = " Color&map";
 			// 
 			// fadeEnd
 			// 
@@ -638,7 +638,7 @@
 			this.fadeEnd.Name = "fadeEnd";
 			this.fadeEnd.Size = new System.Drawing.Size(81, 24);
 			this.fadeEnd.StepValues = null;
-			this.fadeEnd.TabIndex = 25;
+			this.fadeEnd.TabIndex = 9;
 			this.fadeEnd.WhenTextChanged += new System.EventHandler(this.fadeEnd_WhenTextChanged);
 			// 
 			// fadeStart
@@ -657,7 +657,7 @@
 			this.fadeStart.Name = "fadeStart";
 			this.fadeStart.Size = new System.Drawing.Size(81, 24);
 			this.fadeStart.StepValues = null;
-			this.fadeStart.TabIndex = 23;
+			this.fadeStart.TabIndex = 7;
 			this.fadeStart.WhenTextChanged += new System.EventHandler(this.fadeStart_WhenTextChanged);
 			// 
 			// fadeAlpha
@@ -676,7 +676,7 @@
 			this.fadeAlpha.Name = "fadeAlpha";
 			this.fadeAlpha.Size = new System.Drawing.Size(81, 24);
 			this.fadeAlpha.StepValues = null;
-			this.fadeAlpha.TabIndex = 21;
+			this.fadeAlpha.TabIndex = 5;
 			this.fadeAlpha.WhenTextChanged += new System.EventHandler(this.fadeAlpha_WhenTextChanged);
 			// 
 			// lightAlpha
@@ -695,7 +695,7 @@
 			this.lightAlpha.Name = "lightAlpha";
 			this.lightAlpha.Size = new System.Drawing.Size(81, 24);
 			this.lightAlpha.StepValues = null;
-			this.lightAlpha.TabIndex = 19;
+			this.lightAlpha.TabIndex = 3;
 			this.lightAlpha.WhenTextChanged += new System.EventHandler(this.lightAlpha_WhenTextChanged);
 			// 
 			// lightColor
@@ -706,7 +706,7 @@
 			this.lightColor.Location = new System.Drawing.Point(6, 19);
 			this.lightColor.Name = "lightColor";
 			this.lightColor.Size = new System.Drawing.Size(207, 29);
-			this.lightColor.TabIndex = 16;
+			this.lightColor.TabIndex = 0;
 			this.lightColor.Tag = "lightcolor";
 			this.lightColor.OnValueChanged += new System.EventHandler(this.lightColor_OnValueChanged);
 			// 
@@ -718,7 +718,7 @@
 			this.fadeColor.Location = new System.Drawing.Point(6, 47);
 			this.fadeColor.Name = "fadeColor";
 			this.fadeColor.Size = new System.Drawing.Size(207, 31);
-			this.fadeColor.TabIndex = 17;
+			this.fadeColor.TabIndex = 1;
 			this.fadeColor.Tag = "fadecolor";
 			this.fadeColor.OnValueChanged += new System.EventHandler(this.fadeColor_OnValueChanged);
 			// 
@@ -730,7 +730,7 @@
 			this.groupBox3.Size = new System.Drawing.Size(254, 174);
 			this.groupBox3.TabIndex = 0;
 			this.groupBox3.TabStop = false;
-			this.groupBox3.Text = " Flags ";
+			this.groupBox3.Text = " F&lags ";
 			// 
 			// flags
 			// 
@@ -742,7 +742,7 @@
 			this.flags.Location = new System.Drawing.Point(15, 21);
 			this.flags.Name = "flags";
 			this.flags.Size = new System.Drawing.Size(233, 147);
-			this.flags.TabIndex = 0;
+			this.flags.TabIndex = 7;
 			this.flags.VerticalSpacing = 1;
 			// 
 			// tabEffects
@@ -766,7 +766,7 @@
 			this.groupBox9.Size = new System.Drawing.Size(557, 166);
 			this.groupBox9.TabIndex = 2;
 			this.groupBox9.TabStop = false;
-			this.groupBox9.Text = " Trigger conditions";
+			this.groupBox9.Text = " Trigger &conditions";
 			// 
 			// triggerflags
 			// 
@@ -789,7 +789,7 @@
 			this.groupBox6.Size = new System.Drawing.Size(557, 210);
 			this.groupBox6.TabIndex = 1;
 			this.groupBox6.TabStop = false;
-			this.groupBox6.Text = " Effect flags";
+			this.groupBox6.Text = " Effect f&lags";
 			// 
 			// effectflags
 			// 
@@ -836,9 +836,9 @@
 			this.groupBox2.Location = new System.Drawing.Point(3, 244);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(564, 235);
-			this.groupBox2.TabIndex = 55;
+			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
-			this.groupBox2.Text = " Floor ";
+			this.groupBox2.Text = " &Floor ";
 			// 
 			// resetfloorlight
 			// 
@@ -846,7 +846,7 @@
 			this.resetfloorlight.Location = new System.Drawing.Point(246, 138);
 			this.resetfloorlight.Name = "resetfloorlight";
 			this.resetfloorlight.Size = new System.Drawing.Size(23, 23);
-			this.resetfloorlight.TabIndex = 12;
+			this.resetfloorlight.TabIndex = 8;
 			this.resetfloorlight.Tag = "lightfloor";
 			this.tooltip.SetToolTip(this.resetfloorlight, "Reset");
 			this.resetfloorlight.UseVisualStyleBackColor = true;
@@ -857,9 +857,9 @@
 			this.labelFloorOffsets.Location = new System.Drawing.Point(8, 27);
 			this.labelFloorOffsets.Name = "labelFloorOffsets";
 			this.labelFloorOffsets.Size = new System.Drawing.Size(98, 14);
-			this.labelFloorOffsets.TabIndex = 0;
+			this.labelFloorOffsets.TabIndex = 1;
 			this.labelFloorOffsets.Tag = "xpanningfloor";
-			this.labelFloorOffsets.Text = "Texture offsets:";
+			this.labelFloorOffsets.Text = "Texture &offsets:";
 			this.labelFloorOffsets.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// labelFloorScale
@@ -867,9 +867,9 @@
 			this.labelFloorScale.Location = new System.Drawing.Point(8, 59);
 			this.labelFloorScale.Name = "labelFloorScale";
 			this.labelFloorScale.Size = new System.Drawing.Size(98, 14);
-			this.labelFloorScale.TabIndex = 2;
+			this.labelFloorScale.TabIndex = 3;
 			this.labelFloorScale.Tag = "xscalefloor";
-			this.labelFloorScale.Text = "Texture scale:";
+			this.labelFloorScale.Text = "Texture &scale:";
 			this.labelFloorScale.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// cbUseFloorLineAngles
@@ -878,21 +878,21 @@
 			this.cbUseFloorLineAngles.Location = new System.Drawing.Point(181, 172);
 			this.cbUseFloorLineAngles.Name = "cbUseFloorLineAngles";
 			this.cbUseFloorLineAngles.Size = new System.Drawing.Size(113, 17);
-			this.cbUseFloorLineAngles.TabIndex = 16;
+			this.cbUseFloorLineAngles.TabIndex = 12;
 			this.cbUseFloorLineAngles.Tag = "rotationfloor";
-			this.cbUseFloorLineAngles.Text = "Use linedef angles";
+			this.cbUseFloorLineAngles.Text = "Use &linedef angles";
 			this.cbUseFloorLineAngles.UseVisualStyleBackColor = true;
 			this.cbUseFloorLineAngles.CheckedChanged += new System.EventHandler(this.cbUseFloorLineAngles_CheckedChanged);
 			// 
 			// floorAngleControl
 			// 
-			this.floorAngleControl.Angle = -3240;
+			this.floorAngleControl.Angle = -3870;
 			this.floorAngleControl.AngleOffset = 90;
 			this.floorAngleControl.DoomAngleClamping = false;
 			this.floorAngleControl.Location = new System.Drawing.Point(6, 156);
 			this.floorAngleControl.Name = "floorAngleControl";
 			this.floorAngleControl.Size = new System.Drawing.Size(44, 44);
-			this.floorAngleControl.TabIndex = 13;
+			this.floorAngleControl.TabIndex = 9;
 			this.floorAngleControl.Tag = "rotationfloor";
 			this.floorAngleControl.AngleChanged += new System.EventHandler(this.floorAngleControl_AngleChanged);
 			// 
@@ -901,9 +901,9 @@
 			this.label11.Location = new System.Drawing.Point(26, 172);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(80, 14);
-			this.label11.TabIndex = 14;
+			this.label11.TabIndex = 10;
 			this.label11.Tag = "rotationfloor";
-			this.label11.Text = "Rotation:";
+			this.label11.Text = "&Rotation:";
 			this.label11.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// floorRotation
@@ -922,7 +922,7 @@
 			this.floorRotation.Name = "floorRotation";
 			this.floorRotation.Size = new System.Drawing.Size(62, 24);
 			this.floorRotation.StepValues = null;
-			this.floorRotation.TabIndex = 15;
+			this.floorRotation.TabIndex = 11;
 			this.floorRotation.Tag = "rotationfloor";
 			this.floorRotation.WhenTextChanged += new System.EventHandler(this.floorRotation_WhenTextChanged);
 			// 
@@ -932,9 +932,9 @@
 			this.floorLightAbsolute.Location = new System.Drawing.Point(181, 142);
 			this.floorLightAbsolute.Name = "floorLightAbsolute";
 			this.floorLightAbsolute.Size = new System.Drawing.Size(67, 17);
-			this.floorLightAbsolute.TabIndex = 11;
+			this.floorLightAbsolute.TabIndex = 7;
 			this.floorLightAbsolute.Tag = "lightfloorabsolute";
-			this.floorLightAbsolute.Text = "Absolute";
+			this.floorLightAbsolute.Text = "&Absolute";
 			this.floorLightAbsolute.UseVisualStyleBackColor = true;
 			this.floorLightAbsolute.CheckedChanged += new System.EventHandler(this.floorLightAbsolute_CheckedChanged);
 			// 
@@ -943,9 +943,9 @@
 			this.label12.Location = new System.Drawing.Point(26, 142);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(80, 14);
-			this.label12.TabIndex = 9;
+			this.label12.TabIndex = 5;
 			this.label12.Tag = "lightfloor";
-			this.label12.Text = "Brightness:";
+			this.label12.Text = "&Brightness:";
 			this.label12.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// floorBrightness
@@ -964,7 +964,7 @@
 			this.floorBrightness.Name = "floorBrightness";
 			this.floorBrightness.Size = new System.Drawing.Size(62, 24);
 			this.floorBrightness.StepValues = null;
-			this.floorBrightness.TabIndex = 10;
+			this.floorBrightness.TabIndex = 6;
 			this.floorBrightness.Tag = "lightfloor";
 			this.floorBrightness.WhenTextChanged += new System.EventHandler(this.floorBrightness_WhenTextChanged);
 			// 
@@ -984,7 +984,7 @@
 			this.floorScale.Location = new System.Drawing.Point(110, 53);
 			this.floorScale.Name = "floorScale";
 			this.floorScale.Size = new System.Drawing.Size(186, 26);
-			this.floorScale.TabIndex = 3;
+			this.floorScale.TabIndex = 4;
 			this.floorScale.Tag = "xscalefloor";
 			this.floorScale.OnValuesChanged += new System.EventHandler(this.floorScale_OnValuesChanged);
 			// 
@@ -1004,7 +1004,7 @@
 			this.floorOffsets.Location = new System.Drawing.Point(110, 21);
 			this.floorOffsets.Name = "floorOffsets";
 			this.floorOffsets.Size = new System.Drawing.Size(186, 26);
-			this.floorOffsets.TabIndex = 1;
+			this.floorOffsets.TabIndex = 2;
 			this.floorOffsets.Tag = "xpanningfloor";
 			this.floorOffsets.OnValuesChanged += new System.EventHandler(this.floorOffsets_OnValuesChanged);
 			// 
@@ -1014,7 +1014,7 @@
 			this.floortex.MultipleTextures = false;
 			this.floortex.Name = "floortex";
 			this.floortex.Size = new System.Drawing.Size(176, 200);
-			this.floortex.TabIndex = 25;
+			this.floortex.TabIndex = 0;
 			this.floortex.TextureName = "";
 			this.floortex.OnValueChanged += new System.EventHandler(this.floortex_OnValueChanged);
 			// 
@@ -1040,7 +1040,7 @@
 			this.groupBox1.Size = new System.Drawing.Size(564, 235);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = " Ceiling ";
+			this.groupBox1.Text = " &Ceiling ";
 			// 
 			// resetceillight
 			// 
@@ -1048,7 +1048,7 @@
 			this.resetceillight.Location = new System.Drawing.Point(246, 138);
 			this.resetceillight.Name = "resetceillight";
 			this.resetceillight.Size = new System.Drawing.Size(23, 23);
-			this.resetceillight.TabIndex = 12;
+			this.resetceillight.TabIndex = 8;
 			this.resetceillight.Tag = "lightceiling";
 			this.tooltip.SetToolTip(this.resetceillight, "Reset");
 			this.resetceillight.UseVisualStyleBackColor = true;
@@ -1059,9 +1059,9 @@
 			this.labelCeilOffsets.Location = new System.Drawing.Point(8, 27);
 			this.labelCeilOffsets.Name = "labelCeilOffsets";
 			this.labelCeilOffsets.Size = new System.Drawing.Size(98, 14);
-			this.labelCeilOffsets.TabIndex = 0;
+			this.labelCeilOffsets.TabIndex = 1;
 			this.labelCeilOffsets.Tag = "xpanningceiling";
-			this.labelCeilOffsets.Text = "Texture offsets:";
+			this.labelCeilOffsets.Text = "Texture &offsets:";
 			this.labelCeilOffsets.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// labelCeilScale
@@ -1069,9 +1069,9 @@
 			this.labelCeilScale.Location = new System.Drawing.Point(8, 59);
 			this.labelCeilScale.Name = "labelCeilScale";
 			this.labelCeilScale.Size = new System.Drawing.Size(98, 14);
-			this.labelCeilScale.TabIndex = 2;
+			this.labelCeilScale.TabIndex = 3;
 			this.labelCeilScale.Tag = "xscaleceiling";
-			this.labelCeilScale.Text = "Texture scale:";
+			this.labelCeilScale.Text = "Texture &scale:";
 			this.labelCeilScale.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// cbUseCeilLineAngles
@@ -1080,21 +1080,21 @@
 			this.cbUseCeilLineAngles.Location = new System.Drawing.Point(181, 172);
 			this.cbUseCeilLineAngles.Name = "cbUseCeilLineAngles";
 			this.cbUseCeilLineAngles.Size = new System.Drawing.Size(113, 17);
-			this.cbUseCeilLineAngles.TabIndex = 16;
+			this.cbUseCeilLineAngles.TabIndex = 11;
 			this.cbUseCeilLineAngles.Tag = "rotationceiling";
-			this.cbUseCeilLineAngles.Text = "Use linedef angles";
+			this.cbUseCeilLineAngles.Text = "Use &linedef angles";
 			this.cbUseCeilLineAngles.UseVisualStyleBackColor = true;
 			this.cbUseCeilLineAngles.CheckedChanged += new System.EventHandler(this.cbUseCeilLineAngles_CheckedChanged);
 			// 
 			// ceilAngleControl
 			// 
-			this.ceilAngleControl.Angle = -3240;
+			this.ceilAngleControl.Angle = -3870;
 			this.ceilAngleControl.AngleOffset = 90;
 			this.ceilAngleControl.DoomAngleClamping = false;
 			this.ceilAngleControl.Location = new System.Drawing.Point(6, 156);
 			this.ceilAngleControl.Name = "ceilAngleControl";
 			this.ceilAngleControl.Size = new System.Drawing.Size(44, 44);
-			this.ceilAngleControl.TabIndex = 13;
+			this.ceilAngleControl.TabIndex = 8;
 			this.ceilAngleControl.Tag = "rotationceiling";
 			this.ceilAngleControl.AngleChanged += new System.EventHandler(this.ceilAngleControl_AngleChanged);
 			// 
@@ -1103,9 +1103,9 @@
 			this.label1.Location = new System.Drawing.Point(26, 172);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(80, 14);
-			this.label1.TabIndex = 14;
+			this.label1.TabIndex = 9;
 			this.label1.Tag = "rotationceiling";
-			this.label1.Text = "Rotation:";
+			this.label1.Text = "&Rotation:";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// ceilRotation
@@ -1124,7 +1124,7 @@
 			this.ceilRotation.Name = "ceilRotation";
 			this.ceilRotation.Size = new System.Drawing.Size(62, 24);
 			this.ceilRotation.StepValues = null;
-			this.ceilRotation.TabIndex = 15;
+			this.ceilRotation.TabIndex = 10;
 			this.ceilRotation.Tag = "rotationceiling";
 			this.ceilRotation.WhenTextChanged += new System.EventHandler(this.ceilRotation_WhenTextChanged);
 			// 
@@ -1134,9 +1134,9 @@
 			this.ceilLightAbsolute.Location = new System.Drawing.Point(181, 142);
 			this.ceilLightAbsolute.Name = "ceilLightAbsolute";
 			this.ceilLightAbsolute.Size = new System.Drawing.Size(67, 17);
-			this.ceilLightAbsolute.TabIndex = 11;
+			this.ceilLightAbsolute.TabIndex = 7;
 			this.ceilLightAbsolute.Tag = "lightceilingabsolute";
-			this.ceilLightAbsolute.Text = "Absolute";
+			this.ceilLightAbsolute.Text = "&Absolute";
 			this.ceilLightAbsolute.UseVisualStyleBackColor = true;
 			this.ceilLightAbsolute.CheckedChanged += new System.EventHandler(this.ceilLightAbsolute_CheckedChanged);
 			// 
@@ -1145,9 +1145,9 @@
 			this.labelLightFront.Location = new System.Drawing.Point(26, 142);
 			this.labelLightFront.Name = "labelLightFront";
 			this.labelLightFront.Size = new System.Drawing.Size(80, 14);
-			this.labelLightFront.TabIndex = 9;
+			this.labelLightFront.TabIndex = 5;
 			this.labelLightFront.Tag = "lightceiling";
-			this.labelLightFront.Text = "Brightness:";
+			this.labelLightFront.Text = "&Brightness:";
 			this.labelLightFront.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// ceilBrightness
@@ -1166,7 +1166,7 @@
 			this.ceilBrightness.Name = "ceilBrightness";
 			this.ceilBrightness.Size = new System.Drawing.Size(62, 24);
 			this.ceilBrightness.StepValues = null;
-			this.ceilBrightness.TabIndex = 10;
+			this.ceilBrightness.TabIndex = 6;
 			this.ceilBrightness.Tag = "lightceiling";
 			this.ceilBrightness.WhenTextChanged += new System.EventHandler(this.ceilBrightness_WhenTextChanged);
 			// 
@@ -1186,7 +1186,7 @@
 			this.ceilScale.Location = new System.Drawing.Point(110, 53);
 			this.ceilScale.Name = "ceilScale";
 			this.ceilScale.Size = new System.Drawing.Size(186, 26);
-			this.ceilScale.TabIndex = 3;
+			this.ceilScale.TabIndex = 4;
 			this.ceilScale.Tag = "xscaleceiling";
 			this.ceilScale.OnValuesChanged += new System.EventHandler(this.ceilScale_OnValuesChanged);
 			// 
@@ -1206,7 +1206,7 @@
 			this.ceilOffsets.Location = new System.Drawing.Point(110, 21);
 			this.ceilOffsets.Name = "ceilOffsets";
 			this.ceilOffsets.Size = new System.Drawing.Size(186, 26);
-			this.ceilOffsets.TabIndex = 1;
+			this.ceilOffsets.TabIndex = 2;
 			this.ceilOffsets.Tag = "xpanningceiling";
 			this.ceilOffsets.OnValuesChanged += new System.EventHandler(this.ceilOffsets_OnValuesChanged);
 			// 
@@ -1216,7 +1216,7 @@
 			this.ceilingtex.MultipleTextures = false;
 			this.ceilingtex.Name = "ceilingtex";
 			this.ceilingtex.Size = new System.Drawing.Size(176, 200);
-			this.ceilingtex.TabIndex = 25;
+			this.ceilingtex.TabIndex = 0;
 			this.ceilingtex.TextureName = "";
 			this.ceilingtex.OnValueChanged += new System.EventHandler(this.ceilingtex_OnValueChanged);
 			// 
@@ -1240,7 +1240,7 @@
 			this.gbFloorSlope.Size = new System.Drawing.Size(298, 266);
 			this.gbFloorSlope.TabIndex = 1;
 			this.gbFloorSlope.TabStop = false;
-			this.gbFloorSlope.Text = " Floor slope ";
+			this.gbFloorSlope.Text = " &Floor slope ";
 			// 
 			// floorslopecontrol
 			// 
@@ -1262,7 +1262,7 @@
 			this.gbCeilingSlope.Size = new System.Drawing.Size(298, 252);
 			this.gbCeilingSlope.TabIndex = 0;
 			this.gbCeilingSlope.TabStop = false;
-			this.gbCeilingSlope.Text = " Ceiling slope ";
+			this.gbCeilingSlope.Text = " &Ceiling slope ";
 			// 
 			// ceilingslopecontrol
 			// 

@@ -48,7 +48,7 @@
 			this.curtaglabel.Name = "curtaglabel";
 			this.curtaglabel.Size = new System.Drawing.Size(52, 13);
 			this.curtaglabel.TabIndex = 0;
-			this.curtaglabel.Text = "Tag 1:";
+			this.curtaglabel.Text = "&Tag 1:";
 			this.curtaglabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			this.tooltip.SetToolTip(this.curtaglabel, "Use \">=\" or \"<=\" prefixes to create\r\nascending or descending tags range.\r\nUse \"++" +
 					"\" or \"--\" prefixes to increment\r\nor decrement already existing tags \r\nby given v" +
@@ -141,6 +141,7 @@
 			this.tagslist.TabIndex = 5;
 			this.tagslist.TabStop = true;
 			this.tagslist.Text = "12 ,  ??? , [667]";
+			this.tooltip.SetToolTip(this.tagslist, "Hold Ctrl to remove tag.");
 			this.tagslist.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.tagslist_LinkClicked);
 			// 
 			// label1
