@@ -768,8 +768,13 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		// Start editing
 		protected override void OnEditBegin()
 		{
+			if(General.Map.Map.GetSelectedLinedefs(true).Count != 0)
+			{
+				editpressed = true;
+				editlines = General.Map.Map.GetSelectedLinedefs(true);
+			}
 			// Item highlighted?
-			if((highlighted != null) && !highlighted.IsDisposed)
+			else if((highlighted != null) && !highlighted.IsDisposed)
 			{
 				// Edit pressed in this mode
 				editpressed = true;

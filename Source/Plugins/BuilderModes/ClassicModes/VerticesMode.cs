@@ -273,8 +273,13 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			bool snaptogrid = General.Interface.ShiftState ^ General.Interface.SnapToGrid;
 			bool snaptonearest = General.Interface.CtrlState ^ General.Interface.AutoMerge;
 			
+			if(General.Map.Map.GetSelectedThings(true).Count != 0)
+			{
+				editpressed = true;
+				editvertices = new List<Vertex> { highlighted };
+			}
 			// Vertex highlighted?
-			if((highlighted != null) && !highlighted.IsDisposed)
+			else if ((highlighted != null) && !highlighted.IsDisposed)
 			{
 				// Edit pressed in this mode
 				editpressed = true;

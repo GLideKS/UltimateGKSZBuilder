@@ -488,8 +488,13 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		{
 			thinginserted = false;
 			
+			if(General.Map.Map.GetSelectedThings(true).Count != 0)
+			{
+				editpressed = true;
+				editthings = General.Map.Map.GetSelectedThings(true);
+			}
 			// Item highlighted?
-			if((highlighted != null) && !highlighted.IsDisposed)
+			else if((highlighted != null) && !highlighted.IsDisposed)
 			{
 				// Edit pressed in this mode
 				editpressed = true;
