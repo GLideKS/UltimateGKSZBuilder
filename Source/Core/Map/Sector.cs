@@ -708,7 +708,7 @@ namespace CodeImp.DoomBuilder.Map
 			foreach(Sidedef side in s.sidedefs)
 			{
 				// Carbon copy of EffectLineSlope class here...
-				if(side.Line.Action == 700 && ((side.Line.Args[0] == 1 && side == side.Line.Front) || side.Line.Args[0] == 2) && side.Other != null)
+				if(side.Line.Action == 700 && side.Line.Args[0] == (side.IsFront ? 1 : 2) && side.Other != null)
 				{
 					Linedef l = side.Line;
 					
@@ -789,7 +789,7 @@ namespace CodeImp.DoomBuilder.Map
 			foreach(Sidedef side in s.sidedefs) 
 			{
 				// Carbon copy of EffectLineSlope class here...
-				if(side.Line.Action == 700 && ((side.Line.Args[1] == 1 && side == side.Line.Front) || side.Line.Args[1] == 2) && side.Other != null) 
+				if(side.Line.Action == 700 && side.Line.Args[1] == (side.IsFront ? 1 : 2) && side.Other != null)
 				{
 					Linedef l = side.Line;
 
