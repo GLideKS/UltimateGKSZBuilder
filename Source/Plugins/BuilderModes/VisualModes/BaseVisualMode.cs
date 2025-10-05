@@ -2404,6 +2404,76 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			}
 		}
 
+		public void SetSelectedFloorBySector(Sector sector, bool selected)
+		{
+			if (selected)
+			{
+				var floor = ((BaseVisualSector)GetVisualSector(sector)).Floor;
+				floor.Selected = true;
+				AddSelectedObject(floor);
+
+				foreach (BaseVisualGeometrySector surface in GetVisualSurfacesByControlSector(sector, true, false, false))
+				{
+					surface.Selected = true;
+					AddSelectedObject(surface);
+				}
+			}
+			else
+			{
+				VisualFloor floor = null;
+				foreach (IVisualEventReceiver i in selectedobjects)
+					if (i is VisualFloor vf && ((VisualFloor)i).Level.sector == sector)
+						floor = vf;
+
+				if (floor != null)
+				{
+					floor.Selected = false;
+					RemoveSelectedObject(floor);
+
+					foreach (BaseVisualGeometrySector surface in GetVisualSurfacesByControlSector(sector, true, false, false))
+					{
+						surface.Selected = false;
+						RemoveSelectedObject(surface);
+					}
+				}
+			}
+		}
+
+		public void SetSelectedCeilingBySector(Sector sector, bool selected)
+		{
+			if (selected)
+			{
+				var ceiling = ((BaseVisualSector)GetVisualSector(sector)).Ceiling;
+				ceiling.Selected = true;
+				AddSelectedObject(ceiling);
+
+				foreach (BaseVisualGeometrySector surface in GetVisualSurfacesByControlSector(sector, false, true, false))
+				{
+					surface.Selected = true;
+					AddSelectedObject(surface);
+				}
+			}
+			else
+			{
+				VisualCeiling ceiling = null;
+				foreach (IVisualEventReceiver i in selectedobjects)
+					if (i is VisualCeiling vc && ((VisualCeiling)i).Level.sector == sector)
+						ceiling = vc;
+
+				if (ceiling != null)
+				{
+					ceiling.Selected = false;
+					RemoveSelectedObject(ceiling);
+
+					foreach (BaseVisualGeometrySector surface in GetVisualSurfacesByControlSector(sector, false, true, false))
+					{
+						surface.Selected = false;
+						RemoveSelectedObject(surface);
+					}
+				}
+			}
+		}
+
 		// This returns all selected linedefs, no doubles
 		public List<Linedef> GetSelectedLinedefs()
 		{
