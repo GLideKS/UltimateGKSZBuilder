@@ -2455,6 +2455,47 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			}
 		}
 
+		public void SetSelectedUpperBySidedef(Sidedef sidedef, bool selected)
+		{
+		}
+
+		public void SetSelectedMiddleBySidedef(Sidedef sidedef, bool selected)
+		{
+			if (selected)
+			{
+				var vs = (BaseVisualSector)GetVisualSector(sidedef.Sector);
+				VisualSidedefParts parts = vs.GetSidedefParts(sidedef);
+
+				if (parts.middlesingle != null)
+				{
+					parts.middlesingle.Selected = true;
+					AddSelectedObject(parts.middlesingle);
+				}
+				else
+				{
+					parts.middledouble.Selected = true;
+					AddSelectedObject(parts.middledouble);
+				}
+			}
+			else
+			{
+				BaseVisualGeometrySidedef middle = null;
+				foreach (IVisualEventReceiver i in selectedobjects)
+					if ((i is VisualMiddleSingle || i is VisualMiddleDouble || i is VisualMiddle3D || i is VisualMiddleBack) && ((BaseVisualGeometrySidedef)i).Sidedef == sidedef)
+						middle = (BaseVisualGeometrySidedef)i;
+
+				if (middle != null)
+				{
+					middle.Selected = false;
+					RemoveSelectedObject(middle);
+				}
+			}
+		}
+
+		public void SetSelectedLowerBySidedef(Sidedef sidedef, bool selected)
+		{
+		}
+
 		// This returns all selected sidedefs, no doubles
 		public List<Sidedef> GetSelectedSidedefs()
 		{
