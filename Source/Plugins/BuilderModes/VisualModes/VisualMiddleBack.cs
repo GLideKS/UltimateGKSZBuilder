@@ -99,9 +99,9 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				setuponloadedtexture = 0;
 			}
 
-			// Get texture scaled size. Round up, because that's apparently what GZDoom does
-			Vector2D tsz = new Vector2D(Math.Ceiling(base.Texture.ScaledWidth / tscale.x), Math.Ceiling(base.Texture.ScaledHeight / tscale.y));
-
+			// Get texture scaled size
+			Vector2D tsz = new Vector2D(base.Texture.ScaledWidth / tscale.x, base.Texture.ScaledHeight / tscale.y);
+			
 			// Get texture offsets
 			//Vector2D tof = new Vector2D(Sidedef.OffsetX, Sidedef.OffsetY) + new Vector2D(sourceside.OffsetX, sourceside.OffsetY);
 			Vector2D tof = new Vector2D(Sidedef.OffsetX, 0.0f) + new Vector2D(0.0f, sourceside.OffsetY);
