@@ -24,7 +24,6 @@
 #region ================== Namespaces
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CodeImp.DoomBuilder.BuilderModes;
@@ -123,56 +122,6 @@ namespace CodeImp.DoomBuilder.UDBScript.Wrapper
 			get
 			{
 				return visualcamera;
-			}
-		}
-
-		// Big hack!
-		internal object WrapObject(object o)
-		{
-			if (o is Dictionary<string, object> dict)
-			{
-				var tmpDict = new Dictionary<string, object>(dict);
-				foreach (KeyValuePair<string, object> kv in tmpDict)
-					dict[kv.Key] = WrapObject(kv.Value);
-			}
-			else if (o is IList list)
-				foreach (object element in list)
-					WrapObject(element);
-			else if (o is Sector sector)
-				o = new SectorWrapper(sector);
-			else if (o is Linedef linedef)
-				o = new LinedefWrapper(linedef);
-			else if (o is Sidedef sidedef)
-				o = new SidedefWrapper(sidedef);
-			else if (o is Vertex vertex)
-				o = new VertexWrapper(vertex);
-			else if (o is Thing thing)
-				o = new ThingWrapper(thing);
-
-			return o;
-		}
-
-		public Dictionary<string, object>[] srb2_visualSelection
-		{
-			get
-			{
-				var bvs = General.Editing.Mode as BaseVisualMode;
-				if (bvs != null)
-					return (WrapObject(bvs.GetSelectedObjectsAsDictionary()) as List<Dictionary<string, object>>).ToArray();
-				else
-					return null;
-			}
-		}
-
-		public object srb2_visualHighlightedElement
-		{
-			get
-			{
-				var bvs = General.Editing.Mode as BaseVisualMode;
-				if (bvs != null)
-					return (WrapObject(bvs.GetHighlightedObjectAsDictionary()) as Dictionary<string, object>);
-				else
-					return null;
 			}
 		}
 
