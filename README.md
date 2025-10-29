@@ -22,7 +22,7 @@ __Note:__ this is experimental. None of the main developers are using Linux as a
     - If you're using X11 display manager you may need to install these packages: `libx11 libxfixes`
     - If you are not using the proprietary nvidia driver you may need to install `mesa`
 - Go to a directory of your choice and clone the repository (it'll automatically create an `UltimateGKSZBuilder` directory in the current directory): `git clone https://github.com/GLideKS/UltimateGKSZBuilder.git`
-- Compile UZB: `cd UltimateDoomBuilder && make`
+- Compile UZB: `cd UltimateGKSZBuilder && make`
 - Run UZB: `cd Build && ./builder`
 - Alternatively, to compile UZB in debug mode:
   - Run `make BUILDTYPE=Debug` in the root project directory
@@ -37,3 +37,9 @@ Ultimate Zone Builder:
 - [Original SRB2MB thread](https://mb.srb2.org/addons/ultimate-zone-builder.6126/)
 
 More detailed info can be found in the **editor documentation** (Refmanual.chm)
+
+## Credits:
+- BlueStaggo (Minor fixes)
+- NepDisk (Minor fixes)
+- Sphere and LJ Sonik (Ultimate Zone Builder)
+- Ultimate Doom Builder
