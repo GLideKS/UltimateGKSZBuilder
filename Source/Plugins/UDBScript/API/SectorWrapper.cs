@@ -204,7 +204,7 @@ namespace CodeImp.DoomBuilder.UDBScript.Wrapper
 		}
 
 		/// <summary>
-		/// If the `Sector`'s floor is selected or not. Will always return `true` in classic modes if the `Sector` is selected. Read-only.
+		/// If the `Sector`'s floor is selected or not. Will always return `true` in classic modes if the `Sector` is selected.
 		/// </summary>
 		/// <version>3</version>
 		public bool floorSelected
@@ -225,6 +225,29 @@ namespace CodeImp.DoomBuilder.UDBScript.Wrapper
 				else
 				{
 					return sector.Selected;
+				}
+			}
+			set
+			{
+				if (sector.IsDisposed)
+					throw BuilderPlug.Me.ScriptRunner.CreateRuntimeException("Sector is disposed, the floorSelected property can not be accessed.");
+
+				if (General.Editing.Mode is BaseVisualMode)
+				{
+					((BaseVisualMode)General.Editing.Mode).SetSelectedFloorBySector(sector, value);
+				}
+				else
+				{
+					sector.Selected = value;
+
+					// Make update lines selection
+					foreach (Sidedef sd in sector.Sidedefs)
+					{
+						bool front, back;
+						if (sd.Line.Front != null) front = sd.Line.Front.Sector.Selected; else front = false;
+						if (sd.Line.Back != null) back = sd.Line.Back.Sector.Selected; else back = false;
+						sd.Line.Selected = front | back;
+					}
 				}
 			}
 		}
