@@ -69,7 +69,6 @@ namespace CodeImp.DoomBuilder.Config
 		private string screenshotspath; //mxd
 		private int autoscrollspeed;
 		private int zoomfactor;
-		private int thingscale;
 		private bool showerrorswindow;
 		private bool animatevisualselection;
 		private int previousversion;
@@ -202,7 +201,6 @@ namespace CodeImp.DoomBuilder.Config
 		public bool InvertYAxis { get { return invertyaxis; } internal set { invertyaxis = value; } }
 		public int AutoScrollSpeed { get { return autoscrollspeed; } internal set { autoscrollspeed = value; } }
 		public int ZoomFactor { get { return zoomfactor; } internal set { zoomfactor = value; } }
-		public int ThingScale { get { return thingscale; } internal set { thingscale = value; } }
 		public bool ShowErrorsWindow { get { return showerrorswindow; } internal set { showerrorswindow = value; } }
 		public bool AnimateVisualSelection { get { return animatevisualselection; } internal set { animatevisualselection = value; } }
 		internal string ScreenshotsPath { get { return screenshotspath; } set { screenshotspath = value; } } //mxd
@@ -373,7 +371,6 @@ namespace CodeImp.DoomBuilder.Config
 				screenshotspath = cfg.ReadSetting("screenshotspath", General.DefaultScreenshotsPath); //mxd
 				autoscrollspeed = cfg.ReadSetting("autoscrollspeed", 0);
 				zoomfactor = cfg.ReadSetting("zoomfactor", 3);
-				thingscale = cfg.ReadSetting("thingscale", 0);
 				showerrorswindow = cfg.ReadSetting("showerrorswindow", true);
 				animatevisualselection = cfg.ReadSetting("animatevisualselection", true);
 				previousversion = cfg.ReadSetting("currentversion", 0);
@@ -532,7 +529,6 @@ namespace CodeImp.DoomBuilder.Config
 			cfg.WriteSetting("screenshotspath", screenshotspath); //mxd
 			cfg.WriteSetting("autoscrollspeed", autoscrollspeed);
 			cfg.WriteSetting("zoomfactor", zoomfactor);
-			cfg.WriteSetting("thingscale", thingscale);
 			cfg.WriteSetting("showerrorswindow", showerrorswindow);
 			cfg.WriteSetting("animatevisualselection", animatevisualselection);
 			cfg.WriteSetting("currentversion", v.Major * 1000000 + v.Revision);
