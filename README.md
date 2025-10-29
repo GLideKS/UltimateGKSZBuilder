@@ -40,6 +40,6 @@ More detailed info can be found in the **editor documentation** (Refmanual.chm)
 
 ## Credits:
 - BlueStaggo (Minor fixes)
-- NepDisk (Minor fixes)
+- NepDisk (Minor fixes, some [Ultimate Lowee Builder](https://codeberg.org/NepDisk/UltimateLoweeBuilder) changes)
 - Sphere and LJ Sonik (Ultimate Zone Builder)
 - Ultimate Doom Builder
