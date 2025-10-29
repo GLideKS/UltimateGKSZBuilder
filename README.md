@@ -1,4 +1,4 @@
-# Ultimate Doom Builder
+# Ultimate GKSZ Builder
 
 ## System requirements
 - 2.4 GHz CPU or faster (multi-core recommended)
@@ -21,19 +21,19 @@ __Note:__ this is experimental. None of the main developers are using Linux as a
   - **Arch:** `sudo pacman -S base-devel`
     - If you're using X11 display manager you may need to install these packages: `libx11 libxfixes`
     - If you are not using the proprietary nvidia driver you may need to install `mesa`
-- Go to a directory of your choice and clone the repository (it'll automatically create an `UltimateZoneBuilder` directory in the current directory): `git clone https://github.com/UltimateDoomBuilder/UltimateDoomBuilder.git`
-- Compile UDB: `cd UltimateDoomBuilder && make`
-- Run UDB: `cd Build && ./builder`
-- Alternatively, to compile UDB in debug mode:
+- Go to a directory of your choice and clone the repository (it'll automatically create an `UltimateGKSZBuilder` directory in the current directory): `git clone https://github.com/GLideKS/UltimateGKSZBuilder.git`
+- Compile UZB: `cd UltimateDoomBuilder && make`
+- Run UZB: `cd Build && ./builder`
+- Alternatively, to compile UZB in debug mode:
   - Run `make BUILDTYPE=Debug` in the root project directory
   - This includes a debug output terminal in the bottom panel
 
-**Links:**
-- [SRB2MB thread](https://mb.srb2.org/addons/ultimate-zone-builder.6126/)
-
 Ultimate Doom Builder:
 - [UDB repository](https://github.com/UltimateDoomBuilder/UltimateDoomBuilder)
-- [Original forum.zdoom.org thread](https://forum.zdoom.org/viewtopic.php?f=232&t=66745) 
+- [Original forum.zdoom.org thread](https://forum.zdoom.org/viewtopic.php?f=232&t=66745)
+
+Ultimate Zone Builder:
+- [UZB Repository](https://git.do.srb2.org/STJr/UltimateZoneBuilder)
+- [Original SRB2MB thread](https://mb.srb2.org/addons/ultimate-zone-builder.6126/)
 
 More detailed info can be found in the **editor documentation** (Refmanual.chm)
-
