@@ -679,7 +679,7 @@ namespace CodeImp.DoomBuilder
 			// Remove the previous log file and start logging
 			if(File.Exists(logfile)) File.Delete(logfile);
             string platform = Environment.Is64BitProcess ? "x64" : "x86";
-			General.WriteLogLine("Ultimate Zone Builder v" + thisasm.GetName().Version + " (" + platform + ", " + commithash + ") startup"); //mxd
+			General.WriteLogLine("Ultimate GKSZ Builder v" + thisasm.GetName().Version + " (" + platform + ", " + commithash + ") startup"); //mxd
 			General.WriteLogLine("Application path:        \"" + apppath + "\"");
 			General.WriteLogLine("Temporary path:          \"" + temppath + "\"");
 			General.WriteLogLine("Local settings path:     \"" + settingspath + "\"");

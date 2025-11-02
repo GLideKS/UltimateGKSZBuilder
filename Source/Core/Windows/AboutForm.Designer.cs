@@ -148,7 +148,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
 			this.tabPage2.Size = new System.Drawing.Size(568, 254);
 			this.tabPage2.TabIndex = 3;
-			this.tabPage2.Text = "About Ultimate Zone Builder";
+			this.tabPage2.Text = "About Ultimate GKSZ Builder";
 			// 
 			// linkLabel1
 			// 
@@ -205,7 +205,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.version.Name = "version";
 			this.version.Size = new System.Drawing.Size(207, 13);
 			this.version.TabIndex = 11;
-			this.version.Text = "Ultimate Zone Builder some version";
+			this.version.Text = "Ultimate GKSZ Builder some version";
 			// 
 			// copyversion
 			// 

@@ -6,10 +6,10 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Builder Modes")]
-[assembly: AssemblyDescription("Ultimate Zone Builder Editing Modes")]
+[assembly: AssemblyDescription("Ultimate GKSZ Builder Editing Modes")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("CodeImp, MaxED, ZZYZX, boris, dpJudas and others")]
-[assembly: AssemblyProduct("Ultimate Zone Builder")]
+[assembly: AssemblyProduct("Ultimate GKSZ Builder")]
 [assembly: AssemblyCopyright("Copyright © 2007, 2016, 2017-2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

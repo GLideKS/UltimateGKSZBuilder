@@ -261,14 +261,14 @@
 			this.tooltip.SetToolTip(this.resetdamagetype, "Reset");
 			this.resetdamagetype.UseVisualStyleBackColor = true;
 			this.resetdamagetype.Click += new System.EventHandler(this.resetdamagetype_Click);
-			// 
+			//
 			// damagetype
-			// 
+			//
 			this.damagetype.FormattingEnabled = true;
 			this.damagetype.Location = new System.Drawing.Point(89, 49);
 			this.damagetype.Name = "damagetype";
 			this.damagetype.Size = new System.Drawing.Size(167, 21);
-			this.damagetype.TabIndex = 5;
+			this.damagetype.TabIndex = 1;
 			this.damagetype.TextChanged += new System.EventHandler(this.damagetype_TextChanged);
 			this.damagetype.MouseDown += new System.Windows.Forms.MouseEventHandler(this.damagetype_MouseDown);
 			// 
@@ -621,9 +621,9 @@
 			this.groupBox8.TabIndex = 18;
 			this.groupBox8.TabStop = false;
 			this.groupBox8.Text = " Color&map";
-			// 
+			//
 			// fadeEnd
-			// 
+			//
 			this.fadeEnd.AllowDecimal = false;
 			this.fadeEnd.AllowExpressions = false;
 			this.fadeEnd.AllowNegative = false;
@@ -638,11 +638,11 @@
 			this.fadeEnd.Name = "fadeEnd";
 			this.fadeEnd.Size = new System.Drawing.Size(81, 24);
 			this.fadeEnd.StepValues = null;
-			this.fadeEnd.TabIndex = 9;
+			this.fadeEnd.TabIndex = 25;
 			this.fadeEnd.WhenTextChanged += new System.EventHandler(this.fadeEnd_WhenTextChanged);
-			// 
+			//
 			// fadeStart
-			// 
+			//
 			this.fadeStart.AllowDecimal = false;
 			this.fadeStart.AllowExpressions = false;
 			this.fadeStart.AllowNegative = false;
@@ -657,11 +657,11 @@
 			this.fadeStart.Name = "fadeStart";
 			this.fadeStart.Size = new System.Drawing.Size(81, 24);
 			this.fadeStart.StepValues = null;
-			this.fadeStart.TabIndex = 7;
+			this.fadeStart.TabIndex = 23;
 			this.fadeStart.WhenTextChanged += new System.EventHandler(this.fadeStart_WhenTextChanged);
-			// 
+			//
 			// fadeAlpha
-			// 
+			//
 			this.fadeAlpha.AllowDecimal = false;
 			this.fadeAlpha.AllowExpressions = false;
 			this.fadeAlpha.AllowNegative = false;
@@ -676,11 +676,11 @@
 			this.fadeAlpha.Name = "fadeAlpha";
 			this.fadeAlpha.Size = new System.Drawing.Size(81, 24);
 			this.fadeAlpha.StepValues = null;
-			this.fadeAlpha.TabIndex = 5;
+			this.fadeAlpha.TabIndex = 21;
 			this.fadeAlpha.WhenTextChanged += new System.EventHandler(this.fadeAlpha_WhenTextChanged);
-			// 
+            //
 			// lightAlpha
-			// 
+			//
 			this.lightAlpha.AllowDecimal = false;
 			this.lightAlpha.AllowExpressions = false;
 			this.lightAlpha.AllowNegative = false;
@@ -695,30 +695,30 @@
 			this.lightAlpha.Name = "lightAlpha";
 			this.lightAlpha.Size = new System.Drawing.Size(81, 24);
 			this.lightAlpha.StepValues = null;
-			this.lightAlpha.TabIndex = 3;
+			this.lightAlpha.TabIndex = 19;
 			this.lightAlpha.WhenTextChanged += new System.EventHandler(this.lightAlpha_WhenTextChanged);
-			// 
+			//
 			// lightColor
-			// 
+			//
 			this.lightColor.DefaultValue = 16777215;
 			this.lightColor.Field = "lightcolor";
 			this.lightColor.Label = "Light:";
 			this.lightColor.Location = new System.Drawing.Point(6, 19);
 			this.lightColor.Name = "lightColor";
 			this.lightColor.Size = new System.Drawing.Size(207, 29);
-			this.lightColor.TabIndex = 0;
+			this.lightColor.TabIndex = 16;
 			this.lightColor.Tag = "lightcolor";
 			this.lightColor.OnValueChanged += new System.EventHandler(this.lightColor_OnValueChanged);
-			// 
+            //
 			// fadeColor
-			// 
+			//
 			this.fadeColor.DefaultValue = 0;
 			this.fadeColor.Field = "fadecolor";
 			this.fadeColor.Label = "Fade:";
 			this.fadeColor.Location = new System.Drawing.Point(6, 47);
 			this.fadeColor.Name = "fadeColor";
 			this.fadeColor.Size = new System.Drawing.Size(207, 31);
-			this.fadeColor.TabIndex = 1;
+			this.fadeColor.TabIndex = 17;
 			this.fadeColor.Tag = "fadecolor";
 			this.fadeColor.OnValueChanged += new System.EventHandler(this.fadeColor_OnValueChanged);
 			// 

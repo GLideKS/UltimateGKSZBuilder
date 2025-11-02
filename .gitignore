@@ -40,3 +40,4 @@ bin
 /Build.Native
 /builder
 *.csproj.dtbcache.json
+mono_crash*
