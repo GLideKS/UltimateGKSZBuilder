@@ -56,7 +56,7 @@ clean:
 	-rm --force --recursive $(BUILD_DIR)/Source $(BUILD_DIR)/$(TARGET_EXEC) $(BUILD_DIR)/builder $(BUILD_DIR)/Builder.exe Build/libBuilderNative.so
 
 run:
-	cd Build && mono --aot=full -O=all Builder.exe && mono --server --gc=sgen Builder.exe
+	cd Build && mono Builder.exe
 
 linux: builder native
 
@@ -65,7 +65,7 @@ mac: builder nativemac
 builder: $(BUILD_DIR)/Builder.exe Build/builder
 
 $(BUILD_DIR)/Builder.exe: BuilderMono.sln Build/builder
-	msbuild /nologo /verbosity:minimal -p:Configuration=$(BUILDTYPE) -p:Optimize=true -m -p:Platform=x86 BuilderMono.sln
+	msbuild /nologo /verbosity:minimal -p:Configuration=$(BUILDTYPE) -p:Optimize=true -m -p:Platform=x64 BuilderMono.sln
 
 Build/builder:
 	cp builder.sh Build/builder
