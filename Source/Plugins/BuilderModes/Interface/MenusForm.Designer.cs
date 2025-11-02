@@ -120,6 +120,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
             this.viewmenuitem = new System.Windows.Forms.ToolStripMenuItem();
             this.itemlightradii = new System.Windows.Forms.ToolStripMenuItem();
             this.itemsoundradii = new System.Windows.Forms.ToolStripMenuItem();
+            this.triangulatesectorsitem = new System.Windows.Forms.ToolStripMenuItem();
             this.levelToIdStudioMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menustrip.SuspendLayout();
             this.manualstrip.SuspendLayout();
@@ -348,6 +349,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
             this.toolStripSeparator1,
             this.joinsectorsitem,
             this.mergesectorsitem,
+            this.triangulatesectorsitem,
             this.toolStripMenuItem2,
             this.flipsectorlinedefsitem,
             this.alignsectorlinedefsitem,
@@ -426,6 +428,15 @@ namespace CodeImp.DoomBuilder.BuilderModes
             this.alignsectorlinedefsitem.Tag = "alignlinedefs";
             this.alignsectorlinedefsitem.Text = "Align &Linedefs";
             this.alignsectorlinedefsitem.Click += new System.EventHandler(this.InvokeTaggedAction);
+            //
+            // triangulatesectorsitem
+            //
+            this.triangulatesectorsitem.Name = "triangulatesectorsitem";
+            this.triangulatesectorsitem.Size = new System.Drawing.Size(225, 22);
+            this.triangulatesectorsitem.Tag = "triangulatesectors";
+            this.triangulatesectorsitem.Text = "&Triangulate Sectors";
+            this.triangulatesectorsitem.Click += new System.EventHandler(this.InvokeTaggedAction);
+
             // 
             // toolStripSeparator8
             // 
@@ -1116,6 +1127,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		private System.Windows.Forms.ToolStripMenuItem itemsoundradii;
 		private System.Windows.Forms.ToolStripButton buttonTextureOffset3DFloorLock;
 		private System.Windows.Forms.ToolStripMenuItem selectionToImageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem triangulatesectorsitem;
 		private System.Windows.Forms.ToolStripMenuItem changeLindefIndexToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem changeThingIndexToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem changeSectorIndexToolStripMenuItem;
