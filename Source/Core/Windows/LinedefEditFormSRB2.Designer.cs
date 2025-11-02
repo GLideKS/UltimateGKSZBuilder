@@ -135,7 +135,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.labelBackOffsetMid = new System.Windows.Forms.Label();
 			this.labelBackOffsetMid.AutoSize = true;
 			this.labelBackOffsetTop = new System.Windows.Forms.Label();
-			this.labelBackOffsetTop.AutoSize = true
+			this.labelBackOffsetTop.AutoSize = true;
 			this.pfcBackOffsetTop = new CodeImp.DoomBuilder.Controls.PairedFieldsControl();
 			this.pfcBackOffsetMid = new CodeImp.DoomBuilder.Controls.PairedFieldsControl();
 			this.pfcBackOffsetBottom = new CodeImp.DoomBuilder.Controls.PairedFieldsControl();
