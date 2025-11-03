@@ -28,7 +28,6 @@
     <OutputPath>..\..\..\Build\Plugins\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
@@ -68,6 +67,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Memory">
+      <HintPath>..\..\..\Build\System.Memory.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Numerics" />
@@ -196,7 +196,7 @@
     <EmbeddedResource Include="Resources\Script.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BuilderModes\BuilderModes.csproj">
+    <ProjectReference Include="..\BuilderModes\BuilderModesMono.csproj">
       <Project>{B42D5AA0-F9A6-4234-9C4B-A05B11A64851}</Project>
       <Name>BuilderModes</Name>
     </ProjectReference>
@@ -206,8 +206,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy $(ProjectDir)Jint.dll $(TargetDir)Dependencies\ /y
-xcopy $(ProjectDir)Esprima.dll $(TargetDir)Dependencies\ /y</PostBuildEvent>
+    <PostBuildEvent>cp $(ProjectDir)Jint.dll $(TargetDir)Dependencies\
+cp $(ProjectDir)Esprima.dll $(TargetDir)Dependencies\</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1049,9 +1049,6 @@ namespace CodeImp.DoomBuilder.UDBScript.Wrapper
 		public void clearAllSelected()
 		{
 			General.Map.Map.ClearAllSelected();
-
-			if (General.Editing.Mode is BaseVisualMode)
-				((BaseVisualMode)General.Editing.Mode).ClearSelection();
 		}
 
 		/// <summary>
