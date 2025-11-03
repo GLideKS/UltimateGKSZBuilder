@@ -41,4 +41,3 @@ bin
 /builder
 *.csproj.dtbcache.json
 mono_crash*
-Build/Builder.exe.so
