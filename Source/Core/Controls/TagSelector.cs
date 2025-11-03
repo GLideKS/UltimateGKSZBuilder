@@ -112,7 +112,7 @@ namespace CodeImp.DoomBuilder.Controls
 			}
 
 			foreach(TagInfo info in infos) cbTagPicker.Items.Add(info);
-			cbTagPicker.DropDownWidth = DoomBuilder.Geometry.Tools.GetDropDownWidth(cbTagPicker);
+			cbTagPicker.DropDownWidth = DoomBuilder.Geometry.Tools.GetDropDownWidth(cbTagPicker)+30;
 		}
 
 		public void SetTag(int newTag) 
