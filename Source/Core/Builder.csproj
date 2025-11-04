@@ -11,7 +11,7 @@
     <RootNamespace>CodeImp.DoomBuilder</RootNamespace>
     <AssemblyName>Builder</AssemblyName>
     <StartupObject>CodeImp.DoomBuilder.General</StartupObject>
-    <ApplicationIcon>Resources\UZB.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\GKSZ.ico</ApplicationIcon>
     <Win32Resource>
     </Win32Resource>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
@@ -923,6 +923,7 @@
     <None Include="Resources\ZoomTube.png" />
     <None Include="Resources\UZB16.png" />
     <None Include="Resources\UZB_Splash.png" />
+    <None Include="Resources\GKSZ.ico" />
     <None Include="Resources\UZB.ico" />
     <None Include="Resources\Updater.ico" />
     <None Include="Resources\UDB2.ico" />
