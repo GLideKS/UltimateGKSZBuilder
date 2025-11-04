@@ -17,13 +17,13 @@ Includes also a few changes from:
 ### Required software on Windows
 - [Microsoft .Net Framework 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework/net472)
 
-## Building on Linux
 
-**Building through srb2bld**
 
-For an easier compiling process, Ultimate Zone Builder is also available to build on [Bijman's srb2bld](https://mb.srb2.org/threads/srb2bld-srb2-build-package-manager-cli.34623/), a build/package manager through cli. Please follow the instructions there instead. *Ultimate GKSZ Builder is not available for srb2bld yet.*
+## Building through srb2bld (Windows/Linux)
 
-**Manual Building**
+For an easier compiling process, Ultimate Zone Builder is also available to build on [Bijman's srb2bld](https://mb.srb2.org/threads/srb2bld-srb2-build-package-manager-cli.34623/), a build/package manager through cli. **Please follow the instructions there instead**. *Ultimate GKSZ Builder is not available for srb2bld yet.*
+
+## Building Manually (Linux)
 
 These instructions are for Debian-based distros and were tested with Ubuntu 24.04 LTS and Arch.
 
