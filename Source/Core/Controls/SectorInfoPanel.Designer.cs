@@ -110,9 +110,13 @@ namespace CodeImp.DoomBuilder.Controls
 			this.flags = new CodeImp.DoomBuilder.Controls.TransparentListView();
 			this.triggerPanel = new System.Windows.Forms.GroupBox();
 			this.triggertag = new System.Windows.Forms.Label();
+			this.triggertag.AutoSize = true;
 			this.triggertaglabel = new System.Windows.Forms.Label();
+			this.triggertaglabel.AutoSize = true;
 			this.triggerer = new System.Windows.Forms.Label();
+			this.triggerer.AutoSize = true;
 			this.triggererlabel = new System.Windows.Forms.Label();
+			this.triggererlabel.AutoSize = true;
 			label13 = new System.Windows.Forms.Label();
 			label5 = new System.Windows.Forms.Label();
 			this.sectorinfo.SuspendLayout();

@@ -11,7 +11,7 @@ using CodeImp.DoomBuilder;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Sonic Team Junior")]
 [assembly: AssemblyProduct("Ultimate GKSZ Builder")]
-[assembly: AssemblyCopyright("Copyright © 2023")]
+[assembly: AssemblyCopyright("Copyright © 2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -30,6 +30,6 @@ using CodeImp.DoomBuilder;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("0.9.0.4173")]
-[assembly: AssemblyInformationalVersion("0.9")]
+[assembly: AssemblyVersion("0.9.1.4173")]
+[assembly: AssemblyInformationalVersion("0.9.1")]
 [assembly: NeutralResourcesLanguageAttribute("en")]
