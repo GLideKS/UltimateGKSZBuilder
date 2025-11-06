@@ -262,7 +262,7 @@ namespace CodeImp.DoomBuilder.UDBScript.Wrapper
 		}
 
 		/// <summary>
-		/// If the `Sector`'s ceiling is selected or not. Will always return `true` in classic modes if the `Sector` is selected. Read-only.
+		/// If the `Sector`'s ceiling is selected or not. Will always return `true` in classic modes if the `Sector` is selected.
 		/// </summary>
 		/// <version>3</version>
 		public bool ceilingSelected
@@ -283,6 +283,29 @@ namespace CodeImp.DoomBuilder.UDBScript.Wrapper
 				else
 				{
 					return sector.Selected;
+				}
+			}
+			set
+			{
+				if (sector.IsDisposed)
+					throw BuilderPlug.Me.ScriptRunner.CreateRuntimeException("Sector is disposed, the ceilingSelected property can not be accessed.");
+
+				if (General.Editing.Mode is BaseVisualMode)
+				{
+					((BaseVisualMode)General.Editing.Mode).SetSelectedCeilingBySector(sector, value);
+				}
+				else
+				{
+					sector.Selected = value;
+
+					// Make update lines selection
+					foreach (Sidedef sd in sector.Sidedefs)
+					{
+						bool front, back;
+						if (sd.Line.Front != null) front = sd.Line.Front.Sector.Selected; else front = false;
+						if (sd.Line.Back != null) back = sd.Line.Back.Sector.Selected; else back = false;
+						sd.Line.Selected = front | back;
+					}
 				}
 			}
 		}
@@ -700,6 +723,19 @@ namespace CodeImp.DoomBuilder.UDBScript.Wrapper
 		}
 
 		/// <summary>
+		/// Gets the floor's plane, accounting for flat planes, UDMF slopes and line slopes.
+		/// </summary>
+		/// <returns>The floor's plane as a `Plane`</returns>
+		public PlaneWrapper getFloorPlane()
+		{
+			if (sector.IsDisposed)
+				throw BuilderPlug.Me.ScriptRunner.CreateRuntimeException("Sector is disposed, the getFloorPlane method can not be accessed.");
+			Plane plane = Sector.GetFloorPlane(sector);
+
+			return new PlaneWrapper(new Vector3D(plane.a, plane.b, plane.c), plane.d);
+		}
+
+		/// <summary>
 		/// Sets the floor's slope vector. The vector has to be normalized.
 		/// </summary>
 		/// <param name="normal">The new slope vector as `Vector3D`</param>
@@ -728,6 +764,19 @@ namespace CodeImp.DoomBuilder.UDBScript.Wrapper
 				throw BuilderPlug.Me.ScriptRunner.CreateRuntimeException("Sector is disposed, the getCeilingSlope method can not be accessed.");
 
 			return new Vector3DWrapper(sector.CeilSlope.GetNormal());
+		}
+
+		/// <summary>
+		/// Gets the ceiling's plane, accounting for flat planes, UDMF slopes and line slopes.
+		/// </summary>
+		/// <returns>The ceiling's plane as a `Plane`</returns>
+		public PlaneWrapper getCeilingPlane()
+		{
+			if (sector.IsDisposed)
+				throw BuilderPlug.Me.ScriptRunner.CreateRuntimeException("Sector is disposed, the getCeilingPlane method can not be accessed.");
+			Plane plane = Sector.GetCeilingPlane(sector);
+
+			return new PlaneWrapper(new Vector3D(plane.a, plane.b, plane.c), plane.d);
 		}
 
 		/// <summary>

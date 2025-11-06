@@ -206,8 +206,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy $(ProjectDir)Jint.dll $(TargetDir)Dependencies\ /y
-xcopy $(ProjectDir)Esprima.dll $(TargetDir)Dependencies\ /y</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(ProjectDir)Jint.dll" "$(TargetDir)Dependencies\" /y
+xcopy "$(ProjectDir)Esprima.dll" "$(TargetDir)Dependencies\" /y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
