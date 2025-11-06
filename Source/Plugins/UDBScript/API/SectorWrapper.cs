@@ -262,7 +262,7 @@ namespace CodeImp.DoomBuilder.UDBScript.Wrapper
 		}
 
 		/// <summary>
-		/// If the `Sector`'s ceiling is selected or not. Will always return `true` in classic modes if the `Sector` is selected.
+		/// If the `Sector`'s ceiling is selected or not. Will always return `true` in classic modes if the `Sector` is selected. Read-only.
 		/// </summary>
 		/// <version>3</version>
 		public bool ceilingSelected
@@ -283,29 +283,6 @@ namespace CodeImp.DoomBuilder.UDBScript.Wrapper
 				else
 				{
 					return sector.Selected;
-				}
-			}
-			set
-			{
-				if (sector.IsDisposed)
-					throw BuilderPlug.Me.ScriptRunner.CreateRuntimeException("Sector is disposed, the ceilingSelected property can not be accessed.");
-
-				if (General.Editing.Mode is BaseVisualMode)
-				{
-					((BaseVisualMode)General.Editing.Mode).SetSelectedCeilingBySector(sector, value);
-				}
-				else
-				{
-					sector.Selected = value;
-
-					// Make update lines selection
-					foreach (Sidedef sd in sector.Sidedefs)
-					{
-						bool front, back;
-						if (sd.Line.Front != null) front = sd.Line.Front.Sector.Selected; else front = false;
-						if (sd.Line.Back != null) back = sd.Line.Back.Sector.Selected; else back = false;
-						sd.Line.Selected = front | back;
-					}
 				}
 			}
 		}
