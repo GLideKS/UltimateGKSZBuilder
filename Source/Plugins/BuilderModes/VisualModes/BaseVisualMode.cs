@@ -2730,6 +2730,80 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			return t;
         }
 		
+		public List<Sector> GetControlLinedefTargetsSectors(Linedef linedef)
+		{
+			var targetSectors = new List<Sector>();
+
+			if (linedef.Front == null)
+				return targetSectors;
+
+			foreach (Sector sector in General.Map.Map.Sectors)
+				if (sector.Tags.Contains(linedef.Args[0]))
+					targetSectors.Add(sector);
+
+			return targetSectors;
+		}
+
+		public List<Sector> GetControlSectorTargetsSectors(Sector sector)
+		{
+			var targetSectors = new List<Sector>();
+
+			foreach (Sidedef sidedef in sector.Sidedefs)
+				targetSectors.AddRange(GetControlLinedefTargetsSectors(sidedef.Line));
+
+			return targetSectors;
+		}
+
+		internal List<BaseVisualGeometrySector> GetVisualSurfacesByControlLinedef(Linedef linedef, bool floors = true, bool ceilings = true, bool backs = true)
+		{
+			var visualSurfaces = new List<BaseVisualGeometrySector>();
+
+			foreach (Sector sector in GetControlLinedefTargetsSectors(linedef))
+			{
+				var vs = (BaseVisualSector)GetVisualSector(sector);
+
+				if (floors)
+				{
+					foreach (VisualFloor vf in vs.ExtraFloors)
+						if (vf.GetControlSector() == sector)
+							visualSurfaces.Add(vf);
+
+					if (backs)
+					{
+						foreach (VisualFloor vf in vs.ExtraBackFloors)
+							if (vf.GetControlSector() == sector)
+								visualSurfaces.Add(vf);
+					}
+				}
+
+				if (ceilings)
+				{
+					foreach (VisualCeiling vc in vs.ExtraCeilings)
+						if (vc.GetControlSector() == sector)
+							visualSurfaces.Add(vc);
+
+					if (backs)
+					{
+						foreach (VisualCeiling vc in vs.ExtraBackCeilings)
+							if (vc.GetControlSector() == sector)
+								visualSurfaces.Add(vc);
+					}
+				}
+			}
+
+			return visualSurfaces;
+		}
+
+		internal List<BaseVisualGeometrySector> GetVisualSurfacesByControlSector(Sector sector, bool floors = true, bool ceilings = true, bool backs = true)
+		{
+			var visualFloors = new List<BaseVisualGeometrySector>();
+
+			foreach (Sidedef sidedef in sector.Sidedefs)
+				visualFloors.AddRange(GetVisualSurfacesByControlLinedef(sidedef.Line, floors, ceilings, backs));
+
+			return visualFloors;
+		}
+
 		// Hack for UDBScript
 		internal Dictionary<string, object> GetVisualObjectAsDictionary(object o)
 		{
