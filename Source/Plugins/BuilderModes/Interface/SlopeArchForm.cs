@@ -22,6 +22,7 @@
 #endregion
 
 using System;
+using System.Windows.Forms;
 using CodeImp.DoomBuilder.Windows;
 using CodeImp.DoomBuilder.Geometry;
 
@@ -43,11 +44,21 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 		#endregion
 
+		/// <summary>
+		/// Ensures exclusive mouse input is restarted when the dialog closes
+		/// </summary>
+		private void SlopeArchForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			General.Interface.StartExclusiveMouseInput();
+		}
+
 		#region ================== Constructor / Destructor
 
 		internal SlopeArchForm(SlopeArcher slopearcher)
 		{
 			InitializeComponent();
+			General.Interface.StopExclusiveMouseInput();
+			this.FormClosed += SlopeArchForm_FormClosed;
 			this.slopearcher = slopearcher;
 
 			oldtheta = originaltheta = Math.Round(Angle2D.RadToDeg(this.slopearcher.Theta), 2);
