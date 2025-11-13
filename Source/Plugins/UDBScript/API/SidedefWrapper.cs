@@ -348,6 +348,16 @@ namespace CodeImp.DoomBuilder.UDBScript.Wrapper
 					return sidedef.Line.Selected;
 				}
 			}
+			set
+			{
+				if (sidedef.IsDisposed)
+					throw BuilderPlug.Me.ScriptRunner.CreateRuntimeException("Sidedef is disposed, the upperSelected property can not be accessed.");
+
+				if (General.Editing.Mode is BaseVisualMode mode)
+					mode.SetSelectedUpperBySidedef(sidedef, value);
+				else
+					sidedef.Line.Selected = value;
+			}
 		}
 
 		/// <summary>
@@ -406,6 +416,16 @@ namespace CodeImp.DoomBuilder.UDBScript.Wrapper
 					return sidedef.Line.Selected;
 				}
 			}
+			set
+			{
+				if (sidedef.IsDisposed)
+					throw BuilderPlug.Me.ScriptRunner.CreateRuntimeException("Sidedef is disposed, the middleSelected property can not be accessed.");
+
+				if (General.Editing.Mode is BaseVisualMode mode)
+					mode.SetSelectedMiddleBySidedef(sidedef, value);
+				else
+					sidedef.Line.Selected = value;
+			}
 		}
 
 		/// <summary>
@@ -463,6 +483,16 @@ namespace CodeImp.DoomBuilder.UDBScript.Wrapper
 				{
 					return sidedef.Line.Selected;
 				}
+			}
+			set
+			{
+				if (sidedef.IsDisposed)
+					throw BuilderPlug.Me.ScriptRunner.CreateRuntimeException("Sidedef is disposed, the lowerSelected property can not be accessed.");
+
+				if (General.Editing.Mode is BaseVisualMode mode)
+					mode.SetSelectedLowerBySidedef(sidedef, value);
+				else
+					sidedef.Line.Selected = value;
 			}
 		}
 

@@ -2404,6 +2404,76 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			}
 		}
 
+		public void SetSelectedFloorBySector(Sector sector, bool selected)
+		{
+			if (selected)
+			{
+				var floor = ((BaseVisualSector)GetVisualSector(sector)).Floor;
+				floor.Selected = true;
+				AddSelectedObject(floor);
+
+				foreach (BaseVisualGeometrySector surface in GetVisualSurfacesByControlSector(sector, true, false, false))
+				{
+					surface.Selected = true;
+					AddSelectedObject(surface);
+				}
+			}
+			else
+			{
+				VisualFloor floor = null;
+				foreach (IVisualEventReceiver i in selectedobjects)
+					if (i is VisualFloor vf && ((VisualFloor)i).Level.sector == sector)
+						floor = vf;
+
+				if (floor != null)
+				{
+					floor.Selected = false;
+					RemoveSelectedObject(floor);
+
+					foreach (BaseVisualGeometrySector surface in GetVisualSurfacesByControlSector(sector, true, false, false))
+					{
+						surface.Selected = false;
+						RemoveSelectedObject(surface);
+					}
+				}
+			}
+		}
+
+		public void SetSelectedCeilingBySector(Sector sector, bool selected)
+		{
+			if (selected)
+			{
+				var ceiling = ((BaseVisualSector)GetVisualSector(sector)).Ceiling;
+				ceiling.Selected = true;
+				AddSelectedObject(ceiling);
+
+				foreach (BaseVisualGeometrySector surface in GetVisualSurfacesByControlSector(sector, false, true, false))
+				{
+					surface.Selected = true;
+					AddSelectedObject(surface);
+				}
+			}
+			else
+			{
+				VisualCeiling ceiling = null;
+				foreach (IVisualEventReceiver i in selectedobjects)
+					if (i is VisualCeiling vc && ((VisualCeiling)i).Level.sector == sector)
+						ceiling = vc;
+
+				if (ceiling != null)
+				{
+					ceiling.Selected = false;
+					RemoveSelectedObject(ceiling);
+
+					foreach (BaseVisualGeometrySector surface in GetVisualSurfacesByControlSector(sector, false, true, false))
+					{
+						surface.Selected = false;
+						RemoveSelectedObject(surface);
+					}
+				}
+			}
+		}
+
 		// This returns all selected linedefs, no doubles
 		public List<Linedef> GetSelectedLinedefs()
 		{
@@ -2453,6 +2523,47 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				else if (i is VisualLower && ((VisualLower)i).Sidedef == sidedef)
 					lower = true;
 			}
+		}
+
+		public void SetSelectedUpperBySidedef(Sidedef sidedef, bool selected)
+		{
+		}
+
+		public void SetSelectedMiddleBySidedef(Sidedef sidedef, bool selected)
+		{
+			if (selected)
+			{
+				var vs = (BaseVisualSector)GetVisualSector(sidedef.Sector);
+				VisualSidedefParts parts = vs.GetSidedefParts(sidedef);
+
+				if (parts.middlesingle != null)
+				{
+					parts.middlesingle.Selected = true;
+					AddSelectedObject(parts.middlesingle);
+				}
+				else
+				{
+					parts.middledouble.Selected = true;
+					AddSelectedObject(parts.middledouble);
+				}
+			}
+			else
+			{
+				BaseVisualGeometrySidedef middle = null;
+				foreach (IVisualEventReceiver i in selectedobjects)
+					if ((i is VisualMiddleSingle || i is VisualMiddleDouble || i is VisualMiddle3D || i is VisualMiddleBack) && ((BaseVisualGeometrySidedef)i).Sidedef == sidedef)
+						middle = (BaseVisualGeometrySidedef)i;
+
+				if (middle != null)
+				{
+					middle.Selected = false;
+					RemoveSelectedObject(middle);
+				}
+			}
+		}
+
+		public void SetSelectedLowerBySidedef(Sidedef sidedef, bool selected)
+		{
 		}
 
 		// This returns all selected sidedefs, no doubles
@@ -2619,6 +2730,148 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			return t;
         }
 		
+		public List<Sector> GetControlLinedefTargetsSectors(Linedef linedef)
+		{
+			var targetSectors = new List<Sector>();
+
+			if (linedef.Front == null)
+				return targetSectors;
+
+			foreach (Sector sector in General.Map.Map.Sectors)
+				if (sector.Tags.Contains(linedef.Args[0]))
+					targetSectors.Add(sector);
+
+			return targetSectors;
+		}
+
+		public List<Sector> GetControlSectorTargetsSectors(Sector sector)
+		{
+			var targetSectors = new List<Sector>();
+
+			foreach (Sidedef sidedef in sector.Sidedefs)
+				targetSectors.AddRange(GetControlLinedefTargetsSectors(sidedef.Line));
+
+			return targetSectors;
+		}
+
+		internal List<BaseVisualGeometrySector> GetVisualSurfacesByControlLinedef(Linedef linedef, bool floors = true, bool ceilings = true, bool backs = true)
+		{
+			var visualSurfaces = new List<BaseVisualGeometrySector>();
+
+			foreach (Sector sector in GetControlLinedefTargetsSectors(linedef))
+			{
+				var vs = (BaseVisualSector)GetVisualSector(sector);
+
+				if (floors)
+				{
+					foreach (VisualFloor vf in vs.ExtraFloors)
+						if (vf.GetControlSector() == sector)
+							visualSurfaces.Add(vf);
+
+					if (backs)
+					{
+						foreach (VisualFloor vf in vs.ExtraBackFloors)
+							if (vf.GetControlSector() == sector)
+								visualSurfaces.Add(vf);
+					}
+				}
+
+				if (ceilings)
+				{
+					foreach (VisualCeiling vc in vs.ExtraCeilings)
+						if (vc.GetControlSector() == sector)
+							visualSurfaces.Add(vc);
+
+					if (backs)
+					{
+						foreach (VisualCeiling vc in vs.ExtraBackCeilings)
+							if (vc.GetControlSector() == sector)
+								visualSurfaces.Add(vc);
+					}
+				}
+			}
+
+			return visualSurfaces;
+		}
+
+		internal List<BaseVisualGeometrySector> GetVisualSurfacesByControlSector(Sector sector, bool floors = true, bool ceilings = true, bool backs = true)
+		{
+			var visualFloors = new List<BaseVisualGeometrySector>();
+
+			foreach (Sidedef sidedef in sector.Sidedefs)
+				visualFloors.AddRange(GetVisualSurfacesByControlLinedef(sidedef.Line, floors, ceilings, backs));
+
+			return visualFloors;
+		}
+
+		// Hack for UDBScript
+		internal Dictionary<string, object> GetVisualObjectAsDictionary(object o)
+		{
+			var dict = new Dictionary<string, object>();
+
+			if (o is VisualFloor && (o as VisualFloor).ExtraFloor == null)
+			{
+				var floor = o as VisualFloor;
+				dict["type"] = "floor";
+				dict["sector"] = floor.Sector.Sector;
+			}
+			else if (o is VisualCeiling && (o as VisualCeiling).ExtraFloor == null)
+			{
+				var ceiling = o as VisualCeiling;
+				dict["type"] = "ceiling";
+				dict["sector"] = ceiling.Sector.Sector;
+			}
+			else if (o is VisualCeiling)
+			{
+				var ceiling = o as VisualCeiling;
+				dict["type"] = "3dfloor_top";
+				dict["sector"] = ceiling.Sector.Sector;
+				dict["controlLinedef"] = ceiling.ExtraFloor.Linedef;
+			}
+			else if (o is VisualMiddle3D || o is VisualMiddleBack)
+			{
+				var middle = o as VisualMiddle3D;
+				dict["type"] = "3dfloor_side";
+				dict["sidedef"] = middle.Sidedef;
+				dict["sector"] = o is VisualMiddle3D ? middle.Sidedef.Other.Sector : middle.Sidedef.Sector;
+				dict["controlLinedef"] = middle.ExtraFloor.Linedef;
+			}
+			else if (o is VisualFloor)
+			{
+				var floor = o as VisualFloor;
+				dict["type"] = "3dfloor_bottom";
+				dict["sector"] = floor.Sector.Sector;
+				dict["controlLinedef"] = floor.ExtraFloor.Linedef;
+			}
+			else if (o is BaseVisualGeometrySidedef)
+			{
+				var middle = o as BaseVisualGeometrySidedef;
+				dict["type"] = o is VisualUpper ? "side_upper" : o is VisualLower ? "side_lower" : "side_middle";
+				dict["sidedef"] = middle.Sidedef;
+			}
+
+			return dict;
+		}
+
+		// Hack for UDBScript
+		public List<Dictionary<string, object>> GetSelectedObjectsAsDictionary()
+		{
+			var list = new List<Dictionary<string, object>>();
+
+			list.Select(o => GetVisualObjectAsDictionary(o));
+			foreach (var o in selectedobjects)
+				list.Add(GetVisualObjectAsDictionary(o));
+			//list.(GetVisualObjectAsDictionary(o));
+
+			return list;
+		}
+
+		// Hack for UDBScript
+		public Dictionary<string, object> GetHighlightedObjectAsDictionary()
+		{
+			return GetVisualObjectAsDictionary(HighlightedTarget);
+		}
+
 		#endregion
 
 		#region ================== Actions
