@@ -2944,7 +2944,7 @@ namespace CodeImp.DoomBuilder.Map
 				}
 				
 				RectangleF area = CreateArea(biggerset);
-				BlockMap<BlockEntry> blockmap = new BlockMap<BlockEntry>(area);
+				BlockMap<BlockEntry> blockmap = new BlockMap<BlockEntry>(area, 512);
 				blockmap.AddVerticesSet(biggerset);
 				
 				// No joins yet
