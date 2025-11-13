@@ -4,14 +4,14 @@ BUILDTYPE ?= Release
 all: linux
 
 run:
-	cd Build && mono Builder.exe
+	cd Build && mono --aot=full -O=all Builder.exe && mono --server --gc=sgen Builder.exe
 
 linux: builder native
 
 mac: builder nativemac
 
 builder:
-	msbuild /nologo /verbosity:minimal -p:Configuration=$(BUILDTYPE) BuilderMono.sln
+	msbuild /nologo /verbosity:minimal -p:Configuration=$(BUILDTYPE) -p:Optimize=true -m BuilderMono.sln
 	cp builder.sh Build/builder
 	chmod +x Build/builder
 
