@@ -50,7 +50,6 @@ EXPORTS
 	RawMouse_Delete
 	RawMouse_GetX
 	RawMouse_GetY
-	MouseInput_ShowCursor
 	Matrix_Null
 	Matrix_Identity
 	Matrix_Translation
