@@ -74,8 +74,8 @@ namespace CodeImp.DoomBuilder.IO
 		public override int MinEffect { get { return ushort.MinValue; } }
 		public override int MaxBrightness { get { return short.MaxValue; } }
 		public override int MinBrightness { get { return short.MinValue; } }
-		public override int MaxThingType { get { return short.MaxValue; } } //mxd. Editor numbers must be in [1 .. 32767] range
-		public override int MinThingType { get { return 1; } } //mxd
+		public override int MaxThingType { get { return short.MaxValue; } }
+		public override int MinThingType { get { return short.MinValue; } }
 		public override float MaxCoordinate { get { return short.MaxValue; } }
 		public override float MinCoordinate { get { return short.MinValue; } }
 		public override int MaxThingAngle { get { return short.MaxValue; } }
@@ -142,7 +142,7 @@ namespace CodeImp.DoomBuilder.IO
 				int y = reader.ReadInt16();
 				int z = reader.ReadInt16();
 				int angle = reader.ReadInt16();
-				int type = reader.ReadUInt16();
+				int type = reader.ReadInt16();
 				ushort flags = reader.ReadUInt16();
 				int action = reader.ReadByte();
 				args[0] = reader.ReadByte();
@@ -461,7 +461,7 @@ namespace CodeImp.DoomBuilder.IO
 				writer.Write((Int16)t.Position.y);
 				writer.Write((Int16)t.Position.z);
 				writer.Write((Int16)t.AngleDoom);
-				writer.Write((UInt16)t.Type);
+				writer.Write((Int16)t.Type);
 				writer.Write(t.RawFlags);
 				writer.Write((Byte)t.Action);
 				writer.Write((Byte)t.Args[0]);

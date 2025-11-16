@@ -8,7 +8,6 @@ uniforms
 	float desaturation;
 
 	sampler2D texture1;
-	vec4 texturefactor;
 
 	vec4 fillColor;
 }
@@ -69,8 +68,6 @@ shader things2d_thing extends things2d
 		vec4 c = texture(texture1, v2f.UV);
 		out.FragColor = vec4(desaturate(c.rgb), c.a * rendersettings.w) * v2f.Color;
 
-		out.FragColor *= texturefactor;
-
 		#if defined(ALPHA_TEST)
 		if (out.FragColor.a < 0.5) discard;
 		#endif
@@ -95,8 +92,6 @@ shader things2d_sprite extends things2d
 			// Or leave it as it is
 			out.FragColor = vec4(desaturate(c.rgb), c.a * rendersettings.w);
 		}
-
-		out.FragColor *= texturefactor;
 
 		#if defined(ALPHA_TEST)
 		if (out.FragColor.a < 0.5) discard;

@@ -97,7 +97,8 @@ namespace CodeImp.DoomBuilder.SoundPropagationMode
 			highlighted = s;
 			highlightedsoundenvironment = null;
 
-			if(highlighted != null)
+			// Only crawl through the sound environments if they are not being updated
+			if(!worker.IsBusy && highlighted != null)
 			{
 				foreach(SoundEnvironment se in BuilderPlug.Me.SoundEnvironments)
 				{
@@ -284,6 +285,8 @@ namespace CodeImp.DoomBuilder.SoundPropagationMode
 
 		private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
 		{
+			if(e.Cancelled) return;
+
 			panel.HighlightSoundEnvironment(highlightedsoundenvironment); //mxd. Expand highlighted node in the treeview
 			General.Interface.DisplayStatus(StatusType.Ready, "Finished updating sound environments");
 			General.Interface.RedrawDisplay(); //mxd
@@ -360,8 +363,10 @@ namespace CodeImp.DoomBuilder.SoundPropagationMode
 			// Render things
 			if(renderer.StartThings(true))
 			{
-				renderer.RenderThingSet(General.Map.ThingsFilter.HiddenThings, General.Settings.HiddenThingsAlpha);
-				renderer.RenderThingSet(General.Map.ThingsFilter.VisibleThings, General.Settings.InactiveThingsAlpha);
+				// Multiply by 0.5 because in none-Things Mode the things layer has an alpha value of 0.5, but we want to render
+				// the sound enviroment things with full alpha, and other things like in the other modes
+				renderer.RenderThingSet(General.Map.ThingsFilter.HiddenThings, General.Settings.HiddenThingsAlpha * 0.5f);
+				renderer.RenderThingSet(General.Map.ThingsFilter.VisibleThings, General.Settings.ActiveThingsAlpha * 0.5f);
 
 				lock(BuilderPlug.Me.SoundEnvironments)
 				{
@@ -567,8 +572,7 @@ namespace CodeImp.DoomBuilder.SoundPropagationMode
 					return;
 				}
 
-				General.Settings.ApplyDefaultThingSettings(t);
-				t.Type = BuilderPlug.SOUND_ENVIROMNEMT_THING_TYPE;
+				General.Settings.ApplyCleanThingSettings(t, BuilderPlug.SOUND_ENVIROMNEMT_THING_TYPE);
 				t.Move(mousemappos);
 				t.UpdateConfiguration();
 

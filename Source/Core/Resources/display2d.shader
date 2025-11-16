@@ -11,7 +11,6 @@ uniforms
 	float desaturation;
 
 	sampler2D texture1;
-	vec4 texturefactor;
 }
 
 functions
@@ -64,7 +63,6 @@ shader display2d_normal
 	{
 		vec4 c = texture(texture1, v2f.UV);
 		out.FragColor = vec4(desaturate(c.rgb), c.a * rendersettings.w) * v2f.Color;
-		out.FragColor *= texturefactor;
 
 		#if defined(ALPHA_TEST)
 		if (out.FragColor.a < 0.5) discard;
@@ -78,7 +76,6 @@ shader display2d_fullbright extends display2d_normal
 	{
 		vec4 c = texture(texture1, v2f.UV);
 		out.FragColor = vec4(c.rgb, c.a * rendersettings.w);
-		out.FragColor *= texturefactor;
 
 		#if defined(ALPHA_TEST)
 		if (out.FragColor.a < 0.5) discard;
@@ -108,8 +105,6 @@ shader display2d_fsaa extends display2d_normal
 		{
 			out.FragColor = vec4(desaturate(c.rgb), c.a * rendersettings.w) * v2f.Color;
 		}
-
-		out.FragColor *= texturefactor;
 
 		#if defined(ALPHA_TEST)
 		if (out.FragColor.a < 0.5) discard;

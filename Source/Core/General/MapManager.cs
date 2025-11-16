@@ -821,27 +821,31 @@ namespace CodeImp.DoomBuilder
 				hashtest.Dispose();
 			}
 
-			// Scripts changed?
-			bool localscriptschanged = CheckScriptChanged();
-
-			// If the scripts window is open, save the scripts first
-			if(IsScriptsWindowOpen) scriptwindow.Editor.ImplicitSave();
-
-			// Only recompile scripts when the scripts have changed or there are compiler errors (mxd)
-			// (not when only the map changed)
-			if((localscriptschanged || errors.Count > 0) && !CompileScriptLumps()) 
+			// Do script stuff if not autosaving
+			if (purpose != SavePurpose.Autosave)
 			{
-				// Compiler failure
-				if(errors.Count > 0)
-					General.ShowErrorMessage("Error while compiling scripts: " + errors[0].description, MessageBoxButtons.OK);
-				else
-					General.ShowErrorMessage("Unknown compiler error while compiling scripts!", MessageBoxButtons.OK);
-			}
+				// Scripts changed?
+				bool localscriptschanged = CheckScriptChanged();
 
-			// Show script window if there are any errors and we are going to test the map
-			// and always update the errors on the scripts window.
-			if((errors.Count > 0) && (scriptwindow == null) && (purpose == SavePurpose.Testing)) ShowScriptEditor();
-			if(scriptwindow != null) scriptwindow.Editor.ShowErrors(errors, false);
+				// If the scripts window is open, save the scripts first
+				if (IsScriptsWindowOpen) scriptwindow.Editor.ImplicitSave();
+
+				// Only recompile scripts when the scripts have changed or there are compiler errors (mxd)
+				// (not when only the map changed)
+				if ((localscriptschanged || errors.Count > 0) && !CompileScriptLumps())
+				{
+					// Compiler failure
+					if (errors.Count > 0)
+						General.ShowErrorMessage("Error while compiling scripts: " + errors[0].description, MessageBoxButtons.OK);
+					else
+						General.ShowErrorMessage("Unknown compiler error while compiling scripts!", MessageBoxButtons.OK);
+				}
+
+				// Show script window if there are any errors and we are going to test the map
+				// and always update the errors on the scripts window.
+				if ((errors.Count > 0) && (scriptwindow == null) && (purpose == SavePurpose.Testing)) ShowScriptEditor();
+				if (scriptwindow != null) scriptwindow.Editor.ShowErrors(errors, false);
+			}
 
 			// Only write the map and rebuild nodes when the actual map has changed
 			// (not when only scripts have changed)

@@ -4,12 +4,12 @@
 /*
  * Copyright (c) 2007 Pascal vd Heiden, www.codeimp.com
  * This program is released under GNU General Public License
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  */
 
 #endregion
@@ -60,7 +60,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				// positive if the sector on the other side has the ceiling
 				// set to be sky
 				if (sd.LongHighTexture == MapSet.EmptyLongName) {
-					if (sd.HighRequired())
+					if (sd.HighRequired() || sd.Line.HasSkyTransfer())
 					{
 						if (sd.Line.Action == 700 && sd.Line.Args[1] > 0) continue; //mxd. Ceiling slopes doesn't require upper texture
 

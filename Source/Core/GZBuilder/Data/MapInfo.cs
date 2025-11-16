@@ -5,7 +5,7 @@ using CodeImp.DoomBuilder.Rendering;
 
 #endregion
 
-namespace CodeImp.DoomBuilder.GZBuilder.Data 
+namespace CodeImp.DoomBuilder.GZBuilder.Data
 {
 	public sealed class MapInfo
 	{
@@ -56,6 +56,8 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 		// SRB2
 		private float objectscale;
 
+		private string lightAttenuationMode;
+
 		#endregion
 
 		#region ================== Properties
@@ -89,12 +91,13 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 
 		// SRB2
 		public float ObjectScale { get { return objectscale; } internal set { objectscale = value; isdefined = true; } }
+		public string LightAttenuationMode { get { return lightAttenuationMode; } internal set { lightAttenuationMode = value; isdefined = true; } }
 
 		#endregion
 
 		#region ================== Constructor
 
-		public MapInfo() 
+		public MapInfo()
 		{
 			vertwallshade = 16;
 			horizwallshade = -16;

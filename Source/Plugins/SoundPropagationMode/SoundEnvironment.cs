@@ -18,7 +18,7 @@ namespace CodeImp.DoomBuilder.SoundPropagationMode
 
 		#region ================== Properties
 
-		public List<Sector> Sectors { get; private set; }
+		public HashSet<Sector> Sectors { get; private set; }
 		public List<Thing> Things { get; set; }
 		public List<Linedef> Linedefs { get; set; }
 		public PixelColor Color { get; set; }
@@ -30,7 +30,7 @@ namespace CodeImp.DoomBuilder.SoundPropagationMode
 
 		public SoundEnvironment()
 		{
-			Sectors = new List<Sector>();
+			Sectors = new HashSet<Sector>();
 			Things = new List<Thing>();
 			Linedefs = new List<Linedef>();
 			Color = General.Colors.Background;

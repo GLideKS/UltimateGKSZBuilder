@@ -254,7 +254,7 @@ namespace CodeImp.DoomBuilder.Config
 			{
 				// Check if the item key is numeric
 				int index;
-				if(int.TryParse(de.Key.ToString(), NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite, CultureInfo.InvariantCulture, out index))
+				if(int.TryParse(de.Key.ToString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out index))
 				{
 					// Check if the item value is a structure
 					if(de.Value is IDictionary)

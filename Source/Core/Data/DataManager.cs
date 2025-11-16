@@ -2207,8 +2207,7 @@ namespace CodeImp.DoomBuilder.Data
 
 			foreach(DehackedThing t in dehacked.Things)
 			{
-				// This is not a thing that can be placed in the map
-				if (t.DoomEdNum <= 0)
+				if (!t.HasDoomEdNum)
 					continue;
 
 				DecorateCategoryInfo dci = GetCategoryInfo(t, thingcategories);

@@ -54,8 +54,11 @@ namespace CodeImp.DoomBuilder.ZDoom
 
 		public override bool Parse(TextResourceData data, bool clearerrors)
 		{
+			// We have to reset the format, since it's per file, not globally
+			format = SndInfoFormat.None;
+
 			//mxd. Already parsed?
-			if(!base.AddTextResource(data))
+			if (!base.AddTextResource(data))
 			{
 				if(clearerrors) ClearError();
 				return true;

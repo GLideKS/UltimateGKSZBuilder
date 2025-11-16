@@ -4,12 +4,12 @@
 /*
  * Copyright (c) 2007 Pascal vd Heiden, www.codeimp.com
  * This program is released under GNU General Public License
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  */
 
 #endregion
@@ -98,19 +98,19 @@ namespace CodeImp.DoomBuilder.IO
 		public override int MaxThingAngle { get { return int.MaxValue; } }
 		public override int MinThingAngle { get { return int.MinValue; } }
 		public override Dictionary<MapElementType, Dictionary<string, UniversalType>> UIFields { get { return uifields; } } //mxd
-		
+
 		#endregion
 
 		#region ================== Reading
-		
+
 		// This reads a map from the file and returns a MapSet
 		public override MapSet Read(MapSet map, string mapname)
 		{
 			UniversalStreamReader udmfreader = new UniversalStreamReader(uifields); //mxd
-			
+
 			// Find the index where first map lump begins
 			int firstindex = wad.FindLumpIndex(mapname) + 1;
-			
+
 			// Get the TEXTMAP lump from wad file
 			Lump lump = wad.FindLump("TEXTMAP", firstindex);
 			if(lump == null) throw new Exception("Could not find required lump TEXTMAP!");
@@ -119,11 +119,11 @@ namespace CodeImp.DoomBuilder.IO
 			lump.Stream.Seek(0, SeekOrigin.Begin);
 			udmfreader.SetKnownCustomTypes = false;
 			udmfreader.Read(map, lump.Stream);
-			
+
 			// Return result
 			return map;
 		}
-		
+
 		#endregion
 
 		#region ================== Writing
@@ -132,7 +132,7 @@ namespace CodeImp.DoomBuilder.IO
 		public override void Write(MapSet map, string mapname, int position)
 		{
 			UniversalStreamWriter udmfwriter = new UniversalStreamWriter();
-			
+
 			// Write map to memory stream
 			MemoryStream memstream = new MemoryStream();
 			memstream.Seek(0, SeekOrigin.Begin);
@@ -152,8 +152,7 @@ namespace CodeImp.DoomBuilder.IO
 			// Done
 			memstream.Dispose();
 		}
-		
+
 		#endregion
 	}
 }
-

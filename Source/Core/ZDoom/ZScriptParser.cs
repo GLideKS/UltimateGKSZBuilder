@@ -859,7 +859,77 @@ namespace CodeImp.DoomBuilder.ZDoom
                             return false;
                         }
                     }
-                    else
+					else if (token.Value.ToLowerInvariant() == "unsafe")
+					{
+						tokenizer.SkipWhitespace();
+						token = tokenizer.ExpectToken(ZScriptTokenType.OpenParen);
+						if (token == null || !token.IsValid)
+						{
+							ReportError("Expected (, got " + ((Object)token ?? "<null>").ToString());
+							return false;
+						}
+
+						tokenizer.SkipWhitespace();
+						token = tokenizer.ExpectToken(ZScriptTokenType.Identifier);
+						if (token == null || !token.IsValid)
+						{
+							ReportError("Expected identifier, got " + ((Object)token ?? "<null>").ToString());
+							return false;
+						}
+
+						tokenizer.SkipWhitespace();
+						token = tokenizer.ExpectToken(ZScriptTokenType.CloseParen);
+						if (token == null || !token.IsValid)
+						{
+							ReportError("Expected ), got " + ((Object)token ?? "<null>").ToString());
+							return false;
+						}
+					}
+					else if (token.Value.ToLowerInvariant() == "deprecated")
+					{
+						// Format: deprecated("version-string", "what should be used instead")
+
+						tokenizer.SkipWhitespace();
+						token = tokenizer.ExpectToken(ZScriptTokenType.OpenParen);
+						if (token == null || !token.IsValid)
+						{
+							ReportError("Expected (, got " + ((Object)token ?? "<null>").ToString());
+							return false;
+						}
+
+						tokenizer.SkipWhitespace();
+						token = tokenizer.ExpectToken(ZScriptTokenType.String);
+						if (token == null || !token.IsValid)
+						{
+							ReportError("Expected string, got " + ((Object)token ?? "<null>").ToString());
+							return false;
+						}
+
+						tokenizer.SkipWhitespace();
+						token = tokenizer.ExpectToken(ZScriptTokenType.Comma);
+						if (token == null || !token.IsValid)
+						{
+							ReportError("Expected ,, got " + ((Object)token ?? "<null>").ToString());
+							return false;
+						}
+
+						tokenizer.SkipWhitespace();
+						token = tokenizer.ExpectToken(ZScriptTokenType.String);
+						if (token == null || !token.IsValid)
+						{
+							ReportError("Expected string, got " + ((Object)token ?? "<null>").ToString());
+							return false;
+						}
+
+						tokenizer.SkipWhitespace();
+						token = tokenizer.ExpectToken(ZScriptTokenType.CloseParen);
+						if (token == null || !token.IsValid)
+						{
+							ReportError("Expected ), got " + ((Object)token ?? "<null>").ToString());
+							return false;
+						}
+					}
+					else
                     {
                         ReportError("Unexpected token " + ((Object)token ?? "<null>").ToString());
                     }

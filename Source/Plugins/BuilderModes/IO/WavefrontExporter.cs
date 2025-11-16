@@ -66,7 +66,14 @@ namespace CodeImp.DoomBuilder.BuilderModes.IO
 			BasePath = form.BasePath;
 			ActorPath = form.ActorPath;
 			ModelPath = form.ModelPath;
-			SkipTextures = form.SkipTextures;
+
+			// Only skip textures if we're exporting for GZDoom
+			if (ExportForGZDoom)
+				SkipTextures = form.SkipTextures;
+			else
+				SkipTextures = new List<string>();
+
+
 			IgnoreControlSectors = form.IgnoreControlSectors;
 			NormalizeLowestVertex = form.NormalizeLowestVertex;
 			CenterModel = form.CenterModel;
@@ -140,8 +147,11 @@ namespace CodeImp.DoomBuilder.BuilderModes.IO
 								continue;
 							}
 
-							Bitmap bmp = id.ExportBitmap();
-                            lock (bmp)
+							//Bitmap bmp = id.ExportBitmap();
+							// The image might have a color correction applied, but we need it without. So we use LocalGetBitmap, because it reloads the image,
+							// but doesn't applie the color correction if we set UseColorCorrection to false first
+							Bitmap bmp = new Bitmap(id.LocalGetBitmap(false));
+							lock (bmp)
                             {
 								string filepath = Path.Combine(settings.ObjPath, Path.GetDirectoryName(s), Path.GetFileNameWithoutExtension(s) + ".png");
 
@@ -172,7 +182,11 @@ namespace CodeImp.DoomBuilder.BuilderModes.IO
 								continue;
 							}
 
-							Bitmap bmp = id.ExportBitmap();
+							//Bitmap bmp = id.ExportBitmap();
+							// The image might have a color correction applied, but we need it without. So we use LocalGetBitmap, because it reloads the image,
+							// but doesn't applie the color correction if we set UseColorCorrection to false first
+							Bitmap bmp = new Bitmap(id.LocalGetBitmap(false));
+
 
 							// Handle duplicate names
 							string flatname = s;

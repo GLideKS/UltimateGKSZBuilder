@@ -33,7 +33,6 @@ __Note:__ this is experimental. None of the main developers are using Linux as a
 
 Ultimate Doom Builder:
 - [UDB repository](https://github.com/UltimateDoomBuilder/UltimateDoomBuilder)
-- [Original forum.zdoom.org thread](https://forum.zdoom.org/viewtopic.php?f=232&t=66745) 
+- [Original forum.zdoom.org thread](https://forum.zdoom.org/viewtopic.php?f=232&t=66745)
 
 More detailed info can be found in the **editor documentation** (Refmanual.chm)
-

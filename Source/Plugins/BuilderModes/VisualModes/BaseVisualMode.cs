@@ -5903,7 +5903,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 					foreach(Sidedef s in controlSides)
 					{
-						if(!singleselection || BuilderModesTools.SidedefTextureMatch(this, s, texturelongnames)) 
+						if(!s.Marked && (!singleselection || BuilderModesTools.SidedefTextureMatch(this, s, texturelongnames)))
 						{
 							SidedefAlignJob nj = new SidedefAlignJob();
 							nj.forward = forward;
@@ -5921,7 +5921,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 					foreach(Sidedef s in controlSides) 
 					{
-						if(!singleselection || BuilderModesTools.SidedefTextureMatch(this, s, texturelongnames)) 
+						if(!s.Marked && (!singleselection || BuilderModesTools.SidedefTextureMatch(this, s, texturelongnames)))
 						{
 							SidedefAlignJob nj = new SidedefAlignJob();
 							nj.forward = forward;

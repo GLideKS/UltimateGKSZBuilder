@@ -303,9 +303,21 @@ namespace CodeImp.DoomBuilder.BuilderModes.IO
 							matrix.Translate((float)(offset.y * scale * rotationvector.y), (float)(offset.y * scale * rotationvector.x)); // Up/down offset from the map origin
 							matrix.Translate(-(float)textureoffset.x, -(float)textureoffset.y); // Texture offset 
 
-							// Resize the brush texture if the texture is scaled
+							// Flip and/or resize the brush texture if the texture is scaled
 							if (texturescale.x != 1.0 || texturescale.y != 1.0)
-								ResizeImage(ref brushtexture, (int)(brushtexture.Width * texturescale.x), (int)(brushtexture.Height * texturescale.y));
+							{
+								// Flip the brush texture if any of the scales are negative
+								if (texturescale.x < 0.0 && texturescale.y < 0.0)
+									brushtexture.RotateFlip(RotateFlipType.RotateNoneFlipXY);
+								else if (texturescale.x < 0.0)
+									brushtexture.RotateFlip(RotateFlipType.RotateNoneFlipX);
+								else if (texturescale.y < 0.0)
+									brushtexture.RotateFlip(RotateFlipType.RotateNoneFlipY);
+
+								// Resize the brush texture if necessary
+								if (Math.Abs(texturescale.x) != 1.0 || Math.Abs(texturescale.y) != 1.0)
+									ResizeImage(ref brushtexture, (int)(brushtexture.Width * Math.Abs(texturescale.x)), (int)(brushtexture.Height * Math.Abs(texturescale.y)));
+							}
 
 							if (!settings.Fullbright)
 							{

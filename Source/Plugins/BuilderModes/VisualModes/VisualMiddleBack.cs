@@ -13,13 +13,13 @@ using CodeImp.DoomBuilder.Data;
 namespace CodeImp.DoomBuilder.BuilderModes
 {
 	//mxd. Used to render translucent 3D floor's inner sides
-	internal sealed class VisualMiddleBack : VisualMiddle3D 
+	internal sealed class VisualMiddleBack : VisualMiddle3D
 	{
 		#region ================== Constructor / Setup
-		
+
 		// Constructor
 		public VisualMiddleBack(BaseVisualMode mode, VisualSector vs, Sidedef s) : base(mode, vs, s) { }
-		
+
 		// This builds the geometry. Returns false when no geometry created.
 		public override bool Setup() { return this.Setup(this.extrafloor); }
 		public new bool Setup(Effect3DFloor extrafloor)
@@ -44,7 +44,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 											 Sidedef.Fields.GetValue("offsety_mid", 0.0));
 			Vector2D toffset2 = new Vector2D(sourceside.Fields.GetValue("offsetx_mid", 0.0),
 											 sourceside.Fields.GetValue("offsety_mid", 0.0));
-			
+
 			// Left and right vertices for this sidedef
 			if(Sidedef.IsFront)
 			{
@@ -62,17 +62,17 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 			//mxd. which texture we must use?
 			long texturelong = 0;
-			if((sourceside.Line.Args[2] & (int)Effect3DFloor.Flags.UseUpperTexture) != 0) 
+			if((sourceside.Line.Args[2] & (int)Effect3DFloor.Flags.UseUpperTexture) != 0)
 			{
 				if(Sidedef.LongHighTexture != MapSet.EmptyLongName)
 					texturelong = Sidedef.LongHighTexture;
-			} 
-			else if((sourceside.Line.Args[2] & (int)Effect3DFloor.Flags.UseLowerTexture) != 0) 
+			}
+			else if((sourceside.Line.Args[2] & (int)Effect3DFloor.Flags.UseLowerTexture) != 0)
 			{
 				if(Sidedef.LongLowTexture != MapSet.EmptyLongName)
 					texturelong = Sidedef.LongLowTexture;
-			} 
-			else if(sourceside.LongMiddleTexture != MapSet.EmptyLongName) 
+			}
+			else if(sourceside.LongMiddleTexture != MapSet.EmptyLongName)
 			{
 				texturelong = sourceside.LongMiddleTexture;
 			}
@@ -86,21 +86,21 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				{
 					base.Texture = General.Map.Data.UnknownTexture3D;
 					setuponloadedtexture = texturelong;
-				} 
-				else if(!base.Texture.IsImageLoaded) 
+				}
+				else if(!base.Texture.IsImageLoaded)
 				{
 					setuponloadedtexture = texturelong;
 				}
-			} 
-			else 
+			}
+			else
 			{
 				// Use missing texture
 				base.Texture = General.Map.Data.MissingTexture3D;
 				setuponloadedtexture = 0;
 			}
 
-			// Get texture scaled size. Round up, because that's apparently what GZDoom does
-			Vector2D tsz = new Vector2D(Math.Ceiling(base.Texture.ScaledWidth / tscale.x), Math.Ceiling(base.Texture.ScaledHeight / tscale.y));
+			// Get texture scaled size
+			Vector2D tsz = new Vector2D(base.Texture.ScaledWidth / tscale.x, base.Texture.ScaledHeight / tscale.y);
 
 			// Get texture offsets
 			//Vector2D tof = new Vector2D(Sidedef.OffsetX, Sidedef.OffsetY) + new Vector2D(sourceside.OffsetX, sourceside.OffsetY);
@@ -114,7 +114,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			// We choose here.
 			double sourcetopheight = extrafloor.VavoomType ? sourceside.Sector.FloorHeight : sourceside.Sector.CeilHeight;
 			double sourcebottomheight = extrafloor.VavoomType ? sourceside.Sector.CeilHeight : sourceside.Sector.FloorHeight;
-			
+
 			// Determine texture coordinates plane as they would be in normal circumstances.
 			// We can then use this plane to find any texture coordinate we need.
 			// The logic here is the same as in the original VisualMiddleSingle (except that
@@ -126,19 +126,19 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 			tp.trb.x = tp.tlt.x + Math.Round(Sidedef.Line.Length); //mxd. (G)ZDoom snaps texture coordinates to integral linedef length
 			tp.trb.y = tp.tlt.y + (sourcetopheight - sourcebottomheight) + floorbias;
-			
+
 			// Apply texture offset
 			tp.tlt += tof;
 			tp.trb += tof;
-			
+
 			// Transform pixel coordinates to texture coordinates
 			tp.tlt /= tsz;
 			tp.trb /= tsz;
-			
+
 			// Left top and right bottom of the geometry that
 			tp.vlt = new Vector3D(vl.x, vl.y, sourcetopheight);
 			tp.vrb = new Vector3D(vr.x, vr.y, sourcebottomheight + floorbias);
-			
+
 			// Make the right-top coordinates
 			tp.trt = new Vector2D(tp.trb.x, tp.tlt.y);
 			tp.vrt = new Vector3D(tp.vrb.x, tp.vrb.y, tp.vlt.z);
@@ -158,21 +158,21 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			double fr = fro > fre ? fro : fre;
 			double cl = clo < cle ? clo : cle;
 			double cr = cro < cre ? cro : cre;
-			
+
 			// Anything to see?
 			if(((cl - fl) > 0.01f) || ((cr - fr) > 0.01f))
 			{
 				// Keep top and bottom planes for intersection testing
 				top = extrafloor.Floor.plane;
 				bottom = extrafloor.Ceiling.plane;
-				
+
 				// Create initial polygon, which is just a quad between floor and ceiling
 				WallPolygon poly = new WallPolygon();
 				poly.Add(new Vector3D(vl.x, vl.y, fl));
 				poly.Add(new Vector3D(vl.x, vl.y, cl));
 				poly.Add(new Vector3D(vr.x, vr.y, cr));
 				poly.Add(new Vector3D(vr.x, vr.y, fr));
-				
+
 				// Determine initial color. Inside parts are shaded using control sector's brightness
 				int lightlevel;
 				PixelColor levelcolor; //mxd
@@ -198,7 +198,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 				// Cut out pieces that overlap 3D floors in this sector
 				List<WallPolygon> polygons = new List<WallPolygon> { poly };
-				foreach(Effect3DFloor ef in sd.ExtraFloors) 
+				foreach(Effect3DFloor ef in sd.ExtraFloors)
 				{
 					//mxd. Our poly should be clipped when our ond other extrafloors are both solid or both translucent,
 					// or when only our extrafloor is translucent
@@ -206,7 +206,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					{
 						//TODO: [this crashed on me once when performing auto-align on myriad of textures on BoA C1M0]
 						if(ef.Floor == null || ef.Ceiling == null) ef.Update();
-						
+
 						int num = polygons.Count;
 						for(int pi = 0; pi < num; pi++)
 						{
@@ -262,7 +262,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					}
 				}
 			}
-			
+
 			base.SetVertices(null); //mxd
 			return false;
 		}
