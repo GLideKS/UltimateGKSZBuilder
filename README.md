@@ -2,6 +2,8 @@
 
 A fork of [Ultimate Zone Builder](https://git.do.srb2.org/STJr/UltimateZoneBuilder) to have parity with [Ultimate Doom Builder](https://github.com/UltimateDoomBuilder/UltimateDoomBuilder)'s latest fixes and changes since UZB is not being updated more than a year ago.
 
+Also brings linux fixes from my part (me, as a Linux user)
+
 Includes also a few changes from:
 
 - [NepDisk's Ultimate Lowee Builder](https://codeberg.org/NepDisk/UltimateLoweeBuilder)
@@ -21,7 +23,7 @@ Includes also a few changes from:
 
 ## Building through srb2bld (Windows/Linux)
 
-For an easier compiling process, Ultimate Zone Builder is also available to build on [Bijman's srb2bld](https://mb.srb2.org/threads/srb2bld-srb2-build-package-manager-cli.34623/), a build/package manager through cli. **Please follow the instructions there instead**. *Ultimate GKSZ Builder is not available for srb2bld yet.*
+For an easier compiling process, Ultimate GKSZ Builder is also available to build on [Bijman's srb2bld](https://mb.srb2.org/threads/srb2bld-srb2-build-package-manager-cli.34623/), a build/package manager through cli. **Please follow the instructions there instead**.
 
 ## Building Manually (Linux)
 
