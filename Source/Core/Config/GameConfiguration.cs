@@ -241,15 +241,12 @@ namespace CodeImp.DoomBuilder.Config
 		// Skew style
 		private SkewStyle skewstyle;
 
-		// File title style (how long file names are converted to lump names)
-		private FileTitleStyle filetitlestyle;
+        #endregion
 
-		#endregion
+        #region ================== Properties
 
-		#region ================== Properties
-
-		// General settings
-		public string Name { get { return configname; } }
+        // General settings
+        public string Name { get { return configname; } }
 		public string EngineName { get { return enginename; } }
 		public string DefaultSaveCompiler { get { return defaultsavecompiler; } }
 		public string DefaultTestCompiler { get { return defaulttestcompiler; } }
@@ -422,10 +419,7 @@ namespace CodeImp.DoomBuilder.Config
 
 		// Skew style
 		public SkewStyle SkewStyle { get { return skewstyle; } }
-
-		// File title style
-		public FileTitleStyle FileTitleStyle { get { return filetitlestyle; } }
-
+		
 		#endregion
 
 		#region ================== Constructor / Disposer
@@ -470,15 +464,15 @@ namespace CodeImp.DoomBuilder.Config
 			this.sectorportalrenderstyles = new Dictionary<string, string>(StringComparer.Ordinal); //mxd
 			this.thingrenderstyles = new Dictionary<string, string>(StringComparer.Ordinal); //mxd
 			this.defaultskytextures = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase); //mxd
-
+			
 			// Read general settings
 			configname = cfg.ReadSetting("game", "<unnamed game>");
 
 			//mxd
 			basegame = cfg.ReadSetting("basegame", string.Empty).ToLowerInvariant();
-			if (!GameType.GameTypes.Contains(basegame))
+			if(!GameType.GameTypes.Contains(basegame))
 			{
-				if (!string.IsNullOrEmpty(basegame))
+				if(!string.IsNullOrEmpty(basegame))
 					General.ErrorLogger.Add(ErrorType.Error, "Unknown basegame value specified in current Game Configuration: \"" + basegame + "\"");
 				basegame = GameType.UNKNOWN;
 			}
@@ -556,21 +550,21 @@ namespace CodeImp.DoomBuilder.Config
 			longtexturenames = cfg.ReadSetting("longtexturenames", false);
 			maxtexturenamelength = (longtexturenames ? short.MaxValue : DataManager.CLASIC_IMAGE_NAME_LENGTH);
 
-			// [ZZ] compat
-			buggymodeldefpitch = cfg.ReadSetting("buggymodeldefpitch", false);
+            // [ZZ] compat
+            buggymodeldefpitch = cfg.ReadSetting("buggymodeldefpitch", false);
 
 			// Flags have special (invariant culture) conversion
 			// because they are allowed to be written as integers in the configs
 			object obj = cfg.ReadSettingObject("singlesidedflag", 0);
-			if (obj is int) singlesidedflag = ((int)obj).ToString(CultureInfo.InvariantCulture); else singlesidedflag = obj.ToString();
+			if(obj is int) singlesidedflag = ((int)obj).ToString(CultureInfo.InvariantCulture); else singlesidedflag = obj.ToString();
 			obj = cfg.ReadSettingObject("doublesidedflag", 0);
-			if (obj is int) doublesidedflag = ((int)obj).ToString(CultureInfo.InvariantCulture); else doublesidedflag = obj.ToString();
+			if(obj is int) doublesidedflag = ((int)obj).ToString(CultureInfo.InvariantCulture); else doublesidedflag = obj.ToString();
 			obj = cfg.ReadSettingObject("impassableflag", 0);
-			if (obj is int) impassableflag = ((int)obj).ToString(CultureInfo.InvariantCulture); else impassableflag = obj.ToString();
+			if(obj is int) impassableflag = ((int)obj).ToString(CultureInfo.InvariantCulture); else impassableflag = obj.ToString();
 			obj = cfg.ReadSettingObject("upperunpeggedflag", 0);
-			if (obj is int) upperunpeggedflag = ((int)obj).ToString(CultureInfo.InvariantCulture); else upperunpeggedflag = obj.ToString();
+			if(obj is int) upperunpeggedflag = ((int)obj).ToString(CultureInfo.InvariantCulture); else upperunpeggedflag = obj.ToString();
 			obj = cfg.ReadSettingObject("lowerunpeggedflag", 0);
-			if (obj is int) lowerunpeggedflag = ((int)obj).ToString(CultureInfo.InvariantCulture); else lowerunpeggedflag = obj.ToString();
+			if(obj is int) lowerunpeggedflag = ((int)obj).ToString(CultureInfo.InvariantCulture); else lowerunpeggedflag = obj.ToString();
 			obj = cfg.ReadSettingObject("pegmidtextureflag", 0);
 			if (obj is int)
 				pegmidtextureflag = ((int)obj == 0) ? lowerunpeggedflag : ((int)obj).ToString(CultureInfo.InvariantCulture);
@@ -589,10 +583,10 @@ namespace CodeImp.DoomBuilder.Config
 			spriteranges = cfg.ReadSetting("sprites", new Hashtable());
 			colormapranges = cfg.ReadSetting("colormaps", new Hashtable());
 			voxelranges = cfg.ReadSetting("voxels", new Hashtable()); //mxd
-
+			
 			// Map lumps
 			LoadMapLumps();
-
+			
 			// Skills
 			LoadSkills();
 
@@ -600,9 +594,10 @@ namespace CodeImp.DoomBuilder.Config
 			LoadEnums();
 
 			//mxd. Load damage types and internal sound names
-			char[] splitter = { ' ' };
+			char[] splitter = {' '};
 			damagetypes = new HashSet<string>(cfg.ReadSetting("damagetypes", "None").Split(splitter, StringSplitOptions.RemoveEmptyEntries), StringComparer.OrdinalIgnoreCase);
 			internalsoundnames = new HashSet<string>(cfg.ReadSetting("internalsoundnames", string.Empty).Split(splitter, StringSplitOptions.RemoveEmptyEntries), StringComparer.OrdinalIgnoreCase);
+			triggerertypes = new HashSet<string>(cfg.ReadSetting("triggerertypes", string.Empty).Split(splitter, StringSplitOptions.RemoveEmptyEntries), StringComparer.OrdinalIgnoreCase);
 
 			//mxd. Load stuff to ignore
 			ignoreddirectories = new HashSet<string>(cfg.ReadSetting("ignoreddirectories", string.Empty).Split(splitter, StringSplitOptions.RemoveEmptyEntries), StringComparer.OrdinalIgnoreCase);
@@ -612,27 +607,27 @@ namespace CodeImp.DoomBuilder.Config
 			IDictionary requiredArchives = cfg.ReadSetting("requiredarchives", new Hashtable());
 			requiredarchives = new List<RequiredArchive>();
 			foreach (DictionaryEntry cde in requiredArchives)
-			{
+            {
 				string filename = cfg.ReadSetting("requiredarchives." + cde.Key + ".filename", "gzdoom.pk3");
 				bool exclude = cfg.ReadSetting("requiredarchives." + cde.Key + ".need_exclude", true);
 				IDictionary entries = cfg.ReadSetting("requiredarchives." + cde.Key, new Hashtable());
 				List<RequiredArchiveEntry> reqEntries = new List<RequiredArchiveEntry>();
 				foreach (DictionaryEntry cde2 in entries)
-				{
+                {
 					if ((string)cde2.Key == "filename") continue;
 					string lumpname = cfg.ReadSetting("requiredarchives." + cde.Key + "." + cde2.Key + ".lump", (string)null);
 					string classname = cfg.ReadSetting("requiredarchives." + cde.Key + "." + cde2.Key + ".class", (string)null);
 					reqEntries.Add(new RequiredArchiveEntry(classname, lumpname));
-				}
+                }
 				requiredarchives.Add(new RequiredArchive((string)cde.Key, filename, exclude, reqEntries));
-			}
+            }
 
 			// Things
 			LoadThingFlags();
 			LoadDefaultThingFlags();
 			LoadThingCategories();
 			LoadStringDictionary(thingrenderstyles, "thingrenderstyles"); //mxd
-
+			
 			// Linedefs
 			LoadLinedefFlags();
 			LoadLinedefActions();
@@ -660,7 +655,7 @@ namespace CodeImp.DoomBuilder.Config
 			LoadSectorGeneralizedEffects();
 			LoadStringDictionary(sectorrenderstyles, "sectorrenderstyles"); //mxd
 			LoadStringDictionary(sectorportalrenderstyles, "sectorportalrenderstyles"); //mxd
-
+			
 			// Universal fields
 			linedeffields = LoadUniversalFields("linedef");
 			sectorfields = LoadUniversalFields("sector");
@@ -692,14 +687,6 @@ namespace CodeImp.DoomBuilder.Config
 					skewstyle = SkewStyle.GZDoom;
 				else if (sidedeffields.Any(lf => lf.Name == "skew_top_type" || lf.Name == "skew_middle_type" || lf.Name == "skew_bottom_type"))
 					skewstyle = SkewStyle.EternityEngine;
-			}
-
-			// Determine file title style
-			string filetitlestylestring = cfg.ReadSetting("filetitlestyle", "default");
-			if (!Enum.TryParse(filetitlestylestring, true, out filetitlestyle))
-			{
-				General.ErrorLogger.Add(ErrorType.Error, "Unknown file title style \"" + filetitlestylestring + "\" specified in current Game Configuration. Falling back to \"default\"");
-				filetitlestyle = FileTitleStyle.DEFAULT;
 			}
 		}
 
