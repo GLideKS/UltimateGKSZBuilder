@@ -101,7 +101,7 @@ namespace CodeImp.DoomBuilder.Controls
 			if(!General.Map.FormatInterface.HasBuiltInActivations && General.Map.FormatInterface.HasNumericLinedefActivations) //Hexen map format?
 			{ 
 				activation.Visible = true;
-				activationlabel.Text = "Activation:";
+				activationlabel.SetLeftExpandText("Activation:");
 				activationlabel.Visible = true;
 				taglabel.Visible = false;
 				tag.Visible = false;
@@ -247,8 +247,10 @@ namespace CodeImp.DoomBuilder.Controls
 				string[] argnames = scriptitem.GetArgumentsDescriptions(l.Action, out first);
                 for (int i = 0; i < Math.Min(args.Length, first); i++)
                 {
-                    arglabels[i].Text = (isarg0str ? act.Args[i].TitleStr : act.Args[i].Title) + ":";
-                    arglabels[i].Enabled = act.Args[i].Used;
+					int right = arglabels[i].Right;
+					arglabels[i].Text = (isarg0str ? act.Args[i].TitleStr : act.Args[i].Title) + ":";
+					arglabels[i].Left = right - arglabels[i].Width;
+					arglabels[i].Enabled = act.Args[i].Used;
                     args[i].Enabled = act.Args[i].Used;
                 }
 
@@ -256,13 +258,17 @@ namespace CodeImp.DoomBuilder.Controls
 				{
 					if(!string.IsNullOrEmpty(argnames[i]))
 					{
+						int right = arglabels[i].Right;
 						arglabels[i].Text = argnames[i] + ":";
+						arglabels[i].Left = right - arglabels[i].Width;
 						arglabels[i].Enabled = true;
 						args[i].Enabled = true;
 					}
 					else
 					{
+						int right = arglabels[i].Right;
                         arglabels[i].Text = (isarg0str ? act.Args[i].TitleStr : act.Args[i].Title) + ":";
+						arglabels[i].Left = right - arglabels[i].Width;
                         arglabels[i].Enabled = act.Args[i].Used;
 						args[i].Enabled = act.Args[i].Used;
 					}
@@ -272,7 +278,9 @@ namespace CodeImp.DoomBuilder.Controls
 			{
 				for(int i = 0; i < args.Length; i++)
 				{
+					int right = arglabels[i].Right;
                     arglabels[i].Text = (isarg0str ? act.Args[i].TitleStr : act.Args[i].Title) + ":";
+					arglabels[i].Left = right - arglabels[i].Width;
                     arglabels[i].Enabled = act.Args[i].Used;
 					args[i].Enabled = act.Args[i].Used;
 				}
@@ -280,7 +288,9 @@ namespace CodeImp.DoomBuilder.Controls
 				// Special cases: unknown script name/index
 				if(isacsscript)
 				{
+					int right = arglbl1.Right;
 					arglbl1.Text = "Unknown script " + (isarg0str ? "name" : "number") + ":";
+					arglbl1.Left = right - arglbl1.Width;
 					arg1.ForeColor = Color.DarkRed;
 					arglbl1.ForeColor = Color.DarkRed;
 				}
@@ -321,7 +331,7 @@ namespace CodeImp.DoomBuilder.Controls
 				if(General.Map.UDMF) 
 				{
 					//light
-					frontoffsetlabel.Text = "Front light:";
+					frontoffsetlabel.SetLeftExpandText("Front light:");
 					SetUDMFLight(l.Front, frontoffsetlabel, frontoffset, highlight);
 
 					//global offset, sector index
@@ -357,8 +367,8 @@ namespace CodeImp.DoomBuilder.Controls
 				} 
 				else 
 				{
-					frontoffsetlabel.Text = "Front offset:";
-					if(l.Front.OffsetX != 0 || l.Front.OffsetY != 0)
+					frontoffsetlabel.SetLeftExpandText("Front offset:");
+					if (l.Front.OffsetX != 0 || l.Front.OffsetY != 0)
 					{
 						frontoffset.Text = l.Front.OffsetX + ", " + l.Front.OffsetY;
 						frontoffsetlabel.Enabled = true;
@@ -410,12 +420,12 @@ namespace CodeImp.DoomBuilder.Controls
 				// Show no info
 				if(General.Map.UDMF) //mxd
 				{
-					frontoffsetlabel.Text = "Front light:";
+					frontoffsetlabel.SetLeftExpandText("Front light:");
 					frontoffset.Text = "--";
 				} 
 				else 
 				{
-					frontoffsetlabel.Text = "Front offset:";
+					frontoffsetlabel.SetLeftExpandText("Front offset:");
 					frontoffset.Text = "--, --";
 				}
 
@@ -449,7 +459,7 @@ namespace CodeImp.DoomBuilder.Controls
 				if(General.Map.UDMF) 
 				{
 					//light
-					backoffsetlabel.Text = "Back light:";
+					backoffsetlabel.SetLeftExpandText("Back light:");
 					SetUDMFLight(l.Back, backoffsetlabel, backoffset, highlight);
 
 					//global offset, sector index
@@ -485,7 +495,7 @@ namespace CodeImp.DoomBuilder.Controls
 				}
 				else
 				{
-					backoffsetlabel.Text = "Back offset:";
+					backoffsetlabel.SetLeftExpandText("Back offset:");
 					if(l.Back.OffsetX != 0 || l.Back.OffsetY != 0)
 					{
 						backoffset.Text = l.Back.OffsetX + ", " + l.Back.OffsetY;
@@ -528,12 +538,12 @@ namespace CodeImp.DoomBuilder.Controls
 				// Show no info
 				if(General.Map.UDMF) //mxd
 				{ 
-					backoffsetlabel.Text = "Back light:";
+					backoffsetlabel.SetLeftExpandText("Back light:");
 					backoffset.Text = "--";
 				} 
 				else 
 				{
-					backoffsetlabel.Text = "Back offset:";
+					backoffsetlabel.SetLeftExpandText("Back offset:");
 					backoffset.Text = "--, --";
 				}
 
