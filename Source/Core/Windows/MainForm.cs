@@ -4698,7 +4698,7 @@ namespace CodeImp.DoomBuilder.Windows
 				}
 				
 				// If we made updates, redraw the screen
-				if(updated) DelayedRedraw();
+				if(updated && General.Map.Map.IsSafeToAccess) DelayedRedraw();
 			}
 		}
 
