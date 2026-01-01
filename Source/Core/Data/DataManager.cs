@@ -1754,7 +1754,7 @@ namespace CodeImp.DoomBuilder.Data
 					t.Start();
 
 					currentreader = dr;
-                    foreach (TextResourceData data in dr.GetZScriptData("ZSCRIPT"))
+                    foreach (TextResourceData data in dr.GetZScriptData("ZSCRIPT", false))
                     {
                         // Parse the data
                         data.Stream.Seek(0, SeekOrigin.Begin);
@@ -2392,8 +2392,8 @@ namespace CodeImp.DoomBuilder.Data
 
         private void LoadZScriptFromLocation(ZScriptParser parser, string location)
         {
-            IEnumerable<TextResourceData> streams = currentreader.GetZScriptData(location);
-            foreach (TextResourceData data in streams)
+			IEnumerable<TextResourceData> streams = currentreader.GetZScriptData(location, true);
+			foreach (TextResourceData data in streams)
             {
                 // Parse this data
                 parser.Parse(data, false);

@@ -1076,7 +1076,7 @@ namespace CodeImp.DoomBuilder.Data
 		}
 
         // [ZZ] This finds and returns ZSCRIPT streams
-        public override IEnumerable<TextResourceData> GetZScriptData(string pname)
+        public override IEnumerable<TextResourceData> GetZScriptData(string pname, bool exactmatch)
         {
             if (issuspended) throw new Exception("Data reader is suspended");
             List<TextResourceData> result = GetAllLumpsData(pname); //mxd
