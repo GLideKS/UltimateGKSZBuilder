@@ -31,7 +31,7 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("0.9.1.4173")]
-[assembly: AssemblyInformationalVersion("0.9.1")]
+[assembly: AssemblyVersion("0.9.2.4173")]
+[assembly: AssemblyInformationalVersion("0.9.2")]
 [assembly: NeutralResourcesLanguageAttribute("en")]
 [assembly: InternalsVisibleTo("Builder.Tests")]
