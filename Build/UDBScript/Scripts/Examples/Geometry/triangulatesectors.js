@@ -11,3 +11,13 @@ if(sectors.length == 0)
 
 // Draw all triangles. Remember to add the first point at the end so that the drawing will be closed
 sectors.forEach(s => s.getTriangles().forEach(t => UDB.Map.drawLines([...t, t[0]])));
+
+// sectors.forEach(s => {
+//     const triangles = s.getTriangles();
+
+//     const p1 = profStart();
+//     triangles.forEach(t =>
+//         UDB.Map.drawLines([...t, t[0]])
+//     )
+//     profEnd(p1, 'draw');
+// });
