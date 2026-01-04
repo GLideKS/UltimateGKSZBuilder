@@ -69,12 +69,18 @@ const setReasonableDefaultHeights = (sector, fofSector) => {
     if (Math.abs(bottomPlane.normal.z - 1) > 0.001) {
         fofSector.setFloorSlope(bottomPlane.normal);
         fofSector.floorSlopeOffset = bottomPlane.offset;
+    } else {
+        fofSector.setFloorSlope([0, 0, 0]);
+        fofSector.floorSlopeOffset = NaN;
     }
 
     const topPlane = getRaisedPlane(fofSector.getFloorPlane(), height);
     if (Math.abs(topPlane.normal.z - 1) > 0.001) {
         fofSector.setCeilingSlope(UDB.Vector3D.reversed(topPlane.normal));
         fofSector.ceilingSlopeOffset = -topPlane.offset;
+    } else {
+        fofSector.setCeilingSlope([0, 0, 0]);
+        fofSector.ceilingSlopeOffset = NaN;
     }
 }
 
