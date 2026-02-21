@@ -381,7 +381,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(202, 13);
 			this.label5.TabIndex = 24;
-			this.label5.Text = "developed by MascaraSnake and sphere";
+			this.label5.Text = "Forked from Ultimate Zone Builder, edited by: GLide KS";
 			// 
 			// AboutForm
 			// 
