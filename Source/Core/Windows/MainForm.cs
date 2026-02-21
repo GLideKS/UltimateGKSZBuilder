@@ -3472,7 +3472,7 @@ namespace CodeImp.DoomBuilder.Windows
 		//mxd. Github issues clicked
 		private void itemhelpissues_Click(object sender, EventArgs e)
 		{
-			General.OpenWebsite("https://git.do.srb2.org/STJr/UltimateZoneBuilder/-/issues");
+			General.OpenWebsite("https://github.com/GLideKS/UltimateGKSZBuilder/issues");
 		}
 		
 		// About clicked

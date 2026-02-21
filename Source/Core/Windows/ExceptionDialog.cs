@@ -159,7 +159,7 @@ namespace CodeImp.DoomBuilder.Windows
 
 		private void newissue_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) 
 		{
-			try { System.Diagnostics.Process.Start("https://git.do.srb2.org/STJr/UltimateZoneBuilder/-/issues"); } 
+			try { System.Diagnostics.Process.Start("https://github.com/GLideKS/UltimateGKSZBuilder/issues"); } 
 			catch { MessageBox.Show("Unable to open URL..."); }
 			newissue.LinkVisited = true;
 		}
