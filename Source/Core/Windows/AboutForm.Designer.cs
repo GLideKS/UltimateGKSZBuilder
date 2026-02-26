@@ -106,6 +106,7 @@ namespace CodeImp.DoomBuilder.Windows
 			label4.Location = new System.Drawing.Point(244, 129);
 			label4.Name = "label4";
 			label4.Size = new System.Drawing.Size(224, 80);
+			label4.AutoSize = true;
 			label4.TabIndex = 24;
 			label4.Text = "Doom Builder is designed and programmed by Pascal vd Heiden.\r\nSeveral game config" +
     "urations were written by various members of the Doom community. See the website " +

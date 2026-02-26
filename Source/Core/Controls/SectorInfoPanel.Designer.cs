@@ -135,6 +135,7 @@ namespace CodeImp.DoomBuilder.Controls
 			label13.Name = "label13";
 			label13.Size = new System.Drawing.Size(70, 14);
 			label13.TabIndex = 14;
+			label13.AutoSize = true;
 			label13.Text = "Brightness:";
 			label13.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
@@ -144,6 +145,7 @@ namespace CodeImp.DoomBuilder.Controls
 			label5.Name = "label5";
 			label5.Size = new System.Drawing.Size(44, 14);
 			label5.TabIndex = 8;
+			label5.AutoSize = true;
 			label5.Text = "Height:";
 			label5.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
