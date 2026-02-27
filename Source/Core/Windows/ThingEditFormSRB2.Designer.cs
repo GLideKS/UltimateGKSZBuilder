@@ -37,13 +37,10 @@
 			this.cbrandomangle = new System.Windows.Forms.CheckBox();
 			this.roll = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.labelroll = new System.Windows.Forms.Label();
-			this.labelroll.AutoSize = true;
 			this.pitch = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.labelpitch = new System.Windows.Forms.Label();
-			this.labelpitch.AutoSize = true;
 			this.angle = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.labelAngle = new System.Windows.Forms.Label();
-			this.labelAngle.AutoSize = true;
 			this.anglecontrol = new CodeImp.DoomBuilder.Controls.AngleControlEx();
 			this.tabs = new System.Windows.Forms.TabControl();
 			this.tabproperties = new System.Windows.Forms.TabPage();
@@ -58,18 +55,14 @@
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
 			this.cbAbsoluteHeight = new System.Windows.Forms.CheckBox();
 			this.label4 = new System.Windows.Forms.Label();
-			this.label4.AutoSize = true;
 			this.label5 = new System.Windows.Forms.Label();
-			this.label5.AutoSize = true;
 			this.posX = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.posY = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.posZ = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.zlabel = new System.Windows.Forms.Label();
-			this.zlabel.AutoSize = true;
 			this.tabeffects = new System.Windows.Forms.TabPage();
 			this.grouprendering = new System.Windows.Forms.GroupBox();
 			this.labelScale = new System.Windows.Forms.Label();
-			this.labelScale.AutoSize = true;
 			this.scale = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.actiongroup = new System.Windows.Forms.GroupBox();
 			this.argscontrol = new CodeImp.DoomBuilder.Controls.ArgumentsControlSRB2();
@@ -84,7 +77,6 @@
 			this.apply = new System.Windows.Forms.Button();
 			this.hint = new System.Windows.Forms.PictureBox();
 			this.hintlabel = new System.Windows.Forms.Label();
-			this.hintlabel.AutoSize = true;
 			this.tooltip = new System.Windows.Forms.ToolTip(this.components);
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -117,7 +109,7 @@
 			// 
 			// thingtype
 			// 
-			this.thingtype.Location = new System.Drawing.Point(9, 13);
+			this.thingtype.Location = new System.Drawing.Point(9, 17);
 			this.thingtype.Margin = new System.Windows.Forms.Padding(6);
 			this.thingtype.Name = "thingtype";
 			this.thingtype.Size = new System.Drawing.Size(212, 374);
@@ -146,7 +138,6 @@
 			// 
 			// cbrandomroll
 			// 
-			this.cbrandomroll.AutoSize = true;
 			this.cbrandomroll.Location = new System.Drawing.Point(120, 71);
 			this.cbrandomroll.Name = "cbrandomroll";
 			this.cbrandomroll.Size = new System.Drawing.Size(66, 17);
@@ -158,7 +149,6 @@
 			// 
 			// cbrandompitch
 			// 
-			this.cbrandompitch.AutoSize = true;
 			this.cbrandompitch.Location = new System.Drawing.Point(120, 46);
 			this.cbrandompitch.Name = "cbrandompitch";
 			this.cbrandompitch.Size = new System.Drawing.Size(66, 17);
@@ -170,7 +160,6 @@
 			// 
 			// cbrandomangle
 			// 
-			this.cbrandomangle.AutoSize = true;
 			this.cbrandomangle.Location = new System.Drawing.Point(120, 21);
 			this.cbrandomangle.Name = "cbrandomangle";
 			this.cbrandomangle.Size = new System.Drawing.Size(66, 17);
@@ -201,9 +190,9 @@
 			// 
 			// labelroll
 			// 
-			this.labelroll.Location = new System.Drawing.Point(5, 71);
+			this.labelroll.Location = new System.Drawing.Point(5, 70);
 			this.labelroll.Name = "labelroll";
-			this.labelroll.Size = new System.Drawing.Size(44, 14);
+			this.labelroll.Size = new System.Drawing.Size(44, 16);
 			this.labelroll.TabIndex = 4;
 			this.labelroll.Text = "&Roll:";
 			this.labelroll.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -230,9 +219,9 @@
 			// 
 			// labelpitch
 			// 
-			this.labelpitch.Location = new System.Drawing.Point(5, 46);
+			this.labelpitch.Location = new System.Drawing.Point(5, 45);
 			this.labelpitch.Name = "labelpitch";
-			this.labelpitch.Size = new System.Drawing.Size(44, 14);
+			this.labelpitch.Size = new System.Drawing.Size(44, 16);
 			this.labelpitch.TabIndex = 2;
 			this.labelpitch.Text = "&Pitch:";
 			this.labelpitch.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -258,9 +247,9 @@
 			// 
 			// labelAngle
 			// 
-			this.labelAngle.Location = new System.Drawing.Point(5, 21);
+			this.labelAngle.Location = new System.Drawing.Point(5, 20);
 			this.labelAngle.Name = "labelAngle";
-			this.labelAngle.Size = new System.Drawing.Size(44, 14);
+			this.labelAngle.Size = new System.Drawing.Size(44, 16);
 			this.labelAngle.TabIndex = 0;
 			this.labelAngle.Text = "&Angle:";
 			this.labelAngle.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -420,7 +409,6 @@
 			// 
 			// cbAbsoluteHeight
 			// 
-			this.cbAbsoluteHeight.AutoSize = true;
 			this.cbAbsoluteHeight.Location = new System.Drawing.Point(109, 71);
 			this.cbAbsoluteHeight.Name = "cbAbsoluteHeight";
 			this.cbAbsoluteHeight.Size = new System.Drawing.Size(67, 17);
@@ -431,18 +419,18 @@
 			// 
 			// label4
 			// 
-			this.label4.Location = new System.Drawing.Point(4, 21);
+			this.label4.Location = new System.Drawing.Point(4, 20);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(22, 14);
+			this.label4.Size = new System.Drawing.Size(22, 16);
 			this.label4.TabIndex = 0;
 			this.label4.Text = "&X:";
 			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// label5
 			// 
-			this.label5.Location = new System.Drawing.Point(4, 46);
+			this.label5.Location = new System.Drawing.Point(4, 45);
 			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(22, 14);
+			this.label5.Size = new System.Drawing.Size(22, 16);
 			this.label5.TabIndex = 2;
 			this.label5.Text = "&Y:";
 			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -506,9 +494,9 @@
 			// 
 			// zlabel
 			// 
-			this.zlabel.Location = new System.Drawing.Point(4, 71);
+			this.zlabel.Location = new System.Drawing.Point(4, 70);
 			this.zlabel.Name = "zlabel";
-			this.zlabel.Size = new System.Drawing.Size(22, 14);
+			this.zlabel.Size = new System.Drawing.Size(22, 16);
 			this.zlabel.TabIndex = 4;
 			this.zlabel.Text = "&Z:";
 			this.zlabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -540,9 +528,9 @@
 			// 
 			// labelScale
 			// 
-			this.labelScale.Location = new System.Drawing.Point(5, 27);
+			this.labelScale.Location = new System.Drawing.Point(5, 26);
 			this.labelScale.Name = "labelScale";
-			this.labelScale.Size = new System.Drawing.Size(80, 14);
+			this.labelScale.Size = new System.Drawing.Size(80, 16);
 			this.labelScale.TabIndex = 32;
 			this.labelScale.Tag = "scalex";
 			this.labelScale.Text = "&Scale:";
@@ -639,7 +627,6 @@
 			// 
 			// hidefixedfields
 			// 
-			this.hidefixedfields.AutoSize = true;
 			this.hidefixedfields.Location = new System.Drawing.Point(10, 381);
 			this.hidefixedfields.Name = "hidefixedfields";
 			this.hidefixedfields.Size = new System.Drawing.Size(195, 17);
@@ -704,10 +691,9 @@
 			// hintlabel
 			// 
 			this.hintlabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.hintlabel.AutoSize = true;
-			this.hintlabel.Location = new System.Drawing.Point(24, 447);
+			this.hintlabel.Location = new System.Drawing.Point(24, 445);
 			this.hintlabel.Name = "hintlabel";
-			this.hintlabel.Size = new System.Drawing.Size(365, 13);
+			this.hintlabel.Size = new System.Drawing.Size(365, 17);
 			this.hintlabel.TabIndex = 4;
 			this.hintlabel.Text = "Select categories or several thing types to randomly assign them to selection";
 			// 
