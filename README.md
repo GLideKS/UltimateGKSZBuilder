@@ -45,6 +45,7 @@ __Note:__ this is experimental. None of the main developers are using Linux as a
 - Alternatively, to compile Ultimate GKSZ Builder in debug mode:
   - Run `make BUILDTYPE=Debug` in the root project directory
   - This includes a debug output terminal in the bottom panel
+- If you experience freezing when saving or backing up a map, change the Nodebuilders to their Linux variants under **Game Configurations - Nodebuilder** (stated as `[Linux]` in the name)
 
 Ultimate Doom Builder:
 - [UDB repository](https://github.com/UltimateDoomBuilder/UltimateDoomBuilder)
