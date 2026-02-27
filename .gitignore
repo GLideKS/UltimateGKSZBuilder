@@ -41,3 +41,11 @@ bin
 /builder
 *.csproj.dtbcache.json
 mono_crash*
+Build/TabControlEX.dll.so
+Build/System.Runtime.CompilerServices.Unsafe.dll.so
+Build/System.Numerics.Vectors.dll.so
+Build/System.Memory.dll.so
+Build/System.Buffers.dll.so
+Build/SharpCompress.dll.so
+Build/ScintillaNET.dll.so
+Build/Builder.exe.so
