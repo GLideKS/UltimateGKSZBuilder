@@ -4,7 +4,7 @@ BUILDTYPE ?= Release
 all: linux
 
 run:
-	cd Build && if [ ! -f "Builder.exe.so" ]; then mono --aot Builder.exe; fi && mono Builder.exe
+	cd Build && if [ ! -f "Builder.exe.so" ]; then mono --aot Builder.exe; fi && GTK_DATA_PREFIX= mono Builder.exe
 
 linux: builder native
 
