@@ -1349,10 +1349,10 @@ namespace CodeImp.DoomBuilder.Windows
 			// 
 			// itemhelpissues
 			// 
-			this.itemhelpissues.Image = global::CodeImp.DoomBuilder.Properties.Resources.GitLab;
+			this.itemhelpissues.Image = global::CodeImp.DoomBuilder.Properties.Resources.Github;
 			this.itemhelpissues.Name = "itemhelpissues";
 			this.itemhelpissues.Size = new System.Drawing.Size(232, 22);
-			this.itemhelpissues.Text = "&GitLab issues tracker";
+			this.itemhelpissues.Text = "&GitHub issues tracker";
 			this.itemhelpissues.Click += new System.EventHandler(this.itemhelpissues_Click);
 			// 
 			// itemhelpabout
