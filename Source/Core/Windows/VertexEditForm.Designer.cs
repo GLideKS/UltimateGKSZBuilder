@@ -160,19 +160,17 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // label2
             // 
-            label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(68, 37);
+            label2.Location = new System.Drawing.Point(68, 35);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(106, 13);
+            label2.Size = new System.Drawing.Size(106, 17);
             label2.TabIndex = 26;
             label2.Text = "Absolute floor height:";
             // 
             // label3
             // 
-            label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(60, 5);
+            label3.Location = new System.Drawing.Point(60, 3);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(116, 13);
+            label3.Size = new System.Drawing.Size(116, 17);
             label3.TabIndex = 27;
             label3.Text = "Absolute ceiling height:";
             // 
@@ -216,19 +214,17 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(212, 39);
+            label1.Location = new System.Drawing.Point(212, 37);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(17, 13);
+            label1.Size = new System.Drawing.Size(17, 17);
             label1.TabIndex = 23;
             label1.Text = "&Y:";
             // 
             // label6
             // 
-            label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(45, 39);
+            label6.Location = new System.Drawing.Point(45, 37);
             label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(17, 13);
+            label6.Size = new System.Drawing.Size(17, 17);
             label6.TabIndex = 21;
             label6.Text = "&X:";
             // 
