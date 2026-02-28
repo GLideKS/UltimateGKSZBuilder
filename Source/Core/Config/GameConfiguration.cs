@@ -476,8 +476,16 @@ namespace CodeImp.DoomBuilder.Config
 			}
 
 			enginename = cfg.ReadSetting("engine", "");
-			defaultsavecompiler = cfg.ReadSetting("defaultsavecompiler", "");
-			defaulttestcompiler = cfg.ReadSetting("defaulttestcompiler", "");
+			if(Environment.OSVersion.Platform == PlatformID.Unix)
+			{	
+				defaultsavecompiler = cfg.ReadSetting("defaultsavecompiler_linux", "");
+				defaulttestcompiler = cfg.ReadSetting("defaulttestcompiler_linux", "");
+			}
+			else
+			{
+				defaultsavecompiler = cfg.ReadSetting("defaultsavecompiler", "");
+				defaulttestcompiler = cfg.ReadSetting("defaulttestcompiler", "");
+			}
 			defaulttexturescale = cfg.ReadSetting("defaulttexturescale", 1f);
 			defaultflatscale = cfg.ReadSetting("defaultflatscale", 1f);
 			defaultwalltexture = cfg.ReadSetting("defaultwalltexture", "STARTAN"); //mxd
