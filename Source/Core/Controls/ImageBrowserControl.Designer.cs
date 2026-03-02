@@ -31,9 +31,7 @@ namespace CodeImp.DoomBuilder.Controls
 		{
 			this.components = new System.ComponentModel.Container();
 			this.labelMixMode = new System.Windows.Forms.Label();
-			this.labelMixMode.AutoSize = true;
 			this.label = new System.Windows.Forms.Label();
-			this.label.AutoSize = true;
 			this.splitter = new System.Windows.Forms.SplitContainer();
 			this.list = new CodeImp.DoomBuilder.Controls.ImageSelectorPanel();
 			this.centeritem = new System.Windows.Forms.CheckBox();
@@ -41,14 +39,11 @@ namespace CodeImp.DoomBuilder.Controls
 			this.objectclear = new System.Windows.Forms.Button();
 			this.sizecombo = new System.Windows.Forms.ComboBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.label1.AutoSize = true;
 			this.usedtexturesfirst = new System.Windows.Forms.CheckBox();
 			this.longtexturenames = new System.Windows.Forms.CheckBox();
 			this.filterheightlabel = new System.Windows.Forms.Label();
-			this.filterheightlabel.AutoSize = true;
 			this.filterHeight = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.filterwidthlabel = new System.Windows.Forms.Label();
-			this.filterwidthlabel.AutoSize = true;
 			this.filterWidth = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.texturetypecombo = new System.Windows.Forms.ComboBox();
 			this.objectname = new System.Windows.Forms.TextBox();

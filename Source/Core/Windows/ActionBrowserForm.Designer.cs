@@ -71,7 +71,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.tbFilter = new System.Windows.Forms.TextBox();
             this.btnClearFilter = new System.Windows.Forms.Button();
             this.labelFilter = new System.Windows.Forms.Label();
-            this.labelFilter.AutoSize = true;
             this.prefixespanel = new System.Windows.Forms.Panel();
             this.tabgeneralized = new System.Windows.Forms.TabPage();
             label1 = new System.Windows.Forms.Label();

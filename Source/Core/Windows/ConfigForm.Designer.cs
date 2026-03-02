@@ -42,7 +42,6 @@ namespace CodeImp.DoomBuilder.Windows
             System.Windows.Forms.Label label10;
             this.linuxpaths = new System.Windows.Forms.CheckBox();
             this.labelparameters = new System.Windows.Forms.Label();
-            this.labelparameters.AutoSize = true;
             this.cancel = new System.Windows.Forms.Button();
             this.apply = new System.Windows.Forms.Button();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -56,7 +55,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.btnNewEngine = new System.Windows.Forms.Button();
             this.cbEngineSelector = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.label13.AutoSize = true;
             this.shortpaths = new System.Windows.Forms.CheckBox();
             this.customparameters = new System.Windows.Forms.CheckBox();
             this.skill = new CodeImp.DoomBuilder.Controls.ActionSelectorControl();
@@ -65,7 +63,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.noresultlabel.AutoSize = true;
             this.testresult = new System.Windows.Forms.TextBox();
             this.labelresult = new System.Windows.Forms.Label();
-            this.labelresult.AutoSize = true;
             this.testparameters = new System.Windows.Forms.TextBox();
             this.testapplication = new System.Windows.Forms.TextBox();
             this.tabtextures = new System.Windows.Forms.TabPage();
@@ -82,7 +79,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.tabmodes = new System.Windows.Forms.TabPage();
             this.startmode = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.label11.AutoSize = true;
             this.listmodes = new System.Windows.Forms.ListView();
             this.colmodename = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colmodeplugin = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -97,7 +93,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.pastecolorpresets = new System.Windows.Forms.ToolStripMenuItem();
             this.testprogramdialog = new System.Windows.Forms.OpenFileDialog();
             this.hintlabel = new System.Windows.Forms.Label();
-            this.hintlabel.AutoSize = true;
             this.hint = new System.Windows.Forms.PictureBox();
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
             this.importtexturesetdialog = new System.Windows.Forms.OpenFileDialog();
@@ -125,7 +120,6 @@ namespace CodeImp.DoomBuilder.Windows
             // label5
             // 
             label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            label5.AutoSize = true;
             label5.Location = new System.Drawing.Point(12, 272);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(299, 39);
@@ -161,7 +155,6 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // label2
             // 
-            label2.AutoSize = true;
             label2.Location = new System.Drawing.Point(12, 86);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(144, 13);
@@ -171,7 +164,6 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // label7
             // 
-            label7.AutoSize = true;
             label7.Location = new System.Drawing.Point(35, 125);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(121, 13);
@@ -194,7 +186,6 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // label1
             // 
-            label1.AutoSize = true;
             label1.Location = new System.Drawing.Point(15, 89);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(62, 13);
@@ -204,7 +195,6 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // label8
             // 
-            label8.AutoSize = true;
             label8.Location = new System.Drawing.Point(21, 119);
             label8.Name = "label8";
             label8.Size = new System.Drawing.Size(58, 13);

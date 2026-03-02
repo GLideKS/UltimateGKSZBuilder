@@ -40,7 +40,6 @@
 			};
 			#endif
 			this.labelMaximum = new System.Windows.Forms.Label();
-			this.labelMaximum.AutoSize = true;
 			((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
 			this.SuspendLayout();

@@ -59,7 +59,6 @@ namespace CodeImp.DoomBuilder.Windows
 			this.checkingloader = new System.Windows.Forms.Panel();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.label4 = new System.Windows.Forms.Label();
-			this.label4.AutoSize = true;
 			label1 = new System.Windows.Forms.Label();
 			label2 = new System.Windows.Forms.Label();
 			label3 = new System.Windows.Forms.Label();

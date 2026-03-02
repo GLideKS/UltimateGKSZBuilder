@@ -35,9 +35,7 @@ namespace CodeImp.DoomBuilder.Windows
             this.label2 = new System.Windows.Forms.Label();
             this.label2.AutoSize = true;
             this.label3 = new System.Windows.Forms.Label();
-            this.label3.AutoSize = true;
             this.label4 = new System.Windows.Forms.Label();
-            this.label4.AutoSize = true;
             this.apply = new System.Windows.Forms.Button();
             this.cancel = new System.Windows.Forms.Button();
             this.addfilter = new System.Windows.Forms.Button();

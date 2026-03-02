@@ -59,7 +59,6 @@
 			this.sectorheightlabel = new System.Windows.Forms.Label();
 			this.sectorheightlabel.AutoSize = true;
 			this.sectorheight = new System.Windows.Forms.Label();
-			this.sectorheight.AutoSize = true;
 			this.floorheight = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.tabs = new System.Windows.Forms.TabControl();
 			this.tabproperties = new System.Windows.Forms.TabPage();

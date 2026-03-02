@@ -30,7 +30,6 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HintsPanel));
 			this.label1 = new System.Windows.Forms.Label();
-			this.label1.AutoSize = true;
 			this.hints = new System.Windows.Forms.RichTextBox();
 			this.SuspendLayout();
 			// 

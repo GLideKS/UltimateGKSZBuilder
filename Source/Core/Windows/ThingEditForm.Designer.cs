@@ -61,7 +61,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.apply = new System.Windows.Forms.Button();
             this.hint = new System.Windows.Forms.PictureBox();
             this.hintlabel = new System.Windows.Forms.Label();
-            this.hintlabel.AutoSize = true;
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
             this.panel = new System.Windows.Forms.Panel();
             this.applypanel = new System.Windows.Forms.Panel();

@@ -43,12 +43,10 @@ namespace CodeImp.DoomBuilder.Windows
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.version = new System.Windows.Forms.Label();
-			this.version.AutoSize = true;
 			this.copyversion = new System.Windows.Forms.Button();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.gitlink = new System.Windows.Forms.LinkLabel();
 			this.label2 = new System.Windows.Forms.Label();
-			this.label2.AutoSize = true;
 			this.zdoomorglink = new System.Windows.Forms.LinkLabel();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.linkLabel4 = new System.Windows.Forms.LinkLabel();
@@ -60,7 +58,6 @@ namespace CodeImp.DoomBuilder.Windows
 			this.label3.AutoSize = true;
 			this.pictureBox6 = new System.Windows.Forms.PictureBox();
 			this.label5 = new System.Windows.Forms.Label();
-			this.label5.AutoSize = true;
 			pictureBox5 = new System.Windows.Forms.PictureBox();
 			pictureBox3 = new System.Windows.Forms.PictureBox();
 			label4 = new System.Windows.Forms.Label();

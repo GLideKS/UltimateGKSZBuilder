@@ -39,11 +39,8 @@ namespace CodeImp.DoomBuilder.Controls
 			this.typecaption = new System.Windows.Forms.Label();
 			this.typecaption.AutoSize = true;
 			this.sizelabel = new System.Windows.Forms.Label();
-			this.sizelabel.AutoSize = true;
 			this.blockinglabel = new System.Windows.Forms.Label();
-			this.blockinglabel.AutoSize = true;
 			this.positionlabel = new System.Windows.Forms.Label();
-			this.positionlabel.AutoSize = true;
 			this.thingimages = new System.Windows.Forms.ImageList(this.components);
 			this.infopanel = new System.Windows.Forms.Panel();
 			this.spritepanel = new System.Windows.Forms.Panel();
@@ -51,7 +48,6 @@ namespace CodeImp.DoomBuilder.Controls
 			this.labelclassname = new System.Windows.Forms.Label();
 			this.labelclassname.AutoSize = true;
 			this.label1 = new System.Windows.Forms.Label();
-			this.label1.AutoSize = true;
 			this.tbFilter = new System.Windows.Forms.TextBox();
 			this.bClear = new System.Windows.Forms.Button();
 			this.updatetimer = new System.Windows.Forms.Timer(this.components);

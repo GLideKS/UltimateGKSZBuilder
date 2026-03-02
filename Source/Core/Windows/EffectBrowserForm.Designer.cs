@@ -61,7 +61,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.tbFilter = new System.Windows.Forms.TextBox();
             this.btnClearFilter = new System.Windows.Forms.Button();
             this.labelFilter = new System.Windows.Forms.Label();
-            this.labelFilter.AutoSize = true;
             this.effects = new System.Windows.Forms.ListView();
             this.colnumber = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colname = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));

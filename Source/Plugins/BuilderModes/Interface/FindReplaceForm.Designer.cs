@@ -31,7 +31,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.Label label1;
 			this.labelfind = new System.Windows.Forms.Label();
-			this.labelfind.AutoSize = true;
 			this.searchtypes = new System.Windows.Forms.ComboBox();
 			this.findinput = new CodeImp.DoomBuilder.Controls.AutoSelectTextbox();
 			this.browsefind = new System.Windows.Forms.Button();
@@ -42,7 +41,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			this.closebutton = new System.Windows.Forms.Button();
 			this.resultslist = new System.Windows.Forms.ListBox();
 			this.resultscount = new System.Windows.Forms.Label();
-			this.resultscount.AutoSize = true;
 			this.resultspanel = new System.Windows.Forms.Panel();
 			this.deletebutton = new System.Windows.Forms.Button();
 			this.editbutton = new System.Windows.Forms.Button();

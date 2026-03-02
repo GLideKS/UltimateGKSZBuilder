@@ -39,9 +39,7 @@ namespace CodeImp.DoomBuilder.TagRange
 			this.outoftagswarning = new System.Windows.Forms.Label();
 			this.outoftagswarning.AutoSize = true;
 			this.endtaglabel = new System.Windows.Forms.Label();
-			this.endtaglabel.AutoSize = true;
 			this.label4 = new System.Windows.Forms.Label();
-			this.label4.AutoSize = true;
 			this.label2 = new System.Windows.Forms.Label();
 			this.label2.AutoSize = true;
 			this.rangestep = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();

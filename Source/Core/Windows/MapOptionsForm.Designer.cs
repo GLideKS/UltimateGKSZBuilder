@@ -36,7 +36,6 @@ namespace CodeImp.DoomBuilder.Windows
             System.Windows.Forms.Label label4;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MapOptionsForm));
             this.examplelabel = new System.Windows.Forms.Label();
-            this.examplelabel.AutoSize = true;
             this.scriptcompiler = new System.Windows.Forms.ComboBox();
             this.scriptcompilerlabel = new System.Windows.Forms.Label();
             this.scriptcompilerlabel.AutoSize = true;
