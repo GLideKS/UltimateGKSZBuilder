@@ -45,6 +45,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			this.orgsizey = new System.Windows.Forms.Button();
 			this.orgsizex = new System.Windows.Forms.Button();
 			this.label12 = new System.Windows.Forms.Label();
+			this.label9 = new System.Windows.Forms.Label();
 			this.label8 = new System.Windows.Forms.Label();
 			this.label7 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();

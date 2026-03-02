@@ -43,7 +43,6 @@
 			this.buttonCheckAll = new System.Windows.Forms.Button();
 			this.buttonUncheckAll = new System.Windows.Forms.Button();
 			this.borderHeightLabel = new System.Windows.Forms.Label();
-			this.borderHeightLabel.AutoSize = true;
 			this.typeArgument = new CodeImp.DoomBuilder.Controls.ArgumentBox();
 			this.flagsArgument = new CodeImp.DoomBuilder.Controls.ArgumentBox();
 			this.buttonEditSector = new System.Windows.Forms.Button();

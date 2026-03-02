@@ -39,10 +39,8 @@
 			this.tbDescription = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
-			this.label4.AutoSize = true;
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
-			this.label2.AutoSize = true;
 			this.scriptoptions = new CodeImp.DoomBuilder.UDBScript.ScriptOptionsControl();
 			this.tableLayoutPanel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();

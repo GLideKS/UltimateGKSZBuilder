@@ -31,13 +31,9 @@ namespace CodeImp.DoomBuilder.Controls
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ThingBrowserControl));
 			this.sizecaption = new System.Windows.Forms.Label();
-			this.sizecaption.AutoSize = true;
 			this.blockingcaption = new System.Windows.Forms.Label();
-			this.blockingcaption.AutoSize = true;
 			this.positioncaption = new System.Windows.Forms.Label();
-			this.positioncaption.AutoSize = true;
 			this.typecaption = new System.Windows.Forms.Label();
-			this.typecaption.AutoSize = true;
 			this.sizelabel = new System.Windows.Forms.Label();
 			this.blockinglabel = new System.Windows.Forms.Label();
 			this.positionlabel = new System.Windows.Forms.Label();
@@ -46,7 +42,6 @@ namespace CodeImp.DoomBuilder.Controls
 			this.spritepanel = new System.Windows.Forms.Panel();
 			this.classname = new System.Windows.Forms.LinkLabel();
 			this.labelclassname = new System.Windows.Forms.Label();
-			this.labelclassname.AutoSize = true;
 			this.label1 = new System.Windows.Forms.Label();
 			this.tbFilter = new System.Windows.Forms.TextBox();
 			this.bClear = new System.Windows.Forms.Button();

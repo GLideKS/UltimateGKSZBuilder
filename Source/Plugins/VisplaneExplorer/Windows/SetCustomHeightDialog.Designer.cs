@@ -53,7 +53,6 @@ namespace CodeImp.DoomBuilder.Plugins.VisplaneExplorer.Windows
         private void InitializeComponent()
         {
             this.label = new System.Windows.Forms.Label();
-            this.label.AutoSize = true;
             this.input = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
             this.apply = new System.Windows.Forms.Button();
             this.cancel = new System.Windows.Forms.Button();

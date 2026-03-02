@@ -26,7 +26,6 @@
 		/// </summary>
 		private void InitializeComponent() {
 			this.label1 = new System.Windows.Forms.Label();
-			this.label1.AutoSize = true;
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.SuspendLayout();
 			// 

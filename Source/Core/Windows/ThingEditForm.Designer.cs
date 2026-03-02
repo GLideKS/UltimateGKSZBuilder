@@ -33,14 +33,11 @@ namespace CodeImp.DoomBuilder.Windows
             System.Windows.Forms.Label label7;
             this.cbAbsoluteHeight = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label2.AutoSize = true;
             this.label1 = new System.Windows.Forms.Label();
-            this.label1.AutoSize = true;
             this.posX = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
             this.posY = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
             this.posZ = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
             this.zlabel = new System.Windows.Forms.Label();
-            this.zlabel.AutoSize = true;
             this.typegroup = new System.Windows.Forms.GroupBox();
             this.thingtype = new CodeImp.DoomBuilder.Controls.ThingBrowserControl();
             this.anglecontrol = new CodeImp.DoomBuilder.Controls.AngleControlEx();

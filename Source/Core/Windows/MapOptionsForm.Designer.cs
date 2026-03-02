@@ -38,7 +38,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.examplelabel = new System.Windows.Forms.Label();
             this.scriptcompiler = new System.Windows.Forms.ComboBox();
             this.scriptcompilerlabel = new System.Windows.Forms.Label();
-            this.scriptcompilerlabel.AutoSize = true;
             this.levelname = new System.Windows.Forms.TextBox();
             this.config = new System.Windows.Forms.ComboBox();
             this.apply = new System.Windows.Forms.Button();
@@ -49,7 +48,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.datalocations = new CodeImp.DoomBuilder.Controls.ResourceListEditor();
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
             this.label5 = new System.Windows.Forms.Label();
-            this.label5.AutoSize = true;
             this.prepostcommands = new System.Windows.Forms.Button();
             label3 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
@@ -80,7 +78,6 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // label1
             // 
-            label1.AutoSize = true;
             label1.Location = new System.Drawing.Point(13, 27);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(110, 14);

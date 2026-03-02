@@ -35,7 +35,6 @@ namespace CodeImp.DoomBuilder.Windows
 			this.tabs = new System.Windows.Forms.TabControl();
 			this.wadfiletab = new System.Windows.Forms.TabPage();
 			this.label6 = new System.Windows.Forms.Label();
-			this.label6.AutoSize = true;
 			this.strictpatches = new System.Windows.Forms.CheckBox();
 			this.browsewad = new System.Windows.Forms.Button();
 			this.wadlocation = new System.Windows.Forms.TextBox();

@@ -53,11 +53,14 @@
 			this.autocurveoutervertexmultiplier = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.autocurveinnervertexmultiplier = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.label6 = new System.Windows.Forms.Label();
+			this.label5 = new System.Windows.Forms.Label();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.splineflipping = new System.Windows.Forms.ComboBox();
 			this.label13 = new System.Windows.Forms.Label();
+			this.splineoutervertexmultiplier = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.splineinnervertexmultiplier = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.label16 = new System.Windows.Forms.Label();
+			this.label17 = new System.Windows.Forms.Label();
 			this.numberofcontrolpoints = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.label10 = new System.Windows.Forms.Label();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();

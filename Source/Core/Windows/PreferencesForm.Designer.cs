@@ -133,7 +133,6 @@ namespace CodeImp.DoomBuilder.Windows
 			this.keyusedlist = new System.Windows.Forms.ListBox();
 			this.keyusedlabel = new System.Windows.Forms.Label();
 			this.disregardshiftlabel = new System.Windows.Forms.Label();
-			this.disregardshiftlabel.AutoSize = true;
 			this.actioncontrol = new System.Windows.Forms.ComboBox();
 			this.actiontitle = new System.Windows.Forms.Label();
 			this.actioncontrolclear = new System.Windows.Forms.Button();
@@ -216,7 +215,6 @@ namespace CodeImp.DoomBuilder.Windows
 			this.scriptedit = new CodeImp.DoomBuilder.Controls.ScriptEditorPreviewControl();
 			this.tabpasting = new System.Windows.Forms.TabPage();
 			this.label16 = new System.Windows.Forms.Label();
-			this.label16.AutoSize = true;
 			this.pasteoptions = new CodeImp.DoomBuilder.Controls.PasteOptionsControl();
 			this.tabrecovery = new System.Windows.Forms.TabPage();
 			this.autosavegroupbox = new System.Windows.Forms.GroupBox();
@@ -226,9 +224,7 @@ namespace CodeImp.DoomBuilder.Windows
 			this.autosavecountlabel = new System.Windows.Forms.Label();
 			this.autosavecount = new CodeImp.DoomBuilder.Controls.TransparentTrackBar();
 			this.label21 = new System.Windows.Forms.Label();
-			this.label21.AutoSize = true;
 			this.autosaveintervallabel = new System.Windows.Forms.Label();
-			this.autosaveintervallabel.AutoSize = true;
 			this.autosaveinterval = new CodeImp.DoomBuilder.Controls.TransparentTrackBar();
 			this.label20 = new System.Windows.Forms.Label();
 			this.autosave = new System.Windows.Forms.CheckBox();

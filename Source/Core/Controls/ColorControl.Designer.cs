@@ -29,7 +29,6 @@ namespace CodeImp.DoomBuilder.Controls
 		private void InitializeComponent()
 		{
 			this.label = new System.Windows.Forms.Label();
-			this.label.AutoSize = true;
 			this.panel = new System.Windows.Forms.Panel();
 			this.dialog = new System.Windows.Forms.ColorDialog();
 			this.SuspendLayout();

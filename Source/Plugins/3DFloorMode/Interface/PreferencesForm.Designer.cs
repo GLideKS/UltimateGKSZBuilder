@@ -36,7 +36,6 @@
 			this.sectorlabels = new System.Windows.Forms.ComboBox();
 			this.slopevertexlabels = new System.Windows.Forms.ComboBox();
 			this.label3 = new System.Windows.Forms.Label();
-			this.label3.AutoSize = true;
 			this.tabs.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox1.SuspendLayout();

@@ -38,13 +38,10 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			this.label14 = new System.Windows.Forms.Label();
 			this.defaultfloorheight = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.label13 = new System.Windows.Forms.Label();
-			this.label13.AutoSize = true;
 			this.defaultceilheight = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.label12 = new System.Windows.Forms.Label();
-			this.label12.AutoSize = true;
 			this.defaultbrightness = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
 			this.label11 = new System.Windows.Forms.Label();
-			this.label11.AutoSize = true;
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.selectafterundoredo = new System.Windows.Forms.CheckBox();
 			this.useoppositesmartpivothandle = new System.Windows.Forms.CheckBox();

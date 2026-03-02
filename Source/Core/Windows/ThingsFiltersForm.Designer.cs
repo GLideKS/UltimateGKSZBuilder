@@ -64,15 +64,10 @@ namespace CodeImp.DoomBuilder.Windows
 			this.arg3 = new CodeImp.DoomBuilder.Controls.ArgumentBox();
 			this.arg4 = new CodeImp.DoomBuilder.Controls.ArgumentBox();
 			this.arg1label = new System.Windows.Forms.Label();
-			this.arg1label.AutoSize = true;
 			this.arg0label = new System.Windows.Forms.Label();
-			this.arg0label.AutoSize = true;
 			this.arg3label = new System.Windows.Forms.Label();
-			this.arg3label.AutoSize = true;
 			this.arg2label = new System.Windows.Forms.Label();
-			this.arg2label.AutoSize = true;
 			this.arg4label = new System.Windows.Forms.Label();
-			this.arg4label.AutoSize = true;
 			this.filteraction = new CodeImp.DoomBuilder.Controls.ActionSelectorControl();
 			this.browseaction = new System.Windows.Forms.Button();
 			this.label7 = new System.Windows.Forms.Label();
