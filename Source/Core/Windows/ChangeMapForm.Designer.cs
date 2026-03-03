@@ -39,6 +39,7 @@
 			// 
 			// label2
 			// 
+			label2.AutoSize = true;
 			label2.Location = new System.Drawing.Point(12, 9);
 			label2.Name = "label2";
 			label2.Size = new System.Drawing.Size(396, 17);

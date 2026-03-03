@@ -103,9 +103,9 @@
 			// stringarg0label
 			// 
 			this.stringarg0label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.stringarg0label.Location = new System.Drawing.Point(55, 147);
+			this.stringarg0label.Location = new System.Drawing.Point(55, 145);
 			this.stringarg0label.Name = "stringarg0label";
-			this.stringarg0label.Size = new System.Drawing.Size(179, 14);
+			this.stringarg0label.Size = new System.Drawing.Size(179, 18);
 			this.stringarg0label.TabIndex = 20;
 			this.stringarg0label.Text = "String argument 1:";
 			this.stringarg0label.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -122,9 +122,9 @@
 			// arg0label
 			// 
 			this.arg0label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.arg0label.Location = new System.Drawing.Point(55, 8);
+			this.arg0label.Location = new System.Drawing.Point(55, 6);
 			this.arg0label.Name = "arg0label";
-			this.arg0label.Size = new System.Drawing.Size(179, 14);
+			this.arg0label.Size = new System.Drawing.Size(179, 18);
 			this.arg0label.TabIndex = 0;
 			this.arg0label.Text = "Argument 1:";
 			this.arg0label.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -133,9 +133,9 @@
 			// arg1label
 			// 
 			this.arg1label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.arg1label.Location = new System.Drawing.Point(55, 33);
+			this.arg1label.Location = new System.Drawing.Point(55, 31);
 			this.arg1label.Name = "arg1label";
-			this.arg1label.Size = new System.Drawing.Size(179, 14);
+			this.arg1label.Size = new System.Drawing.Size(179, 18);
 			this.arg1label.TabIndex = 2;
 			this.arg1label.Text = "Argument 2:";
 			this.arg1label.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -144,9 +144,9 @@
 			// arg3label
 			// 
 			this.arg3label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.arg3label.Location = new System.Drawing.Point(55, 83);
+			this.arg3label.Location = new System.Drawing.Point(55, 81);
 			this.arg3label.Name = "arg3label";
-			this.arg3label.Size = new System.Drawing.Size(179, 14);
+			this.arg3label.Size = new System.Drawing.Size(179, 18);
 			this.arg3label.TabIndex = 6;
 			this.arg3label.Text = "Argument 4:";
 			this.arg3label.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -155,9 +155,9 @@
 			// arg2label
 			// 
 			this.arg2label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.arg2label.Location = new System.Drawing.Point(55, 58);
+			this.arg2label.Location = new System.Drawing.Point(55, 56);
 			this.arg2label.Name = "arg2label";
-			this.arg2label.Size = new System.Drawing.Size(179, 14);
+			this.arg2label.Size = new System.Drawing.Size(179, 18);
 			this.arg2label.TabIndex = 4;
 			this.arg2label.Text = "Argument 3:";
 			this.arg2label.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -166,9 +166,9 @@
 			// arg4label
 			// 
 			this.arg4label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.arg4label.Location = new System.Drawing.Point(55, 108);
+			this.arg4label.Location = new System.Drawing.Point(55, 106);
 			this.arg4label.Name = "arg4label";
-			this.arg4label.Size = new System.Drawing.Size(179, 14);
+			this.arg4label.Size = new System.Drawing.Size(179, 18);
 			this.arg4label.TabIndex = 8;
 			this.arg4label.Text = "Argument 5:";
 			this.arg4label.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -177,9 +177,9 @@
 			// stringarg1label
 			// 
 			this.stringarg1label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.stringarg1label.Location = new System.Drawing.Point(53, 147);
+			this.stringarg1label.Location = new System.Drawing.Point(53, 145);
 			this.stringarg1label.Name = "stringarg1label";
-			this.stringarg1label.Size = new System.Drawing.Size(179, 14);
+			this.stringarg1label.Size = new System.Drawing.Size(179, 18);
 			this.stringarg1label.TabIndex = 22;
 			this.stringarg1label.Text = "String argument 2:";
 			this.stringarg1label.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -188,9 +188,9 @@
 			// arg9label
 			// 
 			this.arg9label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.arg9label.Location = new System.Drawing.Point(61, 108);
+			this.arg9label.Location = new System.Drawing.Point(61, 106);
 			this.arg9label.Name = "arg9label";
-			this.arg9label.Size = new System.Drawing.Size(179, 14);
+			this.arg9label.Size = new System.Drawing.Size(179, 18);
 			this.arg9label.TabIndex = 18;
 			this.arg9label.Text = "Argument 10:";
 			this.arg9label.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -207,9 +207,9 @@
 			// arg8label
 			// 
 			this.arg8label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.arg8label.Location = new System.Drawing.Point(61, 83);
+			this.arg8label.Location = new System.Drawing.Point(61, 81);
 			this.arg8label.Name = "arg8label";
-			this.arg8label.Size = new System.Drawing.Size(179, 14);
+			this.arg8label.Size = new System.Drawing.Size(179, 18);
 			this.arg8label.TabIndex = 16;
 			this.arg8label.Text = "Argument 9:";
 			this.arg8label.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -218,9 +218,9 @@
 			// arg7label
 			// 
 			this.arg7label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.arg7label.Location = new System.Drawing.Point(61, 58);
+			this.arg7label.Location = new System.Drawing.Point(61, 56);
 			this.arg7label.Name = "arg7label";
-			this.arg7label.Size = new System.Drawing.Size(179, 14);
+			this.arg7label.Size = new System.Drawing.Size(179, 18);
 			this.arg7label.TabIndex = 14;
 			this.arg7label.Text = "Argument 8:";
 			this.arg7label.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -229,9 +229,9 @@
 			// arg6label
 			// 
 			this.arg6label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.arg6label.Location = new System.Drawing.Point(61, 33);
+			this.arg6label.Location = new System.Drawing.Point(61, 31);
 			this.arg6label.Name = "arg6label";
-			this.arg6label.Size = new System.Drawing.Size(179, 14);
+			this.arg6label.Size = new System.Drawing.Size(179, 18);
 			this.arg6label.TabIndex = 12;
 			this.arg6label.Text = "Argument 7:";
 			this.arg6label.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -240,9 +240,9 @@
 			// arg5label
 			// 
 			this.arg5label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.arg5label.Location = new System.Drawing.Point(61, 8);
+			this.arg5label.Location = new System.Drawing.Point(61, 6);
 			this.arg5label.Name = "arg5label";
-			this.arg5label.Size = new System.Drawing.Size(179, 14);
+			this.arg5label.Size = new System.Drawing.Size(179, 18);
 			this.arg5label.TabIndex = 10;
 			this.arg5label.Text = "Argument 6:";
 			this.arg5label.TextAlign = System.Drawing.ContentAlignment.TopRight;

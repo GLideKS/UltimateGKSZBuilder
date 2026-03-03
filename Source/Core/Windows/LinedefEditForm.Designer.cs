@@ -108,6 +108,7 @@ namespace CodeImp.DoomBuilder.Windows
 			label5.Name = "label5";
 			label5.Size = new System.Drawing.Size(83, 16);
 			label5.TabIndex = 5;
+			label5.AutoSize = true;
 			label5.Text = "Lower";
 			label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
@@ -118,6 +119,7 @@ namespace CodeImp.DoomBuilder.Windows
 			label4.Name = "label4";
 			label4.Size = new System.Drawing.Size(83, 16);
 			label4.TabIndex = 4;
+			label4.AutoSize = true;
 			label4.Text = "Middle";
 			label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
@@ -128,6 +130,7 @@ namespace CodeImp.DoomBuilder.Windows
 			label3.Name = "label3";
 			label3.Size = new System.Drawing.Size(83, 16);
 			label3.TabIndex = 3;
+			label3.AutoSize = true;
 			label3.Text = "Upper";
 			label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
@@ -148,6 +151,7 @@ namespace CodeImp.DoomBuilder.Windows
 			label8.Name = "label8";
 			label8.Size = new System.Drawing.Size(83, 16);
 			label8.TabIndex = 5;
+			label8.AutoSize = true;
 			label8.Text = "Lower";
 			label8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
@@ -158,6 +162,7 @@ namespace CodeImp.DoomBuilder.Windows
 			label9.Name = "label9";
 			label9.Size = new System.Drawing.Size(83, 16);
 			label9.TabIndex = 4;
+			label9.AutoSize = true;
 			label9.Text = "Middle";
 			label9.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
@@ -168,6 +173,7 @@ namespace CodeImp.DoomBuilder.Windows
 			label10.Name = "label10";
 			label10.Size = new System.Drawing.Size(83, 16);
 			label10.TabIndex = 3;
+			label10.AutoSize = true;
 			label10.Text = "Upper";
 			label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
