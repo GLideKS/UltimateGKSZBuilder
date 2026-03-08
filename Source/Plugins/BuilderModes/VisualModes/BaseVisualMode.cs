@@ -491,6 +491,11 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			return vt.Setup() ? vt : null;
 		}
 
+		internal BaseVisualSector GetBaseVisualSector(Sector s)
+		{
+			return GetVisualSector(s) as BaseVisualSector;
+		}
+
 		// This locks the target so that it isn't changed until unlocked
 		public void LockTarget()
 		{
@@ -986,7 +991,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					if(!VisualSectorExists(s)) continue;
 
 					// The visual sector associated is now outdated
-					BaseVisualSector vs = (BaseVisualSector)GetVisualSector(s);
+					BaseVisualSector vs = GetBaseVisualSector(s);
 					vs.UpdateSectorGeometry(true);
 				}
 			}
@@ -1865,7 +1870,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				{
 					if(sd.Marked && VisualSectorExists(sd.Sector))
 					{
-						BaseVisualSector vs = (BaseVisualSector)GetVisualSector(sd.Sector);
+						BaseVisualSector vs = GetBaseVisualSector(sd.Sector);
 						VisualSidedefParts parts = vs.GetSidedefParts(sd);
 						parts.SetupAllParts();
 					}
@@ -1886,7 +1891,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 							{
 								if(VisualSectorExists(us.Key))
 								{
-									BaseVisualSector vs = (BaseVisualSector)GetVisualSector(us.Key);
+									BaseVisualSector vs = GetBaseVisualSector(us.Key);
 									vs.UpdateSectorGeometry(us.Value);
 								}
 							}
@@ -1895,7 +1900,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 						// And update for this sector ofcourse
 						if(VisualSectorExists(s))
 						{
-							BaseVisualSector vs = (BaseVisualSector)GetVisualSector(s);
+							BaseVisualSector vs = GetBaseVisualSector(s);
 							vs.UpdateSectorGeometry(false);
 						}
 					}
@@ -2094,7 +2099,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					{
 						if(VisualSectorExists(s.Key)) 
 						{
-							BaseVisualSector vs = (BaseVisualSector)GetVisualSector(s.Key);
+							BaseVisualSector vs = GetBaseVisualSector(s.Key);
 							vs.UpdateSectorGeometry(s.Value);
 						}
 					}
@@ -2195,7 +2200,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 							// Update control sector
 							SectorData sd = GetSectorData(bvs.Level.sector);
 							sd.Update();
-							BaseVisualSector vs = (BaseVisualSector)GetVisualSector(bvs.Level.sector);
+							BaseVisualSector vs = GetBaseVisualSector(bvs.Level.sector);
 							vs.Rebuild();
 
 							// Add to collection
@@ -2207,7 +2212,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 							{
 								if(!donesectors.Contains(other.Index))
 								{
-									BaseVisualSector vsother = (BaseVisualSector)GetVisualSector(other);
+									BaseVisualSector vsother = GetBaseVisualSector(other);
 									vsother.Rebuild();
 
 									// Add to collection
@@ -2408,7 +2413,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		{
 			if (selected)
 			{
-				var floor = ((BaseVisualSector)GetVisualSector(sector)).Floor;
+				var floor = GetBaseVisualSector(sector).Floor;
 				floor.Selected = true;
 				AddSelectedObject(floor);
 
@@ -2443,7 +2448,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		{
 			if (selected)
 			{
-				var ceiling = ((BaseVisualSector)GetVisualSector(sector)).Ceiling;
+				var ceiling = GetBaseVisualSector(sector).Ceiling;
 				ceiling.Selected = true;
 				AddSelectedObject(ceiling);
 
@@ -2533,7 +2538,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		{
 			if (selected)
 			{
-				var vs = (BaseVisualSector)GetVisualSector(sidedef.Sector);
+				var vs = GetBaseVisualSector(sidedef.Sector);
 				VisualSidedefParts parts = vs.GetSidedefParts(sidedef);
 
 				if (parts.middlesingle != null)
@@ -2760,7 +2765,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 			foreach (Sector sector in GetControlLinedefTargetsSectors(linedef))
 			{
-				var vs = (BaseVisualSector)GetVisualSector(sector);
+				var vs = GetBaseVisualSector(sector);
 
 				if (floors)
 				{
@@ -4021,7 +4026,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					// Update the parts for this sidedef!
 					if(VisualSectorExists(sd.Sector)) 
 					{
-						BaseVisualSector vs = (BaseVisualSector)GetVisualSector(sd.Sector);
+						BaseVisualSector vs = GetBaseVisualSector(sd.Sector);
 						VisualSidedefParts parts = vs.GetSidedefParts(sd);
 						parts.SetupAllParts();
 					}
@@ -4466,7 +4471,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 						{
 							if(VisualSectorExists(s.Key))
 							{
-								BaseVisualSector vs = (BaseVisualSector)GetVisualSector(s.Key);
+								BaseVisualSector vs = GetBaseVisualSector(s.Key);
 								vs.UpdateSectorGeometry(s.Value);
 							}
 						}
@@ -4633,7 +4638,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				{
 					if(VisualSectorExists(s.Key)) 
 					{
-						BaseVisualSector vs = (BaseVisualSector)GetVisualSector(s.Key);
+						BaseVisualSector vs = GetBaseVisualSector(s.Key);
 						vs.UpdateSectorGeometry(s.Value);
 					}
 				}
@@ -5063,7 +5068,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				BaseVisualSector vs;
 				if (VisualSectorExists(level.sector))
 				{
-					vs = (BaseVisualSector)GetVisualSector(level.sector);
+					vs = GetBaseVisualSector(level.sector);
 				}
 				else
 				{
@@ -5229,7 +5234,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					otherObject = extraCeiling.Sector.ExtraFloors.Find(ef => ef.ExtraFloor == extraCeiling.ExtraFloor);
 				else if (o is VisualMiddleDouble side)
 				{
-					BaseVisualSector otherSector = (BaseVisualSector)GetVisualSector(side.Sidedef.Other.Sector);
+					BaseVisualSector otherSector = GetBaseVisualSector(side.Sidedef.Other.Sector);
 					otherObject = otherSector.GetSidedefParts(side.Sidedef.Other).middledouble;
 				}
 
@@ -5522,8 +5527,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				//mxd. Get visual parts
 				if (VisualSectorExists(j.sidedef.Sector))
 				{
-					VisualSidedefParts parts = ((BaseVisualSector)GetVisualSector(j.sidedef.Sector)).GetSidedefParts(j.sidedef);
-					//VisualSidedefParts controlparts = (j.sidedef != j.controlSide ? ((BaseVisualSector)GetVisualSector(j.controlSide.Sector)).GetSidedefParts(j.controlSide) : parts);
+					VisualSidedefParts parts = GetBaseVisualSector(j.sidedef.Sector).GetSidedefParts(j.sidedef);
+					//VisualSidedefParts controlparts = (j.sidedef != j.controlSide ? GetBaseVisualSector(j.controlSide.Sector).GetSidedefParts(j.controlSide) : parts);
 
 					matchtop = (!j.sidedef.Marked && (!singleselection || texturehashes.Contains(j.sidedef.LongHighTexture)) && (parts.upper != null && parts.upper.Triangles > 0));
 					matchbottom = (!j.sidedef.Marked && (!singleselection || texturehashes.Contains(j.sidedef.LongLowTexture)) && (parts.lower != null && parts.lower.Triangles > 0));
