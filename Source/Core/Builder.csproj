@@ -264,6 +264,7 @@
     <Compile Include="GZBuilder\Models\MD3ModelLoader.cs" />
     <Compile Include="GZBuilder\Models\OBJModelLoader.cs" />
     <Compile Include="GZBuilder\Models\ModelLoadResult.cs" />
+    <Compile Include="Map\MapElement3D.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
