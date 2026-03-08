@@ -49,6 +49,7 @@ namespace CodeImp.DoomBuilder.Map
 		
 		// Map header name
 		private string currentname;
+		private string fullcurrentname;
 		private string previousname;		// When zero length string, map has not renamed
 		
 		// Strict pathes loading?
@@ -119,6 +120,7 @@ namespace CodeImp.DoomBuilder.Map
 				}
 			}
 		}
+		internal string FullCurrentName { get { return fullcurrentname; } set { fullcurrentname = value; } }
 		internal bool LevelNameChanged { get { return (!string.IsNullOrEmpty(previousname) && previousname != currentname); } } //mxd
 
 		public string LevelName { get { return currentname; } }
@@ -201,6 +203,9 @@ namespace CodeImp.DoomBuilder.Map
 			
 			// Read map configuration
 			this.mapconfig.Root = cfg.ReadSetting("maps." + mapname, new Hashtable());
+
+			// Read full map name
+			fullcurrentname = this.mapconfig.ReadSetting("fullname", string.Empty);
 
 			//mxd. Read Tag Labels
 			this.tagLabels = new Dictionary<int, string>();
@@ -342,6 +347,8 @@ namespace CodeImp.DoomBuilder.Map
 		internal void WriteConfiguration(string settingsfile)
 		{
 			Configuration wadcfg;
+
+			mapconfig.WriteSetting("fullname", fullcurrentname);
 			
 			// Write resources to config
 			resources.WriteToConfig(mapconfig, "resources");

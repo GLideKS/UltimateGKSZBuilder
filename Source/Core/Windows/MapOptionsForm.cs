@@ -119,6 +119,7 @@ namespace CodeImp.DoomBuilder.Windows
 
 			// Set the level name
 			if(!string.IsNullOrEmpty(options.CurrentName)) levelname.Text = options.CurrentName;  //mxd
+			if(!string.IsNullOrEmpty(options.FullCurrentName)) fulllevelname.Text = options.FullCurrentName;
 
 			// Set strict patches loading
 			strictpatches.Checked = options.StrictPatches;
@@ -263,6 +264,7 @@ namespace CodeImp.DoomBuilder.Windows
 			options.ClearResources();
 			options.ConfigFile = (config.SelectedItem as ConfigurationInfo).Filename; //mxd
 			options.CurrentName = levelname.Text.Trim().ToUpper();
+			options.FullCurrentName = fulllevelname.Text.Trim();
 			options.StrictPatches = strictpatches.Checked;
 			options.CopyResources(datalocations.GetResources());
 
