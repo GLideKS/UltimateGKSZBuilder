@@ -139,8 +139,8 @@ namespace CodeImp.DoomBuilder.VisualModes
 		public void OnCopyProperties() { }
 		public void OnPasteProperties(bool usecopysetting) { }
 		public void OnDelete() { }
-		public void OnPaintSelectBegin() { }
-		public void OnMouseMove(MouseEventArgs e) { }
+		public virtual void OnPaintSelectBegin() { }
+		public virtual void OnMouseMove(MouseEventArgs e) { }
 
 		#endregion
 	}

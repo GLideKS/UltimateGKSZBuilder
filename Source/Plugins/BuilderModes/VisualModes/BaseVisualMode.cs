@@ -99,6 +99,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		// biwa. Info for paint selection
 		protected bool paintselectpressed;
 		protected Type paintselecttype = null;
+		private IVisualEventReceiver lastpaintselectedobject1; // Last
+		private IVisualEventReceiver lastpaintselectedobject2; // Second last
 		protected IVisualPickable highlighted; // biwa
 
 		//mxd. Moved here from Tools
@@ -168,6 +170,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 		public bool PaintSelectPressed { get { return paintselectpressed; } } // biwa
 		public Type PaintSelectType { get { return paintselecttype; } set { paintselecttype = value; } } // biwa
+		internal IVisualEventReceiver LastPaintSelectedObject1 { get { return lastpaintselectedobject1; } set { lastpaintselectedobject1 = value; } } // biwa
+		internal IVisualEventReceiver LastPaintSelectedObject2 { get { return lastpaintselectedobject2; } set { lastpaintselectedobject2 = value; } } // biwa
 		public IVisualPickable Highlighted { get { return highlighted; } } // biwa
 		public Group3D SelectedGroup3D { get; internal set; }
 		public Group3D LastSelectedGroup3D { get; internal set; }
@@ -227,6 +231,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		internal void AddSelectedObject(IVisualEventReceiver obj)
 		{
 			selectedobjects.Add(obj);
+			lastpaintselectedobject2 = lastpaintselectedobject1;
+			lastpaintselectedobject1 = obj;
 			selectionchanged = true;
 			selectioninfoupdatetimer.Start(); //mxd
 		}
@@ -235,6 +241,11 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		internal void RemoveSelectedObject(IVisualEventReceiver obj)
 		{
 			selectedobjects.Remove(obj);
+			if (obj == lastpaintselectedobject1)
+			{
+				lastpaintselectedobject1 = lastpaintselectedobject2;
+				lastpaintselectedobject2 = null;
+			}
 			selectionchanged = true;
 			selectioninfoupdatetimer.Start(); //mxd
 		}
@@ -5017,6 +5028,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		{
 			paintselectpressed = false;
 			paintselecttype = null;
+			lastpaintselectedobject1 = null;
+			lastpaintselectedobject2 = null;
 			GetTargetEventReceiver(true).OnPaintSelectEnd();
 		}
 
@@ -5330,6 +5343,25 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				{
 					BaseVisualSector otherSector = GetBaseVisualSector(side.Sidedef.Other.Sector);
 					otherObject = otherSector.GetSidedefParts(side.Sidedef.Other).middledouble;
+				}
+				else if (o is VisualSidedefSlope sideHandle && sideHandle.Sidedef.Other != null)
+				{
+					Sidedef otherSide = sideHandle.Sidedef.Other;
+					BaseVisualSector visSector = GetBaseVisualSector(sideHandle.Sidedef.Sector);
+					BaseVisualSector otherVisSector = GetBaseVisualSector(otherSide.Sector);
+
+					otherObject = SidedefSlopeHandles[otherSide.Sector].Find(otherHandle => {
+						if ((otherHandle as VisualSidedefSlope).Sidedef != otherSide)
+							return false;
+
+						var v1 = sideHandle.Sidedef.Line.Start.Position;
+						var v2 = sideHandle.Sidedef.Line.End.Position;
+
+						var p1 = sideHandle.Level.plane;
+						var p2 = (otherHandle as VisualSidedefSlope).Level.plane;
+
+						return Math.Abs(p1.GetZ(v1) - p2.GetZ(v1)) < 1.0 && Math.Abs(p1.GetZ(v2) - p2.GetZ(v2)) < 1.0;
+					}) as VisualSidedefSlope;
 				}
 
 				if (otherObject != null && !otherObject.Selected)
