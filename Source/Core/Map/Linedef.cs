@@ -808,6 +808,7 @@ namespace CodeImp.DoomBuilder.Map
 		{
 			return Action > 0 && General.Map.Config.GetLinedefActionInfo(Action).Id?.ToLowerInvariant() == "plane_align";
 		}
+
 		// Determine if this line defines the sky upper texture transferred to a sector.
 		public bool HasSkyTransfer()
 		{

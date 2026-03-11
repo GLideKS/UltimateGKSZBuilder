@@ -227,7 +227,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 						return false;
 					}
 					break;
-				
+
 				case "bool":
 					bool bv = false;
 					if(!string.IsNullOrEmpty(value))
@@ -246,7 +246,7 @@ namespace CodeImp.DoomBuilder.ZDoom
 						return false;
 					}
 					break;
-				
+
 				case "string":
 					if(!cvars.AddValue(name, StripQuotes(value)))
 					{

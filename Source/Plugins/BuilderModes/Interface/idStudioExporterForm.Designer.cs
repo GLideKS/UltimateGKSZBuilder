@@ -72,26 +72,26 @@
             ((System.ComponentModel.ISupportInitialize)(this.gui_Downscale)).BeginInit();
             this.gbTextureControls.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // gui_ModPath
-            // 
+            //
             this.gui_ModPath.Location = new System.Drawing.Point(72, 13);
             this.gui_ModPath.Name = "gui_ModPath";
             this.gui_ModPath.ReadOnly = true;
             this.gui_ModPath.Size = new System.Drawing.Size(327, 20);
             this.gui_ModPath.TabIndex = 0;
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Mod Folder:";
-            // 
+            //
             // gui_FolderBtn
-            // 
+            //
             this.gui_FolderBtn.Image = global::CodeImp.DoomBuilder.BuilderModes.Properties.Resources.Folder;
             this.gui_FolderBtn.Location = new System.Drawing.Point(405, 10);
             this.gui_FolderBtn.Name = "gui_FolderBtn";
@@ -99,9 +99,9 @@
             this.gui_FolderBtn.TabIndex = 2;
             this.gui_FolderBtn.UseVisualStyleBackColor = true;
             this.gui_FolderBtn.Click += new System.EventHandler(this.evt_FolderButton);
-            // 
+            //
             // groupBox1
-            // 
+            //
             this.groupBox1.Controls.Add(this.gui_zShift);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.gui_yShift);
@@ -116,9 +116,9 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Transformations";
-            // 
+            //
             // gui_zShift
-            // 
+            //
             this.gui_zShift.Increment = new decimal(new int[] {
             10,
             0,
@@ -143,18 +143,18 @@
             0,
             0,
             0});
-            // 
+            //
             // label2
-            // 
+            //
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(268, 45);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 13);
             this.label2.TabIndex = 12;
             this.label2.Text = "Z Shift:";
-            // 
+            //
             // gui_yShift
-            // 
+            //
             this.gui_yShift.Increment = new decimal(new int[] {
             10,
             0,
@@ -179,27 +179,27 @@
             0,
             0,
             0});
-            // 
+            //
             // label6
-            // 
+            //
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(148, 45);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(41, 13);
             this.label6.TabIndex = 10;
             this.label6.Text = "Y Shift:";
-            // 
+            //
             // label7
-            // 
+            //
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(28, 45);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(41, 13);
             this.label7.TabIndex = 9;
             this.label7.Text = "X Shift:";
-            // 
+            //
             // gui_xShift
-            // 
+            //
             this.gui_xShift.Increment = new decimal(new int[] {
             10,
             0,
@@ -224,18 +224,18 @@
             0,
             0,
             0});
-            // 
+            //
             // label4
-            // 
+            //
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(6, 21);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(63, 13);
             this.label4.TabIndex = 7;
             this.label4.Text = "Downscale:";
-            // 
+            //
             // gui_Downscale
-            // 
+            //
             this.gui_Downscale.DecimalPlaces = 2;
             this.gui_Downscale.Location = new System.Drawing.Point(75, 19);
             this.gui_Downscale.Maximum = new decimal(new int[] {
@@ -256,9 +256,9 @@
             0,
             0,
             0});
-            // 
+            //
             // gbTextureControls
-            // 
+            //
             this.gbTextureControls.Controls.Add(this.gui_TextCountAll);
             this.gbTextureControls.Controls.Add(this.gui_TextCountMap);
             this.gbTextureControls.Controls.Add(this.gui_ExpAllTextures);
@@ -270,18 +270,18 @@
             this.gbTextureControls.Size = new System.Drawing.Size(423, 100);
             this.gbTextureControls.TabIndex = 4;
             this.gbTextureControls.TabStop = false;
-            // 
+            //
             // label3
-            // 
+            //
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(3, 75);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(190, 13);
             this.label3.TabIndex = 14;
             this.label3.Text = "Exporting textures may take some time.";
-            // 
+            //
             // gui_ExportTextures
-            // 
+            //
             this.gui_ExportTextures.AutoSize = true;
             this.gui_ExportTextures.Location = new System.Drawing.Point(6, 0);
             this.gui_ExportTextures.Name = "gui_ExportTextures";
@@ -289,9 +289,9 @@
             this.gui_ExportTextures.TabIndex = 0;
             this.gui_ExportTextures.Text = "Export Textures";
             this.gui_ExportTextures.UseVisualStyleBackColor = true;
-            // 
+            //
             // gui_CancelBtn
-            // 
+            //
             this.gui_CancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.gui_CancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.gui_CancelBtn.Location = new System.Drawing.Point(360, 575);
@@ -301,9 +301,9 @@
             this.gui_CancelBtn.Text = "Cancel";
             this.gui_CancelBtn.UseVisualStyleBackColor = true;
             this.gui_CancelBtn.Click += new System.EventHandler(this.evt_CancelButton);
-            // 
+            //
             // gui_ExportBtn
-            // 
+            //
             this.gui_ExportBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.gui_ExportBtn.Location = new System.Drawing.Point(279, 575);
             this.gui_ExportBtn.Name = "gui_ExportBtn";
@@ -312,50 +312,50 @@
             this.gui_ExportBtn.Text = "Export";
             this.gui_ExportBtn.UseVisualStyleBackColor = true;
             this.gui_ExportBtn.Click += new System.EventHandler(this.evt_ButtonExport);
-            // 
+            //
             // gui_fileTree
-            // 
+            //
             this.gui_fileTree.Location = new System.Drawing.Point(12, 264);
             this.gui_fileTree.Name = "gui_fileTree";
             this.gui_fileTree.Size = new System.Drawing.Size(423, 305);
             this.gui_fileTree.TabIndex = 11;
-            // 
+            //
             // label8
-            // 
+            //
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(9, 42);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(57, 13);
             this.label8.TabIndex = 12;
             this.label8.Text = "File Name:";
-            // 
+            //
             // gui_MapName
-            // 
+            //
             this.gui_MapName.Location = new System.Drawing.Point(72, 39);
             this.gui_MapName.Name = "gui_MapName";
             this.gui_MapName.Size = new System.Drawing.Size(327, 20);
             this.gui_MapName.TabIndex = 13;
-            // 
+            //
             // label5
-            // 
+            //
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(12, 575);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(149, 13);
             this.label5.TabIndex = 14;
             this.label5.Text = "This tool is still in development";
-            // 
+            //
             // label9
-            // 
+            //
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(12, 588);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(208, 13);
             this.label9.TabIndex = 15;
             this.label9.Text = "Not all map features may convert correctly.";
-            // 
+            //
             // gui_ExpMapTextures
-            // 
+            //
             this.gui_ExpMapTextures.AutoSize = true;
             this.gui_ExpMapTextures.Checked = true;
             this.gui_ExpMapTextures.Location = new System.Drawing.Point(9, 21);
@@ -365,9 +365,9 @@
             this.gui_ExpMapTextures.TabStop = true;
             this.gui_ExpMapTextures.Text = "Map Textures Only";
             this.gui_ExpMapTextures.UseVisualStyleBackColor = true;
-            // 
+            //
             // gui_ExpAllTextures
-            // 
+            //
             this.gui_ExpAllTextures.AutoSize = true;
             this.gui_ExpAllTextures.Location = new System.Drawing.Point(9, 41);
             this.gui_ExpAllTextures.Name = "gui_ExpAllTextures";
@@ -375,27 +375,27 @@
             this.gui_ExpAllTextures.TabIndex = 16;
             this.gui_ExpAllTextures.Text = "All Textures";
             this.gui_ExpAllTextures.UseVisualStyleBackColor = true;
-            // 
+            //
             // gui_TextCountMap
-            // 
+            //
             this.gui_TextCountMap.AutoSize = true;
             this.gui_TextCountMap.Location = new System.Drawing.Point(129, 25);
             this.gui_TextCountMap.Name = "gui_TextCountMap";
             this.gui_TextCountMap.Size = new System.Drawing.Size(98, 13);
             this.gui_TextCountMap.TabIndex = 17;
             this.gui_TextCountMap.Text = "[Map Export Count]";
-            // 
+            //
             // gui_TextCountAll
-            // 
+            //
             this.gui_TextCountAll.AutoSize = true;
             this.gui_TextCountAll.Location = new System.Drawing.Point(129, 43);
             this.gui_TextCountAll.Name = "gui_TextCountAll";
             this.gui_TextCountAll.Size = new System.Drawing.Size(88, 13);
             this.gui_TextCountAll.TabIndex = 18;
             this.gui_TextCountAll.Text = "[All Export Count]";
-            // 
+            //
             // idStudioExporterForm
-            // 
+            //
             this.AcceptButton = this.gui_ExportBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;

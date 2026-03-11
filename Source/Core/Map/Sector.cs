@@ -4,12 +4,12 @@
 /*
  * Copyright (c) 2007 Pascal vd Heiden, www.codeimp.com
  * This program is released under GNU General Public License
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  */
 
 #endregion
@@ -36,7 +36,7 @@ namespace CodeImp.DoomBuilder.Map
 		OUTSIDEFOGDENSITY, // sector uses "outsidefogdensity" MAPINFO property
 		FADE			   // sector uses UDMF "fade" sector property
 	}
-	
+
 	public sealed class Sector : SelectableElement, IMultiTaggedMapElement
 	{
 		#region ================== Variables
@@ -46,10 +46,10 @@ namespace CodeImp.DoomBuilder.Map
 
 		// List items
 		private LinkedListNode<Sector> selecteditem;
-		
+
 		// Sidedefs
 		private LinkedList<Sidedef> sidedefs;
-		
+
 		// Properties
 		private int fixedindex;
 		private int floorheight;
@@ -68,7 +68,7 @@ namespace CodeImp.DoomBuilder.Map
 		// Cloning
 		private Sector clone;
 		private int serializedindex;
-		
+
 		// Triangulation
 		private bool updateneeded;
 		private bool triangulationneeded;
@@ -88,7 +88,7 @@ namespace CodeImp.DoomBuilder.Map
 		private double flooroffset;
 		private Vector3D ceilslope;
 		private double ceiloffset;
-		
+
 		#endregion
 
 		#region ================== Properties
@@ -181,23 +181,23 @@ namespace CodeImp.DoomBuilder.Map
 			{
 				// Already set isdisposed so that changes can be prohibited
 				isdisposed = true;
-				
+
 				// Dispose the sidedefs that are attached to this sector
 				// because a sidedef cannot exist without reference to its sector.
 				if(map.AutoRemove)
 					foreach(Sidedef sd in sidedefs) sd.Dispose();
 				else
 					foreach(Sidedef sd in sidedefs) sd.SetSectorP(null);
-				
+
 				if(map == General.Map.Map)
 					General.Map.UndoRedo.RecRemSector(this);
 
 				// Remove from main list
 				map.RemoveSector(listindex);
-				
+
 				// Register the index as free
 				map.AddSectorIndexHole(fixedindex);
-				
+
 				// Free surface entry
 				General.Map.CRenderer2D.Surfaces.FreeSurfaces(surfaceentries);
 
@@ -207,7 +207,7 @@ namespace CodeImp.DoomBuilder.Map
 
 				//mxd. Restore isdisposed so base classes can do their disposal job
 				isdisposed = false;
-				
+
 				// Dispose base
 				base.Dispose();
 			}
@@ -232,7 +232,7 @@ namespace CodeImp.DoomBuilder.Map
 				BeforePropsChange();
 				updateneeded = true;
 			}
-			
+
 			base.ReadWrite(s);
 
 			//mxd
@@ -270,12 +270,12 @@ namespace CodeImp.DoomBuilder.Map
 			s.rwInt(ref brightness);
 
 			//mxd. (Re)store tags
-			if(s.IsWriting) 
+			if(s.IsWriting)
 			{
 				s.wInt(tags.Count);
 				foreach(int tag in tags) s.wInt(tag);
-			} 
-			else 
+			}
+			else
 			{
 				int c;
 				s.rInt(out c);
@@ -294,7 +294,7 @@ namespace CodeImp.DoomBuilder.Map
 			s.rwDouble(ref ceiloffset);
 			s.rwVector3D(ref ceilslope);
 		}
-		
+
 		// After deserialization
 		internal void PostDeserialize(MapSet map)
 		{
@@ -302,12 +302,12 @@ namespace CodeImp.DoomBuilder.Map
 			updateneeded = true;
 			triangulationneeded = true;
 		}
-		
+
 		// This copies all properties to another sector
 		public void CopyPropertiesTo(Sector s)
 		{
 			s.BeforePropsChange();
-			
+
 			// Copy properties
 			s.ceilheight = ceilheight;
 			s.ceiltexname = ceiltexname;
@@ -354,7 +354,7 @@ namespace CodeImp.DoomBuilder.Map
 				}
 			}
 		}
-		
+
 		// This triangulates the sector geometry
 		internal void Triangulate()
 		{
@@ -367,17 +367,17 @@ namespace CodeImp.DoomBuilder.Map
 					triangles = Triangulation.Create(this);
 					triangulationneeded = false;
 					updateneeded = true;
-					
+
 					// Make label positions
 					labels = Array.AsReadOnly(Tools.FindLabelPositions(this).ToArray());
-					
+
 					// Number of vertices changed?
 					if(triangles.Vertices.Count != surfaceentries.totalvertices)
 						General.Map.CRenderer2D.Surfaces.FreeSurfaces(surfaceentries);
 				}
 			}
 		}
-		
+
 		// This makes new vertices as well as floor and ceiling surfaces
 		internal void CreateSurfaces()
 		{
@@ -385,7 +385,7 @@ namespace CodeImp.DoomBuilder.Map
 			{
 				// Brightness color
 				int brightint = General.Map.Renderer2D.CalculateBrightness(brightness);
-				
+
 				// Make vertices
 				flatvertices = new FlatVertex[triangles.Vertices.Count];
 				for(int i = 0; i < triangles.Vertices.Count; i++)
@@ -400,7 +400,7 @@ namespace CodeImp.DoomBuilder.Map
 
 				// Create bounding box
 				bbox = CreateBBox();
-				
+
 				// Make update info (this lets the plugin fill in texture coordinates and such)
 				SurfaceUpdate updateinfo = new SurfaceUpdate(flatvertices.Length, true, true);
 				flatvertices.CopyTo(updateinfo.floorvertices, 0);
@@ -450,12 +450,12 @@ namespace CodeImp.DoomBuilder.Map
 			updateinfo.ceiltexture = longceiltexname;
 			updateinfo.hidden = IsFlagSet("hidden");
 			updateinfo.desaturation = this.Desaturation;
-			
+
 			// Update entry
 			General.Map.CRenderer2D.Surfaces.UpdateSurfaces(surfaceentries, updateinfo);
 			General.Map.CRenderer2D.Surfaces.UnlockBuffers();
 		}
-		
+
 		// This updates the sector when changes have been made
 		public void UpdateCache()
 		{
@@ -463,7 +463,7 @@ namespace CodeImp.DoomBuilder.Map
 			if(updateneeded)
 			{
 				Triangulate();
-				
+
 				CreateSurfaces();
 
 				General.Map.CRenderer2D.Surfaces.UnlockBuffers();
@@ -486,7 +486,7 @@ namespace CodeImp.DoomBuilder.Map
 		}
 
 		// This removes UDMF stuff (mxd)
-		internal void TranslateFromUDMF() 
+		internal void TranslateFromUDMF()
 		{
 			// Clear UDMF-related properties (but keep VirtualSectorField!)
 			bool isvirtual = this.Fields.ContainsKey(MapSet.VirtualSectorField);
@@ -501,9 +501,9 @@ namespace CodeImp.DoomBuilder.Map
 			ceilslope = new Vector3D();
 			ceiloffset = 0;
 		}
-		
+
 		#endregion
-		
+
 		#region ================== Methods
 
 		// This checks and returns a flag without creating it
@@ -513,9 +513,9 @@ namespace CodeImp.DoomBuilder.Map
 		}
 
 		// This sets a flag
-		public void SetFlag(string flagname, bool value) 
+		public void SetFlag(string flagname, bool value)
 		{
-			if(!flags.ContainsKey(flagname) || (IsFlagSet(flagname) != value)) 
+			if(!flags.ContainsKey(flagname) || (IsFlagSet(flagname) != value))
 			{
 				BeforePropsChange();
 
@@ -528,7 +528,7 @@ namespace CodeImp.DoomBuilder.Map
 		}
 
 		// This returns a copy of the flags dictionary
-		public Dictionary<string, bool> GetFlags() 
+		public Dictionary<string, bool> GetFlags()
 		{
 			return new Dictionary<string, bool>(flags);
 		}
@@ -540,15 +540,15 @@ namespace CodeImp.DoomBuilder.Map
 			foreach(KeyValuePair<string, bool> group in flags)
 				if(group.Value) result.Add(group.Key);
 			return result;
-		} 
+		}
 
 		// This clears all flags
-		public void ClearFlags() 
+		public void ClearFlags()
 		{
 			BeforePropsChange();
 			flags.Clear();
 		}
-		
+
 		// This checks if the given point is inside the sector polygon
 		// See: http://paulbourke.net/geometry/polygonmesh/index.html#insidepoly
 		public bool Intersect(Vector2D p) { return Intersect(p, true); }
@@ -556,7 +556,7 @@ namespace CodeImp.DoomBuilder.Map
 		{
 			//mxd. Check bounding box first
 			if(p.x < bbox.Left || p.x > bbox.Right || p.y < bbox.Top || p.y > bbox.Bottom) return false;
-			
+
 			uint c = 0;
 			Vector2D v1, v2;
 			bool selfreferencing = true;
@@ -590,12 +590,12 @@ namespace CodeImp.DoomBuilder.Map
 			else
 				return (c % 2 == 0);
 		}
-		
+
 		// This creates a bounding box rectangle
 		private RectangleF CreateBBox()
 		{
 			if(sidedefs.Count == 0) return new RectangleF(); //mxd
-			
+
 			// Setup
 			double left = double.MaxValue;
 			double top = double.MaxValue;
@@ -604,10 +604,10 @@ namespace CodeImp.DoomBuilder.Map
 
 			HashSet<Vertex> processed = new HashSet<Vertex>(); //mxd
 
-			foreach(Sidedef s in sidedefs) 
+			foreach(Sidedef s in sidedefs)
 			{
 				//start...
-				if(!processed.Contains(s.Line.Start)) 
+				if(!processed.Contains(s.Line.Start))
 				{
 					if(s.Line.Start.Position.x < left) left = s.Line.Start.Position.x;
 					if(s.Line.Start.Position.x > right) right = s.Line.Start.Position.x;
@@ -617,7 +617,7 @@ namespace CodeImp.DoomBuilder.Map
 				}
 
 				//end...
-				if(!processed.Contains(s.Line.End)) 
+				if(!processed.Contains(s.Line.End))
 				{
 					if(s.Line.End.Position.x < left) left = s.Line.End.Position.x;
 					if(s.Line.End.Position.x > right) right = s.Line.End.Position.x;
@@ -626,7 +626,7 @@ namespace CodeImp.DoomBuilder.Map
 					processed.Add(s.Line.End);
 				}
 			}
-			
+
 			// Return rectangle
 			return new RectangleF((float)left, (float)top, (float)(right - left), (float)(bottom - top));
 		}
@@ -636,7 +636,7 @@ namespace CodeImp.DoomBuilder.Map
 		{
 			bbox = CreateBBox();
 		}
-		
+
 		// This joins the sector with another sector
 		// This sector will be disposed
 		public void Join(Sector other)
@@ -655,7 +655,7 @@ namespace CodeImp.DoomBuilder.Map
 				// Dispose manually
 				this.Dispose();
 			}
-			
+
 			General.Map.IsChanged = true;
 		}
 
@@ -665,7 +665,7 @@ namespace CodeImp.DoomBuilder.Map
 			if(General.Map.UDMF)
 			{
 				// UDMF Sector slope?
-				if(s.FloorSlope.GetLengthSq() > 0 && !double.IsNaN(s.FloorSlopeOffset / s.FloorSlope.z)) 
+				if(s.FloorSlope.GetLengthSq() > 0 && !double.IsNaN(s.FloorSlopeOffset / s.FloorSlope.z))
 					return new Geometry.Plane(s.FloorSlope, s.FloorSlopeOffset);
 
 				if(s.sidedefs.Count == 3)
@@ -674,9 +674,9 @@ namespace CodeImp.DoomBuilder.Map
 					Vector3D[] verts = new Vector3D[3];
 					bool sloped = false;
 					int index = 0;
-					
+
 					// Check vertices
-					foreach(Sidedef sd in s.Sidedefs) 
+					foreach(Sidedef sd in s.Sidedefs)
 					{
 						Vertex v = sd.IsFront ? sd.Line.End : sd.Line.Start;
 
@@ -684,13 +684,13 @@ namespace CodeImp.DoomBuilder.Map
 						verts[index] = new Vector3D(v.Position);
 
 						// Check floor
-						if(!double.IsNaN(v.ZFloor)) 
+						if(!double.IsNaN(v.ZFloor))
 						{
 							//vertex offset is absolute
 							verts[index].z = v.ZFloor;
 							sloped = true;
-						} 
-						else 
+						}
+						else
 						{
 							verts[index].z = floor.GetZ(v.Position);
 						}
@@ -711,15 +711,15 @@ namespace CodeImp.DoomBuilder.Map
 				if(side.Line.Action == 700 && side.Line.Args[0] == (side.IsFront ? 1 : 2) && side.Other != null)
 				{
 					Linedef l = side.Line;
-					
+
 					// Find the vertex furthest from the line
 					Vertex foundv = null;
 					double founddist = -1.0f;
-					foreach(Sidedef sd in s.Sidedefs) 
+					foreach(Sidedef sd in s.Sidedefs)
 					{
 						Vertex v = sd.IsFront ? sd.Line.Start : sd.Line.End;
 						double d = l.DistanceToSq(v.Position, false);
-						if(d > founddist) 
+						if(d > founddist)
 						{
 							foundv = v;
 							founddist = d;
@@ -743,13 +743,13 @@ namespace CodeImp.DoomBuilder.Map
 		//mxd
 		public static Geometry.Plane GetCeilingPlane(Sector s)
 		{
-			if(General.Map.UDMF) 
+			if(General.Map.UDMF)
 			{
 				// UDMF Sector slope?
 				if(s.CeilSlope.GetLengthSq() > 0 && !double.IsNaN(s.CeilSlopeOffset / s.CeilSlope.z))
 					return new Geometry.Plane(s.CeilSlope, s.CeilSlopeOffset);
 
-				if(s.sidedefs.Count == 3) 
+				if(s.sidedefs.Count == 3)
 				{
 					Geometry.Plane ceiling = new Geometry.Plane(new Vector3D(0, 0, -1), s.CeilHeight);
 					Vector3D[] verts = new Vector3D[3];
@@ -757,7 +757,7 @@ namespace CodeImp.DoomBuilder.Map
 					int index = 0;
 
 					// Check vertices
-					foreach(Sidedef sd in s.Sidedefs) 
+					foreach(Sidedef sd in s.Sidedefs)
 					{
 						Vertex v = sd.IsFront ? sd.Line.End : sd.Line.Start;
 
@@ -765,13 +765,13 @@ namespace CodeImp.DoomBuilder.Map
 						verts[index] = new Vector3D(v.Position);
 
 						// Check floor
-						if(!double.IsNaN(v.ZCeiling)) 
+						if(!double.IsNaN(v.ZCeiling))
 						{
 							//vertex offset is absolute
 							verts[index].z = v.ZCeiling;
 							sloped = true;
-						} 
-						else 
+						}
+						else
 						{
 							verts[index].z = ceiling.GetZ(v.Position);
 						}
@@ -786,7 +786,7 @@ namespace CodeImp.DoomBuilder.Map
 			}
 
 			// Have line slope?
-			foreach(Sidedef side in s.sidedefs) 
+			foreach(Sidedef side in s.sidedefs)
 			{
 				// Carbon copy of EffectLineSlope class here...
 				if(side.Line.Action == 700 && side.Line.Args[1] == (side.IsFront ? 1 : 2) && side.Other != null)
@@ -796,11 +796,11 @@ namespace CodeImp.DoomBuilder.Map
 					// Find the vertex furthest from the line
 					Vertex foundv = null;
 					double founddist = -1.0f;
-					foreach(Sidedef sd in s.Sidedefs) 
+					foreach(Sidedef sd in s.Sidedefs)
 					{
 						Vertex v = sd.IsFront ? sd.Line.Start : sd.Line.End;
 						double d = l.DistanceToSq(v.Position, false);
-						if(d > founddist) 
+						if(d > founddist)
 						{
 							foundv = v;
 							founddist = d;
@@ -840,13 +840,13 @@ namespace CodeImp.DoomBuilder.Map
 			return "Sector " + listindex;
 #endif
 		}
-		
+
 		#endregion
 
 		#region ================== Changes
 
 		//mxd. This updates all properties (Doom/Hexen version)
-		public void Update(int hfloor, int hceil, string tfloor, string tceil, int effect, int tag, int brightness) 
+		public void Update(int hfloor, int hceil, string tfloor, string tceil, int effect, int tag, int brightness)
 		{
 			Update(hfloor, hceil, tfloor, tceil, effect, new Dictionary<string, bool>(StringComparer.Ordinal), new List<int> { tag }, brightness, 0, new Vector3D(), 0, new Vector3D());
 		}
@@ -855,7 +855,7 @@ namespace CodeImp.DoomBuilder.Map
 		public void Update(int hfloor, int hceil, string tfloor, string tceil, int effect, Dictionary<string, bool> flags, List<int> tags, int brightness, double flooroffset, Vector3D floorslope, double ceiloffset, Vector3D ceilslope)
 		{
 			BeforePropsChange();
-			
+
 			// Apply changes
 			this.floorheight = hfloor;
 			this.ceilheight = hceil;
@@ -887,7 +887,7 @@ namespace CodeImp.DoomBuilder.Map
 		public void SetFloorTexture(string name)
 		{
 			BeforePropsChange();
-			
+
 			if(string.IsNullOrEmpty(name)) name = "-"; //mxd
 			floortexname = name;
 			longfloortexname = Lump.MakeLongName(name);
@@ -899,7 +899,7 @@ namespace CodeImp.DoomBuilder.Map
 		public void SetCeilTexture(string name)
 		{
 			BeforePropsChange();
-			
+
 			if(string.IsNullOrEmpty(name)) name = "-"; //mxd
 			ceiltexname = name;
 			longceiltexname = Lump.MakeLongName(name);
@@ -908,7 +908,7 @@ namespace CodeImp.DoomBuilder.Map
 		}
 
 		//mxd
-		public void UpdateFogColor() 
+		public void UpdateFogColor()
 		{
 			if(General.Map.UDMF && Fields.ContainsKey("fadecolor"))
 			{
@@ -916,7 +916,7 @@ namespace CodeImp.DoomBuilder.Map
 				fogmode = SectorFogMode.FADE;
 			}
 			// Sector uses outisde fog when it's ceiling is sky or Sector_Outside effect (87) is set
-			else if(General.Map.Data.MapInfo.HasOutsideFogColor && 
+			else if(General.Map.Data.MapInfo.HasOutsideFogColor &&
 				(HasSkyCeiling || (effect == 87 && General.Map.Config.SectorEffects.ContainsKey(effect))))
 			{
 				fogcolor = General.Map.Data.MapInfo.OutsideFogColor;

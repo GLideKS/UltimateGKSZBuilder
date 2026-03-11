@@ -49,6 +49,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		#region ================== Properties
 
 		private bool RepeatIndefinitely { get { return repeatmidtex && repetitions == 1; } }
+		public override MapElement3D AsMapElement3D { get => new Middle3D(Sidedef); }
 
 		#endregion
 

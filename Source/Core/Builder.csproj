@@ -116,6 +116,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug + Profiler|x64'">
     <PlatformTarget>x64</PlatformTarget>
@@ -132,7 +133,7 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
@@ -252,6 +253,7 @@
     <Compile Include="Dehacked\DehackedThing.cs" />
     <Compile Include="General\AutoSaver.cs" />
     <Compile Include="General\Hasher.cs" />
+    <Compile Include="General\MultiDictionary.cs" />
     <Compile Include="General\SHA256Hash.cs" />
     <Compile Include="General\ToastManager.cs" />
     <Compile Include="GZBuilder\Models\GZModel.cs" />
@@ -263,6 +265,7 @@
     <Compile Include="GZBuilder\Models\MD3ModelLoader.cs" />
     <Compile Include="GZBuilder\Models\OBJModelLoader.cs" />
     <Compile Include="GZBuilder\Models\ModelLoadResult.cs" />
+    <Compile Include="Map\MapElement3D.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

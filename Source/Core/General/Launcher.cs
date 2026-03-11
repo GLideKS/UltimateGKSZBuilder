@@ -288,6 +288,7 @@ namespace CodeImp.DoomBuilder
 			outp = outp.Replace("%wF", "%WF");
 			outp = outp.Replace("%Wp", "%WP");
 			outp = outp.Replace("%Wf", "%WF");
+			outp = outp.Replace("%m", "%M");
 			outp = outp.Replace("%l1", "%L1");
 			outp = outp.Replace("%l2", "%L2");
 			outp = outp.Replace("%l", "%L");
@@ -303,6 +304,7 @@ namespace CodeImp.DoomBuilder
 			outp = outp.Replace("%F", f);
 			outp = outp.Replace("%WP", p_wp);
 			outp = outp.Replace("%WF", p_wf);
+			outp = outp.Replace("%M", General.Map.Options.FullCurrentName);
 			outp = outp.Replace("%L1", p_l1);
 			outp = outp.Replace("%L2", p_l2);
 			outp = outp.Replace("%L", General.Map.Options.CurrentName);

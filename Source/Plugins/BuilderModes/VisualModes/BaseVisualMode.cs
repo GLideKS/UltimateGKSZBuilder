@@ -98,6 +98,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		// biwa. Info for paint selection
 		protected bool paintselectpressed;
 		protected Type paintselecttype = null;
+		private IVisualEventReceiver lastpaintselectedobject1; // Last
+		private IVisualEventReceiver lastpaintselectedobject2; // Second last
 		protected IVisualPickable highlighted; // biwa
 
 		//mxd. Moved here from Tools
@@ -167,7 +169,11 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 		public bool PaintSelectPressed { get { return paintselectpressed; } } // biwa
 		public Type PaintSelectType { get { return paintselecttype; } set { paintselecttype = value; } } // biwa
+		internal IVisualEventReceiver LastPaintSelectedObject1 { get { return lastpaintselectedobject1; } set { lastpaintselectedobject1 = value; } } // biwa
+		internal IVisualEventReceiver LastPaintSelectedObject2 { get { return lastpaintselectedobject2; } set { lastpaintselectedobject2 = value; } } // biwa
 		public IVisualPickable Highlighted { get { return highlighted; } } // biwa
+		public Group3D SelectedGroup3D { get; internal set; }
+		public Group3D LastSelectedGroup3D { get; internal set; }
 
 		#endregion
 		
@@ -224,6 +230,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		internal void AddSelectedObject(IVisualEventReceiver obj)
 		{
 			selectedobjects.Add(obj);
+			lastpaintselectedobject2 = lastpaintselectedobject1;
+			lastpaintselectedobject1 = obj;
 			selectionchanged = true;
 			selectioninfoupdatetimer.Start(); //mxd
 		}
@@ -232,6 +240,11 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		internal void RemoveSelectedObject(IVisualEventReceiver obj)
 		{
 			selectedobjects.Remove(obj);
+			if (obj == lastpaintselectedobject1)
+			{
+				lastpaintselectedobject1 = lastpaintselectedobject2;
+				lastpaintselectedobject2 = null;
+			}
 			selectionchanged = true;
 			selectioninfoupdatetimer.Start(); //mxd
 		}
@@ -488,6 +501,11 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		{
 			BaseVisualThing vt = new BaseVisualThing(this, t);
 			return vt.Setup() ? vt : null;
+		}
+
+		internal BaseVisualSector GetBaseVisualSector(Sector s)
+		{
+			return GetVisualSector(s) as BaseVisualSector;
 		}
 
 		// This locks the target so that it isn't changed until unlocked
@@ -886,7 +904,75 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 			return handles;
 		}
+
+		private IVisualEventReceiver GetObjectByMapElement3D(MapElement3D element)
+		{
+			if (element.IsDisposed)
+				return null;
+			else if (element is Floor3D floor)
+				return GetBaseVisualSector(floor.Sector).Floor;
+			else if (element is Ceiling3D ceiling)
+				return GetBaseVisualSector(ceiling.Sector).Ceiling;
+			else if (element is Lower3D lower)
+				return GetBaseVisualSector(lower.Sidedef.Sector).GetSidedefParts(lower.Sidedef).lower;
+			else if (element is Upper3D upper)
+				return GetBaseVisualSector(upper.Sidedef.Sector).GetSidedefParts(upper.Sidedef).upper;
+			else if (element is Middle3D middle)
+			{
+				var parts = GetBaseVisualSector(middle.Sidedef.Sector).GetSidedefParts(middle.Sidedef);
+				if (parts.middlesingle != null)
+					return parts.middlesingle;
+				else
+					return parts.middledouble;
+			}
+			else if (element is Vertex3D vertex)
+				return GetVisualVertex(vertex.Vertex, vertex.IsFloor);
+			else if (element is Thing3D thing)
+				return GetVisualThing(thing.Thing) as BaseVisualThing;
+			else if (element is ThreeDFloorBottom3D threedfloorbottom)
+			{
+				var vs = GetBaseVisualSector(threedfloorbottom.Sector);
+				return vs.ExtraFloors.Find(f => f.ExtraFloor.Linedef == threedfloorbottom.ControlLinedef);
+			}
+			else if (element is ThreeDFloorTop3D threedfloortop)
+			{
+				var vs = GetBaseVisualSector(threedfloortop.Sector);
+				return vs.ExtraCeilings.Find(f => f.ExtraFloor.Linedef == threedfloortop.ControlLinedef);
+			}
+			else if (element is ThreeDFloorSide3D threedfloorside)
+			{
+				var vs = GetBaseVisualSector(threedfloorside.Sidedef.Sector);
+				var parts = vs.GetSidedefParts(threedfloorside.Sidedef).middle3d;
+				return parts.Find(p => p.GetControlLinedef() == threedfloorside.ControlLinedef);
+			}
+			if (element is SidedefSlope3D sideslope)
+			{
+				return sidedefslopehandles[sideslope.Sidedef.Sector]
+					?.Find(s => {
+						var ss = s as VisualSidedefSlope;
 		
+						return
+							ss.Sidedef == sideslope.Sidedef &&
+							ss.Level.extrafloor?.Linedef == sideslope.ControlLinedef &&
+							ss.Level.type == (sideslope.IsFloor ? SectorLevelType.Floor : SectorLevelType.Ceiling);
+					}) as VisualSidedefSlope;
+			}
+			else if (element is VertexSlope3D vertexslope)
+			{
+				return vertexslopehandles[vertexslope.Sector]
+					?.Find(s => {
+						var vs = s as VisualVertexSlope;
+
+						return
+							vs.Vertex == vertexslope.Vertex &&
+							vs.Level.extrafloor?.Linedef == vertexslope.ControlLinedef &&
+						vs.Level.type == (vertexslope.IsFloor ? SectorLevelType.Floor : SectorLevelType.Ceiling);
+					}) as VisualVertexSlope;
+			}
+			else
+				return null;
+		}
+
 		#endregion
 
 		#region ================== Extended Methods
@@ -987,7 +1073,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					if(!VisualSectorExists(s)) continue;
 
 					// The visual sector associated is now outdated
-					BaseVisualSector vs = (BaseVisualSector)GetVisualSector(s);
+					BaseVisualSector vs = GetBaseVisualSector(s);
 					vs.UpdateSectorGeometry(true);
 				}
 			}
@@ -1866,7 +1952,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				{
 					if(sd.Marked && VisualSectorExists(sd.Sector))
 					{
-						BaseVisualSector vs = (BaseVisualSector)GetVisualSector(sd.Sector);
+						BaseVisualSector vs = GetBaseVisualSector(sd.Sector);
 						VisualSidedefParts parts = vs.GetSidedefParts(sd);
 						parts.SetupAllParts();
 					}
@@ -1887,7 +1973,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 							{
 								if(VisualSectorExists(us.Key))
 								{
-									BaseVisualSector vs = (BaseVisualSector)GetVisualSector(us.Key);
+									BaseVisualSector vs = GetBaseVisualSector(us.Key);
 									vs.UpdateSectorGeometry(us.Value);
 								}
 							}
@@ -1896,7 +1982,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 						// And update for this sector ofcourse
 						if(VisualSectorExists(s))
 						{
-							BaseVisualSector vs = (BaseVisualSector)GetVisualSector(s);
+							BaseVisualSector vs = GetBaseVisualSector(s);
 							vs.UpdateSectorGeometry(false);
 						}
 					}
@@ -2095,7 +2181,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					{
 						if(VisualSectorExists(s.Key)) 
 						{
-							BaseVisualSector vs = (BaseVisualSector)GetVisualSector(s.Key);
+							BaseVisualSector vs = GetBaseVisualSector(s.Key);
 							vs.UpdateSectorGeometry(s.Value);
 						}
 					}
@@ -2196,7 +2282,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 							// Update control sector
 							SectorData sd = GetSectorData(bvs.Level.sector);
 							sd.Update();
-							BaseVisualSector vs = (BaseVisualSector)GetVisualSector(bvs.Level.sector);
+							BaseVisualSector vs = GetBaseVisualSector(bvs.Level.sector);
 							vs.Rebuild();
 
 							// Add to collection
@@ -2208,7 +2294,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 							{
 								if(!donesectors.Contains(other.Index))
 								{
-									BaseVisualSector vsother = (BaseVisualSector)GetVisualSector(other);
+									BaseVisualSector vsother = GetBaseVisualSector(other);
 									vsother.Rebuild();
 
 									// Add to collection
@@ -2409,7 +2495,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		{
 			if (selected)
 			{
-				var floor = ((BaseVisualSector)GetVisualSector(sector)).Floor;
+				var floor = GetBaseVisualSector(sector).Floor;
 				floor.Selected = true;
 				AddSelectedObject(floor);
 
@@ -2444,7 +2530,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		{
 			if (selected)
 			{
-				var ceiling = ((BaseVisualSector)GetVisualSector(sector)).Ceiling;
+				var ceiling = GetBaseVisualSector(sector).Ceiling;
 				ceiling.Selected = true;
 				AddSelectedObject(ceiling);
 
@@ -2534,7 +2620,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		{
 			if (selected)
 			{
-				var vs = (BaseVisualSector)GetVisualSector(sidedef.Sector);
+				var vs = GetBaseVisualSector(sidedef.Sector);
 				VisualSidedefParts parts = vs.GetSidedefParts(sidedef);
 
 				if (parts.middlesingle != null)
@@ -2761,7 +2847,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 
 			foreach (Sector sector in GetControlLinedefTargetsSectors(linedef))
 			{
-				var vs = (BaseVisualSector)GetVisualSector(sector);
+				var vs = GetBaseVisualSector(sector);
 
 				if (floors)
 				{
@@ -2871,6 +2957,29 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		public Dictionary<string, object> GetHighlightedObjectAsDictionary()
 		{
 			return GetVisualObjectAsDictionary(HighlightedTarget);
+		}
+
+		internal List<Group3D> FindGroups3DWithObject(IVisualEventReceiver o)
+		{
+			if (General.Map.Map.GroupsByMapElement3D.ContainsKey(o.AsMapElement3D))
+			{
+				var groups = General.Map.Map.GroupsByMapElement3D[o.AsMapElement3D];
+				groups.RemoveAll(g => General.Map.Map.CleanupGroup3D(g));
+				return groups;
+			}
+			else
+			{
+				return new List<Group3D>();
+			}
+		}
+
+		public Group3D FindSelectedGroup3D()
+		{
+			return General.Map.Map.Groups3D
+				.Find(group =>
+					group.Count == selectedobjects.Count &&
+						selectedobjects.All(o => group.Contains(o.AsMapElement3D))
+				);
 		}
 
 		#endregion
@@ -2987,6 +3096,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		public void ClearSelection()
 		{
             ClearSelection(true, true, true, true, true, true);
+			SelectedGroup3D = null;
 		}
 
 		[BeginAction("visualselect", BaseAction = true)]
@@ -4022,7 +4132,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					// Update the parts for this sidedef!
 					if(VisualSectorExists(sd.Sector)) 
 					{
-						BaseVisualSector vs = (BaseVisualSector)GetVisualSector(sd.Sector);
+						BaseVisualSector vs = GetBaseVisualSector(sd.Sector);
 						VisualSidedefParts parts = vs.GetSidedefParts(sd);
 						parts.SetupAllParts();
 					}
@@ -4470,7 +4580,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 						{
 							if(VisualSectorExists(s.Key))
 							{
-								BaseVisualSector vs = (BaseVisualSector)GetVisualSector(s.Key);
+								BaseVisualSector vs = GetBaseVisualSector(s.Key);
 								vs.UpdateSectorGeometry(s.Value);
 							}
 						}
@@ -4637,7 +4747,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				{
 					if(VisualSectorExists(s.Key)) 
 					{
-						BaseVisualSector vs = (BaseVisualSector)GetVisualSector(s.Key);
+						BaseVisualSector vs = GetBaseVisualSector(s.Key);
 						vs.UpdateSectorGeometry(s.Value);
 					}
 				}
@@ -4922,6 +5032,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		{
 			paintselectpressed = false;
 			paintselecttype = null;
+			lastpaintselectedobject1 = null;
+			lastpaintselectedobject2 = null;
 			GetTargetEventReceiver(true).OnPaintSelectEnd();
 		}
 
@@ -5027,7 +5139,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			{
 				SectorLevel level = bvgs.Level;
 				bool applytoceiling = false;
-				if (level.extrafloor)
+				if (level.extrafloor != null)
 				{
 					// The top side of 3D floors is the ceiling of the sector, but it's a "floor" in UDB, so the
 					// ceiling of the control sector has to be modified
@@ -5067,7 +5179,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				BaseVisualSector vs;
 				if (VisualSectorExists(level.sector))
 				{
-					vs = (BaseVisualSector)GetVisualSector(level.sector);
+					vs = GetBaseVisualSector(level.sector);
 				}
 				else
 				{
@@ -5233,8 +5345,27 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					otherObject = extraCeiling.Sector.ExtraFloors.Find(ef => ef.ExtraFloor == extraCeiling.ExtraFloor);
 				else if (o is VisualMiddleDouble side)
 				{
-					BaseVisualSector otherSector = (BaseVisualSector)GetVisualSector(side.Sidedef.Other.Sector);
+					BaseVisualSector otherSector = GetBaseVisualSector(side.Sidedef.Other.Sector);
 					otherObject = otherSector.GetSidedefParts(side.Sidedef.Other).middledouble;
+				}
+				else if (o is VisualSidedefSlope sideHandle && sideHandle.Sidedef.Other != null)
+				{
+					Sidedef otherSide = sideHandle.Sidedef.Other;
+					BaseVisualSector visSector = GetBaseVisualSector(sideHandle.Sidedef.Sector);
+					BaseVisualSector otherVisSector = GetBaseVisualSector(otherSide.Sector);
+
+					otherObject = SidedefSlopeHandles[otherSide.Sector].Find(otherHandle => {
+						if ((otherHandle as VisualSidedefSlope).Sidedef != otherSide)
+							return false;
+
+						var v1 = sideHandle.Sidedef.Line.Start.Position;
+						var v2 = sideHandle.Sidedef.Line.End.Position;
+
+						var p1 = sideHandle.Level.plane;
+						var p2 = (otherHandle as VisualSidedefSlope).Level.plane;
+
+						return Math.Abs(p1.GetZ(v1) - p2.GetZ(v1)) < 1.0 && Math.Abs(p1.GetZ(v2) - p2.GetZ(v2)) < 1.0;
+					}) as VisualSidedefSlope;
 				}
 
 				if (otherObject != null && !otherObject.Selected)
@@ -5242,6 +5373,133 @@ namespace CodeImp.DoomBuilder.BuilderModes
 					otherObject.OnSelectBegin();
 					otherObject.OnSelectEnd();
 				}
+			}
+		}
+
+		[BeginAction("selectgroup")]
+		public void SelectGroup()
+		{
+			PickTargetUnlocked();
+
+			if (HighlightedTarget == null)
+			{
+				General.Interface.DisplayStatus(StatusType.Warning, "You must highlight an element to select a group.");
+				return;
+			}
+
+			var selectablegroups = FindGroups3DWithObject(HighlightedTarget as IVisualEventReceiver);
+			if (!selectablegroups.Any())
+			{
+				General.Interface.DisplayStatus(StatusType.Warning, "The highlighted element does not belong to any group.");
+				return;
+			}
+
+			var selectedgroupindex = selectablegroups.IndexOf(SelectedGroup3D);
+			var nextgroupindex = selectedgroupindex + 1;
+
+			if (selectedgroupindex >= 0)
+			{
+				foreach (var e in selectablegroups[selectedgroupindex])
+				{
+					var o = GetObjectByMapElement3D(e);
+					if (o != null && o.Selected)
+					{
+						o.OnSelectBegin();
+						o.OnSelectEnd();
+					}
+				}
+			}
+
+			if (nextgroupindex < selectablegroups.Count)
+			{
+				SelectedGroup3D = selectablegroups[nextgroupindex];
+				LastSelectedGroup3D = SelectedGroup3D;
+
+				foreach (var e in SelectedGroup3D)
+				{
+					var o = GetObjectByMapElement3D(e);
+					if (o != null && !o.Selected)
+					{
+						o.OnSelectBegin();
+						o.OnSelectEnd();
+					}
+				}
+
+				General.Interface.DisplayStatus(StatusType.Info, "Selected group " + (nextgroupindex + 1) + "/" + selectablegroups.Count + ".");
+			}
+			else
+			{
+				SelectedGroup3D = null;
+				LastSelectedGroup3D = null;
+				General.Interface.DisplayStatus(StatusType.Info, "Deselected group.");
+			}
+		}
+
+		[BeginAction("creategroup")]
+		public void CreateGroup()
+		{
+			General.Map.Map.CleanupGroups3D();
+
+			if (FindSelectedGroup3D() != null) return;
+
+			var group = new Group3D();
+
+			foreach (var o in selectedobjects)
+				if (o.AsMapElement3D != null)
+					group.Add(o.AsMapElement3D);
+
+			foreach (var e in group)
+				General.Map.Map.GroupsByMapElement3D.Add(e, group);
+
+			if (!group.Any())
+			{
+				General.Interface.DisplayStatus(StatusType.Warning, "You must select at least one element to create a group.");
+				return;
+			}
+
+			General.Map.Map.Groups3D.Add(group);
+			SelectedGroup3D = group;
+			LastSelectedGroup3D = group;
+
+			General.Interface.DisplayStatus(StatusType.Action, "Created a new group with " + group.Count + " elements.");
+		}
+
+		[BeginAction("updateordeletelastselectedgroup")]
+		public void UpdateOrDeleteLastSelectedGroup()
+		{
+			General.Map.Map.CleanupGroups3D();
+
+			if (LastSelectedGroup3D == null || !General.Map.Map.Groups3D.Contains(LastSelectedGroup3D))
+			{
+				General.Interface.DisplayStatus(StatusType.Warning, "Select a group first.");
+				return;
+			}
+
+			foreach (var e in LastSelectedGroup3D)
+				if (!e.IsDisposed)
+					General.Map.Map.GroupsByMapElement3D.Remove(e, LastSelectedGroup3D);
+			LastSelectedGroup3D.Clear();
+
+			foreach (var o in selectedobjects)
+			{
+				var e = o.AsMapElement3D;
+				if (e != null)
+				{
+					LastSelectedGroup3D.Add(e);
+					General.Map.Map.GroupsByMapElement3D.Add(e, LastSelectedGroup3D);
+				}
+			}
+
+			if (LastSelectedGroup3D.Any())
+			{
+				General.Interface.DisplayStatus(StatusType.Action, "Updated a group.");
+			}
+			else
+			{
+				General.Map.Map.Groups3D.Remove(LastSelectedGroup3D);
+				LastSelectedGroup3D = null;
+
+				General.Interface.DisplayStatus(StatusType.Action, "Deleted a group.");
 			}
 		}
 
@@ -5526,8 +5784,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
 				//mxd. Get visual parts
 				if (VisualSectorExists(j.sidedef.Sector))
 				{
-					VisualSidedefParts parts = ((BaseVisualSector)GetVisualSector(j.sidedef.Sector)).GetSidedefParts(j.sidedef);
-					//VisualSidedefParts controlparts = (j.sidedef != j.controlSide ? ((BaseVisualSector)GetVisualSector(j.controlSide.Sector)).GetSidedefParts(j.controlSide) : parts);
+					VisualSidedefParts parts = GetBaseVisualSector(j.sidedef.Sector).GetSidedefParts(j.sidedef);
+					//VisualSidedefParts controlparts = (j.sidedef != j.controlSide ? GetBaseVisualSector(j.controlSide.Sector).GetSidedefParts(j.controlSide) : parts);
 
 					matchtop = (!j.sidedef.Marked && (!singleselection || texturehashes.Contains(j.sidedef.LongHighTexture)) && (parts.upper != null && parts.upper.Triangles > 0));
 					matchbottom = (!j.sidedef.Marked && (!singleselection || texturehashes.Contains(j.sidedef.LongLowTexture)) && (parts.lower != null && parts.lower.Triangles > 0));

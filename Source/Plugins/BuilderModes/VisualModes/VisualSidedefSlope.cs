@@ -26,6 +26,7 @@ namespace CodeImp.DoomBuilder.VisualModes
 
 		public Sidedef Sidedef { get { return sidedef; } }
 		public int NormalizedAngleDeg { get { return (sidedef.Line.AngleDeg >= 180) ? (sidedef.Line.AngleDeg - 180) : sidedef.Line.AngleDeg; } }
+		public override MapElement3D AsMapElement3D { get => new SidedefSlope3D(Sidedef, !up, Level.extrafloor?.Linedef); }
 
 		#endregion
 
@@ -121,7 +122,7 @@ namespace CodeImp.DoomBuilder.VisualModes
 
 			if (up)
 			{
-				if (level.extrafloor && level.type == SectorLevelType.Ceiling)
+				if (level.extrafloor != null && level.type == SectorLevelType.Ceiling)
 				{
 					if (sidedef.IsFront)
 						invertline = true;
@@ -134,7 +135,7 @@ namespace CodeImp.DoomBuilder.VisualModes
 			}
 			else
 			{
-				if (level.extrafloor && level.type == SectorLevelType.Floor)
+				if (level.extrafloor != null && level.type == SectorLevelType.Floor)
 				{
 					if (!sidedef.IsFront)
 						invertline = true;
@@ -225,7 +226,7 @@ namespace CodeImp.DoomBuilder.VisualModes
 			Vector2D center = new Vector2D(level.sector.BBox.X + level.sector.BBox.Width / 2,
 											   level.sector.BBox.Y + level.sector.BBox.Height / 2);
 
-			if (level.extrafloor)
+			if (level.extrafloor != null)
 			{
 				// The top side of 3D floors is the ceiling of the sector, but it's a "floor" in UDB, so the
 				// ceiling of the control sector has to be modified
@@ -381,6 +382,115 @@ namespace CodeImp.DoomBuilder.VisualModes
 				ApplySlope(l, plane, mode);
 
 			mode.SetActionResult("Changed slope.");
+		}
+
+		private static Vertex GetSharedVertex(Linedef a, Linedef b)
+		{
+			if (a.Start == b.Start || a.Start == b.End)
+				return a.Start;
+			else if (a.End == b.Start || a.End == b.End)
+				return a.End;
+			else
+				return null;
+		}
+
+		private static double GetDirectionlessAngleDiff(double a, double b)
+		{
+			double d = Math.Abs(b - a);
+			return d < Angle2D.PI ? d : Angle2D.PI2 - d;
+		}
+
+		public override void OnMouseMove(MouseEventArgs e)
+		{
+			if (mode.PaintSelectPressed && mode.PaintSelectType == this.GetType() && mode.Highlighted != this)
+			{
+				bool selecting;
+				if (General.Interface.ShiftState ^ BuilderPlug.Me.AdditivePaintSelect)
+					selecting = true;
+				else if (General.Interface.CtrlState)
+					selecting = false;
+				else
+					selecting = !selected;
+
+				if (selecting && !selected)
+				{
+					var last1 = mode.LastPaintSelectedObject1 as VisualSidedefSlope;
+					var last2 = mode.LastPaintSelectedObject2 as VisualSidedefSlope;
+
+					if (last1 == null)
+						return;
+
+					// If the last selected handle took a bigger turn from the second last handle
+					// compared to this handle, cancel the previous handle and use this handle instead.
+					// This helps preventing selection of unwanted nearby handles in meshed geometry.
+					if (last2 != null && GetSharedVertex(sidedef.Line, last2.sidedef.Line) != null)
+					{
+						double oldDiff = GetDirectionlessAngleDiff(last2.sidedef.Line.Angle, last1.sidedef.Line.Angle);
+						double newDiff = GetDirectionlessAngleDiff(last2.sidedef.Line.Angle, sidedef.Line.Angle);
+						if (newDiff > oldDiff) // Worse than before? Don't bother...
+							return;
+
+						last1.selected = false;
+						mode.RemoveSelectedObject(last1);
+
+						// Refresh because RemoveSelectedObject() alters these
+						last1 = mode.LastPaintSelectedObject1 as VisualSidedefSlope;
+						last2 = mode.LastPaintSelectedObject2 as VisualSidedefSlope;
+					}
+
+					if (GetSharedVertex(sidedef.Line, last1.sidedef.Line) == null)
+						return;
+
+					// Skip handles that point to a sector already covered
+					var newSector = mode.GetSelectedObjects(false, false, false, false, true)
+						.All(o => !(o is VisualSidedefSlope s && (s.sidedef.Sector == sidedef.Sector || s.sidedef.Sector == sidedef.Other?.Sector)));
+					if (!newSector)
+						return;
+
+					if (Math.Abs(Angle2D.Difference(last1.Sidedef.Angle, Sidedef.Angle)) >= Angle2D.PI)
+						return;
+
+					selected = true;
+					mode.AddSelectedObject(this);
+				}
+				else if (!selecting && selected)
+				{
+					selected = false;
+					mode.RemoveSelectedObject(this);
+				}
+			}
+		}
+
+		public override void OnPaintSelectBegin()
+		{
+			mode.PaintSelectType = this.GetType(); // using BaseType so that middle, upper, lower, etc can be selecting in one go
+
+			// toggle selected state
+			if (General.Interface.ShiftState ^ BuilderPlug.Me.AdditivePaintSelect)
+			{
+				if (!selected)
+				{
+					selected = true;
+					mode.AddSelectedObject(this);
+				}
+			}
+			else if (General.Interface.CtrlState)
+			{
+				if (selected)
+				{
+					selected = false;
+					mode.RemoveSelectedObject(this);
+				}
+			}
+			else
+			{
+				if (selected)
+					mode.RemoveSelectedObject(this);
+				else
+					mode.AddSelectedObject(this);
+
+				selected = !selected;
+			}
 		}
 
 		#endregion

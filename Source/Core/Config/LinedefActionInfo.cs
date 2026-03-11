@@ -66,6 +66,7 @@ namespace CodeImp.DoomBuilder.Config
 		private readonly bool linetolinetag;
 		private readonly bool linetolinesameaction;
 		private readonly ErrorCheckerExemptions errorcheckerexemptions;
+		private readonly bool isextrafloor;
 		
 		#endregion
 
@@ -86,6 +87,7 @@ namespace CodeImp.DoomBuilder.Config
 		public bool LineToLineTag { get { return linetolinetag; } }
 		public bool LineToLineSameAction { get { return linetolinesameaction; } }
 		public ErrorCheckerExemptions ErrorCheckerExemptions { get { return errorcheckerexemptions; } }
+		public bool IsExtraFloor { get { return isextrafloor; } }
 
 		#endregion
 
@@ -125,6 +127,8 @@ namespace CodeImp.DoomBuilder.Config
 			this.errorcheckerexemptions.FloorLowerToLowest = cfg.ReadSetting(actionsetting + ".errorchecker.floorlowertolowest", false);
 			this.errorcheckerexemptions.FloorRaiseToNextHigher = cfg.ReadSetting(actionsetting + ".errorchecker.floorraisetonexthigher", false);
 			this.errorcheckerexemptions.FloorRaiseToHighest = cfg.ReadSetting(actionsetting + ".errorchecker.floorraisetohighest", false);
+
+			isextrafloor = (id == "Sector_Set3dFloor" || id.StartsWith("srb2_fof"));
 
 			// Read the args
 			for (int i = 0; i < this.args.Length; i++)

@@ -322,7 +322,7 @@ namespace CodeImp.DoomBuilder.Controls
 			// 
 			this.typeid.AllowDecimal = false;
 			this.typeid.AllowExpressions = false;
-			this.typeid.AllowNegative = false;
+			this.typeid.AllowNegative = true;
 			this.typeid.AllowRelative = false;
 			this.typeid.ForeColor = System.Drawing.SystemColors.WindowText;
 			this.typeid.ImeMode = System.Windows.Forms.ImeMode.Off;

@@ -9,16 +9,17 @@ using CodeImp.DoomBuilder.Rendering;
 using CodeImp.DoomBuilder.VisualModes;
 using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 #endregion
 
-namespace CodeImp.DoomBuilder.GZBuilder.Data 
+namespace CodeImp.DoomBuilder.GZBuilder.Data
 {
 	public static class LinksCollector
 	{
 		#region ================== SpecialThings
 
-		private class SpecialThings 
+		private class SpecialThings
 		{
 			public readonly Dictionary<int, List<Thing>> PatrolPoints; // PatrolPoint tag, list of PatrolPoints
 			public readonly List<Thing> PatrolSpecials;
@@ -123,7 +124,7 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 			Vector3D tr = new Vector3D(pos.x + halfsize, pos.y - halfsize, pos.z);
 			Vector3D bl = new Vector3D(pos.x - halfsize, pos.y + halfsize, pos.z);
 			Vector3D br = new Vector3D(pos.x + halfsize, pos.y + halfsize, pos.z);
-			
+
 			return new List<Line3D>
 			{
 				new Line3D(tl, tr, color, false),
@@ -145,7 +146,7 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 			return lines;
 		}
 
-		private static SpecialThings GetSpecialThings(ICollection<Thing> things, VisualBlockMap blockmap) 
+		private static SpecialThings GetSpecialThings(ICollection<Thing> things, VisualBlockMap blockmap)
 		{
 			SpecialThings result = new SpecialThings();
 
@@ -182,8 +183,8 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 				}
 
 				// Process Thing_SetGoal action
-				if(t.Action != 0 
-					&& General.Map.Config.LinedefActions.ContainsKey(t.Action) 
+				if(t.Action != 0
+					&& General.Map.Config.LinedefActions.ContainsKey(t.Action)
 					&& General.Map.Config.LinedefActions[t.Action].Id.ToLowerInvariant() == "thing_setgoal"
 					&& (t.Args[0] == 0 || t.Args[0] == t.Tag)
 					&& t.Args[1] != 0)
@@ -229,7 +230,7 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 			return result;
 		}
 
-		private static List<Line3D> GetHelperShapes(SpecialThings result, VisualBlockMap blockmap) 
+		private static List<Line3D> GetHelperShapes(SpecialThings result, VisualBlockMap blockmap)
 		{
 			var lines = new List<Line3D>();
 			var actormovertargets = new Dictionary<int, List<Thing>>();
@@ -237,7 +238,7 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 			// Get ActorMover targets
 			if(result.ActorMovers.Count > 0)
 			{
-				foreach(Thing t in General.Map.Map.Things) 
+				foreach(Thing t in General.Map.Map.Things)
 				{
 					if(t.Tag == 0 || !result.ActorMovers.ContainsKey(t.Tag)) continue;
 					if(!actormovertargets.ContainsKey(t.Tag)) actormovertargets[t.Tag] = new List<Thing>();
@@ -248,12 +249,12 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 			Vector3D start, end;
 
 			// Process patrol points
-			foreach(KeyValuePair<int, List<Thing>> group in result.PatrolPoints) 
+			foreach(KeyValuePair<int, List<Thing>> group in result.PatrolPoints)
 			{
-				foreach(Thing t in group.Value) 
+				foreach(Thing t in group.Value)
 				{
 					if(!result.PatrolPoints.ContainsKey(t.Args[0])) continue;
-					
+
 					start = t.Position;
 					start.z += GetCorrectHeight(t, blockmap, true);
 
@@ -267,14 +268,14 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 			}
 
 			// Process things with Thing_SetGoal
-			foreach(Thing t in result.ThingsWithGoal) 
+			foreach(Thing t in result.ThingsWithGoal)
 			{
 				if(!result.PatrolPoints.ContainsKey(t.Args[1])) continue;
 
 				start = t.Position;
 				start.z += GetCorrectHeight(t, blockmap, true);
 
-				foreach(Thing tt in result.PatrolPoints[t.Args[1]]) 
+				foreach(Thing tt in result.PatrolPoints[t.Args[1]])
 				{
 					end = tt.Position;
 					end.z += GetCorrectHeight(tt, blockmap, true);
@@ -310,7 +311,7 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 				start = t.Position;
 				start.z += GetCorrectHeight(t, blockmap, true);
 
-				foreach(PathNode node in result.InterpolationPoints[targettag]) 
+				foreach(PathNode node in result.InterpolationPoints[targettag])
 				{
 					node.IsCurved = interpolatepath;
 					lines.Add(new Line3D(start, node.Position, General.Colors.Selection));
@@ -318,7 +319,7 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 			}
 
 			//process actor movers [CAN USE INTERPOLATION]
-			foreach(List<Thing> things in result.ActorMovers.Values) 
+			foreach(List<Thing> things in result.ActorMovers.Values)
 			{
 				foreach(Thing t in things)
 				{
@@ -380,7 +381,7 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 					start = anchor.Position;
 					start.z += GetCorrectHeight(anchor, blockmap, true);
 
-					foreach(Thing startspot in result.PolyobjectStartSpots[group.Key]) 
+					foreach(Thing startspot in result.PolyobjectStartSpots[group.Key])
 					{
 						end = startspot.Position;
 						end.z += GetCorrectHeight(startspot, blockmap, true);
@@ -445,7 +446,7 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 						if(next.NextNodes.Count > 0)
 						{
 							PathNode nextnext = General.GetByIndex(next.NextNodes, 0).Value;
-								
+
 								// Generate curve points
 								List<Vector3D> points = new List<Vector3D>(11);
 								for(int i = 0; i < 11; i++)
@@ -489,7 +490,7 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 		private static List<Line3D> GetThingArgumentShapes(ICollection<Thing> things, VisualBlockMap blockmap, int numsides)
 		{
 			var lines = new List<Line3D>();
-			
+
 			foreach(Thing t in things)
 			{
 				if(t.Action != 0) continue;
@@ -506,7 +507,7 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 				{
 					if(t.Args[i] == 0) continue; // Avoid visual noise
 					var a = tti.Args[i]; //TODO: can this be null?
-					
+
 					switch(a.RenderStyle)
 					{
 						case ArgumentInfo.ArgumentRenderStyle.CIRCLE:
@@ -653,13 +654,13 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
             double _lAngle2 = Angle2D.DegToRad(t.Args[2]);
             double lAngle1 = _lAngle1;
             double lAngle2 = _lAngle2;
-            
+
             double lRadius = t.Args[3]*2;
             double lDirY1 = Math.Sin(-lAngle1) * lRadius;
             double lDirX1 = Math.Cos(-lAngle1) * lRadius;
             double lDirY2 = Math.Sin(-lAngle2) * lRadius;
             double lDirX2 = Math.Cos(-lAngle2) * lRadius;
-            
+
             IEnumerable<Line3D> circleLines = MakeCircleLines(new Vector3D(0, 0, 0), color, Math.Abs(lDirY1), CIRCLE_SIDES);
             foreach (Line3D l3d in circleLines)
             {
@@ -789,20 +790,34 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 				if(info == null) continue;
 
 				float minradius, maxradius;
-				if(info.AmbientSound != null)
+				if(General.Map.DOOM && info.AmbientSound != null)
 				{
 					minradius = info.AmbientSound.MinimumRadius;
 					maxradius = info.AmbientSound.MaximumRadius;
 				}
-				else if(!General.Map.DOOM && (info.ClassName == "AmbientSound" || info.ClassName == "AmbientSoundNoGravity"))
+				else if(!General.Map.DOOM && (info.ClassName == "AmbientSound" || info.ClassName == "AmbientSoundNoGravity" || info.ClassName.StartsWith("$AmbientSound")))
 				{
+					int soundindex = 0;
+
 					//arg0: ambient slot
 					//arg1: (optional) sound volume, in percent. 1 is nearly silent, 100 and above are full volume. If left to zero, full volume is also used.
 					//arg2: (optional) minimum distance, in map units, at which volume attenuation begins. Note that arg3 must also be set. If both are left to zero, normal rolloff is used instead.
 					//arg3: (optional) maximum distance, in map units, at which the sound can be heard. If left to zero or lower than arg2, normal rolloff is used instead.
 					//arg4: (optional) scalar by which to multiply the values of arg2 and arg3. If left to zero, no multiplication takes place.
 
-					if(t.Args[0] == 0 || !General.Map.Data.AmbientSounds.ContainsKey(t.Args[0]))
+					// Use regex to get the ambient sound index from class name, if applicable
+					Regex regex = new Regex(@"^\$AmbientSound(\d+)$");
+					Match match = regex.Match(info.ClassName);
+					if(match.Success)
+					{
+						soundindex = int.Parse(match.Groups[1].Value);
+					}
+					else
+					{
+						soundindex = t.Args[0];
+					}
+
+					if (soundindex == 0 || !General.Map.Data.AmbientSounds.ContainsKey(soundindex))
 						continue;
 
 					// Use custom radii?
@@ -813,8 +828,8 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 					}
 					else
 					{
-						minradius = General.Map.Data.AmbientSounds[t.Args[0]].MinimumRadius;
-						maxradius = General.Map.Data.AmbientSounds[t.Args[0]].MaximumRadius;
+						minradius = General.Map.Data.AmbientSounds[soundindex].MinimumRadius;
+						maxradius = General.Map.Data.AmbientSounds[soundindex].MaximumRadius;
 					}
 				}
 				else
@@ -838,7 +853,7 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 			List<Line3D> eventlines = new List<Line3D>();
 			//List<ITextLabel> textlabels = new List<ITextLabel>();
 
-			if (!(General.Settings.SRB2RenderNiGHTS || General.Settings.SRB2RenderZoomTubes || General.Settings.SRB2RenderPolyobjects)) 
+			if (!(General.Settings.SRB2RenderNiGHTS || General.Settings.SRB2RenderZoomTubes || General.Settings.SRB2RenderPolyobjects))
 				return eventlines;
 
 			List<Thing> axes = new List<Thing>();
@@ -962,7 +977,7 @@ namespace CodeImp.DoomBuilder.GZBuilder.Data
 			}
 
 			if (General.Settings.SRB2RenderPolyobjects)
-			{ 
+			{
 				int i = 0, j = 0, k = 0;
 				Sector s = null;
 				while (i < polyanchors.Count && j < polyspawns.Count && k < firstlines.Count)
