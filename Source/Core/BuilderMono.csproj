@@ -113,6 +113,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
     <DefineConstants>TRACE;NO_SCINTILLA;NO_FORMS_DESIGN;NO_WIN32;NO_UPDATER;MONO_WINFORMS</DefineConstants>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug + Profiler|x64'">
     <PlatformTarget>x64</PlatformTarget>
@@ -244,6 +245,7 @@
     <Compile Include="Data\ImageLoadState.cs" />
     <Compile Include="General\AutoSaver.cs" />
     <Compile Include="General\Hasher.cs" />
+    <Compile Include="General\MultiDictionary.cs" />
     <Compile Include="General\SHA256Hash.cs" />
     <Compile Include="General\ToastManager.cs" />
     <Compile Include="GZBuilder\Models\GZModel.cs" />
@@ -255,6 +257,7 @@
     <Compile Include="GZBuilder\Models\MD3ModelLoader.cs" />
     <Compile Include="GZBuilder\Models\OBJModelLoader.cs" />
     <Compile Include="GZBuilder\Models\ModelLoadResult.cs" />
+    <Compile Include="Map\MapElement3D.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
