@@ -1,8 +1,10 @@
 # Ultimate GKSZ Builder
 
-A fork of [Ultimate Zone Builder](https://git.do.srb2.org/STJr/UltimateZoneBuilder) to have parity with [Ultimate Doom Builder](https://github.com/UltimateDoomBuilder/UltimateDoomBuilder)'s latest fixes and changes since UZB is not being updated more than a year ago.
+Ultimate GKSZ Builder is a fork of [Ultimate Zone Builder](https://git.do.srb2.org/STJr/UltimateZoneBuilder) focused to Linux users with the purpose to make it usable.
 
-Also brings linux fixes from my part (me, as a Linux user)
+Aside from having parity with [Ultimate Doom Builder](https://github.com/UltimateDoomBuilder/UltimateDoomBuilder)'s latest fixes and changes, it also brings fixes and improvements for Linux specifically.
+
+If you're a Windows user, you could try to use this fork as well, but I (GLide KS) don't promise if it equally works on Windows since this fork is aimed for Linux. My recommendation is to use Ultimate Zone Builder instead.
 
 Includes also a few changes from:
 
@@ -18,8 +20,6 @@ Includes also a few changes from:
 
 ### Required software on Windows
 - [Microsoft .Net Framework 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework/net472)
-
-
 
 ## Building through srb2bld (Windows/Linux)
 
