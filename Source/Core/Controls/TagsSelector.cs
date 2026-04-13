@@ -150,7 +150,11 @@ namespace CodeImp.DoomBuilder.Controls
 					infos.Add(new TagInfo(tag, string.Empty));
 			}
 			foreach(TagInfo info in infos) tagpicker.Items.Add(info);
-			tagpicker.DropDownWidth = DoomBuilder.Geometry.Tools.GetDropDownWidth(tagpicker);
+			#if MONO_WINFORMS
+				tagpicker.DropDownWidth = DoomBuilder.Geometry.Tools.GetDropDownWidth(tagpicker)+30;
+			#else
+				tagpicker.DropDownWidth = DoomBuilder.Geometry.Tools.GetDropDownWidth(tagpicker);
+			#endif
 		}
 
 		#endregion

@@ -56,7 +56,7 @@ clean:
 	-rm --force --recursive $(BUILD_DIR)/Source $(BUILD_DIR)/$(TARGET_EXEC) $(BUILD_DIR)/builder $(BUILD_DIR)/Builder.exe Build/libBuilderNative.so
 
 run:
-	cd Build && mono Builder.exe
+	cd Build && GTK_DATA_PREFIX= mono Builder.exe
 
 linux: builder native
 

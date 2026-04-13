@@ -213,7 +213,11 @@ namespace CodeImp.DoomBuilder.Controls
 				scrollbuttons.Visible = false;
 				combobox.DropDownStyle = ComboBoxStyle.DropDown;
 				combobox.Items.AddRange(typehandler.GetEnumList().ToArray());
-				combobox.DropDownWidth = Tools.GetDropDownWidth(combobox); //mxd
+				#if MONO_WINFORMS
+					combobox.DropDownWidth = Tools.GetDropDownWidth(combobox)+30;
+				#else
+					combobox.DropDownWidth = Tools.GetDropDownWidth(combobox);
+				#endif
 			}
 			// Check if browsable
 			else if(typehandler.IsBrowseable)
