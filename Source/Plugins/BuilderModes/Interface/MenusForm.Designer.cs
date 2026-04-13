@@ -437,7 +437,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
             this.triangulatesectorsitem.Text = "&Triangulate Sectors";
             this.triangulatesectorsitem.Click += new System.EventHandler(this.InvokeTaggedAction);
 
-            //
+            // 
             // toolStripSeparator8
             //
             this.toolStripSeparator8.Name = "toolStripSeparator8";

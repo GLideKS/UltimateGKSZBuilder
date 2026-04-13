@@ -112,7 +112,11 @@ namespace CodeImp.DoomBuilder.Controls
 			}
 
 			foreach(TagInfo info in infos) cbTagPicker.Items.Add(info);
-			cbTagPicker.DropDownWidth = DoomBuilder.Geometry.Tools.GetDropDownWidth(cbTagPicker)+30;
+			#if MONO_WINFORMS
+				cbTagPicker.DropDownWidth = DoomBuilder.Geometry.Tools.GetDropDownWidth(cbTagPicker)+30;
+			#else
+				cbTagPicker.DropDownWidth = DoomBuilder.Geometry.Tools.GetDropDownWidth(cbTagPicker);
+			#endif
 		}
 
 		public void SetTag(int newTag) 

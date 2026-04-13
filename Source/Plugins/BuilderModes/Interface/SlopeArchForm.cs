@@ -57,8 +57,10 @@ namespace CodeImp.DoomBuilder.BuilderModes
 		internal SlopeArchForm(SlopeArcher slopearcher)
 		{
 			InitializeComponent();
-			General.Interface.StopExclusiveMouseInput();
-			this.FormClosed += SlopeArchForm_FormClosed;
+			#if MONO_WINFORMS
+				General.Interface.StopExclusiveMouseInput();
+				this.FormClosed += SlopeArchForm_FormClosed;
+			#endif
 			this.slopearcher = slopearcher;
 
 			oldtheta = originaltheta = Math.Round(Angle2D.RadToDeg(this.slopearcher.Theta), 2);
