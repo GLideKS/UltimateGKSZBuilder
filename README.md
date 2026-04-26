@@ -1,6 +1,11 @@
 # Ultimate GKSZ Builder
 
-Ultimate GKSZ Builder is a fork of [Ultimate Zone Builder](https://git.do.srb2.org/STJr/UltimateZoneBuilder) focused to Linux users with the purpose to make it usable.
+> [!IMPORTANT]
+> As for April 25th 2026, most of Ultimate GKSZ Builder changes has been moved and merged into [STJr/Ultimate Zone Builder](https://git.do.srb2.org/STJr/UltimateZoneBuilder) (Official Repository), Ultimate GKSZ Builder repository is archived and no longer receive updates, making it obsolete now.
+>
+> Reason: "I've been promoted to maintainer officialy in Ultimate Zone Builder repository. So I moved all my changes and I'll keep maintaining UZB there."
+
+Ultimate GKSZ Builder was a fork of [Ultimate Zone Builder](https://git.do.srb2.org/STJr/UltimateZoneBuilder) focused to Linux users with the purpose to make it usable. Since the official repository hasn't been updated for years.
 
 Aside from having parity with [Ultimate Doom Builder](https://github.com/UltimateDoomBuilder/UltimateDoomBuilder)'s latest fixes and changes, it also brings fixes and improvements for Linux specifically.
 
